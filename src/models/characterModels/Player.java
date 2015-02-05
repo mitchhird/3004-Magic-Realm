@@ -1,4 +1,4 @@
-package models;
+package models.characterModels;
 
 /*
  * will have the initial information about the player
