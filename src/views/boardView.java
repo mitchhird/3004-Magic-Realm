@@ -20,6 +20,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class boardView extends JFrame {
 
@@ -35,13 +36,17 @@ public class boardView extends JFrame {
 	private JFrame newGameMenu;
 	private JFrame infoMenu;
 
-	private JScrollPane pane;
+	private JPanel pane;
+	private JScrollPane scrollPane;
 	
 	private JPanel theBoard;
 	private JPanel theGameButtons;
 
 	private GridBagLayout layout = new GridBagLayout();
 	private GridBagConstraints layoutConstraints = new GridBagConstraints();
+
+	private JScrollPane theBoardScroller;
+	private JScrollPane theButtonsScroller;
 
 
 	public static void main(String args[]){
@@ -54,14 +59,16 @@ public class boardView extends JFrame {
 	
 	public void init(){
 
-		pane = new JScrollPane();
-		
-		setLayout(layout);
+		pane = new JPanel();
+		scrollPane = new JScrollPane(pane);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		pane.setLayout(layout);
 		setSize((int)tk.getScreenSize().getWidth(),(int)tk.getScreenSize().getHeight()-40);
 		setVisible(true);
 		setTitle("Magic Realm");
 		setJMenuBar(menuBar);
-		add(pane);
+		add(scrollPane);
 		
 		JMenu fileMenu = new JMenu("File");
 		JMenu networkMenu = new JMenu("Network");
@@ -145,7 +152,7 @@ public class boardView extends JFrame {
 	private void update(){
 		theGameButtons.repaint();
 		theBoard.repaint();
-		pane.repaint();
+		scrollPane.repaint();
 		repaint();
 	}
 	
@@ -156,10 +163,12 @@ public class boardView extends JFrame {
 		infoMenu.setVisible(true);
 	}
 	
-	
 	private void showGameButtons(){
-		theGameButtons = new JPanel();
-		theGameButtons.setBackground(Color.BLUE);
+		GridBagLayout gameButtonsLayout = new GridBagLayout();
+		theGameButtons = new JPanel();		
+		theButtonsScroller = new JScrollPane(theGameButtons);
+		theButtonsScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		theButtonsScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		layoutConstraints.gridx = 0;
 		layoutConstraints.gridy = 0;
 		layoutConstraints.gridwidth = 1;
@@ -169,15 +178,20 @@ public class boardView extends JFrame {
 		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
 		layoutConstraints.weightx = 1.0;
 		layoutConstraints.weighty = 1.0;
-		layout.setConstraints(theGameButtons, layoutConstraints);
-		theGameButtons.setSize((int)tk.getScreenSize().getWidth()/2, (int)tk.getScreenSize().getHeight()/2 - 40);
+		layout.setConstraints(theButtonsScroller, layoutConstraints);
+		pane.add(theButtonsScroller);
+		theGameButtons.setBackground(Color.BLUE);
 		theGameButtons.setVisible(true);
-		add(theGameButtons);
+		theGameButtons.setLayout(gameButtonsLayout);
+		
+		
 	}
 	
 	private void showBoard(){
 		theBoard = new JPanel();
-		theBoard.setBackground(Color.RED);
+		theBoardScroller = new JScrollPane(theBoard);
+		theBoardScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+		theBoardScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		layoutConstraints.gridx = 1;
 		layoutConstraints.gridy = 0;
 		layoutConstraints.gridwidth = 1;
@@ -187,10 +201,12 @@ public class boardView extends JFrame {
 		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
 		layoutConstraints.weightx = 1.0;
 		layoutConstraints.weighty = 1.0;
-		layout.setConstraints(theBoard, layoutConstraints);
-		theBoard.setSize((int)tk.getScreenSize().getWidth()/2, (int)tk.getScreenSize().getHeight()/2 - 40);
+		layout.setConstraints(theBoardScroller, layoutConstraints);
+		pane.add(theBoardScroller);
+		theBoardScroller.setVisible(true);
+		
 		theBoard.setVisible(true);
-		add(theBoard);
+		theBoard.setBackground(Color.RED);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -271,6 +287,7 @@ public class boardView extends JFrame {
 	
 	private void exitGame(){
 		System.out.println("Exiting");
+		dispose();
 		System.exit(0);
 	}
 	
