@@ -183,8 +183,6 @@ public class boardView extends JFrame {
 		theGameButtons.setBackground(Color.BLUE);
 		theGameButtons.setVisible(true);
 		theGameButtons.setLayout(gameButtonsLayout);
-		
-		
 	}
 	
 	private void showBoard(){
