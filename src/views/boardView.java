@@ -20,7 +20,10 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+
+import controller.clientController;
 
 public class boardView extends JFrame {
 
@@ -28,17 +31,19 @@ public class boardView extends JFrame {
 
 	private Toolkit tk = Toolkit.getDefaultToolkit();
 	
+	private clientController theClient;
+	
 	private JMenuBar menuBar = new JMenuBar();
 	
 	private JFrame hostMenu;
 	private JFrame joinMenu;
 	private JFrame optionsMenu;
-	private JFrame newGameMenu;
+	private JFrame newPlayerMenu;
 	private JFrame infoMenu;
 
-	private JPanel pane;
 	private JScrollPane scrollPane;
-	
+
+	private JPanel mainPanel;
 	private JPanel theBoard;
 	private JPanel theGameButtons;
 
@@ -47,6 +52,15 @@ public class boardView extends JFrame {
 
 	private JScrollPane theBoardScroller;
 	private JScrollPane theButtonsScroller;
+
+	private JPanel thePlayerList;
+	private JPanel thePlayerButtons;
+
+	private JButton addPlayerButton;
+	
+	private JComboBox classSelecter;
+
+	private JTextField nameField;
 
 
 	public static void main(String args[]){
@@ -58,12 +72,14 @@ public class boardView extends JFrame {
 	}
 	
 	public void init(){
+		
+		theClient = new clientController();
 
-		pane = new JPanel();
-		scrollPane = new JScrollPane(pane);
+		mainPanel = new JPanel();
+		scrollPane = new JScrollPane(mainPanel);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		pane.setLayout(layout);
+		mainPanel.setLayout(layout);
 		setSize((int)tk.getScreenSize().getWidth(),(int)tk.getScreenSize().getHeight()-40);
 		setVisible(true);
 		setTitle("Magic Realm");
@@ -94,7 +110,7 @@ public class boardView extends JFrame {
         
         newAction.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                newGameMenu();
+                startGame();
             }
         });
         
@@ -150,9 +166,14 @@ public class boardView extends JFrame {
 	}
 	
 	private void update(){
+		thePlayerButtons.repaint();
+		thePlayerList.repaint();
 		theGameButtons.repaint();
+		theButtonsScroller.repaint();
+		theBoardScroller.repaint();
 		theBoard.repaint();
 		scrollPane.repaint();
+		mainPanel.repaint();
 		repaint();
 	}
 	
@@ -164,8 +185,9 @@ public class boardView extends JFrame {
 	}
 	
 	private void showGameButtons(){
+		
 		GridBagLayout gameButtonsLayout = new GridBagLayout();
-		theGameButtons = new JPanel();		
+		theGameButtons = new JPanel();	
 		theButtonsScroller = new JScrollPane(theGameButtons);
 		theButtonsScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		theButtonsScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -179,10 +201,65 @@ public class boardView extends JFrame {
 		layoutConstraints.weightx = 1.0;
 		layoutConstraints.weighty = 1.0;
 		layout.setConstraints(theButtonsScroller, layoutConstraints);
-		pane.add(theButtonsScroller);
+		mainPanel.add(theButtonsScroller);
+		theButtonsScroller.setVisible(true);
 		theGameButtons.setBackground(Color.BLUE);
 		theGameButtons.setVisible(true);
 		theGameButtons.setLayout(gameButtonsLayout);
+		
+		GridBagLayout playerListLayout = new GridBagLayout();
+		thePlayerList = new JPanel();
+		layoutConstraints.gridx = 0;
+		layoutConstraints.gridy = 0;
+		layoutConstraints.gridwidth = 1;
+		layoutConstraints.gridheight = 1;
+		layoutConstraints.fill = GridBagConstraints.BOTH;
+		layoutConstraints.insets = new Insets(10, 5, 10, 5);
+		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
+		layoutConstraints.weightx = 1.0;
+		layoutConstraints.weighty = 1.0;
+		layout.setConstraints(thePlayerList, layoutConstraints);
+		thePlayerList.setLayout(playerListLayout);
+		thePlayerList.setVisible(true);
+		thePlayerList.setBackground(Color.GREEN);
+		theGameButtons.add(thePlayerList);
+		
+		addPlayerButton = new JButton("Add Player");
+		layoutConstraints.gridx = 0;
+		layoutConstraints.gridy = 0;
+		layoutConstraints.gridwidth = 1;
+		layoutConstraints.gridheight = 1;
+		layoutConstraints.fill = GridBagConstraints.BOTH;
+		layoutConstraints.insets = new Insets(10, 5, 10, 5);
+		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
+		layoutConstraints.weightx = 1.0;
+		layoutConstraints.weighty = 1.0;
+		layout.setConstraints(addPlayerButton, layoutConstraints);
+		thePlayerList.add(addPlayerButton);
+		addPlayerButton.setVisible(true);
+		
+        addPlayerButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	addPlayerMenu();
+            }
+        });		
+		
+		GridBagLayout playerButtonsLayout = new GridBagLayout();
+		thePlayerButtons = new JPanel();
+		layoutConstraints.gridx = 0;
+		layoutConstraints.gridy = 1;
+		layoutConstraints.gridwidth = 1;
+		layoutConstraints.gridheight = 1;
+		layoutConstraints.fill = GridBagConstraints.BOTH;
+		layoutConstraints.insets = new Insets(10, 5, 10, 5);
+		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
+		layoutConstraints.weightx = 1.0;
+		layoutConstraints.weighty = 1.0;
+		layout.setConstraints(thePlayerButtons, layoutConstraints);
+		thePlayerButtons.setLayout(playerButtonsLayout);
+		thePlayerButtons.setVisible(true);
+		thePlayerButtons.setBackground(Color.YELLOW);
+		theGameButtons.add(thePlayerButtons);
 	}
 	
 	private void showBoard(){
@@ -200,21 +277,47 @@ public class boardView extends JFrame {
 		layoutConstraints.weightx = 1.0;
 		layoutConstraints.weighty = 1.0;
 		layout.setConstraints(theBoardScroller, layoutConstraints);
-		pane.add(theBoardScroller);
+		mainPanel.add(theBoardScroller);
 		theBoardScroller.setVisible(true);
-		
 		theBoard.setVisible(true);
 		theBoard.setBackground(Color.RED);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private void newGameMenu(){
+	private void addPlayerMenu(){
+		
 		GridBagLayout gameMenuLayout = new GridBagLayout();
-		newGameMenu = new JFrame();
-		newGameMenu.setSize(300,150);
-		newGameMenu.setLocation(((int)tk.getScreenSize().getWidth()/2) - 150, ((int)tk.getScreenSize().getHeight()/2) - 75);
-		newGameMenu.setVisible(true);
-		newGameMenu.setLayout(gameMenuLayout);
+		newPlayerMenu = new JFrame();
+		newPlayerMenu.setSize(300,200);
+		newPlayerMenu.setLocation(((int)tk.getScreenSize().getWidth()/2) - 150, ((int)tk.getScreenSize().getHeight()/2) - 75);
+		newPlayerMenu.setVisible(true);
+		newPlayerMenu.setLayout(gameMenuLayout);
+		
+		JLabel nameLabel = new JLabel("Enter Player Name:");
+		layoutConstraints.gridx = 0;
+		layoutConstraints.gridy = 0;
+		layoutConstraints.gridwidth = 1;
+		layoutConstraints.gridheight = 1;
+		layoutConstraints.fill = GridBagConstraints.BOTH;
+		layoutConstraints.insets = new Insets(10, 5, 10, 5);
+		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
+		layoutConstraints.weightx = 1.0;
+		layoutConstraints.weighty = 1.0;
+		gameMenuLayout.setConstraints(nameLabel, layoutConstraints);
+		newPlayerMenu.add(nameLabel);
+		
+		nameField = new JTextField();
+		layoutConstraints.gridx = 1;
+		layoutConstraints.gridy = 0;
+		layoutConstraints.gridwidth = 1;
+		layoutConstraints.gridheight = 1;
+		layoutConstraints.fill = GridBagConstraints.BOTH;
+		layoutConstraints.insets = new Insets(10, 5, 10, 5);
+		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
+		layoutConstraints.weightx = 1.0;
+		layoutConstraints.weighty = 1.0;
+		gameMenuLayout.setConstraints(nameField, layoutConstraints);
+		newPlayerMenu.add(nameField);
 		
 		JLabel chooseLabel = new JLabel("Choose Your Class:");
 		layoutConstraints.gridx = 0;
@@ -227,9 +330,9 @@ public class boardView extends JFrame {
 		layoutConstraints.weightx = 1.0;
 		layoutConstraints.weighty = 1.0;
 		gameMenuLayout.setConstraints(chooseLabel, layoutConstraints);
-		newGameMenu.add(chooseLabel);
+		newPlayerMenu.add(chooseLabel);
 		
-		JComboBox classSelecter = new JComboBox();
+		classSelecter = new JComboBox();
 		classSelecter.setModel( new DefaultComboBoxModel(new String[] {"Amazon","Black Knight","Captain","Dwarf","Elf","Swordsman"}));
 		layoutConstraints.gridx = 1;
 		layoutConstraints.gridy = 1;
@@ -241,9 +344,9 @@ public class boardView extends JFrame {
 		layoutConstraints.weightx = 1.0;
 		layoutConstraints.weighty = 1.0;
 		gameMenuLayout.setConstraints(classSelecter, layoutConstraints);
-		newGameMenu.add(classSelecter);
+		newPlayerMenu.add(classSelecter);
 		
-		JButton startButton = new JButton("Start");
+		JButton startButton = new JButton("OK");
 		layoutConstraints.gridx = 0;
 		layoutConstraints.gridy = 2;
 		layoutConstraints.gridwidth = 1;
@@ -254,7 +357,7 @@ public class boardView extends JFrame {
 		layoutConstraints.weightx = 1.0;
 		layoutConstraints.weighty = 1.0;
 		gameMenuLayout.setConstraints(startButton, layoutConstraints);
-		newGameMenu.add(startButton);
+		newPlayerMenu.add(startButton);
 		
 		JButton cancelButton = new JButton("Cancel");
 		layoutConstraints.gridx = 1;
@@ -267,20 +370,24 @@ public class boardView extends JFrame {
 		layoutConstraints.weightx = 1.0;
 		layoutConstraints.weighty = 1.0;
 		gameMenuLayout.setConstraints(cancelButton, layoutConstraints);
-		newGameMenu.add(cancelButton);
+		newPlayerMenu.add(cancelButton);
 		
         cancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                newGameMenu.dispose();
+            	newPlayerMenu.dispose();
             }
         });		
         
         startButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                startGame();
-                newGameMenu.dispose();
+                addPlayer();
+                newPlayerMenu.dispose();
             }
         });
+	}
+	
+	private void addPlayer(){
+		theClient.setPlayer((String) classSelecter.getSelectedItem());
 	}
 	
 	private void exitGame(){

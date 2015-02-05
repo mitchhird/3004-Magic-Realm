@@ -10,4 +10,14 @@ package models.characterModels;
 
 public class Player {
 
+	private String playerClass;
+	
+	public void setClass(String newPlayerClass) {
+		playerClass = newPlayerClass;
+	}
+	
+	public String getPlayerClass(){
+		return playerClass;
+	}
+
 }
