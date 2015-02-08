@@ -1,20 +1,20 @@
 package controller;
 
-import models.characterModels.Player;
+import models.characterModels.PlayerBase;
 
 public class clientController {
 
-	private Player thePlayer;
+	private PlayerBase thePlayer;
 	
 	public clientController(){
-		thePlayer = new Player();
+		thePlayer = new PlayerBase();
 	}
 	
 	public void setPlayer(String playerClass){
 		thePlayer.setClass(playerClass);
 	}
 	
-	public Player getPlayer(){
+	public PlayerBase getPlayer(){
 		return thePlayer;
 	}
 }

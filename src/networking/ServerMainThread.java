@@ -19,6 +19,7 @@ public class ServerMainThread extends Thread {
 	@Override
 	// Main Method That Will Start Up The Server And Handle Everything
 	public void run () {
+		System.out.println("Starting Server On Port " + serverPort);
 		try (ServerSocket serverSocket = new ServerSocket(serverPort);) {
 			
 			// Run Indefinitely Waiting For Incoming Connection
