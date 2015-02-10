@@ -1,5 +1,7 @@
 package models.characterModels;
 
+import models.Weights;
+
 /*
  * update
  */
@@ -49,4 +51,7 @@ public class Swordsman extends BaseChar {
 	 * Thrusting Sword, FightL4, FightM5, FightL2**
 	 * 
 	 */
+	public Swordsman(){
+		super(Weights.LIGHT);
+	}
 }

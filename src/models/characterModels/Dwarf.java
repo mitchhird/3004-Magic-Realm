@@ -1,5 +1,7 @@
 package models.characterModels;
 
+import models.Weights;
+
 /*
  * update
  */
@@ -43,4 +45,7 @@ public class Dwarf extends BaseChar {
 	 * Warrior:
 	 * Great Axe, Helmet, MoveH5*, FightT6*, FightH4**
 	 */
+	public Dwarf() {
+		super(Weights.HEAVY);
+	}
 }

@@ -1,5 +1,7 @@
 package models.characterModels;
 
+import models.Weights;
+
 /*
  * no magic
  * update
@@ -42,4 +44,7 @@ public class Elf extends BaseChar {
 	 * Light Bow, 2 Spells(III or VII), MoveM4, FightM3*, FightM4
 	 * 
 	 */
+	public Elf(){
+		super(Weights.LIGHT);
+	}
 }
