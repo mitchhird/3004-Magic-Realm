@@ -51,14 +51,12 @@ public class boardView extends JFrame {
 	private GridBagConstraints layoutConstraints = new GridBagConstraints();
 
 	private JScrollPane theBoardScroller;
-
-	private JPanel thePlayerList;
-	private JPanel thePlayerButtons;
-
+	
 	private JButton addPlayerButton;
 	private JComboBox classSelecter;
 	private JTextField nameField;
 	private JTextArea currentPlayers;
+	private JScrollPane playersScroller;
 
 
 	public static void main(String args[]){
@@ -164,8 +162,6 @@ public class boardView extends JFrame {
 	}
 	
 	private void update(){
-		thePlayerButtons.repaint();
-		thePlayerList.repaint();
 		theBoardScroller.repaint();
 		theBoard.repaint();
 		scrollPane.repaint();
@@ -182,23 +178,6 @@ public class boardView extends JFrame {
 	
 	private void showGameButtons(){
 		
-		GridBagLayout playerListLayout = new GridBagLayout();
-		thePlayerList = new JPanel();
-		layoutConstraints.gridx = 0;
-		layoutConstraints.gridy = 0;
-		layoutConstraints.gridwidth = 1;
-		layoutConstraints.gridheight = 1;
-		layoutConstraints.fill = GridBagConstraints.BOTH;
-		layoutConstraints.insets = new Insets(10, 5, 10, 5);
-		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
-		layoutConstraints.weightx = 1.0;
-		layoutConstraints.weighty = 1.0;
-		layout.setConstraints(thePlayerList, layoutConstraints);
-		thePlayerList.setLayout(playerListLayout);
-		thePlayerList.setVisible(true);
-		thePlayerList.setBackground(Color.GREEN);
-		mainPanel.add(thePlayerList);
-		
 		addPlayerButton = new JButton("Add Player");
 		layoutConstraints.gridx = 0;
 		layoutConstraints.gridy = 0;
@@ -210,10 +189,11 @@ public class boardView extends JFrame {
 		layoutConstraints.weightx = 1.0;
 		layoutConstraints.weighty = 1.0;
 		layout.setConstraints(addPlayerButton, layoutConstraints);
-		thePlayerList.add(addPlayerButton);
+		mainPanel.add(addPlayerButton);
 		addPlayerButton.setVisible(true);
 		
 		currentPlayers = new JTextArea();
+		playersScroller = new JScrollPane(currentPlayers);
 		layoutConstraints.gridx = 0;
 		layoutConstraints.gridy = 1;
 		layoutConstraints.gridwidth = 1;
@@ -223,27 +203,8 @@ public class boardView extends JFrame {
 		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
 		layoutConstraints.weightx = 1.0;
 		layoutConstraints.weighty = 1.0;
-		layout.setConstraints(currentPlayers, layoutConstraints);
-		thePlayerList.add(currentPlayers);
-		currentPlayers.setVisible(true);
-		currentPlayers.setSize(300, 250);
-		
-		GridBagLayout playerButtonsLayout = new GridBagLayout();
-		thePlayerButtons = new JPanel();
-		layoutConstraints.gridx = 0;
-		layoutConstraints.gridy = 1;
-		layoutConstraints.gridwidth = 1;
-		layoutConstraints.gridheight = 1;
-		layoutConstraints.fill = GridBagConstraints.BOTH;
-		layoutConstraints.insets = new Insets(10, 5, 10, 5);
-		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
-		layoutConstraints.weightx = 1.0;
-		layoutConstraints.weighty = 1.0;
-		layout.setConstraints(thePlayerButtons, layoutConstraints);
-		thePlayerButtons.setLayout(playerButtonsLayout);
-		thePlayerButtons.setVisible(true);
-		thePlayerButtons.setBackground(Color.YELLOW);
-		mainPanel.add(thePlayerButtons);
+		layout.setConstraints(playersScroller, layoutConstraints);
+		mainPanel.add(playersScroller);
 		
         addPlayerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -377,7 +338,8 @@ public class boardView extends JFrame {
 	}
 	
 	private void addPlayer(){
-		theClient.setPlayer((String) classSelecter.getSelectedItem());
+		theClient.addPlayer((String) classSelecter.getSelectedItem(), nameField.getText());
+		currentPlayers.append("Name: " + nameField.getText() + " || Class: " + (String) classSelecter.getSelectedItem() + "\n");
 	}
 	
 	private void exitGame(){

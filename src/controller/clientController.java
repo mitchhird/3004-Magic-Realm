@@ -1,20 +1,24 @@
 package controller;
 
+import java.util.ArrayList;
+
 import models.characterModels.PlayerBase;
 
 public class clientController {
 
-	private PlayerBase thePlayer;
+	private ArrayList<PlayerBase> thePlayers;
 	
 	public clientController(){
-		thePlayer = new PlayerBase();
+		thePlayers = new ArrayList<PlayerBase>();
 	}
 	
-	public void setPlayer(String playerClass){
-		thePlayer.setClass(playerClass);
+	public void addPlayer(String playerClass, String playerName){
+		PlayerBase aPlayer = new PlayerBase();
+		aPlayer.setClass(playerClass);
+		aPlayer.setName(playerName);
 	}
 	
-	public PlayerBase getPlayer(){
-		return thePlayer;
+	public ArrayList<PlayerBase> getPlayers(){
+		return thePlayers;
 	}
 }

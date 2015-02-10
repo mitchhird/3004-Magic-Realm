@@ -44,6 +44,10 @@ public class PlayerBase {
 		playerClass = newPlayerClass;
 	}
 	
+	public void setName(String newPlayerName){
+		playerName = newPlayerName;
+	}
+	
 	public String getPlayerClass(){
 		return playerClass;
 	}
