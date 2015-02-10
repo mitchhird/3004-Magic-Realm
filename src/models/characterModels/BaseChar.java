@@ -16,5 +16,8 @@ public class BaseChar {
 	private boolean attention;
 	private Chit[] combat;
 	
-	
+//	public BaseChar(String vuln, Chit[] chits) {
+//		vulnerability = vuln;
+//		combat = chits;
+//	}
 }

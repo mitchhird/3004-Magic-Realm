@@ -19,5 +19,34 @@ public class BlackKnight extends BaseChar {
 	 * it easier for him to trade and hire
 	 * natives. and makes his enemies think twice
 	 * before blocking or battling him
+	 * 
+	 * Starting Location:
+	 * Inn
+	 * 
+	 * Trade Relationships:
+	 * Ally:
+	 * Company
+	 * Friendly:
+	 * Soldiers, Crone
+	 * Unfriendly:
+	 * Lancers
+	 * Enemy:
+	 * Guard
+	 * 
+	 * Development/Combat Chits:
+	 * Spearman:
+	 * Spear, Helmet, Breastplate, MoveM5, MoveH5*, FightH5*
+	 * Mercenary:
+	 * Crossbow, Helmet, Breastplate, MoveH6, MoveM4*, FightH6
+	 * Heavy Footman:
+	 * Mace, Helmet, Breastplate, Shield, FightM4*, FightM4*, FightM5
+	 * BlackKnight:
+	 * Mace, Armor, Shield, MoveH4**, FightH4**, FightM3**
 	 */
+	
+//	public BlackKnight(){
+//		Chit[] combat = new Chit[12];
+//		BaseChar base = new BaseChar(Medium, combat);
+//	}
+	
 }

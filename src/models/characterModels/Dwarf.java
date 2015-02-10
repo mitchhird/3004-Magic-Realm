@@ -22,7 +22,7 @@ public class Dwarf extends BaseChar {
 	 * can not be used to carry items, to charge,
 	 * or run away during the encounter step.
 	 * does count as a move chit(fatigue)
-	 * 2 CAVE KNKKKOWLEDGE:
+	 * 2 CAVE KNKOWLEDGE:
 	 * rolls one die instead of two whenever
 	 * he uses the hid table, the meeting table, or
 	 * any search table when he is in a cave clearing

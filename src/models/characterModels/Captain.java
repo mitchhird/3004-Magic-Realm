@@ -20,5 +20,26 @@ public class Captain extends BaseChar {
 	 * the phase. not when recording it.
 	 * can use extra phase to do any normal activity
 	 * 
+	 * Starting Location: Inn, House, or Guardhouse
+	 * 
+	 * Trading Relationships:
+	 * Friendly:
+	 * Patrol, Soldiers, Guard, Scholar
+	 * Unfriendly:
+	 * woodfolk
+	 * Enemy:
+	 * Bashkars
+	 * 
+	 * Development/Combat Chits:
+	 * Spearman:
+	 * Spear, Sheild, MoveM4*, MoveM5, FightH5*
+	 * Soldier:
+	 * Short Sword, Helmet, Breastplate, Sheild, FightM5,
+	 * FightM5, FightM3**, MoveM3**
+	 * Lieutenant: Short Sword, Helmet, Breastplate, Shield, MoveM4*,
+	 * FightH5*, FightM4*
+	 * Captain:
+	 * Short Sword, Helmet, Breastplate, Shield, MoveM4*, FightH6, FightM4*
+	 * 
 	 */
 }
