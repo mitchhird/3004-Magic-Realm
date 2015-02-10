@@ -1,5 +1,7 @@
 package models.characterModels;
 
+import models.Weights;
+
 /*
  * update
  */
@@ -42,4 +44,7 @@ public class Captain extends BaseChar {
 	 * Short Sword, Helmet, Breastplate, Shield, MoveM4*, FightH6, FightM4*
 	 * 
 	 */
+	public Captain() {
+		super(Weights.MEDIUM);
+	}
 }

@@ -1,5 +1,7 @@
 package models.characterModels;
 
+import models.Weights;
+
 /*
  * update
  */
@@ -39,4 +41,7 @@ public class Amazon extends BaseChar {
 	 * Amazon: 
 	 * Short Sword, Helmet, Breastplate, Shield, FightM4*, FightM3**, MoveM3*
 	 */
+	public Amazon(){
+		super(Weights.MEDIUM);
+	}
 }

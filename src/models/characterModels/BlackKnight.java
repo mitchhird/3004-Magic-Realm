@@ -1,5 +1,7 @@
 package models.characterModels;
 
+import models.Weights;
+
 /*
  * update
  */
@@ -43,10 +45,9 @@ public class BlackKnight extends BaseChar {
 	 * BlackKnight:
 	 * Mace, Armor, Shield, MoveH4**, FightH4**, FightM3**
 	 */
-	
-//	public BlackKnight(){
-//		Chit[] combat = new Chit[12];
-//		BaseChar base = new BaseChar(Medium, combat);
-//	}
+	public BlackKnight(Chit[] combat){
+		super(Weights.MEDIUM);
+		this.setCombat(combat);
+	}
 	
 }
