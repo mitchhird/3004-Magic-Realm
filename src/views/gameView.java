@@ -162,11 +162,7 @@ public class gameView extends JFrame {
 	}
 	
 	private void update(){
-		theBoardScroller.repaint();
-		theBoard.repaint();
-		scrollPane.repaint();
-		mainPanel.repaint();
-		repaint();
+
 	}
 	
 	private void infoPanel(){
@@ -351,6 +347,8 @@ public class gameView extends JFrame {
 		showGameButtons();
 		showBoard();
 		update();
+		setSize((int)tk.getScreenSize().getWidth(),(int)tk.getScreenSize().getHeight()-20);
+		setSize((int)tk.getScreenSize().getWidth(),(int)tk.getScreenSize().getHeight()-40);
 	}
 	
 	private void options(){
