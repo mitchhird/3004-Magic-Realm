@@ -1,6 +1,5 @@
 package views;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -232,7 +231,6 @@ public class gameView extends JFrame {
 		mainPanel.add(theBoardScroller);
 		theBoardScroller.setVisible(true);
 		theBoard.setVisible(true);
-		theBoard.setBackground(Color.RED);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
