@@ -420,7 +420,470 @@ public class boardView extends JPanel {
             	selectLocation("cliff6");
             }
         });	
-        
+		
+		evalley1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("evalley1");
+            }
+        });
+		evalley2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("evalley2");
+            }
+        });	
+		evalley4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("evalley4");
+            }
+        });	
+		evalley5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("evalley5");
+            }
+        });	
+		
+		hpass1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("hpass1");
+            }
+        });	
+		hpass2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("hpass2");
+            }
+        });	
+		hpass3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("hpass3");
+            }
+        });	
+		hpass4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("hpass4");
+            }
+        });	
+		hpass5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("hpass5");
+            }
+        });	
+		hpass6.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("hpass6");
+            }
+        });	
+		
+		ledges1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("ledges1");
+            }
+        });	
+		ledges2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("ledges2");
+            }
+        });	
+		ledges3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("ledges3");
+            }
+        });	
+		ledges4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("ledges4");
+            }
+        });	
+		ledges5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("ledges5");
+            }
+        });	
+		ledges6.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("ledges6");
+            }
+        });	
+		
+		bland1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("bland1");
+            }
+        });	
+		bland2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("bland2");
+            }
+        });	
+		bland3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("bland3");
+            }
+        });	
+		bland4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("bland4");
+            }
+        });	
+		bland5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("bland5");
+            }
+        });	
+		bland6.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("bland6");
+            }
+        });	
+		
+		cavern1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("cavern1");
+            }
+        });	
+		cavern2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("cavern2");
+            }
+        });	
+		cavern3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("cavern3");
+            }
+        });
+		cavern4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("cavern4");
+            }
+        });	
+		cavern5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("cavern5");
+            }
+        });	
+		cavern6.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("cavern6");
+            }
+        });	
+		
+		crag1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("crag1");
+            }
+        });	
+		crag2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("crag2");
+            }
+        });	
+		crag3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("crag3");
+            }
+        });	
+		crag4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("crag4");
+            }
+        });	
+		crag5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("crag5");
+            }
+        });	
+		crag6.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("crag6");
+            }
+        });	
+		
+		owoods2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("owoods2");
+            }
+        });	
+		owoods4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("owoods4");
+            }
+        });	
+		owoods5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("owoods5");
+            }
+        });	
+		
+		bvalley1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("bvalley1");
+            }
+        });	
+		bvalley2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("bvalley2");
+            }
+        });	
+		bvalley4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("bvalley4");
+            }
+        });	
+		bvalley5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("bvalley5");
+            }
+        });	
+		
+		mountain1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("mountain1");
+            }
+        });	
+		mountain2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("mountain2");
+            }
+        });	
+		mountain3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("mountain3");
+            }
+        });	
+		mountain4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("mountain4");
+            }
+        });	
+		mountain5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("mountain5");
+            }
+        });	
+		mountain6.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("mountain6");
+            }
+        });	
+		
+		dvalley1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("dvalley1");
+            }
+        });	
+		dvalley2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("dvalley2");
+            }
+        });	
+		dvalley4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("dvalley4");
+            }
+        });	
+		dvalley5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("dvalley5");
+            }
+        });	
+		
+		dwoods1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("dwoods1");
+            }
+        });	
+		dwoods2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("dwoods2");
+            }
+        });	
+		dwoods3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("dwoods3");
+            }
+        });	
+		dwoods4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("dwoods4");
+            }
+        });	
+		dwoods5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("dwoods5");
+            }
+        });	
+		dwoods6.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("dwoods6");
+            }
+        });	
+		
+		mwoods2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("mwoods2");
+            }
+        });	
+		mwoods4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("mwoods4");
+            }
+        });	
+		mwoods5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("mwoods5");
+            }
+        });	
+		
+		caves1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("caves1");
+            }
+        });	
+		caves2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("caves2");
+            }
+        });	
+		caves3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("caves3");
+            }
+        });	
+		caves4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("caves4");
+            }
+        });	
+		caves5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("caves5");
+            }
+        });	
+		caves6.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("caves6");
+            }
+        });	
+		
+		pwoods2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("pwoods2");
+            }
+        });	
+		pwoods4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("pwoods4");
+            }
+        });	
+		pwoods5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("pwoods5");
+            }
+        });	
+		
+		cvalley1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("cvalley1");
+            }
+        });	
+		cvalley2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("cvalley2");
+            }
+        });	
+		cvalley4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("cvalley4");
+            }
+        });	
+		cvalley5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("cvalley5");
+            }
+        });	
+		
+		nwoods2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("nwoods2");
+            }
+        });	
+		nwoods4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("nwoods4");
+            }
+        });	
+		nwoods5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("nwoods5");
+            }
+        });	
+		
+		ruins1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("ruins1");
+            }
+        });	
+		ruins2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("ruins2");
+            }
+        });	
+		ruins3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("ruins3");
+            }
+        });	
+		ruins4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("ruins4");
+            }
+        });	
+		ruins5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("ruins5");
+            }
+        });	
+		ruins6.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("ruins6");
+            }
+        });	
+		
+		avalley1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("avalley1");
+            }
+        });	
+		avalley2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("avalley2");
+            }
+        });	
+		avalley4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("avalley4");
+            }
+        });	
+		avalley5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("avalley5");
+            }
+        });	
+		
+		lwoods2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("lwoods2");
+            }
+        });	
+		lwoods4.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("lwoods4");
+            }
+        });	
+		lwoods5.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	selectLocation("lwoods5");
+            }
+        });	
 	}
 	
 	private void selectLocation(String theLocation){
