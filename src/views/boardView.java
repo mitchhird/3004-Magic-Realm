@@ -63,12 +63,12 @@ public class boardView extends JPanel {
 	private JButton cavern5 = new JButton("");
 	private JButton cavern6 = new JButton("");
 	
-	private JButton carg1 = new JButton("");
-	private JButton carg2 = new JButton("");
-	private JButton carg3 = new JButton("");
-	private JButton carg4 = new JButton("");
-	private JButton carg5 = new JButton("");
-	private JButton carg6 = new JButton("");
+	private JButton crag1 = new JButton("");
+	private JButton crag2 = new JButton("");
+	private JButton crag3 = new JButton("");
+	private JButton crag4 = new JButton("");
+	private JButton crag5 = new JButton("");
+	private JButton crag6 = new JButton("");
 	
 	private JButton owoods2 = new JButton("");
 	private JButton owoods4 = new JButton("");
@@ -121,6 +121,13 @@ public class boardView extends JPanel {
 	private JButton nwoods5 = new JButton("");
 	private JButton nwoods2 = new JButton("");
 	private JButton nwoods4 = new JButton("");
+	
+	private JButton ruins1 = new JButton("");
+	private JButton ruins2 = new JButton("");
+	private JButton ruins3 = new JButton("");
+	private JButton ruins4 = new JButton("");
+	private JButton ruins5 = new JButton("");
+	private JButton ruins6 = new JButton("");
 	
 	private JButton avalley1 = new JButton("");
 	private JButton avalley2 = new JButton("");
@@ -186,12 +193,12 @@ public class boardView extends JPanel {
 		theButtons.add(cavern5);
 		theButtons.add(cavern6);
 		
-		theButtons.add(carg1);
-		theButtons.add(carg2);
-		theButtons.add(carg3);
-		theButtons.add(carg4);
-		theButtons.add(carg5);
-		theButtons.add(carg6);
+		theButtons.add(crag1);
+		theButtons.add(crag2);
+		theButtons.add(crag3);
+		theButtons.add(crag4);
+		theButtons.add(crag5);
+		theButtons.add(crag6);
 		
 		theButtons.add(owoods2);
 		theButtons.add(owoods4);
@@ -245,6 +252,13 @@ public class boardView extends JPanel {
 		theButtons.add(nwoods2);
 		theButtons.add(nwoods4);
 		
+		theButtons.add(ruins1);
+		theButtons.add(ruins2);
+		theButtons.add(ruins3);
+		theButtons.add(ruins4);
+		theButtons.add(ruins5);
+		theButtons.add(ruins6);
+		
 		theButtons.add(avalley1);
 		theButtons.add(avalley2);
 		theButtons.add(avalley4);
@@ -294,6 +308,88 @@ public class boardView extends JPanel {
 		bland5.setLocation(395,590);
 		bland6.setLocation(350,558);
 
+		cavern1.setLocation(290,742);
+		cavern2.setLocation(262,665);
+		cavern3.setLocation(222,708);
+		cavern4.setLocation(155,786);
+		cavern5.setLocation(185,655);
+		cavern6.setLocation(210,768);
+		
+		crag1.setLocation(764,345);
+		crag2.setLocation(800,500);
+		crag3.setLocation(828,441);
+		crag4.setLocation(730,403);
+		crag5.setLocation(748,464);
+		crag6.setLocation(816,382);
+		
+		owoods2.setLocation(561,565);
+		owoods4.setLocation(681,621);
+		owoods5.setLocation(596,668);
+		
+		bvalley1.setLocation(500,719);
+		bvalley2.setLocation(470,851);
+		bvalley4.setLocation(375,802);
+		bvalley5.setLocation(423,709);
+		
+		mountain1.setLocation(248, 999);
+		mountain2.setLocation(306, 1040);
+		mountain3.setLocation(319, 973);
+		mountain4.setLocation(200, 940);
+		mountain5.setLocation(337, 900);
+		mountain6.setLocation(263, 899);
+		
+		dvalley1.setLocation(1037, 560);
+		dvalley2.setLocation(1091, 508);
+		dvalley4.setLocation(1003, 450);
+		dvalley5.setLocation(966, 543);
+		
+		dwoods1.setLocation(782,620);
+		dwoods2.setLocation(918,646);
+		dwoods3.setLocation(895,730);
+		dwoods4.setLocation(760,691);
+		dwoods5.setLocation(808,739);
+		dwoods6.setLocation(846,680);
+		
+		mwoods2.setLocation(730,887);
+		mwoods4.setLocation(634,898);
+		mwoods5.setLocation(695,776);
+		
+		caves1.setLocation(460,1071);
+		caves2.setLocation(493,945);
+		caves3.setLocation(518,1004);
+		caves4.setLocation(438,1012);
+		caves5.setLocation(564,959);
+		caves6.setLocation(577,1067);
+		
+		pwoods2.setLocation(274, 1203);
+		pwoods4.setLocation(320, 1126);
+		pwoods5.setLocation(412, 1175);
+
+		cvalley1.setLocation(1063, 650);
+		cvalley2.setLocation(1010, 700);
+		cvalley4.setLocation(1094, 759);
+		cvalley5.setLocation(1135, 667);
+		
+		nwoods2.setLocation(970,945);
+		nwoods4.setLocation(876,959);
+		nwoods5.setLocation(910,858);
+		
+		ruins1.setLocation(801,1031);
+		ruins2.setLocation(815,1128);
+		ruins3.setLocation(699,1129);
+		ruins4.setLocation(730,1060);
+		ruins5.setLocation(700,1000);
+		ruins6.setLocation(760,1120);
+
+		avalley1.setLocation(915,1112);
+		avalley2.setLocation(930,1180);
+		avalley4.setLocation(1028,1140);
+		avalley5.setLocation(968,1058);
+		
+		lwoods2.setLocation(803,1330);
+		lwoods4.setLocation(800,1235);
+		lwoods5.setLocation(883,1286);
+		
 		cliff1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
             	selectLocation("cliff1");
