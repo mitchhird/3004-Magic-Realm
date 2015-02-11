@@ -13,6 +13,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -178,32 +179,12 @@ public class gameView extends JFrame {
 	private void showGameButtons(){
 		
 		addPlayerButton = new JButton("Add Player");
-		layoutConstraints.gridx = 0;
-		layoutConstraints.gridy = 0;
-		layoutConstraints.gridwidth = 1;
-		layoutConstraints.gridheight = 1;
-		layoutConstraints.fill = GridBagConstraints.BOTH;
-		layoutConstraints.insets = new Insets(10, 5, 10, 5);
-		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
-		layoutConstraints.weightx = 1.0;
-		layoutConstraints.weighty = 1.0;
-		layout.setConstraints(addPlayerButton, layoutConstraints);
-		mainPanel.add(addPlayerButton);
+		addToGrid(addPlayerButton, 0, 0, 1, 1);
 		addPlayerButton.setVisible(true);
 		
 		currentPlayers = new JTextArea();
 		playersScroller = new JScrollPane(currentPlayers);
-		layoutConstraints.gridx = 0;
-		layoutConstraints.gridy = 1;
-		layoutConstraints.gridwidth = 1;
-		layoutConstraints.gridheight = 1;
-		layoutConstraints.fill = GridBagConstraints.BOTH;
-		layoutConstraints.insets = new Insets(10, 5, 10, 5);
-		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
-		layoutConstraints.weightx = 1.0;
-		layoutConstraints.weighty = 1.0;
-		layout.setConstraints(playersScroller, layoutConstraints);
-		mainPanel.add(playersScroller);
+		addToGrid(playersScroller, 0, 1, 1, 1);
 		
         addPlayerButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -211,24 +192,14 @@ public class gameView extends JFrame {
             }
         });		
 	}
-	
+
 	private void showBoard(){
 		theBoard = new boardView();
 		theBoardScroller = new JScrollPane(theBoard);
 		theBoardScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		theBoardScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		layoutConstraints.gridx = 1;
-		layoutConstraints.gridy = 0;
-		layoutConstraints.gridwidth = 1;
-		layoutConstraints.gridheight = 2;
-		layoutConstraints.fill = GridBagConstraints.BOTH;
-		layoutConstraints.insets = new Insets(10, 5, 10, 5);
-		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
-		layoutConstraints.weightx = 1.0;
-		layoutConstraints.weighty = 1.0;
-		layout.setConstraints(theBoardScroller, layoutConstraints);
+		addToGrid(theBoardScroller, 1, 0, 1, 2);
 		theBoardScroller.setPreferredSize(new Dimension(((int)tk.getScreenSize().getWidth()/3), ((int)tk.getScreenSize().getHeight()/2)));
-		mainPanel.add(theBoardScroller);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -242,83 +213,22 @@ public class gameView extends JFrame {
 		newPlayerMenu.setLayout(gameMenuLayout);
 		
 		JLabel nameLabel = new JLabel("Enter Player Name:");
-		layoutConstraints.gridx = 0;
-		layoutConstraints.gridy = 0;
-		layoutConstraints.gridwidth = 1;
-		layoutConstraints.gridheight = 1;
-		layoutConstraints.fill = GridBagConstraints.BOTH;
-		layoutConstraints.insets = new Insets(10, 5, 10, 5);
-		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
-		layoutConstraints.weightx = 1.0;
-		layoutConstraints.weighty = 1.0;
-		gameMenuLayout.setConstraints(nameLabel, layoutConstraints);
-		newPlayerMenu.add(nameLabel);
-		
 		nameField = new JTextField();
-		layoutConstraints.gridx = 1;
-		layoutConstraints.gridy = 0;
-		layoutConstraints.gridwidth = 1;
-		layoutConstraints.gridheight = 1;
-		layoutConstraints.fill = GridBagConstraints.BOTH;
-		layoutConstraints.insets = new Insets(10, 5, 10, 5);
-		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
-		layoutConstraints.weightx = 1.0;
-		layoutConstraints.weighty = 1.0;
-		gameMenuLayout.setConstraints(nameField, layoutConstraints);
-		newPlayerMenu.add(nameField);
 		
 		JLabel chooseLabel = new JLabel("Choose Your Class:");
-		layoutConstraints.gridx = 0;
-		layoutConstraints.gridy = 1;
-		layoutConstraints.gridwidth = 1;
-		layoutConstraints.gridheight = 1;
-		layoutConstraints.fill = GridBagConstraints.BOTH;
-		layoutConstraints.insets = new Insets(10, 5, 10, 5);
-		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
-		layoutConstraints.weightx = 1.0;
-		layoutConstraints.weighty = 1.0;
-		gameMenuLayout.setConstraints(chooseLabel, layoutConstraints);
-		newPlayerMenu.add(chooseLabel);
-		
 		classSelecter = new JComboBox();
 		classSelecter.setModel( new DefaultComboBoxModel(new String[] {"Amazon","Black Knight","Captain","Dwarf","Elf","Swordsman"}));
-		layoutConstraints.gridx = 1;
-		layoutConstraints.gridy = 1;
-		layoutConstraints.gridwidth = 1;
-		layoutConstraints.gridheight = 1;
-		layoutConstraints.fill = GridBagConstraints.BOTH;
-		layoutConstraints.insets = new Insets(10, 5, 10, 5);
-		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
-		layoutConstraints.weightx = 1.0;
-		layoutConstraints.weighty = 1.0;
-		gameMenuLayout.setConstraints(classSelecter, layoutConstraints);
-		newPlayerMenu.add(classSelecter);
 		
 		JButton startButton = new JButton("OK");
-		layoutConstraints.gridx = 0;
-		layoutConstraints.gridy = 2;
-		layoutConstraints.gridwidth = 1;
-		layoutConstraints.gridheight = 1;
-		layoutConstraints.fill = GridBagConstraints.BOTH;
-		layoutConstraints.insets = new Insets(10, 5, 10, 5);
-		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
-		layoutConstraints.weightx = 1.0;
-		layoutConstraints.weighty = 1.0;
-		gameMenuLayout.setConstraints(startButton, layoutConstraints);
-		newPlayerMenu.add(startButton);
-		
 		JButton cancelButton = new JButton("Cancel");
-		layoutConstraints.gridx = 1;
-		layoutConstraints.gridy = 2;
-		layoutConstraints.gridwidth = 1;
-		layoutConstraints.gridheight = 1;
-		layoutConstraints.fill = GridBagConstraints.BOTH;
-		layoutConstraints.insets = new Insets(10, 5, 10, 5);
-		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
-		layoutConstraints.weightx = 1.0;
-		layoutConstraints.weighty = 1.0;
-		gameMenuLayout.setConstraints(cancelButton, layoutConstraints);
-		newPlayerMenu.add(cancelButton);
+		
+		// Add Everything To The Frame
+		addToFrame(newPlayerMenu, nameLabel, gameMenuLayout, 0, 0, 1, 1);
+		addToFrame(newPlayerMenu, nameField, gameMenuLayout, 1, 0, 1, 1);
+		addToFrame(newPlayerMenu, chooseLabel, gameMenuLayout, 0, 1, 1, 1);
+		addToFrame(newPlayerMenu, classSelecter, gameMenuLayout, 1, 1, 1, 1);
+		addToFrame(newPlayerMenu, startButton, gameMenuLayout, 0, 2, 1, 1);
+		addToFrame(newPlayerMenu, cancelButton, gameMenuLayout, 1, 2, 1, 1);
 		
         cancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -333,6 +243,7 @@ public class gameView extends JFrame {
             }
         });
 	}
+	
 	
 	private void addPlayer(){
 		theClient.addPlayer((String) classSelecter.getSelectedItem(), nameField.getText());
@@ -357,4 +268,38 @@ public class gameView extends JFrame {
 		optionsMenu.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
 		optionsMenu.setVisible(true);
 	}
+	
+	// Sets The Grid Location Based On The Paramenters Given
+	private void addToGrid(JComponent theComponent, int x, int y, int gridWidth, int gridHeight) {
+		addToGrid(mainPanel, theComponent, x, y, gridWidth, gridHeight);
+	}
+		
+	private void addToGrid(JPanel connectToFrame, JComponent theComponent, int x, int y, int gridWidth, int gridHeight) {
+		layoutConstraints.gridx = x;
+		layoutConstraints.gridy = y;
+		layoutConstraints.gridwidth = gridWidth;
+		layoutConstraints.gridheight = gridHeight;
+		layoutConstraints.fill = GridBagConstraints.BOTH;
+		layoutConstraints.insets = new Insets(10, 5, 10, 5);
+		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
+		layoutConstraints.weightx = 1.0;
+		layoutConstraints.weighty = 1.0;
+		layout.setConstraints(theComponent, layoutConstraints);
+		mainPanel.add(theComponent);
+	}
+		
+	private void addToFrame (JFrame connectToFrame, JComponent theComponent, GridBagLayout layout, int x, int y, int gridWidth, int gridHeight){
+		layoutConstraints.gridx = x;
+		layoutConstraints.gridy = y;
+		layoutConstraints.gridwidth = gridWidth;
+		layoutConstraints.gridheight = gridHeight;
+		layoutConstraints.fill = GridBagConstraints.BOTH;
+		layoutConstraints.insets = new Insets(10, 5, 10, 5);
+		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
+		layoutConstraints.weightx = 1.0;
+		layoutConstraints.weighty = 1.0;
+		layout.setConstraints(theComponent, layoutConstraints);
+		connectToFrame.add(theComponent);
+	}
+		
 }
