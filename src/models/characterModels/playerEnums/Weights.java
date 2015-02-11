@@ -1,4 +1,4 @@
-package models;
+package models.characterModels.playerEnums;
 
 //specific weights for character classes
 
