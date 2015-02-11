@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -224,9 +225,8 @@ public class gameView extends JFrame {
 		layoutConstraints.weightx = 1.0;
 		layoutConstraints.weighty = 1.0;
 		layout.setConstraints(theBoardScroller, layoutConstraints);
+		theBoardScroller.setPreferredSize(new Dimension(((int)tk.getScreenSize().getWidth()/3), ((int)tk.getScreenSize().getHeight()/2)));
 		mainPanel.add(theBoardScroller);
-		theBoardScroller.setVisible(true);
-		theBoard.setVisible(true);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })

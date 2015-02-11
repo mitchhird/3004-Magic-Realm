@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -22,17 +23,18 @@ public class boardView extends JPanel {
 	
 	private void init(){
 		try {
-			img = ImageIO.read(new File(System.getProperty("user.dir")+"/images", "theMap.gif"));
+			img = ImageIO.read(new File(System.getProperty("user.dir")+"/images", "theMap3.gif"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		setPreferredSize( new Dimension(1300,1486));
 	}
 	
 	@Override
 	public void paintComponent(Graphics page)
 	{
 	    super.paintComponent(page);
-	    page.drawImage(img, 0, 0, null);
+	    page.drawImage(img, 0, 0, this);
 	}
 }
