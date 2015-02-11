@@ -8,6 +8,7 @@ import java.util.concurrent.BlockingQueue;
 import utils.GameUtils;
 import models.characterModels.playerEnums.Weights;
 import models.chitModels.Chit;
+import models.otherEntities.Denizen;
 
 /*
  * will have the initial information about the player
@@ -38,6 +39,11 @@ public class PlayerBase {
 	protected Weights weight;
 	protected Weights vulnerability;
 	protected Queue<String> commandList;
+	
+	//controllable units might need might not
+	//big part of combat system
+	//might also include natives?
+	protected Denizen[] hired;
 	
 	protected String history;
 	protected String discovery;
@@ -88,6 +94,14 @@ public class PlayerBase {
 	
 	public String getPlayerClass(){
 		return playerClass;
+	}
+	
+	public Weights getVulnerability(){
+		return vulnerability;
+	}
+	
+	public void setVulnerability(Weights vul){
+		this.vulnerability = vul;
 	}
 
 }

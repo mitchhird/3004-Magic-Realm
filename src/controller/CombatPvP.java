@@ -1,14 +1,30 @@
 package controller;
 
+import models.characterModels.PlayerBase;
+import models.characterModels.playerEnums.Weights;
+import models.chitModels.Chit;
+
 public class CombatPvP {
+	
+	//will be the entry point in the end for pvp combat
+	public void combatPvP(){
+		
+	}
+	
 	/*
 	 * Encounter
 	 * TODO
 	 * Albert - look into preparation
 	 * preparation
 	 * -determine first character for clearing
-	 * 
-	 * luring
+	 *
+	 */
+	
+	private void preparation(){
+		
+	}
+	
+	/* luring
 	 * -first character turn
 	 * --character can lure unhired of any number to own sheet.
 	 * --hirelings can lure only one
@@ -21,7 +37,26 @@ public class CombatPvP {
 	 * --if character present move to sheet
 	 * --else move to unhired sheet
 	 * -repeat until all assigned
-	 * 
+	 */ 
+	
+	//TODO
+	//Albert - think about the return values and parameters for this
+	private void luring() {
+		PlayerBase currPlayer = findPlayer();
+		while (currPlayer != null){
+			
+		}
+		
+		deployment();
+	}
+
+	private PlayerBase findPlayer() {
+		// TODO have to send to view for swordsman about starting turn
+		//some kind of random
+		return null;
+	}
+	
+	 /*
 	 * Deployment & Charging
 	 ***can charge or deploy any order 
 	 * -first player
@@ -38,8 +73,13 @@ public class CombatPvP {
 	 * ---deployed hireling and target hidden = false
 	 * --else if more characters to charge/deploy continue
 	 * --else Encounter Actions
-	 * 
-	 * Encounter Action
+	 */
+	
+	private void deployment(){
+		
+	}
+	
+	/* Encounter Action
 	 * -character may play any number of enchated magic chits (not this iteration)
 	 * -if charged
 	 * --check if more character to do actions
@@ -48,16 +88,26 @@ public class CombatPvP {
 	 * ---if not then most abandon any number of belongings(active or not)
 	 * --check if more characters to do actions
 	 * -repeat till no more
-	 * 
-	 * TODO
+	 */
+	
+	private void encounter() {
+		
+	}
+	
+	/* TODO
 	 * Albert - Have to do the melee steps
 	 * Melee Step
 	 * -denizen horses turn galloping side up hirelings horses turn over
 	 * -Denizens Target!!!*****
 	 * mix attention chits of all involved characters. pick first
 	 * 
-	 * 
-	 * Resolve Attacks
+	 */
+	
+	private void melee() {
+		
+	}
+	
+	/* Resolve Attacks
 	 * -start with weapon length = 17 
 	 * -Attack Speed = 0
 	 * -if first combat weapon length > speed
@@ -78,8 +128,68 @@ public class CombatPvP {
 	 * --Character pay for Fatigue and Wounds
 	 * --Disengagement
 	 * --Spoils of Combat
-	 * 
-	 * Attack Hits
+	 */
+	
+	private void resolveAttacks() {
+		
+	}
+	
+	
+	/* will return 0 if unwounded
+	 * 1 if 1 wound
+	 * 2 if horse dies
+	 * 3 if defender dies */
+	private int attackHits(Chit weapon, PlayerBase attacker, PlayerBase defender) {
+		int harm;
+		//TODO CHIT THINGS - Albert
+		harm = weapon.getHarmLevel();
+		
+		if (weapon.getStars() > 0) {
+			if (attack intercepts armor){
+				weapon.setStars(weapon.getStars() - 1);
+			}
+			harm += weapon.getStars();
+		}
+		
+		if (weapon.hasMissles()){
+			//do some roll thing here
+		}
+		
+		if (attacker.getStrength() > defender.getStrength()){
+			++harm;
+		}
+		
+		//out till add horses
+		/*if(defender.onHorse()){
+			if(harm > defender.getHorse().getVulnerability()){
+				return 2;
+			}
+		} else */ if(Attacker = character){
+			if(Attack armor hit){
+				defender.check armor damaged;
+				if (Harm > M){
+					return 1;
+				}
+			} else {
+				if (harm > defender.getVulnerability()){
+					defender.isDead();
+					return 3;
+				}
+				if (Harm > negligible){
+					return 1;
+				}
+				weapon.setAlert(false);
+			}
+		} else {
+			if(harm > defender.getVulnerability()){
+				return 3;
+			}
+		}
+		
+		return 0;
+	}
+	
+	/* Attack Hits
 	 * -Determine Harm Level(Harm Letter)
 	 * -Stars?
 	 * --attack intercepts armor?
