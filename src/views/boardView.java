@@ -27,6 +27,108 @@ public class boardView extends JPanel {
 	private JButton cliff5;
 	private JButton cliff6;
 
+	private JButton evalley1;
+	private JButton evalley2;
+	private JButton evalley3;
+	private JButton evalley4;
+	private JButton evalley5;
+	
+	private JButton hpass1;
+	private JButton hpass2;
+	private JButton hpass3;
+	private JButton hpass4;
+	private JButton hpass5;
+	private JButton hpass6;
+	
+	private JButton ledges1;
+	private JButton ledges2;
+	private JButton ledges3;
+	private JButton ledges4;
+	private JButton ledges5;
+	private JButton ledges6;
+	
+	private JButton bland1;
+	private JButton bland2;
+	private JButton bland3;
+	private JButton bland4;
+	private JButton bland5;
+	private JButton bland6;
+	
+	private JButton cavern1;
+	private JButton cavern2;
+	private JButton cavern3;
+	private JButton cavern4;
+	private JButton cavern5;
+	private JButton cavern6;
+	
+	private JButton carg1;
+	private JButton carg2;
+	private JButton carg3;
+	private JButton carg4;
+	private JButton carg5;
+	private JButton carg6;
+	
+	private JButton owoods2;
+	private JButton owoods4;
+	private JButton owoods5;
+	
+	private JButton bvalley1;
+	private JButton bvalley2;
+	private JButton bvalley4;
+	private JButton bvalley5;
+	
+	private JButton mountain1;
+	private JButton mountain2;
+	private JButton mountain3;
+	private JButton mountain4;
+	private JButton mountain5;
+	private JButton mountain6;
+	
+	private JButton dvalley1;
+	private JButton dvalley2;
+	private JButton dvalley4;
+	private JButton dvalley5;
+	
+	private JButton dwoods1;
+	private JButton dwoods2;
+	private JButton dwoods3;
+	private JButton dwoods4;
+	private JButton dwoods5;
+	private JButton dwoods6;
+	
+	private JButton mwoods2;
+	private JButton mwoods4;
+	private JButton mwoods5;
+	
+	private JButton caves1;
+	private JButton caves2;
+	private JButton caves3;
+	private JButton caves4;
+	private JButton caves5;
+	private JButton caves6;
+	
+	private JButton pwoods2;
+	private JButton pwoods4;
+	private JButton pwoods5;
+	
+	private JButton cvalley1;
+	private JButton cvalley2;
+	private JButton cvalley4;
+	private JButton cvalley5;
+	
+	private JButton nwoods5;
+	private JButton nwoods2;
+	private JButton nwoods4;
+	
+	private JButton avalley1;
+	private JButton avalley2;
+	private JButton avalley4;
+	private JButton avalley5;
+	
+	private JButton lwoods2;
+	private JButton lwoods4;
+	private JButton lwoods5;
+
 	public boardView(){
 		init();
 	}
