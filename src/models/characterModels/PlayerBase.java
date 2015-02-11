@@ -1,5 +1,11 @@
 package models.characterModels;
 
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
+
+import utils.GameUtils;
 import models.characterModels.playerEnums.Weights;
 import models.chitModels.Chit;
 
@@ -20,6 +26,7 @@ public class PlayerBase {
 	protected int vicotryPoints;
 	protected int winVictoryPoints;
 	
+	// Player's Name And Class
 	protected String playerName;
 	protected String playerClass;
 	protected String tradeRelationship;
@@ -30,15 +37,13 @@ public class PlayerBase {
 	protected Chit[] weaponChit;
 	protected Weights weight;
 	protected Weights vulnerability;
+	protected Queue<String> commandList;
 	
-	//might need might not be needed
-	//to change things on the discovery
-	//table
+	protected String history;
 	protected String discovery;
 	
-	//might need to have a day class to
-	//specify the history of the game
-	protected String history;
+	// Boolean Flags
+	protected boolean hidden;
 	
 	// Default Constructor
 	public PlayerBase () {
@@ -50,6 +55,21 @@ public class PlayerBase {
 		currentFame = 0;
 		currentNotirity = 0;
 		currentGold = 10;
+		hidden = false;
+		commandList = new LinkedList<>();
+	}
+	
+	// Starts The Player's Turn And Wipes Out There Player's Commands
+	protected void startPlayerTurn () {
+		hidden = false;
+		commandList.clear();
+	}
+	
+	// Attempts To Hide The Player, Consult Die Table For Reasoning For Result
+	public boolean attemptHide () {
+		int dieRoll = GameUtils.createRandomInt(1, 6);
+		hidden = (hidden) ? true : dieRoll < 6;
+		return hidden;
 	}
 	
 	/*-------------- Getters And Setters -------------- */
