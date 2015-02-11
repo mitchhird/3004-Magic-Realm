@@ -144,7 +144,6 @@ public class gameView extends JFrame {
         
         addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent e){
-            	System.out.println("Exiting Game");
             	exitGame();
             }
         });
