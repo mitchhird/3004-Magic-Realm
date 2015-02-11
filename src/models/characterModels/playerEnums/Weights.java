@@ -5,5 +5,6 @@ package models.characterModels.playerEnums;
 public enum Weights {
 	LIGHT,
 	MEDIUM,
-	HEAVY
+	HEAVY,
+	Tremendous
 }
