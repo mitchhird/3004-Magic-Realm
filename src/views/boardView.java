@@ -42,12 +42,12 @@ public class boardView extends JPanel {
 		setPreferredSize( new Dimension(1300,1486));
 		setLayout(null);
 		
-		cliff1 = new JButton("1");
-		cliff2 = new JButton("2");
-		cliff3 = new JButton("3");
-		cliff4 = new JButton("4");
-		cliff5 = new JButton("5");
-		cliff6 = new JButton("6");
+		cliff1 = new JButton("");
+		cliff2 = new JButton("");
+		cliff3 = new JButton("");
+		cliff4 = new JButton("");
+		cliff5 = new JButton("");
+		cliff6 = new JButton("");
 
 		cliff1.setSize(30, 30);
 		cliff2.setSize(30, 30);
@@ -55,6 +55,19 @@ public class boardView extends JPanel {
 		cliff4.setSize(30, 30);
 		cliff5.setSize(30, 30);
 		cliff6.setSize(30, 30);
+		
+		cliff1.setOpaque(false);
+		cliff1.setContentAreaFilled(false);
+		cliff2.setOpaque(false);
+		cliff2.setContentAreaFilled(false);
+		cliff3.setOpaque(false);
+		cliff3.setContentAreaFilled(false);
+		cliff4.setOpaque(false);
+		cliff4.setContentAreaFilled(false);
+		cliff5.setOpaque(false);
+		cliff5.setContentAreaFilled(false);
+		cliff6.setOpaque(false);
+		cliff6.setContentAreaFilled(false);
 
 		cliff1.setLocation(419, 188);
 		cliff2.setLocation(496, 204);

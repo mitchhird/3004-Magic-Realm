@@ -143,7 +143,8 @@ public class gameView extends JFrame {
         
         addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent e){
-            	System.exit(0);
+            	System.out.println("Exiting Game");
+            	exitGame();
             }
         });
 	}
@@ -163,7 +164,8 @@ public class gameView extends JFrame {
 	}
 	
 	private void update(){
-
+		setSize((int)tk.getScreenSize().getWidth(),(int)tk.getScreenSize().getHeight()-20);
+		setSize((int)tk.getScreenSize().getWidth(),(int)tk.getScreenSize().getHeight()-40);
 	}
 	
 	private void infoPanel(){
@@ -347,8 +349,6 @@ public class gameView extends JFrame {
 		showGameButtons();
 		showBoard();
 		update();
-		setSize((int)tk.getScreenSize().getWidth(),(int)tk.getScreenSize().getHeight()-20);
-		setSize((int)tk.getScreenSize().getWidth(),(int)tk.getScreenSize().getHeight()-40);
 	}
 	
 	private void options(){
