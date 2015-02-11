@@ -1,12 +1,13 @@
 package models.characterModels;
 
-import models.Weights;
+import models.characterModels.playerEnums.Weights;
+import models.chitModels.Chit;
 
 /*
  * update
  */
 
-public class BlackKnight extends BaseChar {
+public class BlackKnight extends PlayerBase {
 	//starting equipment value
 	//1st-lvl-30 2nd-34 3rd-37 4th-40
 	/*
@@ -45,9 +46,9 @@ public class BlackKnight extends BaseChar {
 	 * BlackKnight:
 	 * Mace, Armor, Shield, MoveH4**, FightH4**, FightM3**
 	 */
+	
 	public BlackKnight(Chit[] combat){
-		super(Weights.MEDIUM);
-		this.setCombat(combat);
+		weight = Weights.MEDIUM;
 	}
 	
 }

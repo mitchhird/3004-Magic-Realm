@@ -1,12 +1,12 @@
 package models.characterModels;
 
-import models.Weights;
+import models.characterModels.playerEnums.Weights;
 
 /*
  * update
  */
 
-public class Dwarf extends BaseChar {
+public class Dwarf extends PlayerBase {
 	//starting equipment value
 	//1st-lvl-19 2nd-19 3rd-23 4th-23
 	/*
@@ -46,6 +46,6 @@ public class Dwarf extends BaseChar {
 	 * Great Axe, Helmet, MoveH5*, FightT6*, FightH4**
 	 */
 	public Dwarf() {
-		super(Weights.HEAVY);
+		weight = Weights.HEAVY;
 	}
 }

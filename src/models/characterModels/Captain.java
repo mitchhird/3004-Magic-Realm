@@ -1,12 +1,12 @@
 package models.characterModels;
 
-import models.Weights;
+import models.characterModels.playerEnums.Weights;
 
 /*
  * update
  */
 
-public class Captain extends BaseChar {
+public class Captain extends PlayerBase {
 	//starting equipment value
 	//1st-lvl-23 2nd-35 3rd-35 4th-35
 	/*
@@ -45,6 +45,6 @@ public class Captain extends BaseChar {
 	 * 
 	 */
 	public Captain() {
-		super(Weights.MEDIUM);
+		weight = Weights.MEDIUM;
 	}
 }

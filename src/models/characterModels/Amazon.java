@@ -1,12 +1,12 @@
 package models.characterModels;
 
-import models.Weights;
+import models.characterModels.playerEnums.Weights;
 
 /*
  * update
  */
 
-public class Amazon extends BaseChar {
+public class Amazon extends PlayerBase {
 	//starting equipment value
 	//1st-lvl-16 2nd-37 3rd-37 4th-35
 	/*
@@ -42,6 +42,6 @@ public class Amazon extends BaseChar {
 	 * Short Sword, Helmet, Breastplate, Shield, FightM4*, FightM3**, MoveM3*
 	 */
 	public Amazon(){
-		super(Weights.MEDIUM);
+		weight = Weights.MEDIUM;
 	}
 }
