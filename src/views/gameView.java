@@ -212,8 +212,8 @@ public class gameView extends JFrame {
 	private void showBoard(){
 		theBoard = new boardView();
 		theBoardScroller = new JScrollPane(theBoard);
-		theBoardScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-		theBoardScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		theBoardScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		theBoardScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		layoutConstraints.gridx = 1;
 		layoutConstraints.gridy = 0;
 		layoutConstraints.gridwidth = 1;

@@ -22,7 +22,7 @@ public class boardView extends JPanel {
 	
 	private void init(){
 		try {
-			img = ImageIO.read(new File(System.getProperty("user.dir")+"/images/tiles", "caves1.gif"));
+			img = ImageIO.read(new File(System.getProperty("user.dir")+"/images", "theMap.gif"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
