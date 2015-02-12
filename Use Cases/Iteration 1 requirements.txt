@@ -1,0 +1,48 @@
+requirements for iteration 1
+  week after the break
+
+  - pre-assembled board for now (ask about this,  pre-assembled vs player)
+        the e is enchanted
+        there will be a preassembled board
+        scrollability should be put into the game UI first
+        low prob that we will have to build a board
+        prob better to use swing for the UI
+  - require a 3 mods of chit placement (random, cheat, or manually)
+        (watch for the Lost Castle and Lost City for cheat mode)
+        (rolls are also controlled by the user)
+        great treasure vs not
+        gold treasure first
+  - dwellings and ghosts on board
+  - character selection and initial location. (only characters supported)
+        (specific visitors to certain areas)
+        no missions
+        visitors are for trade
+  - support victory points
+  * turn based networking
+  * non turn based
+  - movement (+ blocking), hiding, resting, searching/peering
+  - support 1st encounter treasure appearance and looting (page 67-68)
+  - support the appearing of/and trading with the natives and visitors
+        (do we need natives, all of them)
+  - support the appearing, moving, and blocking of monsters
+        start with the first monster appearing
+  - support the combat between the characters you support
+  * support combat between any character you support and the ghosts.
+        (all other monsters need not combat in this iteration.)
+
+  characters required addition:
+  - captain, swordsman, amazon, dwarf, elf(dont need the magic for elf), black knight
+        no magic for extra things
+  - ancient telescope
+  - treasures affecting use of tables
+  - all extra phase treasures
+
+can do dont need to do:
+  * berserker, white knight support (characters)
+  * all gloves and boots treasures
+
+stuff can add for the next iteration:
+  - carrying capacity
+  - monster combat
+  - horses
+  - networking
