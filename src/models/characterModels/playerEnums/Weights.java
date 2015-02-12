@@ -6,5 +6,5 @@ public enum Weights {
 	LIGHT,
 	MEDIUM,
 	HEAVY,
-	Tremendous
+	TREMENDOUS
 }

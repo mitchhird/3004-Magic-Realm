@@ -7,7 +7,7 @@ import models.chitModels.Chit;
 public class CombatPvP {
 	
 	//will be the entry point in the end for pvp combat
-	public void combatPvP(){
+	public void combatPvP(PlayerBase attacker, PlayerBase defender){
 		
 	}
 	
