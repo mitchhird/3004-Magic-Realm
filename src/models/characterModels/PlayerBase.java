@@ -1,14 +1,13 @@
 package models.characterModels;
 
-import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.concurrent.BlockingQueue;
 
-import utils.GameUtils;
+import models.BoardModels.Clearing;
 import models.characterModels.playerEnums.Weights;
 import models.chitModels.Chit;
 import models.otherEntities.Denizen;
+import utils.GameUtils;
 
 /*
  * will have the initial information about the player
@@ -39,6 +38,7 @@ public class PlayerBase {
 	protected Weights weight;
 	protected Weights vulnerability;
 	protected Queue<String> commandList;
+	protected Clearing currentClearing;
 	
 	//controllable units might need might not
 	//big part of combat system
@@ -104,4 +104,11 @@ public class PlayerBase {
 		this.vulnerability = vul;
 	}
 
+	public Clearing getCurrentClearing() {
+		return currentClearing;
+	}
+
+	public void setCurrentClearing(Clearing currentClearing) {
+		this.currentClearing = currentClearing;
+	}
 }

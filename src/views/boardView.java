@@ -275,121 +275,12 @@ public class boardView extends JPanel {
 			add(theButtons.get(i));
 		}
 		
-		cliff1.setLocation(419, 188);
-		cliff2.setLocation(496, 204);
-		cliff3.setLocation(473, 134);
-		cliff4.setLocation(449, 62);
-		cliff5.setLocation(527, 78);
-		cliff6.setLocation(400, 120);
-	
-		evalley1.setLocation(255,267);
-		evalley2.setLocation(355,260);
-		evalley4.setLocation(350,355);
-		evalley5.setLocation(250,370);
-		
-		hpass1.setLocation(105,540);
-		hpass2.setLocation(210,510);
-		hpass3.setLocation(160,555);
-		hpass4.setLocation(130,475);
-		hpass5.setLocation(65,475);
-		hpass6.setLocation(188,435);
-		
-		ledges1.setLocation(572,321);
-		ledges2.setLocation(470,350);
-		ledges3.setLocation(515,300);
-		ledges4.setLocation(540,372);
-		ledges5.setLocation(545,445);
-		ledges6.setLocation(628,342);
-		
-		bland1.setLocation(285,570);
-		bland2.setLocation(385,470);
-		bland3.setLocation(315,500);	
-		bland4.setLocation(445,613);
-		bland5.setLocation(395,590);
-		bland6.setLocation(350,558);
+		initLocations();
+		addClearingListeners();	
+	}
 
-		cavern1.setLocation(290,742);
-		cavern2.setLocation(262,665);
-		cavern3.setLocation(222,708);
-		cavern4.setLocation(155,786);
-		cavern5.setLocation(185,655);
-		cavern6.setLocation(210,768);
-		
-		crag1.setLocation(764,345);
-		crag2.setLocation(800,500);
-		crag3.setLocation(828,441);
-		crag4.setLocation(730,403);
-		crag5.setLocation(748,464);
-		crag6.setLocation(816,382);
-		
-		owoods2.setLocation(561,565);
-		owoods4.setLocation(681,621);
-		owoods5.setLocation(596,668);
-		
-		bvalley1.setLocation(500,719);
-		bvalley2.setLocation(470,851);
-		bvalley4.setLocation(375,802);
-		bvalley5.setLocation(423,709);
-		
-		mountain1.setLocation(248, 999);
-		mountain2.setLocation(306, 1040);
-		mountain3.setLocation(319, 973);
-		mountain4.setLocation(200, 940);
-		mountain5.setLocation(337, 900);
-		mountain6.setLocation(263, 899);
-		
-		dvalley1.setLocation(1037, 560);
-		dvalley2.setLocation(1091, 508);
-		dvalley4.setLocation(1003, 450);
-		dvalley5.setLocation(966, 543);
-		
-		dwoods1.setLocation(782,620);
-		dwoods2.setLocation(918,646);
-		dwoods3.setLocation(895,730);
-		dwoods4.setLocation(760,691);
-		dwoods5.setLocation(808,739);
-		dwoods6.setLocation(846,680);
-		
-		mwoods2.setLocation(730,887);
-		mwoods4.setLocation(634,898);
-		mwoods5.setLocation(695,776);
-		
-		caves1.setLocation(460,1071);
-		caves2.setLocation(493,945);
-		caves3.setLocation(518,1004);
-		caves4.setLocation(438,1012);
-		caves5.setLocation(564,959);
-		caves6.setLocation(577,1067);
-		
-		pwoods2.setLocation(274, 1203);
-		pwoods4.setLocation(320, 1126);
-		pwoods5.setLocation(412, 1175);
-
-		cvalley1.setLocation(1063, 650);
-		cvalley2.setLocation(1010, 700);
-		cvalley4.setLocation(1094, 759);
-		cvalley5.setLocation(1135, 667);
-		
-		nwoods2.setLocation(970,945);
-		nwoods4.setLocation(876,959);
-		nwoods5.setLocation(910,858);
-		
-		ruins1.setLocation(801,1031);
-		ruins2.setLocation(815,1128);
-		ruins3.setLocation(699,1129);
-		ruins4.setLocation(730,1060);
-		ruins5.setLocation(700,1000);
-		ruins6.setLocation(760,1120);
-
-		avalley1.setLocation(915,1112);
-		avalley2.setLocation(930,1180);
-		avalley4.setLocation(1028,1140);
-		avalley5.setLocation(968,1058);
-		
-		lwoods2.setLocation(803,1330);
-		lwoods4.setLocation(800,1235);
-		lwoods5.setLocation(883,1286);
-		
+	// Adds All Of The Clearing Listeners
+	private void addClearingListeners() {
 		cliff1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
             	selectLocation("cliff1");
@@ -883,7 +774,124 @@ public class boardView extends JPanel {
             public void actionPerformed(ActionEvent arg0) {
             	selectLocation("lwoods5");
             }
-        });	
+        });
+	}
+
+	private void initLocations() {
+		cliff1.setLocation(419, 188);
+		cliff2.setLocation(496, 204);
+		cliff3.setLocation(473, 134);
+		cliff4.setLocation(449, 62);
+		cliff5.setLocation(527, 78);
+		cliff6.setLocation(400, 120);
+	
+		evalley1.setLocation(255,267);
+		evalley2.setLocation(355,260);
+		evalley4.setLocation(350,355);
+		evalley5.setLocation(250,370);
+		
+		hpass1.setLocation(105,540);
+		hpass2.setLocation(210,510);
+		hpass3.setLocation(160,555);
+		hpass4.setLocation(130,475);
+		hpass5.setLocation(65,475);
+		hpass6.setLocation(188,435);
+		
+		ledges1.setLocation(572,321);
+		ledges2.setLocation(470,350);
+		ledges3.setLocation(515,300);
+		ledges4.setLocation(540,372);
+		ledges5.setLocation(545,445);
+		ledges6.setLocation(628,342);
+		
+		bland1.setLocation(285,570);
+		bland2.setLocation(385,470);
+		bland3.setLocation(315,500);	
+		bland4.setLocation(445,613);
+		bland5.setLocation(395,590);
+		bland6.setLocation(350,558);
+
+		cavern1.setLocation(290,742);
+		cavern2.setLocation(262,665);
+		cavern3.setLocation(222,708);
+		cavern4.setLocation(155,786);
+		cavern5.setLocation(185,655);
+		cavern6.setLocation(210,768);
+		
+		crag1.setLocation(764,345);
+		crag2.setLocation(800,500);
+		crag3.setLocation(828,441);
+		crag4.setLocation(730,403);
+		crag5.setLocation(748,464);
+		crag6.setLocation(816,382);
+		
+		owoods2.setLocation(561,565);
+		owoods4.setLocation(681,621);
+		owoods5.setLocation(596,668);
+		
+		bvalley1.setLocation(500,719);
+		bvalley2.setLocation(470,851);
+		bvalley4.setLocation(375,802);
+		bvalley5.setLocation(423,709);
+		
+		mountain1.setLocation(248, 999);
+		mountain2.setLocation(306, 1040);
+		mountain3.setLocation(319, 973);
+		mountain4.setLocation(200, 940);
+		mountain5.setLocation(337, 900);
+		mountain6.setLocation(263, 899);
+		
+		dvalley1.setLocation(1037, 560);
+		dvalley2.setLocation(1091, 508);
+		dvalley4.setLocation(1003, 450);
+		dvalley5.setLocation(966, 543);
+		
+		dwoods1.setLocation(782,620);
+		dwoods2.setLocation(918,646);
+		dwoods3.setLocation(895,730);
+		dwoods4.setLocation(760,691);
+		dwoods5.setLocation(808,739);
+		dwoods6.setLocation(846,680);
+		
+		mwoods2.setLocation(730,887);
+		mwoods4.setLocation(634,898);
+		mwoods5.setLocation(695,776);
+		
+		caves1.setLocation(460,1071);
+		caves2.setLocation(493,945);
+		caves3.setLocation(518,1004);
+		caves4.setLocation(438,1012);
+		caves5.setLocation(564,959);
+		caves6.setLocation(577,1067);
+		
+		pwoods2.setLocation(274, 1203);
+		pwoods4.setLocation(320, 1126);
+		pwoods5.setLocation(412, 1175);
+
+		cvalley1.setLocation(1063, 650);
+		cvalley2.setLocation(1010, 700);
+		cvalley4.setLocation(1094, 759);
+		cvalley5.setLocation(1135, 667);
+		
+		nwoods2.setLocation(970,945);
+		nwoods4.setLocation(876,959);
+		nwoods5.setLocation(910,858);
+		
+		ruins1.setLocation(801,1031);
+		ruins2.setLocation(815,1128);
+		ruins3.setLocation(699,1129);
+		ruins4.setLocation(730,1060);
+		ruins5.setLocation(700,1000);
+		ruins6.setLocation(760,1120);
+
+		avalley1.setLocation(915,1112);
+		avalley2.setLocation(930,1180);
+		avalley4.setLocation(1028,1140);
+		avalley5.setLocation(968,1058);
+		
+		lwoods2.setLocation(803,1330);
+		lwoods4.setLocation(800,1235);
+		lwoods5.setLocation(883,1286);
 	}
 	
 	private void selectLocation(String theLocation){
