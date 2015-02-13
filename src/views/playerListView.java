@@ -22,7 +22,6 @@ import javax.swing.table.DefaultTableModel;
 	        getjButton2().setText("Remove Player");
 
 	        jButton3.setText("Start Game");
-
 	        getjTable2().setModel(new javax.swing.table.DefaultTableModel(
 	            new Object [][] {
 
@@ -43,6 +42,8 @@ import javax.swing.table.DefaultTableModel;
 	                return canEdit [columnIndex];
 	            }
 	        });
+			getjTable2().setSelectionMode(1);
+
 	        jScrollPane3.setViewportView(getjTable2());
 
 	        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

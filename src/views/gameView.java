@@ -23,6 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import controller.clientController;
 
@@ -195,7 +197,20 @@ public class gameView extends JFrame {
                 removePlayer();
             }
         });
-		
+        
+        thePlayerList.getjTable2().getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+        	@Override
+        	public void valueChanged(ListSelectionEvent event){
+        		if(thePlayerList.getjTable2().getSelectedRow()>-1){
+        			setPlayerInterface(thePlayerList.getjTable2().getSelectedRow());
+        		}
+        	}
+        });
+	}
+
+	private void setPlayerInterface(int selectedRow) {
+		thePlayerButtons.getjLabel20().setText((String) thePlayerList.getjTable2().getValueAt(selectedRow, 0));
+		thePlayerButtons.getjLabel8().setText((String) thePlayerList.getjTable2().getValueAt(selectedRow, 1));
 	}
 
 	private void removePlayer() {
@@ -264,6 +279,7 @@ public class gameView extends JFrame {
 	private void addPlayer(){
 		theClient.addPlayer((String) classSelecter.getSelectedItem(), nameField.getText());
 		thePlayerList.addPlayer(nameField.getText(), (String) classSelecter.getSelectedItem());
+		setPlayerInterface(thePlayerList.getjTable2().getRowCount()-1);
 	}
 	
 	private void exitGame(){

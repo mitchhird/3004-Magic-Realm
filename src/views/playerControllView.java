@@ -16,8 +16,8 @@ public class playerControllView extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        setjLabel8(new javax.swing.JLabel());
+        setjLabel9(new javax.swing.JLabel());
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -44,7 +44,7 @@ public class playerControllView extends javax.swing.JPanel {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
+        setjLabel20(new javax.swing.JLabel());
 
         jButton1.setText("Show Card");
 
@@ -58,9 +58,9 @@ public class playerControllView extends javax.swing.JPanel {
 
         jLabel6.setText("Vulnerability:");
 
-        jLabel8.setText("None");
+        getjLabel8().setText("None");
 
-        jLabel9.setText("0");
+        getjLabel9().setText("0");
 
         jLabel10.setText("0");
 
@@ -137,7 +137,7 @@ public class playerControllView extends javax.swing.JPanel {
 
         jLabel7.setText("Class:");
 
-        jLabel20.setText("None");
+        getjLabel20().setText("None");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -158,7 +158,7 @@ public class playerControllView extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
-                            .addComponent(jLabel9)
+                            .addComponent(getjLabel9())
                             .addComponent(jLabel10)
                             .addComponent(jLabel11))
                         .addGap(267, 267, 267)
@@ -178,8 +178,8 @@ public class playerControllView extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel20))
+                            .addComponent(getjLabel8())
+                            .addComponent(getjLabel20()))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)))
                 .addContainerGap())
@@ -209,15 +209,15 @@ public class playerControllView extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel20))
+                            .addComponent(getjLabel20()))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel8))
+                            .addComponent(getjLabel8()))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel9))
+                            .addComponent(getjLabel9()))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -268,7 +268,34 @@ public class playerControllView extends javax.swing.JPanel {
     }                                        
 
 
-    // Variables declaration - do not modify                     
+    public javax.swing.JLabel getjLabel20() {
+		return jLabel20;
+	}
+
+	public void setjLabel20(javax.swing.JLabel jLabel20) {
+		this.jLabel20 = jLabel20;
+	}
+
+
+	public javax.swing.JLabel getjLabel8() {
+		return jLabel8;
+	}
+
+	public void setjLabel8(javax.swing.JLabel jLabel8) {
+		this.jLabel8 = jLabel8;
+	}
+
+
+	public javax.swing.JLabel getjLabel9() {
+		return jLabel9;
+	}
+
+	public void setjLabel9(javax.swing.JLabel jLabel9) {
+		this.jLabel9 = jLabel9;
+	}
+
+
+	// Variables declaration - do not modify                     
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
