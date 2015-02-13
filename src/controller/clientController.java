@@ -2,17 +2,13 @@ package controller;
 
 import java.util.ArrayList;
 
-import views.boardView;
-import views.gameView;
 import models.characterModels.PlayerBase;
 
 public class clientController {
 
-	private gameView theView;
 	private ArrayList<PlayerBase> thePlayers;
 	
-	public clientController(gameView view){
-		theView = view;
+	public clientController(){
 		thePlayers = new ArrayList<PlayerBase>();
 	}
 	
@@ -25,5 +21,14 @@ public class clientController {
 	
 	public ArrayList<PlayerBase> getPlayers(){
 		return thePlayers;
+	}
+
+	public void removePlayer(String playerToRemoveName, String playerToRemoveClass) {
+		for(int i = 0; i < thePlayers.size(); i++){
+			if(thePlayers.get(i).getPlayerClass() == playerToRemoveClass && thePlayers.get(i).getName() == playerToRemoveName){
+				thePlayers.remove(i);
+				return;
+			}
+		}
 	}
 }

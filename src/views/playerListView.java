@@ -9,24 +9,19 @@ package views;
                    
 	    private void initComponents() {
 
-	        jButton1 = new javax.swing.JButton();
-	        jButton2 = new javax.swing.JButton();
+	        setjButton1(new javax.swing.JButton());
+	        setjButton2(new javax.swing.JButton());
 	        jButton3 = new javax.swing.JButton();
 	        jScrollPane3 = new javax.swing.JScrollPane();
-	        jTable2 = new javax.swing.JTable();
+	        setjTable2(new javax.swing.JTable());
 
-	        jButton1.setText("Add Player");
+	        getjButton1().setText("Add Player");
 
-	        jButton2.setText("Remove Player");
-	        jButton2.addActionListener(new java.awt.event.ActionListener() {
-	            public void actionPerformed(java.awt.event.ActionEvent evt) {
-	                jButton2ActionPerformed(evt);
-	            }
-	        });
+	        getjButton2().setText("Remove Player");
 
 	        jButton3.setText("Start Game");
 
-	        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+	        getjTable2().setModel(new javax.swing.table.DefaultTableModel(
 	            new Object [][] {
 	                {null, null, null},
 	                {null, null, null},
@@ -49,7 +44,7 @@ package views;
 	                return canEdit [columnIndex];
 	            }
 	        });
-	        jScrollPane3.setViewportView(jTable2);
+	        jScrollPane3.setViewportView(getjTable2());
 
 	        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 	        this.setLayout(layout);
@@ -58,8 +53,8 @@ package views;
 	            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
 	                .addContainerGap()
 	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-	                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                    .addComponent(getjButton2(), javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                    .addComponent(getjButton1(), javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 	                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 	                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 	                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE))
@@ -67,26 +62,63 @@ package views;
 	        layout.setVerticalGroup(
 	            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 	            .addGroup(layout.createSequentialGroup()
-	                .addComponent(jButton1)
+	                .addComponent(getjButton1())
 	                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-	                .addComponent(jButton2)
+	                .addComponent(getjButton2())
 	                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 	                .addComponent(jButton3)
 	                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 	            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
 	        );
-	    }// </editor-fold>                        
+	    }                                                      
+   
+	    public javax.swing.JButton getjButton2() {
+			return jButton2;
+		}
 
-	    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-	        // TODO add your handling code here:
-	    }                                        
+		public void setjButton2(javax.swing.JButton jButton2) {
+			this.jButton2 = jButton2;
+		}
 
+		public javax.swing.JButton getjButton1() {
+			return jButton1;
+		}
 
-	    // Variables declaration - do not modify                     
-	    private javax.swing.JButton jButton1;
+		public void setjButton1(javax.swing.JButton jButton1) {
+			this.jButton1 = jButton1;
+		}
+		
+		public void addPlayer(String pName, String pClass){
+			for(int i = 0; i < getjTable2().getRowCount();i++){
+				if(getjTable2().getModel().getValueAt(i, 0)==null){
+					getjTable2().getModel().setValueAt(pClass, i, 0);
+					getjTable2().getModel().setValueAt(pName, i, 1);
+					getjTable2().getModel().setValueAt("Waiting", i, 2);
+					return;
+				}
+			}
+		}
+		
+		public void removePlayer(){
+			if(getjTable2().getSelectedRow()==-1){
+				return;
+			}
+			getjTable2().getModel().setValueAt(null, getjTable2().getSelectedRow(), 0);
+			getjTable2().getModel().setValueAt(null, getjTable2().getSelectedRow(), 1);
+			getjTable2().getModel().setValueAt(null, getjTable2().getSelectedRow(), 2);
+		}
+
+		public javax.swing.JTable getjTable2() {
+			return jTable2;
+		}
+
+		public void setjTable2(javax.swing.JTable jTable2) {
+			this.jTable2 = jTable2;
+		}
+
+		private javax.swing.JButton jButton1;
 	    private javax.swing.JButton jButton2;
 	    private javax.swing.JButton jButton3;
 	    private javax.swing.JScrollPane jScrollPane3;
-	    private javax.swing.JTable jTable2;
-	    // End of variables declaration                   
+	    private javax.swing.JTable jTable2;               
 	}

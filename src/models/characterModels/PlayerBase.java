@@ -131,4 +131,8 @@ public class PlayerBase {
 	public Image getImage() {
 		return characterClass.getReadyTile();
 	}
+	
+	public String getName(){
+		return playerName;
+	}
 }

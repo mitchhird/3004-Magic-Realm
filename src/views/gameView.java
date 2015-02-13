@@ -21,7 +21,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
@@ -56,7 +55,6 @@ public class gameView extends JFrame {
 	@SuppressWarnings("rawtypes")
 	private JComboBox classSelecter;
 	private JTextField nameField;
-	private JTextArea currentPlayers;
 
 	private playerControllView thePlayerButtons;
 
@@ -74,7 +72,7 @@ public class gameView extends JFrame {
 	// Initialization Method 
 	public void init(){
 		
-		theClient = new clientController(this);
+		theClient = new clientController();
 
 		mainPanel = new JPanel();
 		scrollPane = new JScrollPane(mainPanel);
@@ -186,6 +184,29 @@ public class gameView extends JFrame {
 		thePlayerButtons = new playerControllView();
 		addToGrid(thePlayerButtons, 0, 1, 1, 2);
 		
+        thePlayerList.getjButton1().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addPlayerMenu();
+            }
+        });
+        
+        thePlayerList.getjButton2().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removePlayer();
+            }
+        });
+		
+	}
+
+	private void removePlayer() {
+		if(thePlayerList.getjTable2().getSelectedRow()==-1){
+			return;
+		}
+		String playerToRemoveName = (String) thePlayerList.getjTable2().getModel().getValueAt(thePlayerList.getjTable2().getSelectedRow(),1);
+		String playerToRemoveClass = (String) thePlayerList.getjTable2().getModel().getValueAt(thePlayerList.getjTable2().getSelectedRow(),0);
+
+		thePlayerList.removePlayer();
+		theClient.removePlayer(playerToRemoveName, playerToRemoveClass);
 	}
 
 	private void showBoard(){
@@ -197,7 +218,7 @@ public class gameView extends JFrame {
 		theBoardScroller.setPreferredSize(new Dimension(((int)tk.getScreenSize().getWidth()/2), ((int)tk.getScreenSize().getHeight()/2)));
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked", "unused" })
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void addPlayerMenu(){
 		
 		GridBagLayout gameMenuLayout = new GridBagLayout();
@@ -242,7 +263,7 @@ public class gameView extends JFrame {
 	
 	private void addPlayer(){
 		theClient.addPlayer((String) classSelecter.getSelectedItem(), nameField.getText());
-		currentPlayers.append("Name: " + nameField.getText() + " || Class: " + (String) classSelecter.getSelectedItem() + "\n");
+		thePlayerList.addPlayer(nameField.getText(), (String) classSelecter.getSelectedItem());
 	}
 	
 	private void exitGame(){
