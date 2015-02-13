@@ -53,12 +53,14 @@ public class gameView extends JFrame {
 
 	private JScrollPane theBoardScroller;
 	
-	private JButton addPlayerButton;
 	@SuppressWarnings("rawtypes")
 	private JComboBox classSelecter;
 	private JTextField nameField;
 	private JTextArea currentPlayers;
-	private JScrollPane playersScroller;
+
+	private playerControllView thePlayerButtons;
+
+	private playerListView thePlayerList;
 
 
 	public static void main(String args[]){
@@ -177,20 +179,13 @@ public class gameView extends JFrame {
 	}
 	
 	private void showGameButtons(){
+	
+		thePlayerList = new playerListView();
+		addToGrid(thePlayerList, 0, 0, 1, 1);
 		
-		addPlayerButton = new JButton("Add Player");
-		addToGrid(addPlayerButton, 0, 0, 1, 1);
-		addPlayerButton.setVisible(true);
+		thePlayerButtons = new playerControllView();
+		addToGrid(thePlayerButtons, 0, 1, 1, 2);
 		
-		currentPlayers = new JTextArea();
-		playersScroller = new JScrollPane(currentPlayers);
-		addToGrid(playersScroller, 0, 1, 1, 1);
-		
-        addPlayerButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	addPlayerMenu();
-            }
-        });		
 	}
 
 	private void showBoard(){
@@ -198,11 +193,11 @@ public class gameView extends JFrame {
 		theBoardScroller = new JScrollPane(theBoard);
 		theBoardScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		theBoardScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		addToGrid(theBoardScroller, 1, 0, 1, 2);
-		theBoardScroller.setPreferredSize(new Dimension(((int)tk.getScreenSize().getWidth()/3), ((int)tk.getScreenSize().getHeight()/2)));
+		addToGrid(theBoardScroller, 1, 0, 4, 4);
+		theBoardScroller.setPreferredSize(new Dimension(((int)tk.getScreenSize().getWidth()/2), ((int)tk.getScreenSize().getHeight()/2)));
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "rawtypes", "unchecked", "unused" })
 	private void addPlayerMenu(){
 		
 		GridBagLayout gameMenuLayout = new GridBagLayout();

@@ -10,15 +10,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-
-import com.sun.org.apache.bcel.internal.generic.BALOAD;
 
 import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
-import models.characterModels.playerEnums.CharacterClass;
 
 public class boardView extends JPanel {
 
