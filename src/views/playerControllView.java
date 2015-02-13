@@ -60,7 +60,7 @@ public class playerControllView extends javax.swing.JPanel {
 
         jLabel6.setText("Vulnerability:");
 
-        jLabel8.setText("0");
+        jLabel8.setText("None");
 
         jLabel9.setText("0");
 
@@ -76,32 +76,20 @@ public class playerControllView extends javax.swing.JPanel {
 
         jLabel15.setText("Curses:");
 
-        jLabel16.setText("0");
+        jLabel16.setText("None");
 
-        jLabel17.setText("0");
+        jLabel17.setText("None");
 
-        jLabel18.setText("0");
+        jLabel18.setText("None");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Turn", "Month", "Day", "Color", "Phases", "Actions", "Kills"
-            }
-        ) {
-            /**
-			 * 
-			 */
-			private static final long serialVersionUID = 7653752904224053856L;
-			boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
-        });
+        ));
         jScrollPane1.setViewportView(jTable1);
 
         jTabbedPane1.addTab("Record", jScrollPane1);
@@ -137,7 +125,7 @@ public class playerControllView extends javax.swing.JPanel {
 
         jButton8.setText("Trade");
 
-        jLabel19.setText("Amazon");
+        jLabel19.setText("None");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -150,7 +138,7 @@ public class playerControllView extends javax.swing.JPanel {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel19)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, 0))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -181,7 +169,7 @@ public class playerControllView extends javax.swing.JPanel {
                                         .addComponent(jLabel13)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel16)))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 196, Short.MAX_VALUE)
                 .addComponent(jButton1))
             .addComponent(jScrollPane2)
             .addGroup(layout.createSequentialGroup()

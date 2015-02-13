@@ -1,7 +1,5 @@
 package views;
 
-import java.awt.Container;
-
 import javax.swing.table.DefaultTableModel;
 
 	public class playerListView extends javax.swing.JPanel {
