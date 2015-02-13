@@ -69,9 +69,10 @@ public class gameView extends JFrame {
 		init();
 	}
 	
+	// Initialization Method 
 	public void init(){
 		
-		theClient = new clientController();
+		theClient = new clientController(this);
 
 		mainPanel = new JPanel();
 		scrollPane = new JScrollPane(mainPanel);
@@ -255,12 +256,14 @@ public class gameView extends JFrame {
 		System.exit(0);
 	}
 	
+	// Starts The Game
 	private void startGame(){
 		showGameButtons();
 		showBoard();
 		update();
 	}
 	
+	// Displays The Options Window
 	private void options(){
 		optionsMenu = new JFrame();
 		optionsMenu.setSize(600,600);

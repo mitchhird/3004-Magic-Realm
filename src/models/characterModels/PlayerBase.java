@@ -1,9 +1,11 @@
 package models.characterModels;
 
+import java.awt.Image;
 import java.util.LinkedList;
 import java.util.Queue;
 
 import models.BoardModels.Clearing;
+import models.characterModels.playerEnums.CharacterClass;
 import models.characterModels.playerEnums.Weights;
 import models.chitModels.Chit;
 import models.otherEntities.Denizen;
@@ -38,6 +40,7 @@ public class PlayerBase {
 	protected Weights weight;
 	protected Weights vulnerability;
 	protected Queue<String> commandList;
+	protected CharacterClass characterClass;
 	protected Clearing currentClearing;
 	
 	//controllable units might need might not
@@ -63,6 +66,7 @@ public class PlayerBase {
 		currentGold = 10;
 		hidden = false;
 		commandList = new LinkedList<>();
+		characterClass = CharacterClass.SWORDSMAN;
 	}
 	
 	// Starts The Player's Turn And Wipes Out There Player's Commands
@@ -76,6 +80,18 @@ public class PlayerBase {
 		int dieRoll = GameUtils.createRandomInt(1, 6);
 		hidden = (hidden) ? true : dieRoll < 6;
 		return hidden;
+	}
+	
+	// Attempts To Move The Player To The Designated Clearing
+	public boolean moveToClearing (Clearing newClearing) {
+		if (currentClearing.isVaildMove(newClearing)) {
+			currentClearing.playerMovedOff();
+			currentClearing = newClearing;
+			currentClearing.playerMovedToThis(this);
+			return true;
+		} else{
+			return false;
+		}
 	}
 	
 	/*-------------- Getters And Setters -------------- */
@@ -110,5 +126,9 @@ public class PlayerBase {
 
 	public void setCurrentClearing(Clearing currentClearing) {
 		this.currentClearing = currentClearing;
+	}
+	
+	public Image getImage() {
+		return characterClass.getReadyTile();
 	}
 }

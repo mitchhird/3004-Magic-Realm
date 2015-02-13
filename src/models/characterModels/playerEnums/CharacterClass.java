@@ -20,7 +20,7 @@ public enum CharacterClass {
    
    // Method That Will Return The Ready Tile For The Class
    public Image getReadyTile () {
-	   String baseDir = System.getenv("user.dir");
+	   String baseDir = System.getProperty("user.dir");
 		try {
 			switch (this) {
 			case AMAZON:
