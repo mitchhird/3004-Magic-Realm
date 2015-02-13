@@ -1,5 +1,9 @@
 package views;
 
+import java.awt.Container;
+
+import javax.swing.table.DefaultTableModel;
+
 	public class playerListView extends javax.swing.JPanel {
 
 		private static final long serialVersionUID = 1L;
@@ -23,10 +27,7 @@ package views;
 
 	        getjTable2().setModel(new javax.swing.table.DefaultTableModel(
 	            new Object [][] {
-	                {null, null, null},
-	                {null, null, null},
-	                {null, null, null},
-	                {null, null, null}
+
 	            },
 	            new String [] {
 	                "Class", "Player", "Status"
@@ -89,23 +90,14 @@ package views;
 		}
 		
 		public void addPlayer(String pName, String pClass){
-			for(int i = 0; i < getjTable2().getRowCount();i++){
-				if(getjTable2().getModel().getValueAt(i, 0)==null){
-					getjTable2().getModel().setValueAt(pClass, i, 0);
-					getjTable2().getModel().setValueAt(pName, i, 1);
-					getjTable2().getModel().setValueAt("Waiting", i, 2);
-					return;
-				}
-			}
+			((DefaultTableModel) getjTable2().getModel()).addRow(new Object[]{pClass,pName,"Waiting"});
 		}
 		
 		public void removePlayer(){
 			if(getjTable2().getSelectedRow()==-1){
 				return;
 			}
-			getjTable2().getModel().setValueAt(null, getjTable2().getSelectedRow(), 0);
-			getjTable2().getModel().setValueAt(null, getjTable2().getSelectedRow(), 1);
-			getjTable2().getModel().setValueAt(null, getjTable2().getSelectedRow(), 2);
+			((DefaultTableModel) getjTable2().getModel()).removeRow(getjTable2().getSelectedRow());
 		}
 
 		public javax.swing.JTable getjTable2() {
