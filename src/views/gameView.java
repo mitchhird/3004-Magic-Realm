@@ -20,7 +20,6 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
 import models.characterModels.playerEnums.CharacterClass;
 import controller.clientController;
 
