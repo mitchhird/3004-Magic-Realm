@@ -206,6 +206,13 @@ public class gameView extends JFrame {
         		}
         	}
         });
+        
+        thePlayerList.getStartGameButton().addActionListener(new ActionListener() {
+        	@Override
+			public void actionPerformed(ActionEvent arg0) {
+        		System.out.println("Start Game Pressed");
+			}
+		});
 	}
 
 	private void setPlayerInterface(int selectedRow) {

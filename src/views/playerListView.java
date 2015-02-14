@@ -4,6 +4,12 @@ import javax.swing.table.DefaultTableModel;
 
 	public class playerListView extends javax.swing.JPanel {
 
+		private javax.swing.JButton jButton1;
+	    private javax.swing.JButton jButton2;
+	    private javax.swing.JButton startGameButton;
+	    private javax.swing.JScrollPane jScrollPane3;
+	    private javax.swing.JTable jTable2;      
+	    
 		private static final long serialVersionUID = 1L;
 	    public playerListView() {
 	        initComponents();
@@ -13,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 	        setjButton1(new javax.swing.JButton());
 	        setjButton2(new javax.swing.JButton());
-	        jButton3 = new javax.swing.JButton();
+	        startGameButton = new javax.swing.JButton();
 	        jScrollPane3 = new javax.swing.JScrollPane();
 	        setjTable2(new javax.swing.JTable());
 
@@ -21,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
 
 	        getjButton2().setText("Remove Player");
 
-	        jButton3.setText("Start Game");
+	        startGameButton.setText("Start Game");
 	        getjTable2().setModel(new javax.swing.table.DefaultTableModel(
 	            new Object [][] {
 
@@ -55,7 +61,7 @@ import javax.swing.table.DefaultTableModel;
 	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
 	                    .addComponent(getjButton2(), javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 	                    .addComponent(getjButton1(), javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+	                    .addComponent(startGameButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 	                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 	                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE))
 	        );
@@ -66,7 +72,7 @@ import javax.swing.table.DefaultTableModel;
 	                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 	                .addComponent(getjButton2())
 	                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-	                .addComponent(jButton3)
+	                .addComponent(startGameButton)
 	                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 	            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
 	        );
@@ -83,11 +89,19 @@ import javax.swing.table.DefaultTableModel;
 		public javax.swing.JButton getjButton1() {
 			return jButton1;
 		}
-
+		
 		public void setjButton1(javax.swing.JButton jButton1) {
 			this.jButton1 = jButton1;
 		}
 		
+		public javax.swing.JButton getStartGameButton() {
+			return startGameButton;
+		}
+
+		public void setStartGameButton(javax.swing.JButton startGameButton) {
+			this.startGameButton = startGameButton;
+		}
+
 		public void addPlayer(String pName, String pClass){
 			((DefaultTableModel) getjTable2().getModel()).addRow(new Object[]{pClass,pName,"Waiting"});
 		}
@@ -105,11 +119,5 @@ import javax.swing.table.DefaultTableModel;
 
 		public void setjTable2(javax.swing.JTable jTable2) {
 			this.jTable2 = jTable2;
-		}
-
-		private javax.swing.JButton jButton1;
-	    private javax.swing.JButton jButton2;
-	    private javax.swing.JButton jButton3;
-	    private javax.swing.JScrollPane jScrollPane3;
-	    private javax.swing.JTable jTable2;               
+		}         
 	}
