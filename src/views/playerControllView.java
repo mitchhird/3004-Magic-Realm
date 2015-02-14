@@ -149,7 +149,7 @@ public class playerControllView extends javax.swing.JPanel {
 
         jButton2.setText("Send Turn");
 
-        jButton3.setText("Cancel Move");
+        jButton3.setText("Cancel Action");
 
         jButton4.setText("Hide");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
