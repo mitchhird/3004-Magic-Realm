@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 import models.characterModels.playerEnums.CharacterClass;
 import controller.clientController;
 
@@ -50,6 +51,10 @@ public class gameView extends FrameBase {
 
 	private playerListView thePlayerList;
 	private playerControllView thePlayerButtons;
+
+	private cardView theCard;
+
+	private JFrame cardViewer;
 
 	public static void main(String args[]){
 		new gameView();
@@ -195,12 +200,30 @@ public class gameView extends FrameBase {
         	}
         });
         
+        thePlayerButtons.getjButton1().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showCard();
+            }
+        });
+        
         thePlayerList.getStartGameButton().addActionListener(new ActionListener() {
         	@Override
 			public void actionPerformed(ActionEvent arg0) {
         		System.out.println("Start Game Pressed");
 			}
 		});
+	}
+
+	private void showCard() {
+		if(thePlayerList.getjTable2().getSelectedRow() == -1){
+			return;
+		}
+		cardViewer = new JFrame();
+		cardViewer.setSize(760,630);
+		cardViewer.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
+		cardViewer.setVisible(true);
+		theCard = new cardView((String) thePlayerList.getjTable2().getValueAt(thePlayerList.getjTable2().getSelectedRow(), 0));
+		cardViewer.add(theCard);
 	}
 
 	private void setPlayerInterface(int selectedRow) {

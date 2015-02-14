@@ -46,7 +46,7 @@ public class playerControllView extends javax.swing.JPanel {
                   
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        setjButton1(new javax.swing.JButton());
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -82,7 +82,7 @@ public class playerControllView extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         setjLabel20(new javax.swing.JLabel());
 
-        jButton1.setText("Show Card");
+        getjButton1().setText("Show Card");
 
         jLabel2.setText("Player:");
 
@@ -217,7 +217,7 @@ public class playerControllView extends javax.swing.JPanel {
                             .addComponent(getjLabel8())
                             .addComponent(getjLabel20()))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(getjButton1())))
                 .addContainerGap())
             .addComponent(jScrollPane2)
             .addGroup(layout.createSequentialGroup()
@@ -241,7 +241,7 @@ public class playerControllView extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                    .addComponent(getjButton1())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
@@ -328,5 +328,13 @@ public class playerControllView extends javax.swing.JPanel {
 
 	public void setjLabel9(javax.swing.JLabel jLabel9) {
 		this.jLabel9 = jLabel9;
+	}
+
+	public javax.swing.JButton getjButton1() {
+		return jButton1;
+	}
+
+	public void setjButton1(javax.swing.JButton jButton1) {
+		this.jButton1 = jButton1;
 	}                  
 }
