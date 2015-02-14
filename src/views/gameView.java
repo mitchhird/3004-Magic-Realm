@@ -26,9 +26,10 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import models.characterModels.playerEnums.CharacterClass;
 import controller.clientController;
 
-public class gameView extends JFrame {
+public class gameView extends FrameBase {
 
 	private static final long serialVersionUID = 1789113344181363284L;
 
@@ -58,10 +59,9 @@ public class gameView extends JFrame {
 	private JComboBox classSelecter;
 	private JTextField nameField;
 
-	private playerControllView thePlayerButtons;
-
 	private playerListView thePlayerList;
-
+	private playerControllView thePlayerButtons;
+	private AddPlayerView addPlayerWindow;
 
 	public static void main(String args[]){
 		new gameView();
@@ -74,7 +74,7 @@ public class gameView extends JFrame {
 	// Initialization Method 
 	public void init(){
 		
-		theClient = new clientController();
+		theClient = new clientController(this);
 
 		mainPanel = new JPanel();
 		scrollPane = new JScrollPane(mainPanel);
@@ -225,10 +225,9 @@ public class gameView extends JFrame {
 			return;
 		}
 		String playerToRemoveName = (String) thePlayerList.getjTable2().getModel().getValueAt(thePlayerList.getjTable2().getSelectedRow(),1);
-		String playerToRemoveClass = (String) thePlayerList.getjTable2().getModel().getValueAt(thePlayerList.getjTable2().getSelectedRow(),0);
 
 		thePlayerList.removePlayer();
-		theClient.removePlayer(playerToRemoveName, playerToRemoveClass);
+		theClient.removePlayer(playerToRemoveName);
 	}
 
 	private void showBoard(){
@@ -240,52 +239,13 @@ public class gameView extends JFrame {
 		theBoardScroller.setPreferredSize(new Dimension(((int)tk.getScreenSize().getWidth()/2), ((int)tk.getScreenSize().getHeight()/2)));
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void addPlayerMenu(){
-		
-		GridBagLayout gameMenuLayout = new GridBagLayout();
-		newPlayerMenu = new JFrame();
-		newPlayerMenu.setSize(300,200);
-		newPlayerMenu.setLocation(((int)tk.getScreenSize().getWidth()/2) - 150, ((int)tk.getScreenSize().getHeight()/2) - 75);
-		newPlayerMenu.setVisible(true);
-		newPlayerMenu.setLayout(gameMenuLayout);
-		
-		JLabel nameLabel = new JLabel("Enter Player Name:");
-		nameField = new JTextField();
-		
-		JLabel chooseLabel = new JLabel("Choose Your Class:");
-		classSelecter = new JComboBox();
-		classSelecter.setModel( new DefaultComboBoxModel(new String[] {"Amazon","Black Knight","Captain","Dwarf","Elf","Swordsman"}));
-		
-		JButton startButton = new JButton("OK");
-		JButton cancelButton = new JButton("Cancel");
-		
-		// Add Everything To The Frame
-		addToFrame(newPlayerMenu, nameLabel, gameMenuLayout, 0, 0, 1, 1);
-		addToFrame(newPlayerMenu, nameField, gameMenuLayout, 1, 0, 1, 1);
-		addToFrame(newPlayerMenu, chooseLabel, gameMenuLayout, 0, 1, 1, 1);
-		addToFrame(newPlayerMenu, classSelecter, gameMenuLayout, 1, 1, 1, 1);
-		addToFrame(newPlayerMenu, startButton, gameMenuLayout, 0, 2, 1, 1);
-		addToFrame(newPlayerMenu, cancelButton, gameMenuLayout, 1, 2, 1, 1);
-		
-        cancelButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	newPlayerMenu.dispose();
-            }
-        });		
-        
-        startButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                addPlayer();
-                newPlayerMenu.dispose();
-            }
-        });
+		new AddPlayerView(this);
 	}
 	
-	
-	private void addPlayer(){
-		theClient.addPlayer((String) classSelecter.getSelectedItem(), nameField.getText());
-		thePlayerList.addPlayer(nameField.getText(), (String) classSelecter.getSelectedItem());
+	public void addPlayer(String playerName, CharacterClass playerClass){
+		theClient.addPlayer(playerClass, playerName);
+		thePlayerList.addPlayer(playerName, playerClass.name());
 		setPlayerInterface(thePlayerList.getjTable2().getRowCount()-1);
 	}
 	
@@ -328,19 +288,4 @@ public class gameView extends JFrame {
 		layout.setConstraints(theComponent, layoutConstraints);
 		mainPanel.add(theComponent);
 	}
-		
-	private void addToFrame (JFrame connectToFrame, JComponent theComponent, GridBagLayout layout, int x, int y, int gridWidth, int gridHeight){
-		layoutConstraints.gridx = x;
-		layoutConstraints.gridy = y;
-		layoutConstraints.gridwidth = gridWidth;
-		layoutConstraints.gridheight = gridHeight;
-		layoutConstraints.fill = GridBagConstraints.BOTH;
-		layoutConstraints.insets = new Insets(10, 5, 10, 5);
-		layoutConstraints.anchor = GridBagConstraints.NORTHWEST;
-		layoutConstraints.weightx = 1.0;
-		layoutConstraints.weighty = 1.0;
-		layout.setConstraints(theComponent, layoutConstraints);
-		connectToFrame.add(theComponent);
-	}
-		
 }

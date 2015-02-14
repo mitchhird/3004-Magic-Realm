@@ -95,8 +95,8 @@ public class PlayerBase {
 	}
 	
 	/*-------------- Getters And Setters -------------- */
-	public void setClass(String newPlayerClass) {
-		playerClass = newPlayerClass;
+	public void setClass(CharacterClass newPlayerClass) {
+		characterClass = newPlayerClass;
 	}
 	
 	public void setName(String newPlayerName){
@@ -108,8 +108,8 @@ public class PlayerBase {
 		currentGold = Math.max(amount, 0);
 	}
 	
-	public String getPlayerClass(){
-		return playerClass;
+	public CharacterClass getPlayerClass(){
+		return characterClass;
 	}
 	
 	public Weights getVulnerability(){
