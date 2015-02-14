@@ -7,13 +7,17 @@ import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import models.characterModels.playerEnums.CharacterClass;
 
 public class AddPlayerView extends FrameBase {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1991225057723904889L;
 
 	public gameView parent;
 	

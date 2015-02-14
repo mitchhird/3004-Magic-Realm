@@ -10,18 +10,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -42,7 +37,6 @@ public class gameView extends FrameBase {
 	private JFrame hostMenu;
 	private JFrame joinMenu;
 	private JFrame optionsMenu;
-	private JFrame newPlayerMenu;
 	private JFrame infoMenu;
 
 	private JScrollPane scrollPane;
@@ -54,14 +48,9 @@ public class gameView extends FrameBase {
 	private GridBagConstraints layoutConstraints = new GridBagConstraints();
 
 	private JScrollPane theBoardScroller;
-	
-	@SuppressWarnings("rawtypes")
-	private JComboBox classSelecter;
-	private JTextField nameField;
 
 	private playerListView thePlayerList;
 	private playerControllView thePlayerButtons;
-	private AddPlayerView addPlayerWindow;
 
 	public static void main(String args[]){
 		new gameView();

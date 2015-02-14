@@ -9,6 +9,10 @@ import javax.swing.JFrame;
 
 public class FrameBase extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -331601846460123149L;
 	protected GridBagLayout layout = new GridBagLayout();
 	protected GridBagConstraints layoutConstraints = new GridBagConstraints(); 
 		
