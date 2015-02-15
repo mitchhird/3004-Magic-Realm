@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
+import models.characterModels.playerEnums.CharacterClass;
 
 public class boardView extends JPanel {
 
@@ -140,13 +141,11 @@ public class boardView extends JPanel {
 	private Clearing lwoods4 = new Clearing();
 	private Clearing lwoods5 = new Clearing();
 
-	private PlayerBase test;
+	private gameView parent;
 	
-	public boardView(){
+	public boardView(gameView parent){
 		init();
-		test = new PlayerBase();
-		test.setCurrentClearing(cliff4);
-		cliff4.playerMovedToThis(test);
+		this.parent = parent;
 	}
 	
 	private void init(){
@@ -285,501 +284,9 @@ public class boardView extends JPanel {
 
 	// Adds All Of The Clearing Listeners
 	private void addClearingListeners() {
-		cliff1.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("cliff1");
-            }
-        });	
-		cliff2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("cliff2");
-            }
-        });	
-		cliff3.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("cliff3");
-            }
-        });	
-		cliff4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("cliff4");
-            }
-        });	
-		cliff5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("cliff5");
-            }
-        });	
-		cliff6.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("cliff6");
-            	test.moveToClearing(cliff6);
-            }
-        });	
-		
-		evalley1.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("evalley1");
-            }
-        });
-		evalley2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("evalley2");
-            }
-        });	
-		evalley4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("evalley4");
-            }
-        });	
-		evalley5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("evalley5");
-            }
-        });	
-		
-		hpass1.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("hpass1");
-            }
-        });	
-		hpass2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("hpass2");
-            }
-        });	
-		hpass3.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("hpass3");
-            }
-        });	
-		hpass4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("hpass4");
-            }
-        });	
-		hpass5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("hpass5");
-            }
-        });	
-		hpass6.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("hpass6");
-            }
-        });	
-		
-		ledges1.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("ledges1");
-            }
-        });	
-		ledges2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("ledges2");
-            }
-        });	
-		ledges3.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("ledges3");
-            }
-        });	
-		ledges4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("ledges4");
-            }
-        });	
-		ledges5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("ledges5");
-            }
-        });	
-		ledges6.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("ledges6");
-            }
-        });	
-		
-		bland1.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("bland1");
-            }
-        });	
-		bland2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("bland2");
-            }
-        });	
-		bland3.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("bland3");
-            }
-        });	
-		bland4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("bland4");
-            }
-        });	
-		bland5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("bland5");
-            }
-        });	
-		bland6.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("bland6");
-            }
-        });	
-		
-		cavern1.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("cavern1");
-            }
-        });	
-		cavern2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("cavern2");
-            }
-        });	
-		cavern3.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("cavern3");
-            }
-        });
-		cavern4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("cavern4");
-            }
-        });	
-		cavern5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("cavern5");
-            }
-        });	
-		cavern6.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("cavern6");
-            }
-        });	
-		
-		crag1.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("crag1");
-            }
-        });	
-		crag2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("crag2");
-            }
-        });	
-		crag3.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("crag3");
-            }
-        });	
-		crag4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("crag4");
-            }
-        });	
-		crag5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("crag5");
-            }
-        });	
-		crag6.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("crag6");
-            }
-        });	
-		
-		owoods2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("owoods2");
-            }
-        });	
-		owoods4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("owoods4");
-            }
-        });	
-		owoods5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("owoods5");
-            }
-        });	
-		
-		bvalley1.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("bvalley1");
-            }
-        });	
-		bvalley2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("bvalley2");
-            }
-        });	
-		bvalley4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("bvalley4");
-            }
-        });	
-		bvalley5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("bvalley5");
-            }
-        });	
-		
-		mountain1.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("mountain1");
-            }
-        });	
-		mountain2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("mountain2");
-            }
-        });	
-		mountain3.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("mountain3");
-            }
-        });	
-		mountain4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("mountain4");
-            }
-        });	
-		mountain5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("mountain5");
-            }
-        });	
-		mountain6.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("mountain6");
-            }
-        });	
-		
-		dvalley1.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("dvalley1");
-            }
-        });	
-		dvalley2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("dvalley2");
-            }
-        });	
-		dvalley4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("dvalley4");
-            }
-        });	
-		dvalley5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("dvalley5");
-            }
-        });	
-		
-		dwoods1.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("dwoods1");
-            }
-        });	
-		dwoods2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("dwoods2");
-            }
-        });	
-		dwoods3.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("dwoods3");
-            }
-        });	
-		dwoods4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("dwoods4");
-            }
-        });	
-		dwoods5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("dwoods5");
-            }
-        });	
-		dwoods6.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("dwoods6");
-            }
-        });	
-		
-		mwoods2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("mwoods2");
-            }
-        });	
-		mwoods4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("mwoods4");
-            }
-        });	
-		mwoods5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("mwoods5");
-            }
-        });	
-		
-		caves1.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("caves1");
-            }
-        });	
-		caves2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("caves2");
-            }
-        });	
-		caves3.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("caves3");
-            }
-        });	
-		caves4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("caves4");
-            }
-        });	
-		caves5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("caves5");
-            }
-        });	
-		caves6.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("caves6");
-            }
-        });	
-		
-		pwoods2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("pwoods2");
-            }
-        });	
-		pwoods4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("pwoods4");
-            }
-        });	
-		pwoods5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("pwoods5");
-            }
-        });	
-		
-		cvalley1.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("cvalley1");
-            }
-        });	
-		cvalley2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("cvalley2");
-            }
-        });	
-		cvalley4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("cvalley4");
-            }
-        });	
-		cvalley5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("cvalley5");
-            }
-        });	
-		
-		nwoods2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("nwoods2");
-            }
-        });	
-		nwoods4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("nwoods4");
-            }
-        });	
-		nwoods5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("nwoods5");
-            }
-        });	
-		
-		ruins1.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("ruins1");
-            }
-        });	
-		ruins2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("ruins2");
-            }
-        });	
-		ruins3.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("ruins3");
-            }
-        });	
-		ruins4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("ruins4");
-            }
-        });	
-		ruins5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("ruins5");
-            }
-        });	
-		ruins6.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("ruins6");
-            }
-        });	
-		
-		avalley1.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("avalley1");
-            }
-        });	
-		avalley2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("avalley2");
-            }
-        });	
-		avalley4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("avalley4");
-            }
-        });	
-		avalley5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("avalley5");
-            }
-        });	
-		
-		lwoods2.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("lwoods2");
-            }
-        });	
-		lwoods4.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("lwoods4");
-            }
-        });	
-		lwoods5.getButtonTiedToClearing().addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            	selectLocation("lwoods5");
-            }
-        });
+		for (Clearing c: theButtons) {
+			addListener(c);
+		}
 	}
 
 	private void initClearings() {
@@ -1013,8 +520,15 @@ public class boardView extends JPanel {
 		lwoods5.addConnectedClearing(avalley2);
 	}
 	
-	private void selectLocation(String theLocation){
-		System.out.println(theLocation + " selected");
+	private void addListener (final Clearing c) {
+		c.getButtonTiedToClearing().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	if (parent.getCurrentPlayer().isMoving() && parent.getCurrentPlayer().getCurrentClearing().isVaildMove(c)){
+            		parent.getCurrentPlayer().moveToClearing(c);
+            		c.highlightForMove();
+            	}
+            }
+        });
 	}
 	
 	@Override
@@ -1022,5 +536,17 @@ public class boardView extends JPanel {
 	{
 	    super.paintComponent(page);
 	    page.drawImage(img, 0, 0, this);
+	}
+	
+	public Clearing getDefaultClearingForClass (CharacterClass c) {
+		switch (c) {
+		case SWORDSMAN: return lwoods2;
+		case AMAZON: return cavern1;
+		case BLACKNIGHT: return cvalley5;
+		case CAPTAIN: return bvalley5;
+		case DWARF: return mwoods2;
+		case ELF: return nwoods5;
+		default: return avalley2;
+		}
 	}
 }

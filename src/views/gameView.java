@@ -21,6 +21,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
 import controller.clientController;
 
@@ -176,7 +177,7 @@ public class gameView extends FrameBase {
 		thePlayerList = new playerListView();
 		addToGrid(thePlayerList, 0, 0, 1, 1);
 		
-		thePlayerButtons = new playerControllView();
+		thePlayerButtons = new playerControllView(this);
 		addToGrid(thePlayerButtons, 0, 1, 1, 2);
 		
         thePlayerList.getjButton1().addActionListener(new java.awt.event.ActionListener() {
@@ -209,6 +210,8 @@ public class gameView extends FrameBase {
         thePlayerList.getStartGameButton().addActionListener(new ActionListener() {
         	@Override
 			public void actionPerformed(ActionEvent arg0) {
+        		theClient.startGame();
+        		String currentPlayerName = theClient.getCurrentPlayer().getName();
         		System.out.println("Start Game Pressed");
 			}
 		});
@@ -242,10 +245,11 @@ public class gameView extends FrameBase {
 	}
 
 	private void showBoard(){
-		theBoard = new boardView();
+		theBoard = new boardView(this);
 		theBoardScroller = new JScrollPane(theBoard);
 		theBoardScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		theBoardScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		theBoardScroller.getVerticalScrollBar().setUnitIncrement(20);
 		addToGrid(theBoardScroller, 1, 0, 4, 4);
 		theBoardScroller.setPreferredSize(new Dimension(((int)tk.getScreenSize().getWidth()/2), ((int)tk.getScreenSize().getHeight()/2)));
 	}
@@ -281,11 +285,23 @@ public class gameView extends FrameBase {
 		optionsMenu.setVisible(true);
 	}
 	
+	public boardView getBoardView () {
+		return theBoard;
+	}
+	
+	public PlayerBase getCurrentPlayer () {
+		return theClient.getCurrentPlayer();
+	}
+	
+	public clientController getGameController () {
+		return theClient;
+	}
+	
 	// Sets The Grid Location Based On The Paramenters Given
 	private void addToGrid(JComponent theComponent, int x, int y, int gridWidth, int gridHeight) {
 		addToGrid(mainPanel, theComponent, x, y, gridWidth, gridHeight);
 	}
-		
+	
 	private void addToGrid(JPanel connectToFrame, JComponent theComponent, int x, int y, int gridWidth, int gridHeight) {
 		layoutConstraints.gridx = x;
 		layoutConstraints.gridy = y;

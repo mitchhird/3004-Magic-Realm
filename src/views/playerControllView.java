@@ -1,16 +1,21 @@
 package views;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import models.characterModels.PlayerBase;
+
 public class playerControllView extends javax.swing.JPanel {
 
 	// Variables declaration - do not modify                     
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton sendTurnButton;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
+    private javax.swing.JButton hideButton;
+    private javax.swing.JButton moveButton;
+    private javax.swing.JButton searchButton;
+    private javax.swing.JButton restButton;
+    private javax.swing.JButton tradeButton;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -40,8 +45,11 @@ public class playerControllView extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
 	private static final long serialVersionUID = 1336340316590856087L;
     
-    public playerControllView() {
+	private gameView parent;
+	
+    public playerControllView(gameView parentView) {
         initComponents();
+        parent = parentView;
     }
                   
     private void initComponents() {
@@ -72,13 +80,13 @@ public class playerControllView extends javax.swing.JPanel {
         jTabbedPane4 = new javax.swing.JTabbedPane();
         jTabbedPane5 = new javax.swing.JTabbedPane();
         jTabbedPane6 = new javax.swing.JTabbedPane();
-        jButton2 = new javax.swing.JButton();
+        sendTurnButton = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        hideButton = new javax.swing.JButton();
+        moveButton = new javax.swing.JButton();
+        searchButton = new javax.swing.JButton();
+        restButton = new javax.swing.JButton();
+        tradeButton = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         setjLabel20(new javax.swing.JLabel());
 
@@ -147,29 +155,53 @@ public class playerControllView extends javax.swing.JPanel {
 
         jScrollPane2.setViewportView(jTabbedPane1);
 
-        jButton2.setText("Send Turn");
-
+        sendTurnButton.setText("Send Turn");
+        sendTurnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                handleSendTurn();
+            }
+        });
+        
         jButton3.setText("Cancel Action");
 
-        jButton4.setText("Hide");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        hideButton.setText("Hide");
+        hideButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                handleHideButton(evt);
             }
         });
 
-        jButton5.setText("Move");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        moveButton.setText("Move");
+        moveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                handleMoveButtonPress(evt);
             }
         });
 
-        jButton6.setText("Search");
+        searchButton.setText("Search");
+        searchButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				 System.out.println("Search Button Has Been Pressed");
+			}
+		});
 
-        jButton7.setText("Rest");
+        restButton.setText("Rest");
+        restButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				 System.out.println("Rest Button Has Been Pressed");
+			}
+		});
 
-        jButton8.setText("Trade");
+        tradeButton.setText("Trade");
+        tradeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				 System.out.println("Rest Button Has Been Pressed");
+			}
+		});
+        
 
         jLabel7.setText("Class:");
 
@@ -221,19 +253,19 @@ public class playerControllView extends javax.swing.JPanel {
                 .addContainerGap())
             .addComponent(jScrollPane2)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton2)
+                .addComponent(sendTurnButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(hideButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
+                .addComponent(moveButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6)
+                .addComponent(searchButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton7)
+                .addComponent(restButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton8)
+                .addComponent(tradeButton)
                 .addGap(0, 26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -282,27 +314,37 @@ public class playerControllView extends javax.swing.JPanel {
                                     .addComponent(jLabel18))))))
                 .addGap(121, 121, 121)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                    .addComponent(sendTurnButton)
                     .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6)
-                    .addComponent(jButton7)
-                    .addComponent(jButton8))
+                    .addComponent(hideButton)
+                    .addComponent(moveButton)
+                    .addComponent(searchButton)
+                    .addComponent(restButton)
+                    .addComponent(tradeButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
-    }// </editor-fold>                        
+    }                     
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+    private void handleHideButton(java.awt.event.ActionEvent evt) {                                         
+    	System.out.println("Hide Button Has Been Pressed");
+    	parent.getCurrentPlayer().getCurrentClearing().resetConnectedClearings();
+    	parent.getCurrentPlayer().attemptHide();
     }                                        
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+    private void handleMoveButtonPress(java.awt.event.ActionEvent evt) {                                         
+    	System.out.println("Move Has Been Pressed");
+    	PlayerBase currentPlayer = parent.getCurrentPlayer();
+    	currentPlayer.getCurrentClearing().highlightForMove();
+    	currentPlayer.setMoving(true);
     }                                        
 
+    private void handleSendTurn () {
+    	System.out.println("Send Turn Has Been Pressed");
+    	parent.getCurrentPlayer().getCurrentClearing().resetConnectedClearings();
+    	parent.getGameController().moveToNextPlayer();
+    }
 
     public javax.swing.JLabel getjLabel20() {
 		return jLabel20;
