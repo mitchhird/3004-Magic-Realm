@@ -28,6 +28,11 @@ public class PlayerBase {
 	protected int currentFame;
 	protected int currentNotirity;
 	protected int currentGold;
+	
+	//weapons/armor/horses/treasure cards
+	//reading runes at treasure sites
+	//magical artifacts/spell books
+	//fighting and killing monsters, natives, or characters
 	protected int vicotryPoints;
 	protected int winVictoryPoints;
 	
@@ -69,6 +74,8 @@ public class PlayerBase {
 		setClass(c);
 	}
 	
+	
+	//sould have a starting location on a dwelling
 	// Initialize The Player Stats
 	protected void initPlayerStats () {
 		currentFame = 0;
