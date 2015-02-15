@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import utils.GameUtils;
 import models.characterModels.PlayerBase;
 
 /*
@@ -43,15 +44,31 @@ public class Clearing {
 		buttonTiedToClearing.repaint();
 	}
 	
-	public void playerMovedOff () {
+	// Moves The Player Off 
+	public void resetClearing () {
 		blocked = false;
 		buttonTiedToClearing.setIcon(new ImageIcon());
 		buttonTiedToClearing.repaint();
+	}
+	
+	public void resetConnectedClearings() {
+		for (Clearing c: connectedClearings) {
+			c.resetClearing();
+		}
 	}
 
 	// Checks Player Movement Against The Adjancent Tiles
 	public boolean isVaildMove (Clearing c) {
 		return connectedClearings.contains(c);
+	}
+	
+	/// Highlight Move
+	public void highlightForMove () {
+		for (Clearing c: connectedClearings) {
+			JButton clearingButton = c.getButtonTiedToClearing();
+			clearingButton.setIcon(new ImageIcon(GameUtils.getValidClearingImg(clearingButton)));
+			clearingButton.repaint();
+		}
 	}
 	
 	/* ------------------- Getters And Setters Below Here -------------------*/

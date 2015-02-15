@@ -4,6 +4,9 @@ import java.awt.Image;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
 import models.BoardModels.Clearing;
 import models.characterModels.playerEnums.CharacterClass;
 import models.characterModels.playerEnums.Weights;
@@ -53,10 +56,17 @@ public class PlayerBase {
 	
 	// Boolean Flags
 	protected boolean hidden;
+	protected boolean moving;
 	
 	// Default Constructor
 	public PlayerBase () {
 		initPlayerStats();
+	}
+	
+	public PlayerBase (String playerName, CharacterClass c) {
+		initPlayerStats();
+		setName(playerName);
+		setClass(c);
 	}
 	
 	// Initialize The Player Stats
@@ -79,18 +89,41 @@ public class PlayerBase {
 	public boolean attemptHide () {
 		int dieRoll = GameUtils.createRandomInt(1, 6);
 		hidden = (hidden) ? true : dieRoll < 6;
+		
+		// If The Player Hid Then Simply Refresh The Player's Image
+		if (hidden) {
+			JButton clearingButton = currentClearing.getButtonTiedToClearing();
+			Image playerIcon = getImage().getScaledInstance(clearingButton.getWidth(), clearingButton.getHeight(), Image.SCALE_SMOOTH);
+			currentClearing.getButtonTiedToClearing().setIcon(new ImageIcon (playerIcon));
+			clearingButton.repaint();
+		}
+		
 		return hidden;
 	}
 	
 	// Attempts To Move The Player To The Designated Clearing
 	public boolean moveToClearing (Clearing newClearing) {
 		if (currentClearing.isVaildMove(newClearing)) {
-			currentClearing.playerMovedOff();
+			clearConnectedClearings();
+			currentClearing.resetClearing();
 			currentClearing = newClearing;
 			currentClearing.playerMovedToThis(this);
 			return true;
 		} else{
 			return false;
+		}
+	}
+	
+	// Resets The Players Values When Called
+	public void reset() {
+		hidden = false;
+		moving = false;
+		clearConnectedClearings();
+	}
+
+	private void clearConnectedClearings() {
+		for (Clearing c: currentClearing.getConnectedClearings()) {
+			c.resetClearing();
 		}
 	}
 	
@@ -119,6 +152,14 @@ public class PlayerBase {
 	public void setVulnerability(Weights vul){
 		this.vulnerability = vul;
 	}
+	
+	public boolean isMoving() {
+		return moving;
+	}
+
+	public void setMoving(boolean moving) {
+		this.moving = moving;
+	}
 
 	public Clearing getCurrentClearing() {
 		return currentClearing;
@@ -129,7 +170,7 @@ public class PlayerBase {
 	}
 	
 	public Image getImage() {
-		return characterClass.getReadyTile();
+		return (hidden) ? characterClass.getHiddenTile() :characterClass.getReadyTile();
 	}
 	
 	public String getName(){
