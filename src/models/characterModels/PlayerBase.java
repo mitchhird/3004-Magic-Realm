@@ -33,6 +33,9 @@ public class PlayerBase {
 	//reading runes at treasure sites
 	//magical artifacts/spell books
 	//fighting and killing monsters, natives, or characters
+	//winner of the game is the one with most points above the amount to win
+	//i.e. some one that needs 20 and gets 21 will lose to someone that
+	//    need 15 and gets 17
 	protected int vicotryPoints;
 	protected int winVictoryPoints;
 	
@@ -133,6 +136,10 @@ public class PlayerBase {
 			c.resetClearing();
 		}
 	}
+	
+	//*********
+	//if a player dies will start over again at the in as the same or different
+	//character but will be forfeiring all his possessions/fame/notoriety/gold/discoveries
 	
 	/*-------------- Getters And Setters -------------- */
 	public void setClass(CharacterClass newPlayerClass) {
