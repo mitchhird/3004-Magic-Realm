@@ -36,8 +36,31 @@ public class Chit {
 	 * 
 	 * weather
 	 * 
-	 * visitor
+	 * visitor(pg 9)
+	 * 
+	 * natives(pg 9)
 	 * 
 	 * number
+	 * 
+	 * weapon
+	 * 
+	 * armor
+	 * -helmets
+	 * -breastplates
+	 * -Shields
+	 * -suits of armor
+	 * 
+	 * treasure(some treasures CAN be weapons/armor/some horses can be pg 13)
+	 * -lots of different treasures will have to look at table
+	 *   to see what is relevant
+	 * 
+	 * ***horses(has a walking and running(*))
+	 * 
+	 * 
 	 */
+	
+	//all armor/weapon/treasure/horse chits
+	//also need an active property
+	//this allows for immediately or not (active == true)
+	//riding horse = active
 }

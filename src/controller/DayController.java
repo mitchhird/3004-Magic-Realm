@@ -1,6 +1,8 @@
 package controller;
 
 public class DayController {
+	//for the actual controls of a game that loops for the days
+	
 	/*
 	 * end of the day the tile that the character is on will
 	 * reveal chits from their pile
@@ -26,5 +28,7 @@ public class DayController {
 	 * monsters and natives can be hired and are considered denizen
 	 * 
 	 * some native groups (garrison natives) are the order/Guard/Soldiers/Rogues
+	 * 
+	 * native horses can not be used by anyone other then the native
 	 */
 }

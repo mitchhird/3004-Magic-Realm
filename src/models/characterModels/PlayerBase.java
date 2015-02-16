@@ -48,6 +48,7 @@ public class PlayerBase {
 	protected Chit[] armorChit;
 	protected Chit[] combatChit;
 	protected Chit[] weaponChit;
+	protected Chit horse;
 	protected Weights weight;
 	protected Weights vulnerability;
 	protected Queue<String> commandList;
