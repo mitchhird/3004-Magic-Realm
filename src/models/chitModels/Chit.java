@@ -1,6 +1,42 @@
 package models.chitModels;
 
+import models.characterModels.playerEnums.Attacks;
+import models.characterModels.playerEnums.Weights;
+
 public class Chit {
+
+	public Weights getHarmLevel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int getStars() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public boolean hasMissles() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void setAlert(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setStars(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Attacks getAttack() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	
 	//need to have a group of these for every tile(might be for only clearnings)
 	//these can contain treasure sites/sounds/ warning of monsters that may arrive
 	//can also contain runes for learning new spells

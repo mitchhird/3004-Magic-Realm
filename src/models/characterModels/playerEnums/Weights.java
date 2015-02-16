@@ -7,5 +7,10 @@ public enum Weights {
 	LIGHT,
 	MEDIUM,
 	HEAVY,
-	TREMENDOUS
+	TREMENDOUS;
+	
+	public Weights next() {
+		return values()[ordinal() +1];
+	}
+
 }

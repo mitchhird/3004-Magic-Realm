@@ -140,15 +140,16 @@ public class CombatPvP {
 	 * 2 if horse dies
 	 * 3 if defender dies */
 	private int attackHits(PlayerBase attacker, PlayerBase defender) {
-		int harm;
+		Weights harm;
 		//TODO CHIT THINGS - Albert
 		harm = attacker.getWeapon().getHarmLevel();
 		
 		if (attacker.getWeapon().getStars() > 0) {
-			if (attack intercepts armor){
+			if (defender.armorBlocks(attacker.getWeapon().getAttack())){//have to see what these conditions are
 				attacker.getWeapon().setStars(attacker.getWeapon().getStars() - 1);
 			}
-			harm += attacker.getWeapon().getStars();
+			for(int i =0; i < attacker.getWeapon().getStars(); ++i)
+				harm = harm.next();
 		}
 		
 		if (attacker.getWeapon().hasMissles()){
@@ -156,7 +157,7 @@ public class CombatPvP {
 		}
 		
 		if (attacker.getStrength() > defender.getStrength()){
-			++harm;
+			harm = harm.next();
 		}
 		
 		//out till add horses
@@ -165,27 +166,28 @@ public class CombatPvP {
 				return 2;
 			}
 		} else */ 
-		if(Attacker = character){
-			if(defender.check armor hit){
-				defender.checkAromor(Harm);
-				if (harm >= Weights.MEDIUM){
+		if(true){//will have to change this to check if the defender is a character when denizens
+			//are added
+			if(defender.checkArmor(harm)){
+				defender.checkIfDamaged(harm);
+				if (harm == Weights.MEDIUM || harm == Weights.HEAVY ||
+						harm == Weights.TREMENDOUS){
 					return 1;
 				}
 			} else {
-				if (harm >= defender.getVulnerability()){
-					defender.isDead();
+				if (defender.getVulnerability().compareTo(harm) >= 0){
 					return 3;
 				}
-				if (harm > Weights.NEGLIGABLE){
+				if (!(harm == Weights.NEGLIGABLE)){
 					return 1;
 				}
 				attacker.getWeapon().setAlert(false);
 			}
-		} else {
-			if(harm > defender.getVulnerability()){
+		} /*else {
+			if(defender.getVulnerability().compareTo(harm) >= 0){
 				return 3;
 			}
-		}
+		}  add this when the denizens are added*/
 		
 		return 0;
 	}

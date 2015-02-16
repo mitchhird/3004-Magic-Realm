@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import models.BoardModels.Clearing;
+import models.characterModels.playerEnums.Attacks;
 import models.characterModels.playerEnums.CharacterClass;
 import models.characterModels.playerEnums.Weights;
 import models.chitModels.Chit;
@@ -202,5 +203,39 @@ public class PlayerBase {
 
 	public int getCurrentGold() {
 		return currentGold;
+	}
+
+	public Chit getWeapon() {
+		return null;
+	}
+
+	public int getStrength() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public boolean checkArmor(Weights harm) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public void checkIfDamaged(Weights harm) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void isDead() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean armorBlocks(Attacks attack) {
+		// TODO Auto-generated method stub
+		//should loop through what can be blocked in the attack types
+		//if blockable attack then return true
+		if(false){
+			return true;
+		}
+		return true;
 	}
 }
