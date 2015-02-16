@@ -10,15 +10,15 @@ public class playerControllView extends javax.swing.JPanel {
 	// Variables declaration - do not modify                     
     private javax.swing.JButton jButton1;
     private javax.swing.JButton sendTurnButton;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton cancelActionButton;
     private javax.swing.JButton hideButton;
     private javax.swing.JButton moveButton;
     private javax.swing.JButton searchButton;
     private javax.swing.JButton restButton;
     private javax.swing.JButton tradeButton;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel playerFameLabel;
+    private javax.swing.JLabel playerNotirityLabel;
+    private javax.swing.JLabel playerVulnerLabel;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -33,7 +33,7 @@ public class playerControllView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel playerGoldLabel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -61,10 +61,10 @@ public class playerControllView extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         setjLabel8(new javax.swing.JLabel());
-        setjLabel9(new javax.swing.JLabel());
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        setPlayerGoldLabel(new javax.swing.JLabel());
+        playerFameLabel = new javax.swing.JLabel();
+        playerNotirityLabel = new javax.swing.JLabel();
+        playerVulnerLabel = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -81,7 +81,7 @@ public class playerControllView extends javax.swing.JPanel {
         jTabbedPane5 = new javax.swing.JTabbedPane();
         jTabbedPane6 = new javax.swing.JTabbedPane();
         sendTurnButton = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        cancelActionButton = new javax.swing.JButton();
         hideButton = new javax.swing.JButton();
         moveButton = new javax.swing.JButton();
         searchButton = new javax.swing.JButton();
@@ -104,13 +104,13 @@ public class playerControllView extends javax.swing.JPanel {
 
         getjLabel8().setText("None");
 
-        getjLabel9().setText("0");
+        getPlayerGoldLabel().setText("1");
 
-        jLabel10.setText("0");
+        playerFameLabel.setText("2");
 
-        jLabel11.setText("0");
+        playerNotirityLabel.setText("3");
 
-        jLabel12.setText("0");
+        playerVulnerLabel.setText("4");
 
         jLabel13.setText("Badges:");
 
@@ -162,7 +162,13 @@ public class playerControllView extends javax.swing.JPanel {
             }
         });
         
-        jButton3.setText("Cancel Action");
+        cancelActionButton.setText("Cancel Action");
+        cancelActionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                System.out.println("Cancel Action Has Been Pressed");
+            }
+        });
+        
 
         hideButton.setText("Hide");
         hideButton.addActionListener(new java.awt.event.ActionListener() {
@@ -225,10 +231,10 @@ public class playerControllView extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(getjLabel9())
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11))
+                            .addComponent(playerVulnerLabel)
+                            .addComponent(getPlayerGoldLabel())
+                            .addComponent(playerFameLabel)
+                            .addComponent(playerNotirityLabel))
                         .addGap(267, 267, 267)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -255,7 +261,7 @@ public class playerControllView extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(sendTurnButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(cancelActionButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(hideButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -285,21 +291,21 @@ public class playerControllView extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(getjLabel9()))
+                            .addComponent(getPlayerGoldLabel()))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel4)
-                                    .addComponent(jLabel10))
+                                    .addComponent(playerFameLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel5)
-                                    .addComponent(jLabel11))
+                                    .addComponent(playerNotirityLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel6)
-                                    .addComponent(jLabel12)))
+                                    .addComponent(playerVulnerLabel)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel13)
@@ -315,7 +321,7 @@ public class playerControllView extends javax.swing.JPanel {
                 .addGap(121, 121, 121)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sendTurnButton)
-                    .addComponent(jButton3)
+                    .addComponent(cancelActionButton)
                     .addComponent(hideButton)
                     .addComponent(moveButton)
                     .addComponent(searchButton)
@@ -327,6 +333,15 @@ public class playerControllView extends javax.swing.JPanel {
         );
     }                     
 
+    /*---------------------- Update The View With A Player --------------------- */
+    public void update(PlayerBase p) {
+    	playerGoldLabel.setText("" + p.getCurrentGold());
+    	playerFameLabel.setText("" + p.getCurrentFame());
+    	playerNotirityLabel.setText("" + p.getCurrentNotirity());
+    	playerVulnerLabel.setText ("" + p.getVulnerability().name());
+    }
+    
+    /*---------------------- Event Handler Methods ----------------------------- */
     private void handleHideButton(java.awt.event.ActionEvent evt) {                                         
     	System.out.println("Hide Button Has Been Pressed");
     	parent.getCurrentPlayer().getCurrentClearing().resetConnectedClearings();
@@ -346,6 +361,9 @@ public class playerControllView extends javax.swing.JPanel {
     	parent.getGameController().moveToNextPlayer();
     }
 
+    
+    /*----------------- Getters And Setters ------------------- */
+    
     public javax.swing.JLabel getjLabel20() {
 		return jLabel20;
 	}
@@ -364,12 +382,12 @@ public class playerControllView extends javax.swing.JPanel {
 	}
 
 
-	public javax.swing.JLabel getjLabel9() {
-		return jLabel9;
+	public javax.swing.JLabel getPlayerGoldLabel() {
+		return playerGoldLabel;
 	}
 
-	public void setjLabel9(javax.swing.JLabel jLabel9) {
-		this.jLabel9 = jLabel9;
+	public void setPlayerGoldLabel(javax.swing.JLabel jLabel9) {
+		this.playerGoldLabel = jLabel9;
 	}
 
 	public javax.swing.JButton getjButton1() {

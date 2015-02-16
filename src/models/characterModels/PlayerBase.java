@@ -191,4 +191,16 @@ public class PlayerBase {
 	public String getName(){
 		return playerName;
 	}
+	
+	public int getCurrentFame() {
+		return currentFame;
+	}
+
+	public int getCurrentNotirity() {
+		return currentNotirity;
+	}
+
+	public int getCurrentGold() {
+		return currentGold;
+	}
 }
