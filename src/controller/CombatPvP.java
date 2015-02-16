@@ -139,19 +139,19 @@ public class CombatPvP {
 	 * 1 if 1 wound
 	 * 2 if horse dies
 	 * 3 if defender dies */
-	private int attackHits(Chit weapon, PlayerBase attacker, PlayerBase defender) {
+	private int attackHits(PlayerBase attacker, PlayerBase defender) {
 		int harm;
 		//TODO CHIT THINGS - Albert
-		harm = weapon.getHarmLevel();
+		harm = attacker.getWeapon().getHarmLevel();
 		
-		if (weapon.getStars() > 0) {
+		if (attacker.getWeapon().getStars() > 0) {
 			if (attack intercepts armor){
-				weapon.setStars(weapon.getStars() - 1);
+				attacker.getWeapon().setStars(attacker.getWeapon().getStars() - 1);
 			}
-			harm += weapon.getStars();
+			harm += attacker.getWeapon().getStars();
 		}
 		
-		if (weapon.hasMissles()){
+		if (attacker.getWeapon().hasMissles()){
 			//do some roll thing here
 		}
 		
@@ -164,21 +164,22 @@ public class CombatPvP {
 			if(harm > defender.getHorse().getVulnerability()){
 				return 2;
 			}
-		} else */ if(Attacker = character){
-			if(Attack armor hit){
-				defender.check armor damaged;
-				if (Harm > M){
+		} else */ 
+		if(Attacker = character){
+			if(defender.check armor hit){
+				defender.checkAromor(Harm);
+				if (harm >= Weights.MEDIUM){
 					return 1;
 				}
 			} else {
-				if (harm > defender.getVulnerability()){
+				if (harm >= defender.getVulnerability()){
 					defender.isDead();
 					return 3;
 				}
-				if (Harm > negligible){
+				if (harm > Weights.NEGLIGABLE){
 					return 1;
 				}
-				weapon.setAlert(false);
+				attacker.getWeapon().setAlert(false);
 			}
 		} else {
 			if(harm > defender.getVulnerability()){

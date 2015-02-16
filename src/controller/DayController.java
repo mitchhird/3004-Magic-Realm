@@ -4,6 +4,10 @@ public class DayController {
 	//for the actual controls of a game that loops for the days
 	
 	/*
+	 * information on this is from pg 33 - 53 then combat
+	 * 
+	 * going to need an unhidden array of players and natives
+	 * 
 	 * end of the day the tile that the character is on will
 	 * reveal chits from their pile
 	 * 
