@@ -9,6 +9,7 @@ import javax.swing.JButton;
 
 import utils.GameUtils;
 import models.characterModels.PlayerBase;
+import models.otherEntities.TreasureModel;
 
 /*
  * Object that represents the logic behind the clearing objects
@@ -19,10 +20,12 @@ public class Clearing {
 	private boolean blocked;
 	private JButton buttonTiedToClearing;
 	private Set <Clearing> connectedClearings;
+	private Set <TreasureModel> treasuresInClearing;
 	
 	public Clearing () {
 		blocked = false;
 		connectedClearings = new HashSet<>();
+		treasuresInClearing = new HashSet<>();
 		
 		// Create The Button Tied To The Clearing
 		buttonTiedToClearing = new JButton("");
@@ -68,6 +71,27 @@ public class Clearing {
 			JButton clearingButton = c.getButtonTiedToClearing();
 			clearingButton.setIcon(new ImageIcon(GameUtils.getValidClearingImg(clearingButton)));
 			clearingButton.repaint();
+		}
+	}
+	
+	// Add The Treasures To This Clearing
+	public void addTreasures (TreasureModel ... treasures) {
+		for (TreasureModel t: treasures) {
+			treasuresInClearing.add(t);
+		}
+	}
+	
+	// Player Search's Clearing When Called
+	public void searchClearing(PlayerBase p, String mode) {
+		if (mode.equals("LOCATE")) {
+			int dieRoll = GameUtils.createRandomInt(1, 6);
+			
+			// Temp Holder For Treasure 
+			if (dieRoll < 4) {
+				for (TreasureModel t: treasuresInClearing) {
+					t.playerFound(p);
+				}
+			}
 		}
 	}
 	

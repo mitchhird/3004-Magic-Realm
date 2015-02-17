@@ -1,6 +1,7 @@
 package models.characterModels;
 
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -13,6 +14,7 @@ import models.characterModels.playerEnums.CharacterClass;
 import models.characterModels.playerEnums.Weights;
 import models.chitModels.Chit;
 import models.otherEntities.Denizen;
+import models.otherEntities.TreasureModel;
 import utils.GameUtils;
 
 /*
@@ -54,6 +56,10 @@ public class PlayerBase {
 	protected Weights vulnerability;
 	protected Queue<String> commandList;
 	protected CharacterClass characterClass;
+	protected ArrayList<TreasureModel> accquiredTreasures;
+	
+	// Clearing Stuff
+	protected Clearing homeClearing;
 	protected Clearing currentClearing;
 	
 	//controllable units might need might not
@@ -89,6 +95,7 @@ public class PlayerBase {
 		hidden = false;
 		commandList = new LinkedList<>();
 		characterClass = CharacterClass.SWORDSMAN;
+		accquiredTreasures = new ArrayList<>();
 	}
 	
 	// Starts The Player's Turn And Wipes Out There Player's Commands
@@ -116,6 +123,12 @@ public class PlayerBase {
 	// Attempts To Move The Player To The Designated Clearing
 	public boolean moveToClearing (Clearing newClearing) {
 		if (currentClearing.isVaildMove(newClearing)) {
+			
+			// If First Clearing Then Set It To The Player's Home
+			if (homeClearing == null) {
+				homeClearing = newClearing;
+			}
+			
 			clearConnectedClearings();
 			currentClearing.resetClearing();
 			currentClearing = newClearing;
@@ -136,6 +149,15 @@ public class PlayerBase {
 	private void clearConnectedClearings() {
 		for (Clearing c: currentClearing.getConnectedClearings()) {
 			c.resetClearing();
+		}
+	}
+	
+	// Treasure Functions
+	public void addTreasure (TreasureModel t) {
+		// If The Player Has Found This Treasure Then Add It To The Collection
+		if (t.hasPlayerFound(this)) {
+			accquiredTreasures.add(t);
+			currentGold += t.getTreasureGoldValue();
 		}
 	}
 	
@@ -203,6 +225,10 @@ public class PlayerBase {
 
 	public int getCurrentGold() {
 		return currentGold;
+	}
+	
+	public Clearing getHomeClearing() {
+		return homeClearing;
 	}
 
 	public Chit getWeapon() {
