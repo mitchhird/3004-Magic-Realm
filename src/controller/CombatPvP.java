@@ -7,8 +7,8 @@ import models.chitModels.Chit;
 public class CombatPvP {
 	
 	//will be the entry point in the end for pvp combat
-	public void combatPvP(PlayerBase attacker, PlayerBase defender){
-		
+	public void combatPvP(PlayerBase[] players){
+		preparation(players);
 	}
 	
 	/*
@@ -20,8 +20,10 @@ public class CombatPvP {
 	 *
 	 */
 	
-	private void preparation(){
+	private void preparation(PlayerBase[] players){
 		
+		
+		luring(players);
 	}
 	
 	/* luring
@@ -41,16 +43,18 @@ public class CombatPvP {
 	
 	//TODO
 	//Albert - think about the return values and parameters for this
-	private void luring() {
-		PlayerBase currPlayer = findPlayer();
+	private void luring(PlayerBase[] players) {
+		PlayerBase currPlayer = findPlayer(players);
 		while (currPlayer != null){
 			
+			
+			currPlayer = findPlayer(players);
 		}
 		
-		deployment();
+		deployment(players);
 	}
 
-	private PlayerBase findPlayer() {
+	private PlayerBase findPlayer(PlayerBase[] players) {
 		// TODO have to send to view for swordsman about starting turn
 		//some kind of random
 		return null;
@@ -75,8 +79,10 @@ public class CombatPvP {
 	 * --else Encounter Actions
 	 */
 	
-	private void deployment(){
+	private void deployment(PlayerBase[] players){
 		
+		
+		encounter(players);
 	}
 	
 	/* Encounter Action
@@ -90,8 +96,10 @@ public class CombatPvP {
 	 * -repeat till no more
 	 */
 	
-	private void encounter() {
+	private void encounter(PlayerBase[] players) {
 		
+		
+		melee(players);
 	}
 	
 	/* TODO
@@ -103,8 +111,10 @@ public class CombatPvP {
 	 * 
 	 */
 	
-	private void melee() {
+	private void melee(PlayerBase[] players) {
 		
+		
+		resolveAttacks(players);
 	}
 	
 	/* Resolve Attacks
@@ -130,8 +140,23 @@ public class CombatPvP {
 	 * --Spoils of Combat
 	 */
 	
-	private void resolveAttacks() {
-		
+	private void resolveAttacks(PlayerBase[] players) {
+		PlayerBase currplayer = findPlayer(players);
+		while(currplayer != null){
+			PlayerBase attacker, defender;
+			int damage;
+			check how the currplayer is attacking
+			who is the attacker and who is defender
+			if (attack == undercut){
+				damage = attackHits(attacker, defender);
+			} else if (stops maneuver) {
+				damage = attackHits(attacker, defender);
+			} else {
+				attacker.getWeapon().setAlert(true);
+			}
+			
+			currplayer = findPlayer(players);
+		}
 	}
 	
 	
