@@ -25,14 +25,14 @@ public class playerControllView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel playerLabel;
+    private javax.swing.JLabel playerClassDisplayLabel;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel classLabel;
+    private javax.swing.JLabel playerDisplayLabel;
     private javax.swing.JLabel playerGoldLabel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -55,7 +55,7 @@ public class playerControllView extends javax.swing.JPanel {
     private void initComponents() {
 
         setjButton1(new javax.swing.JButton());
-        jLabel2 = new javax.swing.JLabel();
+        playerLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -87,12 +87,12 @@ public class playerControllView extends javax.swing.JPanel {
         searchButton = new javax.swing.JButton();
         restButton = new javax.swing.JButton();
         tradeButton = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        classLabel = new javax.swing.JLabel();
         setjLabel20(new javax.swing.JLabel());
 
         getjButton1().setText("Show Card");
 
-        jLabel2.setText("Player:");
+        playerLabel.setText("Player:");
 
         jLabel3.setText("Gold:");
 
@@ -102,7 +102,7 @@ public class playerControllView extends javax.swing.JPanel {
 
         jLabel6.setText("Vulnerability:");
 
-        getjLabel8().setText("None");
+        getPlayerDisplayLabel().setText("None");
 
         getPlayerGoldLabel().setText("1");
 
@@ -209,9 +209,9 @@ public class playerControllView extends javax.swing.JPanel {
 		});
         
 
-        jLabel7.setText("Class:");
+        classLabel.setText("Class:");
 
-        getjLabel20().setText("None");
+        getPlayerClassLabel().setText("None");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -221,12 +221,12 @@ public class playerControllView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(playerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)
                         .addComponent(jLabel4)
                         .addComponent(jLabel5)
                         .addComponent(jLabel6))
-                    .addComponent(jLabel7))
+                    .addComponent(classLabel))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -252,8 +252,8 @@ public class playerControllView extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(getjLabel8())
-                            .addComponent(getjLabel20()))
+                            .addComponent(getPlayerDisplayLabel())
+                            .addComponent(getPlayerClassLabel()))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(getjButton1())))
                 .addContainerGap())
@@ -282,12 +282,12 @@ public class playerControllView extends javax.swing.JPanel {
                     .addComponent(getjButton1())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(getjLabel20()))
+                            .addComponent(classLabel)
+                            .addComponent(getPlayerClassLabel()))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(getjLabel8()))
+                            .addComponent(playerLabel)
+                            .addComponent(getPlayerDisplayLabel()))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -335,6 +335,8 @@ public class playerControllView extends javax.swing.JPanel {
 
     /*---------------------- Update The View With A Player --------------------- */
     public void update(PlayerBase p) {
+    	playerDisplayLabel.setText(p.getName());
+    	playerClassDisplayLabel.setText(p.getPlayerClass().name());
     	playerGoldLabel.setText("" + p.getCurrentGold());
     	playerFameLabel.setText("" + p.getCurrentFame());
     	playerNotirityLabel.setText("" + p.getCurrentNotirity());
@@ -364,21 +366,21 @@ public class playerControllView extends javax.swing.JPanel {
     
     /*----------------- Getters And Setters ------------------- */
     
-    public javax.swing.JLabel getjLabel20() {
-		return jLabel20;
+    public javax.swing.JLabel getPlayerClassLabel() {
+		return playerClassDisplayLabel;
 	}
 
 	public void setjLabel20(javax.swing.JLabel jLabel20) {
-		this.jLabel20 = jLabel20;
+		this.playerClassDisplayLabel = jLabel20;
 	}
 
 
-	public javax.swing.JLabel getjLabel8() {
-		return jLabel8;
+	public javax.swing.JLabel getPlayerDisplayLabel() {
+		return playerDisplayLabel;
 	}
 
 	public void setjLabel8(javax.swing.JLabel jLabel8) {
-		this.jLabel8 = jLabel8;
+		this.playerDisplayLabel = jLabel8;
 	}
 
 

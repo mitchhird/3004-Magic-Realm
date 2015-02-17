@@ -230,8 +230,8 @@ public class gameView extends FrameBase {
 	}
 
 	private void setPlayerInterface(int selectedRow) {
-		thePlayerButtons.getjLabel20().setText((String) thePlayerList.getjTable2().getValueAt(selectedRow, 0));
-		thePlayerButtons.getjLabel8().setText((String) thePlayerList.getjTable2().getValueAt(selectedRow, 1));
+		thePlayerButtons.getPlayerClassLabel().setText((String) thePlayerList.getjTable2().getValueAt(selectedRow, 0));
+		thePlayerButtons.getPlayerDisplayLabel().setText((String) thePlayerList.getjTable2().getValueAt(selectedRow, 1));
 	}
 
 	private void removePlayer() {
