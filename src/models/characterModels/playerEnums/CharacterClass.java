@@ -28,15 +28,15 @@ public enum CharacterClass {
 			case BLACKNIGHT:
 				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","black_knightUnhidden.png"));
 			case CAPTAIN:
-				return ImageIO.read(new File(baseDir + "/images/characters","captainUnhidden.png"));
+				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","captainUnhidden.png"));
 			case DWARF:
-				return ImageIO.read(new File(baseDir + "/images/characters","dwarfUnhidden.png"));
+				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","dwarfUnhidden.png"));
 			case ELF:
-				return ImageIO.read(new File(baseDir + "/images/characters","elfUnhidden.png"));
+				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","elfUnhidden.png"));
 			case SWORDSMAN:
-				return ImageIO.read(new File(baseDir + "/images/characters","swordsmanUnhidden.png"));
+				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","swordsmanUnhidden.png"));
 			default:
-				return ImageIO.read(new File(baseDir + "/images/characters","amazonUnhidden.png"));
+				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","amazonUnhidden.png"));
 			}
 	   } catch (Exception e) {
 		   e.printStackTrace();
