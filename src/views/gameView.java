@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -34,11 +35,6 @@ public class gameView extends FrameBase {
 	private clientController theClient;
 	
 	private JMenuBar menuBar = new JMenuBar();
-	
-	private JFrame hostMenu;
-	private JFrame joinMenu;
-	private JFrame optionsMenu;
-	private JFrame infoMenu;
 
 	private JScrollPane scrollPane;
 
@@ -82,26 +78,14 @@ public class gameView extends FrameBase {
 		add(scrollPane);
 		
 		JMenu fileMenu = new JMenu("File");
-		JMenu networkMenu = new JMenu("Network");
-		JMenu helpMenu = new JMenu("Help");
 		
 		menuBar.add(fileMenu);
-		menuBar.add(networkMenu);
-		menuBar.add(helpMenu);
 		
 		JMenuItem newAction = new JMenuItem("New Game");
         JMenuItem exitAction = new JMenuItem("Exit");
-        JMenuItem optionAction = new JMenuItem("Options");
-        JMenuItem infoAction = new JMenuItem("Information");
-        JMenuItem joinAction = new JMenuItem("Join Game");
-        JMenuItem hostAction = new JMenuItem("Host Game");
 
         fileMenu.add(newAction);
-        fileMenu.add(optionAction);
         fileMenu.add(exitAction);
-        networkMenu.add(joinAction);
-        networkMenu.add(hostAction);
-        helpMenu.add(infoAction);
         
         newAction.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -114,31 +98,7 @@ public class gameView extends FrameBase {
                 exitGame();
             }
         });
-        
-        joinAction.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                joinGame();
-            }
-        });
-        
-        hostAction.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                hostGame();
-            }
-        });
-        
-        optionAction.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                options();
-            }
-        });
-        
-        infoAction.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                infoPanel();
-            }
-        });
-        
+ 
         addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent e){
             	exitGame();
@@ -146,30 +106,9 @@ public class gameView extends FrameBase {
         });
 	}
 	
-	private void hostGame(){
-		hostMenu = new JFrame();
-		hostMenu.setSize(600,600);
-		hostMenu.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
-		hostMenu.setVisible(true);
-	}
-	
-	private void joinGame(){
-		joinMenu = new JFrame();
-		joinMenu.setSize(600,600);
-		joinMenu.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
-		joinMenu.setVisible(true);
-	}
-	
 	private void update(){
 		setSize((int)tk.getScreenSize().getWidth(),(int)tk.getScreenSize().getHeight()-20);
 		setSize((int)tk.getScreenSize().getWidth(),(int)tk.getScreenSize().getHeight()-40);
-	}
-	
-	private void infoPanel(){
-		infoMenu = new JFrame();
-		infoMenu.setSize(600,600);
-		infoMenu.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
-		infoMenu.setVisible(true);
 	}
 	
 	private void showGameButtons(){
@@ -200,7 +139,7 @@ public class gameView extends FrameBase {
         		}
         	}
         });
-        
+      
         thePlayerButtons.getjButton1().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showCard();
@@ -211,7 +150,6 @@ public class gameView extends FrameBase {
         	@Override
 			public void actionPerformed(ActionEvent arg0) {
         		theClient.startGame();
-        		String currentPlayerName = theClient.getCurrentPlayer().getName();
         		System.out.println("Start Game Pressed");
 			}
 		});
@@ -235,9 +173,19 @@ public class gameView extends FrameBase {
 	}
 
 	private void removePlayer() {
+		
 		if(thePlayerList.getjTable2().getSelectedRow()==-1){
 			return;
 		}
+		
+		int selectedOption = JOptionPane.showConfirmDialog(null, 
+                "Are you sure that you want to remove this player?", 
+                "Choose", 
+                JOptionPane.YES_NO_OPTION); 
+		if (selectedOption == JOptionPane.NO_OPTION) {
+			return;
+		}
+	
 		String playerToRemoveName = (String) thePlayerList.getjTable2().getModel().getValueAt(thePlayerList.getjTable2().getSelectedRow(),1);
 
 		thePlayerList.removePlayer();
@@ -275,14 +223,6 @@ public class gameView extends FrameBase {
 		showGameButtons();
 		showBoard();
 		update();
-	}
-	
-	// Displays The Options Window
-	private void options(){
-		optionsMenu = new JFrame();
-		optionsMenu.setSize(600,600);
-		optionsMenu.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
-		optionsMenu.setVisible(true);
 	}
 	
 	public boardView getBoardView () {
