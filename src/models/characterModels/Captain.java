@@ -45,6 +45,6 @@ public class Captain extends PlayerBase {
 	 * 
 	 */
 	public Captain() {
-		weight = Weights.MEDIUM;
+		vulnerability = Weights.MEDIUM;
 	}
 }

@@ -42,6 +42,6 @@ public class Amazon extends PlayerBase {
 	 * Short Sword, Helmet, Breastplate, Shield, FightM4*, FightM3**, MoveM3*
 	 */
 	public Amazon(){
-		weight = Weights.MEDIUM;
+		vulnerability = Weights.MEDIUM;
 	}
 }

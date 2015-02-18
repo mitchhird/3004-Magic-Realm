@@ -52,10 +52,11 @@ public class PlayerBase {
 	protected Chit[] combatChit;
 	protected Chit[] weaponChit;
 	protected Chit horse;
-	protected Weights weight;
+	protected Weights wounds;
 	protected Weights vulnerability;
 	protected CharacterClass characterClass;
 	protected ArrayList<TreasureModel> accquiredTreasures;
+	protected PlayerBase[] listAttacks;
 	
 	// Clearing Stuff
 	protected Clearing homeClearing;
@@ -76,6 +77,7 @@ public class PlayerBase {
 	// Boolean Flags
 	protected boolean hidden;
 	protected boolean moving;
+	protected boolean living;
 	
 	// Default Constructor
 	public PlayerBase () {
@@ -96,6 +98,7 @@ public class PlayerBase {
 		currentNotirity = 0;
 		currentGold = 10;
 		hidden = false;
+		living = true;
 		currentTurn = "";
 		characterClass = CharacterClass.SWORDSMAN;
 		vulnerability = Weights.LIGHT;
@@ -188,6 +191,22 @@ public class PlayerBase {
 		currentTurn += (currentTurn.equals("")) ? logMessage : "," + logMessage;
 	}
 	
+	
+	//can be changed to something else if weight is not an issue;
+	public void increaseWounds(int d){
+		for(int i = 0; i < d; ++i){
+			wounds = wounds.next();
+			if (wounds == vulnerability){
+				isDead();
+				return;
+			}
+		}
+	}
+	
+	public void resetWounds(){
+		wounds = Weights.NEGLIGABLE;
+	}
+	
 	//*********
 	//if a player dies will start over again at the in as the same or different
 	//character but will be forfeiring all his possessions/fame/notoriety/gold/discoveries
@@ -257,6 +276,19 @@ public class PlayerBase {
 	public Clearing getHomeClearing() {
 		return homeClearing;
 	}
+	
+	public PlayerBase attackList(){
+		PlayerBase returnP;
+		
+		returnP = listAttacks[listAttacks.length];
+		listAttacks[listAttacks.length] = null;
+		
+		return returnP;
+	}
+	
+	public boolean isLiving(){
+		return living;
+	}
 
 	public Chit getWeapon() {
 		return null;
@@ -278,8 +310,7 @@ public class PlayerBase {
 	}
 
 	public void isDead() {
-		// TODO Auto-generated method stub
-		
+		living = false;
 	}
 
 	public boolean armorBlocks(Attacks attack) {

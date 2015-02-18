@@ -45,6 +45,6 @@ public class Elf extends PlayerBase {
 	 * 
 	 */
 	public Elf(){
-		weight = Weights.LIGHT;
+		vulnerability = Weights.LIGHT;
 	}
 }

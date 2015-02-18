@@ -48,7 +48,7 @@ public class BlackKnight extends PlayerBase {
 	 */
 	
 	public BlackKnight(Chit[] combat){
-		weight = Weights.MEDIUM;
+		vulnerability = Weights.MEDIUM;
 	}
 	
 }

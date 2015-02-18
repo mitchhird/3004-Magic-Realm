@@ -52,6 +52,6 @@ public class Swordsman extends PlayerBase {
 	 * 
 	 */
 	public Swordsman(){
-		weight = Weights.LIGHT;
+		vulnerability = Weights.LIGHT;
 	}
 }

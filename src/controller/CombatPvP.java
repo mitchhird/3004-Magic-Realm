@@ -1,14 +1,17 @@
 package controller;
 
+import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.Weights;
 import models.chitModels.Chit;
 
 public class CombatPvP {
-	
+	private Clearing currClearing;
 	//will be the entry point in the end for pvp combat
-	public void combatPvP(PlayerBase[] players){
+	public void combatPvP(PlayerBase[] players, Clearing clearing){
+		currClearing = clearing;
 		preparation(players);
+		currClearing = null;
 	}
 	
 	/*
@@ -43,15 +46,34 @@ public class CombatPvP {
 	
 	//TODO
 	//Albert - think about the return values and parameters for this
+	
+	//assumed can only lure unhidden characters/entity
 	private void luring(PlayerBase[] players) {
 		PlayerBase currPlayer = findPlayer(players);
 		while (currPlayer != null){
+			if (unhidden players in clearing){
+				can lure any natives or characters
+				will make both unhidden and will get each to target one another
+			}
+			
 			
 			
 			currPlayer = findPlayer(players);
 		}
 		
+		if (unassigned non-player controlled entities in clearing){
+			if (unhidden in clearing){
+				randomAssignments(players);
+			}
+		}
+		
 		deployment(players);
+	}
+	
+	private void randomAssignments(PlayerBase[] players/*, EntityBase[] unassigned*/){
+		//this will take the unassigned and will assign them to attack one of the players/hirings
+		//for that clearing
+		//assigned to UNHIDDEN characters in the clearing
 	}
 
 	private PlayerBase findPlayer(PlayerBase[] players) {
@@ -80,7 +102,18 @@ public class CombatPvP {
 	 */
 	
 	private void deployment(PlayerBase[] players){
+		rotate through all the players
+		PlayerBase[] chargeAble;
+		if(found "hidden enemies"){//something to do with the search phase of the day
+			chargeAble = clearing.getEnties();
+		} else {
+			if (unhidden in clearing){
+				chargeAble = all unhidden;
+			}
+		}
 		
+		for each see if they want to charge player
+			if so both unhidden
 		
 		encounter(players);
 	}
@@ -97,7 +130,12 @@ public class CombatPvP {
 	 */
 	
 	private void encounter(PlayerBase[] players) {
-		
+		rotate through and check if charged another
+			if so then continue
+			else
+				see if alert weapon, run, or fly (can cast spell here)
+				if not
+					may alert any 1 belonging or abandon any number of belongings
 		
 		melee(players);
 	}
@@ -112,10 +150,20 @@ public class CombatPvP {
 	 */
 	
 	private void melee(PlayerBase[] players) {
+		rotate through attention chits and select attack targets
 		
+		secrete attack, manuever, and armor for each character
+		
+		reveal
+		
+		roll for repositioning and change of tactics
 		
 		resolveAttacks(players);
 	}
+	
+	//will have to have something in regards to the clearing and attack order
+	//all the clearing attacks go to resolve attacks and then when the clearning is
+	//done then go to the next clearing to resolve attacks
 	
 	/* Resolve Attacks
 	 * -start with weapon length = 17 
@@ -142,21 +190,78 @@ public class CombatPvP {
 	
 	private void resolveAttacks(PlayerBase[] players) {
 		PlayerBase currplayer = findPlayer(players);
+		PlayerBase attacker, defender;
+		int damage;
+		check how the currplayer is attacking
+		who is the attacker and who is defender
+		int currBest = 0;
+		for(int i = 0; i < currClearing.getPlayers().length(); ++i){
+			if(currClearing.getPlayer(i).getWeapon().getLength() > currBest){
+				currBest = currClearing.getPlayer(i).getWeapon().getLength();
+				attacker = currClearing.getPlayer(i);
+			}
+		}
+		defender = attacker.attackList(1);
+		
+		check all the lengths of weapons in clearning
+		check length then speed if equal
+		then if same for both both attack and hit the other
+		both can die
 		while(currplayer != null){
-			PlayerBase attacker, defender;
-			int damage;
-			check how the currplayer is attacking
-			who is the attacker and who is defender
-			if (attack == undercut){
-				damage = attackHits(attacker, defender);
-			} else if (stops maneuver) {
-				damage = attackHits(attacker, defender);
-			} else {
-				attacker.getWeapon().setAlert(true);
+			if(!(defender.isLiving())){
+				continue;
 			}
 			
-			currplayer = findPlayer(players);
+			if(!(attacker.isLiving())){
+				continue;
+			}
+			
+			int wounds1, wounds2;
+			if(defender.getWeapon().getLength() == attacker.getWeapon().getLength() &&
+			   defender.getWeapon().getSpeed()  == attacker.getWeapon().getSpeed()){
+				wounds1 = checkAttack(attacker, defender);
+				wounds2 = checkAttack(defender, attacker);
+			}
+			
+			attacker.setWounds(wounds1);
+			defender.setWounds(wounds2);
+			
+			attacker = nextAttacker(players);
+			defender = attacker.attackList(1);
 		}
+	}
+	
+	private PlayerBase nextAttacker(PlayerBase[] entities){
+		PlayerBase nAttacker = null;
+		check for more attacks at this speed and length
+		
+		check for more attacks at highest speed
+		currplayer = findPlayer(players);
+		return nAttacker;
+	}
+	
+	private void setWounds(PlayerBase player, int wounds){
+		if(wounds == 1){
+			player.increaseWounds(wounds);
+		}
+		if(wounds == 2){
+			//no horse
+		}
+		if(wounds == 3){
+			player.isDead();
+		}
+	}
+	
+	private int checkAttack(PlayerBase attacker, PlayerBase defender){
+		int damage = 0;
+		if (attack time vs manuever time){
+			damage = attackHits(attacker, defender);
+		} else if (attack direction vs manuever direction) {
+			damage = attackHits(attacker, defender);
+		} else {
+			attacker.getWeapon().setAlert(true);
+		}
+		return damage;
 	}
 	
 	

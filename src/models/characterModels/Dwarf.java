@@ -46,6 +46,6 @@ public class Dwarf extends PlayerBase {
 	 * Great Axe, Helmet, MoveH5*, FightT6*, FightH4**
 	 */
 	public Dwarf() {
-		weight = Weights.HEAVY;
+		vulnerability = Weights.HEAVY;
 	}
 }
