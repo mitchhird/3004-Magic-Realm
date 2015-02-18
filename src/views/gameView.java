@@ -150,6 +150,7 @@ public class gameView extends FrameBase {
         	@Override
 			public void actionPerformed(ActionEvent arg0) {
         		theClient.startGame();
+        		thePlayerList.updateTable();
         		System.out.println("Start Game Pressed");
 			}
 		});

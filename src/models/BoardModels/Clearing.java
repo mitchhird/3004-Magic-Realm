@@ -18,14 +18,16 @@ import models.otherEntities.TreasureModel;
 public class Clearing {
 
 	private boolean blocked;
+	private String clearingName;
 	private JButton buttonTiedToClearing;
 	private Set <Clearing> connectedClearings;
 	private Set <TreasureModel> treasuresInClearing;
 	
-	public Clearing () {
+	public Clearing (String clearingName) {
 		blocked = false;
 		connectedClearings = new HashSet<>();
 		treasuresInClearing = new HashSet<>();
+		this.clearingName = clearingName;
 		
 		// Create The Button Tied To The Clearing
 		buttonTiedToClearing = new JButton("");
@@ -141,4 +143,13 @@ public class Clearing {
 			this.addConnectedClearing(c);
 		}
 	}
+
+	public String getClearingName() {
+		return clearingName;
+	}
+
+	public void setClearingName(String clearingName) {
+		this.clearingName = clearingName;
+	}
+	
 }

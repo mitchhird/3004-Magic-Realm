@@ -428,9 +428,10 @@ public class playerControllView extends javax.swing.JPanel {
     		if(parent.getCurrentPlayer()==null){
     			return;
     		}
-    		parent.getPlayerList().updateTable();
     		parent.getCurrentPlayer().getCurrentClearing().resetConnectedClearings();
+    		parent.getCurrentPlayer().endPlayerTurn();
     		parent.getGameController().moveToNextPlayer();
+    		parent.getPlayerList().updateTable();
     	}
     }
 

@@ -26,120 +26,120 @@ public class boardView extends JPanel {
 	
 	private ArrayList<Clearing> theButtons = new ArrayList<Clearing>();
 	
-	private Clearing cliff1 = new Clearing();
-	private Clearing cliff2 = new Clearing();
-	private Clearing cliff3 = new Clearing();
-	private Clearing cliff4 = new Clearing();
-	private Clearing cliff5 = new Clearing();
-	private Clearing cliff6 = new Clearing();
+	private Clearing cliff1 = new Clearing("cl1");
+	private Clearing cliff2 = new Clearing("cl2");
+	private Clearing cliff3 = new Clearing("cl3");
+	private Clearing cliff4 = new Clearing("cl4");
+	private Clearing cliff5 = new Clearing("cl5");
+	private Clearing cliff6 = new Clearing("cl6");
 
-	private Clearing evalley1 = new Clearing();
-	private Clearing evalley2 = new Clearing();
-	private Clearing evalley4 = new Clearing();
-	private Clearing evalley5 = new Clearing();
+	private Clearing evalley1 = new Clearing("ev1");
+	private Clearing evalley2 = new Clearing("ev2");
+	private Clearing evalley4 = new Clearing("ev4");
+	private Clearing evalley5 = new Clearing("ev5");
 	
-	private Clearing hpass1 = new Clearing();
-	private Clearing hpass2 = new Clearing();
-	private Clearing hpass3 = new Clearing();
-	private Clearing hpass4 = new Clearing();
-	private Clearing hpass5 = new Clearing();
-	private Clearing hpass6 = new Clearing();
+	private Clearing hpass1 = new Clearing("hp1");
+	private Clearing hpass2 = new Clearing("hp2");
+	private Clearing hpass3 = new Clearing("hp3");
+	private Clearing hpass4 = new Clearing("hp4");
+	private Clearing hpass5 = new Clearing("hp5");
+	private Clearing hpass6 = new Clearing("hp6");
 	
-	private Clearing ledges1 = new Clearing();
-	private Clearing ledges2 = new Clearing();
-	private Clearing ledges3 = new Clearing();
-	private Clearing ledges4 = new Clearing();
-	private Clearing ledges5 = new Clearing();
-	private Clearing ledges6 = new Clearing();
+	private Clearing ledges1 = new Clearing("le1");
+	private Clearing ledges2 = new Clearing("le2");
+	private Clearing ledges3 = new Clearing("le3");
+	private Clearing ledges4 = new Clearing("le4");
+	private Clearing ledges5 = new Clearing("le5");
+	private Clearing ledges6 = new Clearing("le6");
 	
-	private Clearing bland1 = new Clearing();
-	private Clearing bland2 = new Clearing();
-	private Clearing bland3 = new Clearing();
-	private Clearing bland4 = new Clearing();
-	private Clearing bland5 = new Clearing();
-	private Clearing bland6 = new Clearing();
+	private Clearing bland1 = new Clearing("bl1");
+	private Clearing bland2 = new Clearing("bl2");
+	private Clearing bland3 = new Clearing("bl3");
+	private Clearing bland4 = new Clearing("bl4");
+	private Clearing bland5 = new Clearing("bl5");
+	private Clearing bland6 = new Clearing("bl6");
 	
-	private Clearing cavern1 = new Clearing();
-	private Clearing cavern2 = new Clearing();
-	private Clearing cavern3 = new Clearing();
-	private Clearing cavern4 = new Clearing();
-	private Clearing cavern5 = new Clearing();
-	private Clearing cavern6 = new Clearing();
+	private Clearing cavern1 = new Clearing("ca1");
+	private Clearing cavern2 = new Clearing("ca2");
+	private Clearing cavern3 = new Clearing("ca3");
+	private Clearing cavern4 = new Clearing("ca4");
+	private Clearing cavern5 = new Clearing("ca5");
+	private Clearing cavern6 = new Clearing("ca6");
 	
-	private Clearing crag1 = new Clearing();
-	private Clearing crag2 = new Clearing();
-	private Clearing crag3 = new Clearing();
-	private Clearing crag4 = new Clearing();
-	private Clearing crag5 = new Clearing();
-	private Clearing crag6 = new Clearing();
+	private Clearing crag1 = new Clearing("cr1");
+	private Clearing crag2 = new Clearing("cr2");
+	private Clearing crag3 = new Clearing("cr3");
+	private Clearing crag4 = new Clearing("cr4");
+	private Clearing crag5 = new Clearing("cr5");
+	private Clearing crag6 = new Clearing("cr6");
 	
-	private Clearing owoods2 = new Clearing();
-	private Clearing owoods4 = new Clearing();
-	private Clearing owoods5 = new Clearing();
+	private Clearing owoods2 = new Clearing("ow2");
+	private Clearing owoods4 = new Clearing("ow4");
+	private Clearing owoods5 = new Clearing("ow5");
 	
-	private Clearing bvalley1 = new Clearing();
-	private Clearing bvalley2 = new Clearing();
-	private Clearing bvalley4 = new Clearing();
-	private Clearing bvalley5 = new Clearing();
+	private Clearing bvalley1 = new Clearing("bv1");
+	private Clearing bvalley2 = new Clearing("bv2");
+	private Clearing bvalley4 = new Clearing("bv4");
+	private Clearing bvalley5 = new Clearing("bv5");
 	
-	private Clearing mountain1 = new Clearing();
-	private Clearing mountain2 = new Clearing();
-	private Clearing mountain3 = new Clearing();
-	private Clearing mountain4 = new Clearing();
-	private Clearing mountain5 = new Clearing();
-	private Clearing mountain6 = new Clearing();
+	private Clearing mountain1 = new Clearing("mo1");
+	private Clearing mountain2 = new Clearing("mo2");
+	private Clearing mountain3 = new Clearing("mo3");
+	private Clearing mountain4 = new Clearing("mo4");
+	private Clearing mountain5 = new Clearing("mo5");
+	private Clearing mountain6 = new Clearing("mo6");
 	
-	private Clearing dvalley1 = new Clearing();
-	private Clearing dvalley2 = new Clearing();
-	private Clearing dvalley4 = new Clearing();
-	private Clearing dvalley5 = new Clearing();
+	private Clearing dvalley1 = new Clearing("dv1");
+	private Clearing dvalley2 = new Clearing("dv2");
+	private Clearing dvalley4 = new Clearing("dv4");
+	private Clearing dvalley5 = new Clearing("dv5");
 	
-	private Clearing dwoods1 = new Clearing();
-	private Clearing dwoods2 = new Clearing();
-	private Clearing dwoods3 = new Clearing();
-	private Clearing dwoods4 = new Clearing();
-	private Clearing dwoods5 = new Clearing();
-	private Clearing dwoods6 = new Clearing();
+	private Clearing dwoods1 = new Clearing("dw1");
+	private Clearing dwoods2 = new Clearing("dw2");
+	private Clearing dwoods3 = new Clearing("dw3");
+	private Clearing dwoods4 = new Clearing("dw4");
+	private Clearing dwoods5 = new Clearing("dw5");
+	private Clearing dwoods6 = new Clearing("dw6");
 	
-	private Clearing mwoods2 = new Clearing();
-	private Clearing mwoods4 = new Clearing();
-	private Clearing mwoods5 = new Clearing();
+	private Clearing mwoods2 = new Clearing("mw2");
+	private Clearing mwoods4 = new Clearing("mw4");
+	private Clearing mwoods5 = new Clearing("mw5");
 	
-	private Clearing caves1 = new Clearing();
-	private Clearing caves2 = new Clearing();
-	private Clearing caves3 = new Clearing();
-	private Clearing caves4 = new Clearing();
-	private Clearing caves5 = new Clearing();
-	private Clearing caves6 = new Clearing();
+	private Clearing caves1 = new Clearing("cv1");
+	private Clearing caves2 = new Clearing("cv2");
+	private Clearing caves3 = new Clearing("cv3");
+	private Clearing caves4 = new Clearing("cv4");
+	private Clearing caves5 = new Clearing("cv5");
+	private Clearing caves6 = new Clearing("cv6");
 	
-	private Clearing pwoods2 = new Clearing();
-	private Clearing pwoods4 = new Clearing();
-	private Clearing pwoods5 = new Clearing();
+	private Clearing pwoods2 = new Clearing("pw2");
+	private Clearing pwoods4 = new Clearing("pw4");
+	private Clearing pwoods5 = new Clearing("pw5");
 	
-	private Clearing cvalley1 = new Clearing();
-	private Clearing cvalley2 = new Clearing();
-	private Clearing cvalley4 = new Clearing();
-	private Clearing cvalley5 = new Clearing();
+	private Clearing cvalley1 = new Clearing("cv1");
+	private Clearing cvalley2 = new Clearing("cv2");
+	private Clearing cvalley4 = new Clearing("cv4");
+	private Clearing cvalley5 = new Clearing("cv5");
 	
-	private Clearing nwoods5 = new Clearing();
-	private Clearing nwoods2 = new Clearing();
-	private Clearing nwoods4 = new Clearing();
+	private Clearing nwoods5 = new Clearing("nw5");
+	private Clearing nwoods2 = new Clearing("nw2");
+	private Clearing nwoods4 = new Clearing("nw4");
 	
-	private Clearing ruins1 = new Clearing();
-	private Clearing ruins2 = new Clearing();
-	private Clearing ruins3 = new Clearing();
-	private Clearing ruins4 = new Clearing();
-	private Clearing ruins5 = new Clearing();
-	private Clearing ruins6 = new Clearing();
+	private Clearing ruins1 = new Clearing("ru1");
+	private Clearing ruins2 = new Clearing("ru2");
+	private Clearing ruins3 = new Clearing("ru3");
+	private Clearing ruins4 = new Clearing("ru4");
+	private Clearing ruins5 = new Clearing("ru5");
+	private Clearing ruins6 = new Clearing("ru6");
 	
-	private Clearing avalley1 = new Clearing();
-	private Clearing avalley2 = new Clearing();
-	private Clearing avalley4 = new Clearing();
-	private Clearing avalley5 = new Clearing();
+	private Clearing avalley1 = new Clearing("av1");
+	private Clearing avalley2 = new Clearing("av2");
+	private Clearing avalley4 = new Clearing("av4");
+	private Clearing avalley5 = new Clearing("av5");
 	
-	private Clearing lwoods2 = new Clearing();
-	private Clearing lwoods4 = new Clearing();
-	private Clearing lwoods5 = new Clearing();
+	private Clearing lwoods2 = new Clearing("lw2");
+	private Clearing lwoods4 = new Clearing("lw4");
+	private Clearing lwoods5 = new Clearing("lw5");
 
 	private gameView parent;
 	

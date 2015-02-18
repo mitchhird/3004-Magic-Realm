@@ -54,13 +54,16 @@ public class PlayerBase {
 	protected Chit horse;
 	protected Weights weight;
 	protected Weights vulnerability;
-	protected Queue<String> commandList;
 	protected CharacterClass characterClass;
 	protected ArrayList<TreasureModel> accquiredTreasures;
 	
 	// Clearing Stuff
 	protected Clearing homeClearing;
 	protected Clearing currentClearing;
+	
+	// Log Recording
+	protected String currentTurn;
+	protected ArrayList<String> turnLog;
 	
 	//controllable units might need might not
 	//big part of combat system
@@ -93,22 +96,33 @@ public class PlayerBase {
 		currentNotirity = 0;
 		currentGold = 10;
 		hidden = false;
-		commandList = new LinkedList<>();
+		currentTurn = "";
 		characterClass = CharacterClass.SWORDSMAN;
 		vulnerability = Weights.LIGHT;
+		
+		// Setup the lists
+		turnLog = new ArrayList<>();
 		accquiredTreasures = new ArrayList<>();
 	}
 	
 	// Starts The Player's Turn And Wipes Out There Player's Commands
 	protected void startPlayerTurn () {
 		hidden = false;
-		commandList.clear();
+		currentTurn = "";
+	}
+	
+	// Do All The Things For Ending The Player's Turn
+	public void endPlayerTurn () {
+		turnLog.add(currentTurn);
+		currentTurn = "";
 	}
 	
 	// Attempts To Hide The Player, Consult Die Table For Reasoning For Result
 	public boolean attemptHide () {
 		int dieRoll = GameUtils.createRandomInt(1, 6);
 		hidden = (hidden) ? true : dieRoll < 6;
+		
+		logAction ("H");
 		
 		// If The Player Hid Then Simply Refresh The Player's Image
 		if (hidden) {
@@ -124,6 +138,9 @@ public class PlayerBase {
 	// Attempts To Move The Player To The Designated Clearing
 	public boolean moveToClearing (Clearing newClearing) {
 		if (currentClearing.isVaildMove(newClearing)) {
+			
+			// Log The Turn
+			logAction("M-" + newClearing.getClearingName());
 			
 			// If First Clearing Then Set It To The Player's Home
 			if (homeClearing == null) {
@@ -163,7 +180,12 @@ public class PlayerBase {
 	}
 	
 	public void searchCurrentClearing (String mode) {
+		logAction("S-" + currentClearing.getClearingName());
 		currentClearing.searchClearing(this, mode);
+	}
+	
+	public void logAction (String logMessage) {
+		currentTurn += (currentTurn.equals("")) ? logMessage : "," + logMessage;
 	}
 	
 	//*********
