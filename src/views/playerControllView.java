@@ -480,6 +480,10 @@ public class playerControllView extends javax.swing.JPanel {
 		}
 		((DefaultTableModel) getjTable2().getModel()).removeRow(getjTable2().getSelectedRow());
 	}
+	
+	public void changeItemStatus(String theStatus){
+		((DefaultTableModel) getjTable3().getModel()).setValueAt(theStatus, getjTable2().getSelectedRow(), 2);
+	}
 
 	private JTable getjTable3() {
 		return jTable3;
