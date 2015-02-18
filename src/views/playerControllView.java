@@ -1,8 +1,10 @@
 package views;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -53,6 +55,10 @@ public class playerControllView extends javax.swing.JPanel {
 	private JScrollPane jScrollPane3;
 	private JTable jTable3;
 	private JScrollPane jScrollPane4;
+	private JFrame searchViewer;
+	private searchView theSearch;
+	
+	private Toolkit tk = Toolkit.getDefaultToolkit();
 	
     public playerControllView(gameView parentView) {
         initComponents();
@@ -246,7 +252,7 @@ public class playerControllView extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Search Button Has Been Pressed");
-				parent.getCurrentPlayer().searchCurrentClearing(GameUtils.SEARCH_LOCATE);
+				search();
 			}
 		});
 
@@ -390,7 +396,7 @@ public class playerControllView extends javax.swing.JPanel {
         );
     }                     
 
-    /*---------------------- Update The View With A Player --------------------- */
+	/*---------------------- Update The View With A Player --------------------- */
     public void update(PlayerBase p) {
     	playerDisplayLabel.setText(p.getName());
     	playerClassDisplayLabel.setText(p.getPlayerClass().name());
@@ -399,6 +405,38 @@ public class playerControllView extends javax.swing.JPanel {
     	playerNotirityLabel.setText("" + p.getCurrentNotirity());
     	playerVulnerLabel.setText ("" + p.getVulnerability().name());
     }
+    
+    private void search() {
+
+		searchViewer = new JFrame();
+		searchViewer.setSize(150,200);
+		searchViewer.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
+		searchViewer.setVisible(true);
+		theSearch = new searchView();
+		searchViewer.add(theSearch);
+		
+		theSearch.getFindButton().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	System.out.println("Find test");
+            	parent.getCurrentPlayer().searchCurrentClearing(GameUtils.SEARCH_LOCATE);
+            }
+        });
+		
+		theSearch.getLootButton().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	System.out.println("Loot test");
+            	parent.getCurrentPlayer().searchCurrentClearing(GameUtils.SEARCH_LOCATE);
+            }
+        });
+		
+		theSearch.getCancelButton().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	System.out.println("Cancel test");
+            	searchViewer.dispose();
+            }
+        });
+	}
+    
     
     /*---------------------- Event Handler Methods ----------------------------- */
     private void handleHideButton(java.awt.event.ActionEvent evt) {                                         

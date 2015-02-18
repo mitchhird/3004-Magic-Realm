@@ -13,7 +13,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import models.BoardModels.Clearing;
-import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
 
 public class boardView extends JPanel {
