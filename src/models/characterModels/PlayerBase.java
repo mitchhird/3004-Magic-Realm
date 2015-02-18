@@ -95,6 +95,7 @@ public class PlayerBase {
 		hidden = false;
 		commandList = new LinkedList<>();
 		characterClass = CharacterClass.SWORDSMAN;
+		vulnerability = Weights.LIGHT;
 		accquiredTreasures = new ArrayList<>();
 	}
 	
@@ -159,6 +160,10 @@ public class PlayerBase {
 			accquiredTreasures.add(t);
 			currentGold += t.getTreasureGoldValue();
 		}
+	}
+	
+	public void searchCurrentClearing (String mode) {
+		currentClearing.searchClearing(this, mode);
 	}
 	
 	//*********

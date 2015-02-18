@@ -13,6 +13,9 @@ import javax.swing.JButton;
  */
 public class GameUtils {
 
+	public static String SEARCH_LOCATE = "LOCATE";
+	public static String SEARCH_LOOT = "LOOT";
+	
 	// Returns A Random Value Between Ranges
 	public static int createRandomInt (int beginRange, int endRange) {
 		Random randomizer = new Random();

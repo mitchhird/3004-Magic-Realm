@@ -8,6 +8,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import models.characterModels.PlayerBase;
+import utils.GameUtils;
 
 public class playerControllView extends javax.swing.JPanel {
 
@@ -239,10 +240,13 @@ public class playerControllView extends javax.swing.JPanel {
         });
 
         searchButton.setText("Search");
+
+        // Button Needs To Be Expanded On And So Do Treasure
         searchButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				 System.out.println("Search Button Has Been Pressed");
+				System.out.println("Search Button Has Been Pressed");
+				parent.getCurrentPlayer().searchCurrentClearing(GameUtils.SEARCH_LOCATE);
 			}
 		});
 
@@ -261,7 +265,6 @@ public class playerControllView extends javax.swing.JPanel {
 				 System.out.println("Trade Button Has Been Pressed");
 			}
 		});
-        
 
         classLabel.setText("Class:");
 
@@ -419,11 +422,16 @@ public class playerControllView extends javax.swing.JPanel {
 
     private void handleSendTurn () {
     	System.out.println("Send Turn Has Been Pressed");
-    	if(parent.getCurrentPlayer()==null){
-    		return;
+    	
+    	// If The Game Has Started
+    	if (parent.hasGameStarted()) {
+    		if(parent.getCurrentPlayer()==null){
+    			return;
+    		}
+    		parent.getPlayerList().updateTable();
+    		parent.getCurrentPlayer().getCurrentClearing().resetConnectedClearings();
+    		parent.getGameController().moveToNextPlayer();
     	}
-    	parent.getCurrentPlayer().getCurrentClearing().resetConnectedClearings();
-    	parent.getGameController().moveToNextPlayer();
     }
 
     

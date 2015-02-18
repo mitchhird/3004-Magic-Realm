@@ -83,7 +83,9 @@ public class Clearing {
 	
 	// Player Search's Clearing When Called
 	public void searchClearing(PlayerBase p, String mode) {
-		if (mode.equals("LOCATE")) {
+		
+		// If Locating Treasure Then Do The Normal Rolls
+		if (mode.equals(GameUtils.SEARCH_LOCATE)) {
 			int dieRoll = GameUtils.createRandomInt(1, 6);
 			
 			// Temp Holder For Treasure 
@@ -93,6 +95,10 @@ public class Clearing {
 				}
 			}
 		}
+		else if (mode.equals(GameUtils.SEARCH_LOOT)) {
+			// Place Holder
+		}
+		
 	}
 	
 	/* ------------------- Getters And Setters Below Here -------------------*/

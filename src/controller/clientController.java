@@ -13,6 +13,8 @@ public class clientController {
 	private int currentPlayerIndex;
 	private PlayerBase currentPlayer;
 	private ArrayList<PlayerBase> thePlayers;
+	
+	private boolean gameStarted;
 
 	public clientController(gameView theView){
 		parent = theView;
@@ -47,6 +49,7 @@ public class clientController {
 	
 	// Starts The Game When Called
 	public void startGame () {
+		gameStarted = true;
 		for (PlayerBase p: thePlayers) {
 			Clearing playerStart = parent.getBoardView().getDefaultClearingForClass(p.getPlayerClass());
 			p.setCurrentClearing(playerStart);
@@ -64,8 +67,26 @@ public class clientController {
 		}
 	}
 	
+	// Get Player By Name 
+	public PlayerBase getPlayerByName (String name) {
+		for (PlayerBase p: thePlayers) {
+			if (p.getName().equals(name)) {
+				return p;
+			}
+		}
+		return null;
+	}
+	
 	/*-----------------  Getters And Setters -------------------------*/
 	public PlayerBase getCurrentPlayer() {
 		return currentPlayer;
+	}
+
+	public boolean isGameStarted() {
+		return gameStarted;
+	}
+
+	public void setGameStarted(boolean gameStarted) {
+		this.gameStarted = gameStarted;
 	}
 }

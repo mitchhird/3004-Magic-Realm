@@ -1,6 +1,13 @@
 package views;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JEditorPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import models.characterModels.PlayerBase;
 
 	public class playerListView extends javax.swing.JPanel {
 
@@ -10,9 +17,12 @@ import javax.swing.table.DefaultTableModel;
 	    private javax.swing.JScrollPane jScrollPane3;
 	    private javax.swing.JTable jTable2;      
 	    
+	    private gameView parent;
+	    
 		private static final long serialVersionUID = 1L;
-	    public playerListView() {
+	    public playerListView(gameView parent) {
 	        initComponents();
+	        this.parent = parent;
 	    }
                    
 	    private void initComponents() {
@@ -49,6 +59,18 @@ import javax.swing.table.DefaultTableModel;
 	            }
 	        });
 			getjTable2().setSelectionMode(1);
+			
+			getjTable2().addMouseListener(new MouseAdapter() {
+	        	@Override
+	        	public void mouseClicked(MouseEvent e) {
+	        		  JTable target = (JTable)e.getSource();
+	        	      int row = target.getSelectedRow();
+
+	        	      String test = (String) jTable2.getValueAt(row, 1);
+	        	      parent.updatePlayerByName(test);
+	        	      System.out.println();
+	        	}
+			});
 
 	        jScrollPane3.setViewportView(getjTable2());
 
@@ -76,7 +98,23 @@ import javax.swing.table.DefaultTableModel;
 	                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 	            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
 	        );
-	    }                                                      
+	    }       
+	    
+	    // Sets The Current Player To Active While The Others Are Waiting
+	    public void updateTable () {
+	    	PlayerBase currentPlayer = parent.getCurrentPlayer();
+	    	
+	    	for (int i = 0; i < jTable2.getRowCount(); i++) {
+	    		String playerClass = (String)jTable2.getValueAt(i, 0);
+	    		String playerName = (String)jTable2.getValueAt(i, 1);
+	    		
+	    		// If The Player Is The Current Player Then Set Them To Playing
+	    		if (currentPlayer.getName().equals(playerName) && currentPlayer.getPlayerClass().name().equals(playerClass))
+	    			jTable2.setValueAt("Playing", i, 2);
+	    		else
+	    			jTable2.setValueAt("Waiting", i, 2);
+	    	}
+	    }
    
 	    public javax.swing.JButton getjButton2() {
 			return jButton2;

@@ -113,7 +113,7 @@ public class gameView extends FrameBase {
 	
 	private void showGameButtons(){
 	
-		thePlayerList = new playerListView();
+		thePlayerList = new playerListView(this);
 		addToGrid(thePlayerList, 0, 0, 1, 1);
 		
 		thePlayerButtons = new playerControllView(this);
@@ -233,8 +233,23 @@ public class gameView extends FrameBase {
 		return theClient.getCurrentPlayer();
 	}
 	
+	public void updatePlayerByName (String name) {
+		PlayerBase p = theClient.getPlayerByName(name);
+		
+		if (p != null)
+			thePlayerButtons.update(p);
+	}
+	
 	public clientController getGameController () {
 		return theClient;
+	}
+	
+	public playerListView getPlayerList() {
+		return thePlayerList;
+	}
+	
+	public boolean hasGameStarted() {
+		return theClient.isGameStarted();
 	}
 	
 	// Sets The Grid Location Based On The Paramenters Given
