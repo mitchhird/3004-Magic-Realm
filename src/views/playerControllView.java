@@ -258,7 +258,7 @@ public class playerControllView extends javax.swing.JPanel {
         tradeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				 System.out.println("Rest Button Has Been Pressed");
+				 System.out.println("Trade Button Has Been Pressed");
 			}
 		});
         
