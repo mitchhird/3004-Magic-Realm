@@ -1,7 +1,12 @@
 package views;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import models.characterModels.PlayerBase;
 
@@ -46,6 +51,10 @@ public class playerControllView extends javax.swing.JPanel {
 	private static final long serialVersionUID = 1336340316590856087L;
     
 	private gameView parent;
+	private javax.swing.JTable jTable2;
+	private JScrollPane jScrollPane3;
+	private JTable jTable3;
+	private JScrollPane jScrollPane4;
 	
     public playerControllView(gameView parentView) {
         initComponents();
@@ -89,6 +98,11 @@ public class playerControllView extends javax.swing.JPanel {
         tradeButton = new javax.swing.JButton();
         classLabel = new javax.swing.JLabel();
         setjLabel20(new javax.swing.JLabel());
+        jTable2 = new JTable();
+        jTable3 = new JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jScrollPane4= new javax.swing.JScrollPane();
+
 
         getjButton1().setText("Show Card");
 
@@ -144,11 +158,56 @@ public class playerControllView extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
 
+                },
+                new String [] {
+                    "Name","Details"
+                }
+            ) {
+                /**
+    			 * 
+    			 */
+    			private static final long serialVersionUID = 7653752904224053856L;
+    			boolean[] canEdit = new boolean [] {
+                    false, false
+                };
+
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            });
+        
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "Name","Details","Status"
+                }
+            ) {
+                /**
+    			 * 
+    			 */
+    			private static final long serialVersionUID = 7653752904224053856L;
+    			boolean[] canEdit = new boolean [] {
+                    false, false
+                };
+
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit [columnIndex];
+                }
+            });
+        
+        jScrollPane1.setViewportView(jTable1);
+        jScrollPane3.setViewportView(jTable2);
+        jScrollPane4.setViewportView(jTable3);
+        
         jTabbedPane1.addTab("Record", jScrollPane1);
-        jTabbedPane1.addTab("Chits", jTabbedPane2);
-        jTabbedPane1.addTab("Inventory", jTabbedPane3);
+        jTabbedPane1.addTab("Chits", jScrollPane3);
+        jTabbedPane1.addTab("Inventory", jScrollPane4);
         jTabbedPane1.addTab("Spells", jTabbedPane4);
         jTabbedPane1.addTab("Discoveries", jTabbedPane5);
         jTabbedPane1.addTab("Victory Requirements", jTabbedPane6);
@@ -398,5 +457,35 @@ public class playerControllView extends javax.swing.JPanel {
 
 	public void setjButton1(javax.swing.JButton jButton1) {
 		this.jButton1 = jButton1;
-	}                  
+	}   
+	
+	public void addToInventory(String theName, String theDetails){
+		((DefaultTableModel) getjTable3().getModel()).addRow(new Object[]{theName,theDetails,"Active"});
+	}
+	
+	public void addToChits(String theName, String theDetails){
+		((DefaultTableModel) getjTable2().getModel()).addRow(new Object[]{theName,theDetails});
+	}
+	
+	public void removeFromInvenotry(){
+		if(getjTable3().getSelectedRow()==-1){
+			return;
+		}
+		((DefaultTableModel) getjTable3().getModel()).removeRow(getjTable3().getSelectedRow());
+	}
+	
+	public void removeFromChits(){
+		if(getjTable2().getSelectedRow()==-1){
+			return;
+		}
+		((DefaultTableModel) getjTable2().getModel()).removeRow(getjTable2().getSelectedRow());
+	}
+
+	private JTable getjTable3() {
+		return jTable3;
+	}
+
+	private JTable getjTable2() {
+		return jTable2;
+	}
 }
