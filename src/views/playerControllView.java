@@ -400,12 +400,18 @@ public class playerControllView extends javax.swing.JPanel {
     /*---------------------- Event Handler Methods ----------------------------- */
     private void handleHideButton(java.awt.event.ActionEvent evt) {                                         
     	System.out.println("Hide Button Has Been Pressed");
+    	if(parent.getCurrentPlayer()==null){
+    		return;
+    	}
     	parent.getCurrentPlayer().getCurrentClearing().resetConnectedClearings();
     	parent.getCurrentPlayer().attemptHide();
     }                                        
 
     private void handleMoveButtonPress(java.awt.event.ActionEvent evt) {                                         
     	System.out.println("Move Has Been Pressed");
+    	if(parent.getCurrentPlayer()==null){
+    		return;
+    	}
     	PlayerBase currentPlayer = parent.getCurrentPlayer();
     	currentPlayer.getCurrentClearing().highlightForMove();
     	currentPlayer.setMoving(true);
@@ -413,6 +419,9 @@ public class playerControllView extends javax.swing.JPanel {
 
     private void handleSendTurn () {
     	System.out.println("Send Turn Has Been Pressed");
+    	if(parent.getCurrentPlayer()==null){
+    		return;
+    	}
     	parent.getCurrentPlayer().getCurrentClearing().resetConnectedClearings();
     	parent.getGameController().moveToNextPlayer();
     }
