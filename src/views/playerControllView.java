@@ -139,7 +139,7 @@ public class playerControllView extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Turn", "Monl", "Day", "Color", "Phases", "Action", "Kills"
+                "Turn", "Mon", "Day", "Color", "Phases", "Action", "Kills"
             }
         ) {
             /**
@@ -147,7 +147,7 @@ public class playerControllView extends javax.swing.JPanel {
 			 */
 			private static final long serialVersionUID = 7653752904224053856L;
 			boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -485,6 +485,21 @@ public class playerControllView extends javax.swing.JPanel {
 			return;
 		}
 		((DefaultTableModel) getjTable3().getModel()).removeRow(getjTable3().getSelectedRow());
+	}
+	
+	public void addToRecord(String theTurn, String theMon, String theDay, String theColor, String thePhases, String theAction, String theKills){
+		((DefaultTableModel) getjTable1().getModel()).addRow(new Object[]{theTurn,theMon,theDay,theColor,thePhases,theAction,theKills});
+	}
+	
+	private JTable getjTable1() {
+		return jTable2;
+	}
+
+	public void removeFromRecord(){
+		if(getjTable1().getSelectedRow()==-1){
+			return;
+		}
+		((DefaultTableModel) getjTable1().getModel()).removeRow(getjTable1().getSelectedRow());
 	}
 	
 	public void removeFromChits(){
