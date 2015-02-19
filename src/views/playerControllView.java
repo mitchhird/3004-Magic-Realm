@@ -418,14 +418,16 @@ public class playerControllView extends javax.swing.JPanel {
 		theSearch.getFindButton().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	System.out.println("Find test");
-            	parent.getCurrentPlayer().searchCurrentClearing(GameUtils.SEARCH_LOCATE);
+            	if (parent.hasGameStarted())
+            		parent.getCurrentPlayer().searchCurrentClearing(GameUtils.SEARCH_LOCATE);
             }
         });
 		
 		theSearch.getLootButton().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	System.out.println("Loot test");
-            	parent.getCurrentPlayer().searchCurrentClearing(GameUtils.SEARCH_LOCATE);
+            	if (parent.hasGameStarted())
+            		parent.getCurrentPlayer().searchCurrentClearing(GameUtils.SEARCH_LOCATE);
             }
         });
 		
