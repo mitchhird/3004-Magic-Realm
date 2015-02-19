@@ -13,6 +13,7 @@ import models.characterModels.PlayerBase;
 public class TreasureModel {
 
 	private int treasureGoldValue;
+	private boolean greatTreasure;
 	private ArrayList<PlayerBase> playersFoundThis;
 	
 	// Static Array of Values For The Treasure Amounts
@@ -22,8 +23,9 @@ public class TreasureModel {
 		playersFoundThis = new ArrayList<PlayerBase>();
 		
 		// Determine The Gold Amount, Rando For Now
+		int startRange = (greatTreasure) ? 3 : 0;
 		int endRange = (greatTreasure) ? goldAmounts.length - 1: 2;
-		treasureGoldValue = GameUtils.createRandomInt(0, endRange);
+		treasureGoldValue = goldAmounts[GameUtils.createRandomInt(startRange, endRange)];
 	}
 	
 	// Adds The Player To The Found Array
@@ -38,5 +40,12 @@ public class TreasureModel {
 
 	public int getTreasureGoldValue() {
 		return treasureGoldValue;
+	}
+	
+	@Override
+	public String toString() {
+		String displayString = (greatTreasure) ? "Great Treasure - Value: " : "Normal Treasure - Value: ";
+		return displayString + treasureGoldValue;
+		
 	}
 }

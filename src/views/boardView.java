@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import models.BoardModels.Clearing;
 import models.characterModels.playerEnums.CharacterClass;
+import models.otherEntities.TreasureModel;
 
 public class boardView extends JPanel {
 
@@ -517,6 +518,9 @@ public class boardView extends JPanel {
 		lwoods2.addConnectedClearing(lwoods4);
 		lwoods4.addToConnectedClearings(lwoods2, ruins2);		
 		lwoods5.addConnectedClearing(avalley2);
+		
+		// Temp
+		cavern1.addTreasures(new TreasureModel(true), new TreasureModel(false));
 	}
 	
 	private void addListener (final Clearing c) {

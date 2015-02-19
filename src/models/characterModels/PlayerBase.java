@@ -183,11 +183,8 @@ public class PlayerBase {
 	
 	// Treasure Functions
 	public void addTreasure (TreasureModel t) {
-		// If The Player Has Found This Treasure Then Add It To The Collection
-		if (t.hasPlayerFound(this)) {
-			accquiredTreasures.add(t);
-			currentGold += t.getTreasureGoldValue();
-		}
+		accquiredTreasures.add(t);
+		currentGold += t.getTreasureGoldValue();
 	}
 	
 	public ArrayList<TreasureModel> searchCurrentClearing () {

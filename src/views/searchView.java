@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
+import models.characterModels.PlayerBase;
 import models.otherEntities.TreasureModel;
 import utils.GameUtils;
 
@@ -68,10 +69,7 @@ public class searchView extends javax.swing.JPanel {
 		
 		getLootButton().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	System.out.println("Loot test");
-            	if (parentView.hasGameStarted()) {
-            		parentView.getCurrentPlayer().searchCurrentClearing();
-            	}
+            	handleLootButton();
             }
         });
     }
@@ -87,8 +85,21 @@ public class searchView extends javax.swing.JPanel {
     		if (foundTreasures.size() == 0) {
     			JOptionPane.showMessageDialog(this, "You Didn't Find Anything In Your Search");
     		} else {
-    			System.out.println("Found Some Itmes");
+    			JOptionPane.showMessageDialog(this, "You Found Some Treasure In The Clearing. You Can Now Loot It");
     		}
+    	}
+    }
+    
+    // Handles The looting
+    private void handleLootButton () {
+    	System.out.println("Loot test");
+    	if (parentView.hasGameStarted()){
+    		PlayerBase currPlayer = parentView.getCurrentPlayer();
+    		ArrayList<TreasureModel> treasures = currPlayer.getCurrentClearing().getTreasuresPlayerFound(currPlayer);
+    		
+    		// Make The Dialog Appear
+    		TreasureViewDialog lootDialog = new TreasureViewDialog(parentView, "Loot", false, treasures, currPlayer);
+    		lootDialog.setVisible(true);
     	}
     }
     

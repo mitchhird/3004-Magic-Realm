@@ -255,6 +255,7 @@ public class playerControllView extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Search Button Has Been Pressed");
+				parent.getCurrentPlayer().getCurrentClearing().resetConnectedClearings();
 				search();
 			}
 		});
@@ -264,6 +265,7 @@ public class playerControllView extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				 System.out.println("Rest Button Has Been Pressed");
+				 parent.getCurrentPlayer().getCurrentClearing().resetConnectedClearings();
 			}
 		});
 
@@ -272,6 +274,7 @@ public class playerControllView extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				 System.out.println("Trade Button Has Been Pressed");
+				 parent.getCurrentPlayer().getCurrentClearing().resetConnectedClearings();
 			}
 		});
 

@@ -1,6 +1,7 @@
 package models.BoardModels;
 
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -84,23 +85,38 @@ public class Clearing {
 	}
 	
 	// Player Search's Clearing When Called
-	public void searchClearing(PlayerBase p, String mode) {
+	public ArrayList<TreasureModel> searchClearing(PlayerBase p) {
+		int dieRoll = GameUtils.createRandomInt(1, 6);
+		ArrayList <TreasureModel> returnVal = new ArrayList<>();
 		
-		// If Locating Treasure Then Do The Normal Rolls
-		if (mode.equals(GameUtils.SEARCH_LOCATE)) {
-			int dieRoll = GameUtils.createRandomInt(1, 6);
-			
-			// Temp Holder For Treasure 
-			if (dieRoll < 4) {
-				for (TreasureModel t: treasuresInClearing) {
-					t.playerFound(p);
-				}
+		// Temp Holder For Treasure
+		if (dieRoll < 4) {
+			for (TreasureModel t : treasuresInClearing) {
+				t.playerFound(p);
+				returnVal.add(t);
 			}
 		}
-		else if (mode.equals(GameUtils.SEARCH_LOOT)) {
-			// Place Holder
-		}
 		
+		return returnVal;
+	}
+	
+	// Loots The Clearing And Grabs All Treasure Out
+	public void playerLootClearing (PlayerBase p) {
+		ArrayList<TreasureModel> treasuresFound = getTreasuresPlayerFound(p);
+		for (TreasureModel t: treasuresFound) {
+			treasuresInClearing.remove(t);
+			p.addTreasure(t);
+		}
+	}
+	
+	// Get The Treasure In The Clearing The PLayer Knows About
+	public ArrayList<TreasureModel> getTreasuresPlayerFound(PlayerBase p) {
+		ArrayList<TreasureModel> treasures = new ArrayList<>();
+		for (TreasureModel t: treasuresInClearing) {
+			if (t.hasPlayerFound(p))
+				treasures.add(t);
+		}
+		return treasures;
 	}
 	
 	/* ------------------- Getters And Setters Below Here -------------------*/
