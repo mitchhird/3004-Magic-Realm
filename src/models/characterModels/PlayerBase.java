@@ -2,8 +2,6 @@ package models.characterModels;
 
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -12,7 +10,9 @@ import models.BoardModels.Clearing;
 import models.characterModels.playerEnums.Attacks;
 import models.characterModels.playerEnums.CharacterClass;
 import models.characterModels.playerEnums.Weights;
+import models.chitModels.ArmorChit;
 import models.chitModels.Chit;
+import models.chitModels.WeaponChit;
 import models.otherEntities.Denizen;
 import models.otherEntities.TreasureModel;
 import utils.GameUtils;
@@ -48,13 +48,16 @@ public class PlayerBase {
 	protected String tradeRelationship;
 	
 	// Compound Data Types For The Object
-	protected Chit[] armorChit;
 	protected Chit[] combatChit;
-	protected Chit[] weaponChit;
 	protected Chit horse;
 	protected Weights wounds;
 	protected Weights vulnerability;
 	protected CharacterClass characterClass;
+	protected WeaponChit activeWeapon;
+
+	// Lists For The Player
+	protected ArrayList<ArmorChit> armorChits;
+	protected ArrayList<WeaponChit> weaponChit;
 	protected ArrayList<TreasureModel> accquiredTreasures;
 	protected ArrayList<PlayerBase> listAttacks;
 	
@@ -85,9 +88,9 @@ public class PlayerBase {
 	}
 	
 	public PlayerBase (String playerName, CharacterClass c) {
-		initPlayerStats();
 		setName(playerName);
 		setClass(c);
+		initPlayerStats();
 	}
 	
 	
@@ -100,12 +103,17 @@ public class PlayerBase {
 		hidden = false;
 		living = true;
 		currentTurn = "";
-		characterClass = CharacterClass.SWORDSMAN;
 		vulnerability = Weights.LIGHT;
 		
 		// Setup the lists
 		turnLog = new ArrayList<>();
 		accquiredTreasures = new ArrayList<>();
+		weaponChit = new ArrayList<WeaponChit>();
+		armorChits = new ArrayList<ArmorChit>();
+		
+		// Setup The Player Weapons And Armor
+		weaponChit.add(characterClass.getStartingWeapon());
+		activeWeapon = weaponChit.get(0);
 	}
 	
 	// Starts The Player's Turn And Wipes Out There Player's Commands
@@ -182,15 +190,14 @@ public class PlayerBase {
 		}
 	}
 	
-	public void searchCurrentClearing (String mode) {
+	public boolean searchCurrentClearing (String mode) {
 		logAction("S-" + currentClearing.getClearingName());
-		currentClearing.searchClearing(this, mode);
+		return currentClearing.searchClearing(this, mode);
 	}
 	
 	public void logAction (String logMessage) {
 		currentTurn += (currentTurn.equals("")) ? logMessage : "," + logMessage;
 	}
-	
 	
 	//can be changed to something else if weight is not an issue;
 	public void increaseWounds(int d){
@@ -289,12 +296,7 @@ public class PlayerBase {
 	}
 	
 	public PlayerBase attackList(){
-		PlayerBase returnP;
-		
-		returnP = listAttacks.get(0);
-		listAttacks.remove(0);
-		
-		return returnP;
+		return listAttacks.remove(0);
 	}
 	
 	public boolean isLiving(){
@@ -321,7 +323,6 @@ public class PlayerBase {
 
 	public void checkIfDamaged(Weights harm) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void isDead() {

@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -426,8 +427,10 @@ public class playerControllView extends javax.swing.JPanel {
 		theSearch.getLootButton().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	System.out.println("Loot test");
-            	if (parent.hasGameStarted())
-            		parent.getCurrentPlayer().searchCurrentClearing(GameUtils.SEARCH_LOCATE);
+            	if (parent.hasGameStarted()) {
+            		boolean searchResult = parent.getCurrentPlayer().searchCurrentClearing(GameUtils.SEARCH_LOCATE);
+      
+            	}
             }
         });
 		

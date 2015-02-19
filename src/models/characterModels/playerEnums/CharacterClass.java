@@ -5,6 +5,8 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
+import models.chitModels.WeaponChit;
+
 /**
  * A Basic Enumeration That Will Allow For Character Specific 
  * Functionality If Needed
@@ -93,5 +95,24 @@ public enum CharacterClass {
 		   e.printStackTrace();
 	   }
 		return null;
+   }
+   
+	public WeaponChit getStartingWeapon() {
+		switch (this) {
+		case AMAZON:
+			return new WeaponChit(14, 2, Weights.LIGHT);
+		case BLACKNIGHT:
+			return new WeaponChit(10, 1, Weights.MEDIUM);
+		case CAPTAIN:
+			return new WeaponChit(10, 1, Weights.MEDIUM);
+		case DWARF:
+			return new WeaponChit(2, 1, Weights.MEDIUM);
+		case ELF:
+			return new WeaponChit(14, 2, Weights.LIGHT);
+		case SWORDSMAN:
+			return new WeaponChit(4, 1, Weights.LIGHT);
+		default:
+			return new WeaponChit(10, 1, Weights.MEDIUM);
+		}
    }
 }
