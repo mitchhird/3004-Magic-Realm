@@ -1,5 +1,7 @@
 package models.chitModels;
 
+import models.characterModels.playerEnums.Weights;
+
 /**
  * Base Weapon Chit
  * @author Mitchell
@@ -8,18 +10,17 @@ public class WeaponChit extends Chit{
 	
 	private int weaponLength;
 	private int sharpnessStars;
-	private int alertWeaponDamage;
-	private int unalertWeaponDamage;
+	private Weights weaponHarm;
 	
 	private boolean alerted;
 	private boolean missleBased;
 
 	// Constructor For The Weapon Chit
-	public WeaponChit (int length, int sharpnessLevel, int aWeapDmg, int unaWeapDmg) {
+	public WeaponChit (int length, int sharpnessLevel, Weights aWeapDmg) {
 		weaponLength = length;
 		sharpnessStars = sharpnessLevel;
-		alertWeaponDamage = aWeapDmg;
-		unalertWeaponDamage = unaWeapDmg;
+		weaponHarm = aWeapDmg;
+
 		alerted = false;
 		missleBased = false;
 	}
@@ -49,7 +50,7 @@ public class WeaponChit extends Chit{
 		this.alerted = alerted;
 	}
 	
-	public int getWeaponDamage () {
-		return (alerted) ? alertWeaponDamage : unalertWeaponDamage;
+	public Weights getWeaponDamage () {
+		return weaponHarm;
 	}
 }
