@@ -220,7 +220,6 @@ public class PlayerBase {
 		playerName = newPlayerName;
 	}
 	
-	// Can't Be Negative
 	public void setGold (int amount) {
 		currentGold = Math.max(amount, 0);
 	}
@@ -276,7 +275,15 @@ public class PlayerBase {
 	public Clearing getHomeClearing() {
 		return homeClearing;
 	}
-	
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
+
 	public void addAttack(PlayerBase toAttack){
 		listAttacks.add(toAttack);
 	}

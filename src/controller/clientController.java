@@ -77,6 +77,17 @@ public class clientController {
 		return null;
 	}
 	
+	// Gather All Of The Unhidden Players
+	public ArrayList<PlayerBase> getUnhiddenPlayers () {
+		ArrayList<PlayerBase> returnVal = new ArrayList<>();
+		for (PlayerBase p: thePlayers) {
+			if (!p.isHidden()) {
+				returnVal.add(p);
+			}
+		}
+		return returnVal;
+	}
+	
 	/*-----------------  Getters And Setters -------------------------*/
 	public PlayerBase getCurrentPlayer() {
 		return currentPlayer;
