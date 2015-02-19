@@ -5,12 +5,14 @@ public class combatView extends javax.swing.JPanel {
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 7033668998908009395L;
-
+	private static final long serialVersionUID = -7229709663604503094L;
+	/**
+     * Creates new form combatView
+     */
     public combatView() {
         initComponents();
     }
-    
+                     
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -65,11 +67,6 @@ public class combatView extends javax.swing.JPanel {
         jButton9.setText("Smash");
 
         jButton10.setText("Charge");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
 
         jButton11.setText("Dodge");
 
@@ -138,7 +135,7 @@ public class combatView extends javax.swing.JPanel {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jButton14)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jButton17, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButton18))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -220,11 +217,6 @@ public class combatView extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>                        
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
-
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton jButton1;
