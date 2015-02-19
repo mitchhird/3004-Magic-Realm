@@ -1,5 +1,10 @@
 package views;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 public class combatView extends javax.swing.JPanel {
 
     /**
@@ -72,6 +77,99 @@ public class combatView extends javax.swing.JPanel {
         breastPlate = new javax.swing.JLabel();
         helmet = new javax.swing.JLabel();
         resetButton = new javax.swing.JButton();
+        
+        enemy1Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("enemy1 pressed");
+            }
+        });
+        enemy2Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("enemy2 pressed");
+            }
+        });
+        enemy3Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("enemy3 pressed");
+            }
+        });
+        enemy4Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("enemy4 pressed");
+            }
+        });
+        enemy5Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("enemy5 pressed");
+            }
+        });
+        enemy6Button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("enemy6 pressed");
+            }
+        });
+        
+        thrustButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("thrust pressed");
+            }
+        });
+        swingButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("swing pressed");
+            }
+        });
+        smashButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("smash pressed");
+            }
+        });
+        dodgeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("dodge pressed");
+            }
+        });
+        duckButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("duck pressed");
+            }
+        });
+        runButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("run pressed");
+            }
+        });
+        
+        nextButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("next pressed");
+            }
+        });
+        endButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("end pressed");
+            }
+        });
+        alertButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("alert pressed");
+            }
+        });
+        activateButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("activate pressed");
+            }
+        });
+        abandonButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("abandon pressed");
+            }
+        });
+        resetButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("reset pressed");
+            }
+        });
 
         textArea.setColumns(20);
         textArea.setRows(5);
