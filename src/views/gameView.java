@@ -53,6 +53,10 @@ public class gameView extends FrameBase {
 
 	private JFrame cardViewer;
 
+	private JFrame combatFrame;
+
+	private combatView combatPanel;
+
 	public static void main(String args[]){
 		new gameView();
 	}
@@ -66,6 +70,13 @@ public class gameView extends FrameBase {
 		
 		theClient = new clientController(this);
 
+		combatFrame = new JFrame();
+		combatPanel = new combatView();
+		combatFrame.setSize(760,630);
+		combatFrame.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
+		combatFrame.setVisible(true);
+		combatFrame.add(combatPanel);
+		
 		mainPanel = new JPanel();
 		scrollPane = new JScrollPane(mainPanel);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
