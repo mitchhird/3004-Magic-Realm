@@ -57,6 +57,10 @@ public class gameView extends FrameBase {
 
 	private combatView combatPanel;
 
+	private JFrame tradeFrame;
+
+	private tradeView tradePanel;
+
 	public static void main(String args[]){
 		new gameView();
 	}
@@ -108,6 +112,9 @@ public class gameView extends FrameBase {
             	exitGame();
             }
         });
+        
+        startTrading();
+        startCombat();
 	}
 	
 	private void update(){
@@ -269,6 +276,15 @@ public class gameView extends FrameBase {
 		combatFrame.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
 		combatFrame.setVisible(true);
 		combatFrame.add(combatPanel);
+	}
+	
+	public void startTrading(){
+		tradeFrame = new JFrame();
+		tradePanel = new tradeView();
+		tradeFrame.setSize(495,355);
+		tradeFrame.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
+		tradeFrame.setVisible(true);
+		tradeFrame.add(tradePanel);
 	}
 	
 	private void addToGrid(JPanel connectToFrame, JComponent theComponent, int x, int y, int gridWidth, int gridHeight) {
