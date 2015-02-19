@@ -56,7 +56,7 @@ public class PlayerBase {
 	protected Weights vulnerability;
 	protected CharacterClass characterClass;
 	protected ArrayList<TreasureModel> accquiredTreasures;
-	protected PlayerBase[] listAttacks;
+	protected ArrayList<PlayerBase> listAttacks;
 	
 	// Clearing Stuff
 	protected Clearing homeClearing;
@@ -277,17 +277,25 @@ public class PlayerBase {
 		return homeClearing;
 	}
 	
+	public void addAttack(PlayerBase toAttack){
+		listAttacks.add(toAttack);
+	}
+	
 	public PlayerBase attackList(){
 		PlayerBase returnP;
 		
-		returnP = listAttacks[listAttacks.length];
-		listAttacks[listAttacks.length] = null;
+		returnP = listAttacks.get(0);
+		listAttacks.remove(0);
 		
 		return returnP;
 	}
 	
 	public boolean isLiving(){
 		return living;
+	}
+	
+	public void unHide(){
+		hidden = false;
 	}
 
 	public Chit getWeapon() {
@@ -321,5 +329,24 @@ public class PlayerBase {
 			return true;
 		}
 		return true;
+	}
+
+	//will return 0 if not able to change
+	public int rollTacChange() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int selection() {
+		// TODO Auto-generated method stub
+		//will ask if player wants to alert weapon, run, or fly (can cast spell here) or nothing
+		//will do what is selected and return 1
+		//will return 0 if do nothing
+		return 0;
+	}
+
+	public void selection2() {
+		// TODO Auto-generated method stub
+		//must alert something or abandon an amount of belongings
 	}
 }

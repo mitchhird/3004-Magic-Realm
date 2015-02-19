@@ -50,22 +50,21 @@ public class CombatPvP {
 	//assumed can only lure unhidden characters/entity
 	private void luring(PlayerBase[] players) {
 		PlayerBase currPlayer = findPlayer(players);
-		while (currPlayer != null){
-			if (unhidden players in clearing){
-				can lure any natives or characters
-				will make both unhidden and will get each to target one another
+		for(int i = 0; i < players.length; ++i){
+			PlayerBase[] unhidden = players[i].getCurrentClearing().getUnhidden();
+			if(unhidden != null){
+				int f = players[i].checkLure(unhidden);//-----------------------------view
+				if(f > 0){
+					players[i].unHide();
+				}
 			}
-			
-			
-			
-			currPlayer = findPlayer(players);
 		}
 		
-		if (unassigned non-player controlled entities in clearing){
-			if (unhidden in clearing){
-				randomAssignments(players);
-			}
-		}
+//		if (unassigned non-player controlled entities in clearing){ more relevant for when monsters
+//			if (unhidden in clearing){
+//				randomAssignments(players);
+//			}
+//		}
 		
 		deployment(players);
 	}
@@ -102,18 +101,20 @@ public class CombatPvP {
 	 */
 	
 	private void deployment(PlayerBase[] players){
-		rotate through all the players
-		PlayerBase[] chargeAble;
-		if(found "hidden enemies"){//something to do with the search phase of the day
-			chargeAble = clearing.getEnties();
-		} else {
-			if (unhidden in clearing){
-				chargeAble = all unhidden;
+		for(int i = 0; i < players.length; ++i){
+			PlayerBase[] chargeAble;
+			if(found "hidden enemies"){//something to do with the search phase of the day
+				chargeAble = players[i].getCurrentClearing().getEnties();
+			} else {
+				if (players[i].getCurrentClearing().getUnhidden() != null){
+					chargeAble = players[i].getCurrentClearing().getUnhidden();
+				}
 			}
+			
+//			for each see if they want to charge player
+//				if so both unhidden
+			players[i].toCharge(chargeAble);//-----------------------------------
 		}
-		
-		for each see if they want to charge player
-			if so both unhidden
 		
 		encounter(players);
 	}
@@ -130,12 +131,22 @@ public class CombatPvP {
 	 */
 	
 	private void encounter(PlayerBase[] players) {
-		rotate through and check if charged another
-			if so then continue
-			else
-				see if alert weapon, run, or fly (can cast spell here)
-				if not
-					may alert any 1 belonging or abandon any number of belongings
+		for(int i = 0; i < players.length; ++i){
+			if(players[i].checkCharge()){
+				continue;
+			} else {
+				int f = players[i].selection();//---------------------
+				if(f != 0)
+					continue;
+			}
+			players[i].selection2();//-------------------
+		}
+//		rotate through and check if charged another
+//			if so then continue
+//			else
+//				see if alert weapon, run, or fly (can cast spell here)
+//				if not
+//					may alert any 1 belonging or abandon any number of belongings
 		
 		melee(players);
 	}
@@ -150,15 +161,39 @@ public class CombatPvP {
 	 */
 	
 	private void melee(PlayerBase[] players) {
-		rotate through attention chits and select attack targets
+		//rotate through attention chits and select attack targets
 		
-		secrete attack, manuever, and armor for each character
+		for(int i = 0; i < players.length; ++i){
+			players[i].setTarget();//------------------------------
+			//should be visible to everyone and go in order
+		}
 		
-		reveal
+		//secret attack, manuever, and armor for each character
 		
-		roll for repositioning and change of tactics
+		for(int i = 0; i < players.length; ++i){
+			setTactics(players[i]);//------------------------
+		}
 		
-		resolveAttacks(players);
+		//have to send all information to all players
+		
+		//roll for repositioning and change of tactics
+		for(int i = 0; i < players.length; ++i){
+			int f = players[i].rollTacChange();//------------------------
+			if (f > 0){
+				setTactics(players[i]);//------------------------------
+			}
+		}
+		
+		//loops through the clearning with players and resolves attacks in each
+		for(int i = 0; i < clearings.playerClearings().length; ++i){
+			resolveAttacks(clearing.getEntities());
+		}
+	}
+	
+	private void setTactics(PlayerBase player){
+		player.setAttack();
+		player.setManuever();
+		player.setArmor();
 	}
 	
 	//will have to have something in regards to the clearing and attack order
@@ -188,6 +223,8 @@ public class CombatPvP {
 	 * --Spoils of Combat
 	 */
 	
+	
+	////TODO make sure this works properly - Albert
 	private void resolveAttacks(PlayerBase[] players) {
 		PlayerBase currplayer = findPlayer(players);
 		PlayerBase attacker, defender;
@@ -201,7 +238,7 @@ public class CombatPvP {
 				attacker = currClearing.getPlayer(i);
 			}
 		}
-		defender = attacker.attackList(1);
+		defender = attacker.attackList();
 		
 		check all the lengths of weapons in clearning
 		check length then speed if equal
@@ -227,7 +264,7 @@ public class CombatPvP {
 			defender.setWounds(wounds2);
 			
 			attacker = nextAttacker(players);
-			defender = attacker.attackList(1);
+			defender = attacker.attackList();
 		}
 	}
 	
@@ -271,7 +308,7 @@ public class CombatPvP {
 	 * 3 if defender dies */
 	private int attackHits(PlayerBase attacker, PlayerBase defender) {
 		Weights harm;
-		//TODO CHIT THINGS - Albert
+		
 		harm = attacker.getWeapon().getHarmLevel();
 		
 		if (attacker.getWeapon().getStars() > 0) {
