@@ -1,5 +1,9 @@
 package controller;
 
+import utils.GameUtils;
+import models.BoardModels.Clearing;
+import models.characterModels.PlayerBase;
+
 public class DayController {
 	//for the actual controls of a game that loops for the days
 	
@@ -35,4 +39,108 @@ public class DayController {
 	 * 
 	 * native horses can not be used by anyone other then the native
 	 */
+	
+	private int day;
+	private int maxDays;
+	private int maxPhases = 4;
+	private PlayerBase[] allPlayers;
+	private PlayerBase[] orderPlayers;
+	private int totalPlayers;
+	private Clearing activeClearings;
+	//some view here currentView;
+	
+	public void startGame(PlayerBase[] newPlayers){
+		day = 0;
+		maxDays = 28;
+		allPlayers = newPlayers;
+		//will have to change this to have hired leaders
+		totalPlayers = newPlayers.length;
+		
+		while(day != maxDays){
+			++day;
+			birdSong();
+			dayLight();
+			evening();
+			midnight();
+		}
+		
+		check all victory things
+	}
+	
+	private void birdSong(){
+		for(int i = 0; i < totalPlayers; ++i){
+			allPlayers[i].record();
+			//have to pick 2-4 phases out of 10
+			/* the 10 are
+			 * -move
+			 * -hide
+			 * -alert
+			 * -rest
+			 * -search
+			 * -trade
+			 * -hire
+			 * -follow
+			 * -fly
+			 * -use spell
+			 * 
+			 */
+		}
+		//will have to add things about moving all hired to
+		//same place
+		
+		//add a thing for prowling creatures
+		if(day%7 == 0){
+			
+		}
+	}
+	
+	private void dayLight(){
+		//this orders the players for the day
+		//will have to change this to add for swordsman wanting to go
+		for(int i = 0; i < totalPlayers; ++i){
+			int turn = GameUtils.createRandomInt(0, allPlayers.length);
+			orderPlayers[orderPlayers.length] = allPlayers[turn];
+			for(int f = turn; turn < allPlayers.length; ++f){
+				allPlayers[f] = allPlayers[f + 1];
+			}
+		}
+		allPlayers = orderPlayers;
+		
+		for(int i = 0; i < maxPhases; ++i){
+			
+			for(int p = 0; p < totalPlayers; ++p){
+				trade with players in clearing
+				rearange belongings
+			}
+			
+			for(int p = 0; p < totalPlayers; ++p){
+				if(can do recorded){
+					orderPlayers[i].unHide();
+					orderPlayers[i].getRecord();
+				}
+			}
+			
+//			for(int p = 0; p < totalPlayers; ++p){
+//				check if want to block
+//			}
+			
+			
+		}
+		
+//		warning and sound chit become active
+//		more things about monsters moving to hexes
+	}
+	
+	private void evening(){
+		CombatPvP combat = new CombatPvP();
+		combat.combatPvP(orderPlayers, activeClearings);
+	}
+	
+	private void midnight(){
+		for(int i = 0; i < totalPlayers; ++i){
+			rearrangeBelongins();
+			weapon unalerted;
+		}
+//		curses removed from chapel
+	}
 }
