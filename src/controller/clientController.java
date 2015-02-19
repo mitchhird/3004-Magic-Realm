@@ -25,9 +25,7 @@ public class clientController {
 	// Adds The Player to The Game
 	public void addPlayer(CharacterClass playerClass, String playerName){
 		// Add The Player Into The List
-		PlayerBase aPlayer = new PlayerBase();
-		aPlayer.setClass(playerClass);
-		aPlayer.setName(playerName);
+		PlayerBase aPlayer = new PlayerBase(playerName, playerClass);
 		thePlayers.add(aPlayer);
 		
 		// If That Is The First Player, Set The Current Player To That

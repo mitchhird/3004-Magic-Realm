@@ -1,14 +1,25 @@
 package views;
 
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
+import models.otherEntities.TreasureModel;
+import utils.GameUtils;
+
 public class searchView extends javax.swing.JPanel {
 
 	/**
 	 * 
 	 */
+	
+	private gameView parentView;
 	private static final long serialVersionUID = 3566830746092036299L;
 	
-	public searchView() {
+	public searchView(gameView parent) {
         initComponents();
+        initListeners();
+        parentView = parent;
     }
                     
     private void initComponents() {
@@ -48,6 +59,39 @@ public class searchView extends javax.swing.JPanel {
         );
     }// </editor-fold>                        
 
+    public void initListeners () {
+		getFindButton().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	handleSearchButton();
+            }
+        });
+		
+		getLootButton().addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	System.out.println("Loot test");
+            	if (parentView.hasGameStarted()) {
+            		parentView.getCurrentPlayer().searchCurrentClearing();
+            	}
+            }
+        });
+    }
+    
+    // Handles The Searching
+    private void handleSearchButton() {
+    	System.out.println("Find test");
+    	
+    	// If The Game Has Started Then Execute The Search
+    	if (parentView.hasGameStarted()){
+    		ArrayList <TreasureModel> foundTreasures = parentView.getCurrentPlayer().searchCurrentClearing();
+    		
+    		if (foundTreasures.size() == 0) {
+    			JOptionPane.showMessageDialog(this, "You Didn't Find Anything In Your Search");
+    		} else {
+    			System.out.println("Found Some Itmes");
+    		}
+    	}
+    }
+    
     public javax.swing.JButton getFindButton() {
 		return findButton;
 	}

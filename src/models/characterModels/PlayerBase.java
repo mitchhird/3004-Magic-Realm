@@ -190,9 +190,9 @@ public class PlayerBase {
 		}
 	}
 	
-	public boolean searchCurrentClearing (String mode) {
+	public ArrayList<TreasureModel> searchCurrentClearing () {
 		logAction("S-" + currentClearing.getClearingName());
-		return currentClearing.searchClearing(this, mode);
+		return currentClearing.searchClearing(this);
 	}
 	
 	public void logAction (String logMessage) {

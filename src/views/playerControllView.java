@@ -3,6 +3,7 @@ package views;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -11,6 +12,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import models.characterModels.PlayerBase;
+import models.otherEntities.TreasureModel;
 import utils.GameUtils;
 
 public class playerControllView extends javax.swing.JPanel {
@@ -413,26 +415,8 @@ public class playerControllView extends javax.swing.JPanel {
 		searchViewer.setSize(150,200);
 		searchViewer.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
 		searchViewer.setVisible(true);
-		theSearch = new searchView();
+		theSearch = new searchView(parent);
 		searchViewer.add(theSearch);
-		
-		theSearch.getFindButton().addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	System.out.println("Find test");
-            	if (parent.hasGameStarted())
-            		parent.getCurrentPlayer().searchCurrentClearing(GameUtils.SEARCH_LOCATE);
-            }
-        });
-		
-		theSearch.getLootButton().addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	System.out.println("Loot test");
-            	if (parent.hasGameStarted()) {
-            		boolean searchResult = parent.getCurrentPlayer().searchCurrentClearing(GameUtils.SEARCH_LOCATE);
-      
-            	}
-            }
-        });
 		
 		theSearch.getCancelButton().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -441,7 +425,7 @@ public class playerControllView extends javax.swing.JPanel {
             }
         });
 	}
-    
+   
     
     /*---------------------- Event Handler Methods ----------------------------- */
     private void handleHideButton(java.awt.event.ActionEvent evt) {                                         
