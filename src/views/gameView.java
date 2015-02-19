@@ -69,13 +69,6 @@ public class gameView extends FrameBase {
 	public void init(){
 		
 		theClient = new clientController(this);
-
-		combatFrame = new JFrame();
-		combatPanel = new combatView();
-		combatFrame.setSize(760,630);
-		combatFrame.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
-		combatFrame.setVisible(true);
-		combatFrame.add(combatPanel);
 		
 		mainPanel = new JPanel();
 		scrollPane = new JScrollPane(mainPanel);
@@ -267,6 +260,15 @@ public class gameView extends FrameBase {
 	// Sets The Grid Location Based On The Paramenters Given
 	private void addToGrid(JComponent theComponent, int x, int y, int gridWidth, int gridHeight) {
 		addToGrid(mainPanel, theComponent, x, y, gridWidth, gridHeight);
+	}
+	
+	public void startCombat(){
+		combatFrame = new JFrame();
+		combatPanel = new combatView();
+		combatFrame.setSize(760,630);
+		combatFrame.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
+		combatFrame.setVisible(true);
+		combatFrame.add(combatPanel);
 	}
 	
 	private void addToGrid(JPanel connectToFrame, JComponent theComponent, int x, int y, int gridWidth, int gridHeight) {
