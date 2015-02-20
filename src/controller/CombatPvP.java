@@ -229,8 +229,8 @@ public class CombatPvP {
 		PlayerBase currplayer = findPlayer(players);
 		PlayerBase attacker, defender;
 		int damage;
-		check how the currplayer is attacking
-		who is the attacker and who is defender
+		// check how the currplayer is attacking
+		// who is the attacker and who is defender
 		int currBest = 0;
 		for(int i = 0; i < currClearing.getPlayers().length(); ++i){
 			if(currClearing.getPlayer(i).getWeapon().getLength() > currBest){
@@ -240,10 +240,10 @@ public class CombatPvP {
 		}
 		defender = attacker.attackList();
 		
-		check all the lengths of weapons in clearning
-		check length then speed if equal
-		then if same for both both attack and hit the other
-		both can die
+		//check all the lengths of weapons in clearning
+		//check length then speed if equal
+		//then if same for both both attack and hit the other
+		//both can die
 		while(currplayer != null){
 			if(!(defender.isLiving())){
 				continue;
@@ -270,10 +270,10 @@ public class CombatPvP {
 	
 	private PlayerBase nextAttacker(PlayerBase[] entities){
 		PlayerBase nAttacker = null;
-		check for more attacks at this speed and length
+		//check for more attacks at this speed and length
 		
-		check for more attacks at highest speed
-		currplayer = findPlayer(players);
+	//	check for more attacks at highest speed
+		//currplayer = findPlayer(players);
 		return nAttacker;
 	}
 	

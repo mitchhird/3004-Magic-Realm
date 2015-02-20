@@ -4,12 +4,14 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import utils.GameUtils;
 import models.characterModels.PlayerBase;
+import models.otherEntities.EntityBase;
 import models.otherEntities.TreasureModel;
 
 /*
@@ -23,9 +25,11 @@ public class Clearing {
 	private JButton buttonTiedToClearing;
 	private Set <Clearing> connectedClearings;
 	private Set <TreasureModel> treasuresInClearing;
+	private Set <EntityBase> entitiesInClearing;
 	
 	public Clearing (String clearingName) {
 		blocked = false;
+		entitiesInClearing = new HashSet<>();
 		connectedClearings = new HashSet<>();
 		treasuresInClearing = new HashSet<>();
 		this.clearingName = clearingName;
@@ -40,6 +44,9 @@ public class Clearing {
 	// Player Movement To The Clearing
 	public void playerMovedToThis (PlayerBase p) {
 		blocked = true;
+		
+		// Move Off Of The Current Clearing And Onto The Next
+		p.getCurrentClearing().playerMovedOffOf(p);
 		p.setCurrentClearing(this);
 
 		// Set The Button's Icon The Player's Class Image
@@ -48,6 +55,15 @@ public class Clearing {
 		Image playerIcon = p.getImage().getScaledInstance(iconWidth, iconHeight, Image.SCALE_SMOOTH);
 		buttonTiedToClearing.setIcon(new ImageIcon(playerIcon));
 		buttonTiedToClearing.repaint();
+		
+		// Add Them To The Entity Listing
+		entitiesInClearing.add(p);
+	}
+	
+	// Player Moved Away From Clearing
+	public void playerMovedOffOf (PlayerBase p) {
+		entitiesInClearing.remove(p);
+		p.getCurrentClearing().resetClearing();
 	}
 	
 	// Moves The Player Off 
@@ -118,20 +134,34 @@ public class Clearing {
 		}
 		return treasures;
 	}
+
 	
 	/* ------------------- Getters And Setters Below Here -------------------*/
 	public boolean isBlocked() {
 		return blocked;
 	}
-
-	public void setBlocked(boolean blocked) {
-		this.blocked = blocked;
+	
+	public Set <EntityBase> getEntitiesInClearing () {
+		return entitiesInClearing;
 	}
 
 	public JButton getButtonTiedToClearing() {
 		return buttonTiedToClearing;
 	}
+	
+	public Set <EntityBase> getUnhiddenEntities () {
+		TreeSet<EntityBase> returnVal = new TreeSet<>();
+		for (EntityBase e: entitiesInClearing) {
+			if (!e.isHidden())
+				returnVal.add(e);
+		}
+		return returnVal;
+	}
 
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
+	}
+	
 	public void setButtonTiedToClearing(JButton buttonTiedToClearing) {
 		this.buttonTiedToClearing = buttonTiedToClearing;
 	}

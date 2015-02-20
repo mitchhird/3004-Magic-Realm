@@ -14,6 +14,7 @@ import models.chitModels.ArmorChit;
 import models.chitModels.Chit;
 import models.chitModels.WeaponChit;
 import models.otherEntities.Denizen;
+import models.otherEntities.EntityBase;
 import models.otherEntities.TreasureModel;
 import utils.GameUtils;
 
@@ -25,7 +26,7 @@ import utils.GameUtils;
  * testing
  */
 
-public class PlayerBase {
+public class PlayerBase extends EntityBase{
 	
 	//fame/not can be negative and are public to others, gold can't be neg
 	protected int currentFame;
@@ -78,7 +79,6 @@ public class PlayerBase {
 	protected String discovery;
 	
 	// Boolean Flags
-	protected boolean hidden;
 	protected boolean moving;
 	protected boolean living;
 	
@@ -216,6 +216,10 @@ public class PlayerBase {
 	//character but will be forfeiring all his possessions/fame/notoriety/gold/discoveries
 	
 	/*-------------- Getters And Setters -------------- */
+	public ArrayList<String> getRecordLog () {
+		return turnLog;
+	}
+	
 	public void setClass(CharacterClass newPlayerClass) {
 		characterClass = newPlayerClass;
 	}
@@ -278,14 +282,6 @@ public class PlayerBase {
 	
 	public Clearing getHomeClearing() {
 		return homeClearing;
-	}
-
-	public boolean isHidden() {
-		return hidden;
-	}
-
-	public void setHidden(boolean hidden) {
-		this.hidden = hidden;
 	}
 
 	public void addAttack(PlayerBase toAttack){
