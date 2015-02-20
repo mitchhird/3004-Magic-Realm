@@ -8,6 +8,7 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 
+import models.characterModels.PlayerBase;
 import models.chitModels.WeaponChit;
 
 /*
@@ -35,5 +36,19 @@ public class GameUtils {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	//Returns A Random Array of Players From Another Array
+	public static PlayerBase[] randomOrder(PlayerBase[] currPlayers){
+		int total = currPlayers.length;
+		PlayerBase[] rList = {};
+		for(int i = 0; i < total; ++i){
+			int turn = createRandomInt(0, currPlayers.length);
+			rList[rList.length] = currPlayers[turn];
+			for(int f = turn; turn < currPlayers.length; ++f){
+				currPlayers[f] = currPlayers[f + 1];
+			}
+		}
+		return rList;
 	}
 }

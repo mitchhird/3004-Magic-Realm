@@ -2,6 +2,7 @@ package models.characterModels;
 
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -61,6 +62,7 @@ public class PlayerBase extends EntityBase{
 	protected ArrayList<WeaponChit> weaponChit;
 	protected ArrayList<TreasureModel> accquiredTreasures;
 	protected ArrayList<PlayerBase> listAttacks;
+	protected PlayerBase chargeTarget;
 	
 	// Clearing Stuff
 	protected Clearing homeClearing;
@@ -356,5 +358,15 @@ public class PlayerBase extends EntityBase{
 	public void selection2() {
 		// TODO Auto-generated method stub
 		//must alert something or abandon an amount of belongings
+	}
+
+	public void toCharge(Set<EntityBase> chargeAble) {
+		// TODO Auto-generated method stub
+		//will change charge target to something
+		
+	}
+
+	public PlayerBase chargingPlayer() {
+		return chargeTarget;
 	}
 }

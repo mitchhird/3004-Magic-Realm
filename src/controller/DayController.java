@@ -72,12 +72,22 @@ public class DayController {
 			allPlayers[i].record();
 			//have to pick 2-4 phases out of 10
 			/* the 10 are
-			 * -move
-			 * -hide
+			 * -move (adjacent clearing must be named)
+			 * -hide (roll required)
 			 * -alert
-			 * -rest
-			 * -search
-			 * -trade
+			 * -rest (1 star of action chit can change for wounded to inactive or inactive to active
+			 *       can do with more stars but must pay back)
+			 *       (if unable to rest and no active chits then dead/if all wounded then dead)
+			 * -search (have to search to find the location or the secret path)
+			 *         (you can also look abandoned belongings or locations discovered)
+			 * -trade (can be cancelled)
+			 * --buying (have to roll to see if can buy treasure, this is based
+			 *        on how friendly that player is to the natives and can improve this
+			 *        by buying a round of drinks to help one roll, this costs 1 gold per
+			 *        native on the clearing)(if allowed to buy then have to trade and/or
+			 *        pay the gold required, can get for free, if not will can decline
+			 *        MUST try to buy)
+			 *        (fame is also a part of this and will go up if sold and down if bought)
 			 * -hire
 			 * -follow
 			 * -fly
@@ -106,18 +116,12 @@ public class DayController {
 		}
 		allPlayers = orderPlayers;
 		
-		for(int i = 0; i < maxPhases; ++i){
-			
-			for(int p = 0; p < totalPlayers; ++p){
+		for(int i = 0; i < totalPlayers; ++i){
+			orderPlayers[i].unHide();
+			for(int p = 0; p < orderPlayers[i].getMaxPhases(); ++p){//have to add phases and max phases with the record
 				trade with players in clearing
 				rearange belongings
-			}
-			
-			for(int p = 0; p < totalPlayers; ++p){
-				if(can do recorded){
-					orderPlayers[i].unHide();
-					orderPlayers[i].getRecord();
-				}
+				do phase
 			}
 			
 //			for(int p = 0; p < totalPlayers; ++p){

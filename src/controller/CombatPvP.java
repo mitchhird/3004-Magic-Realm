@@ -1,17 +1,43 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import utils.GameUtils;
 import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.Weights;
 import models.chitModels.Chit;
+import models.otherEntities.EntityBase;
 
 public class CombatPvP {
-	private Clearing currClearing;
+	private List<Clearing> currClearings;
+	private boolean lastRound, currRound;
+	private PlayerBase[] currOrder;
 	//will be the entry point in the end for pvp combat
-	public void combatPvP(PlayerBase[] players, Clearing clearing){
-		currClearing = clearing;
-		preparation(players);
-		currClearing = null;
+	public void combatPvP(PlayerBase[] players){
+		currClearings = new ArrayList<Clearing>();
+		lastRound = false;
+		for(int i = 0; i < players.length; ++i)
+			currClearings.add(players[i].getCurrentClearing());
+		while(true){
+			currRound = false;
+			
+			preparation(players);
+			
+			for(int i = 0; i < players.length; ++i){
+				for(int j = 0; j < currClearings.size(); ++j){
+					if(!currClearings.get(j).getEntitiesInClearing().contains(players[i])){
+						currClearings.remove(j);
+					}
+				}
+			}
+			if((currRound && lastRound) || (currClearings.size() == 0)){
+				break;
+			}
+			lastRound = currRound;
+		}
 	}
 	
 	/*
@@ -24,7 +50,10 @@ public class CombatPvP {
 	 */
 	
 	private void preparation(PlayerBase[] players){
-		
+		//have to see if natives will attack players
+		//can increase how the natives will act "buy drinks"
+		//non-alert native horses
+
 		
 		luring(players);
 	}
@@ -49,10 +78,9 @@ public class CombatPvP {
 	
 	//assumed can only lure unhidden characters/entity
 	private void luring(PlayerBase[] players) {
-		PlayerBase currPlayer = findPlayer(players);
 		for(int i = 0; i < players.length; ++i){
-			PlayerBase[] unhidden = players[i].getCurrentClearing().getUnhidden();
-			if(unhidden != null){
+			Set<EntityBase> unhidden = players[i].getCurrentClearing().getUnhiddenEntities();
+			if(unhidden.size() != 0){
 				int f = players[i].checkLure(unhidden);//-----------------------------view
 				if(f > 0){
 					players[i].unHide();
@@ -78,6 +106,8 @@ public class CombatPvP {
 	private PlayerBase findPlayer(PlayerBase[] players) {
 		// TODO have to send to view for swordsman about starting turn
 		//some kind of random
+		
+//		UNKNOWN IF NEEDED
 		return null;
 	}
 	
@@ -102,18 +132,22 @@ public class CombatPvP {
 	
 	private void deployment(PlayerBase[] players){
 		for(int i = 0; i < players.length; ++i){
-			PlayerBase[] chargeAble;
+			Set<EntityBase> chargeAble;
 			if(found "hidden enemies"){//something to do with the search phase of the day
-				chargeAble = players[i].getCurrentClearing().getEnties();
+				chargeAble = players[i].getCurrentClearing().getEntitiesInClearing();
 			} else {
-				if (players[i].getCurrentClearing().getUnhidden() != null){
-					chargeAble = players[i].getCurrentClearing().getUnhidden();
+				if (players[i].getCurrentClearing().getUnhiddenEntities() != null){
+					chargeAble = players[i].getCurrentClearing().getUnhiddenEntities();
 				}
 			}
 			
 //			for each see if they want to charge player
 //				if so both unhidden
 			players[i].toCharge(chargeAble);//-----------------------------------
+			if(players[i].chargingPlayer() != null){
+				players[i].chargingPlayer().unHide();
+				players[i].unHide();
+			}
 		}
 		
 		encounter(players);
@@ -132,7 +166,7 @@ public class CombatPvP {
 	
 	private void encounter(PlayerBase[] players) {
 		for(int i = 0; i < players.length; ++i){
-			if(players[i].checkCharge()){
+			if(players[i].chargingPlayer() == null){
 				continue;
 			} else {
 				int f = players[i].selection();//---------------------
@@ -162,6 +196,21 @@ public class CombatPvP {
 	
 	private void melee(PlayerBase[] players) {
 		//rotate through attention chits and select attack targets
+		
+//		will have to go through each player in order and have their clearing order and go through each clearing one at a time
+//		currOrder = GameUtils.randomOrder(players);
+		
+		//equipe all armor
+		
+//		for(int i = 0; i < currClearings.size(); ++i){
+//			PlayerBase[] clearingOrder = {};
+//			for(int j = 0; j < currOrder.length; ++j){
+//				if(currOrder[j].getCurrentClearing() == currClearings.get(i))
+//					clearingOrder[clearingOrder.length] = currOrder[j];
+//			}
+//			
+//		}
+//		currOrder[i].getCurrentClearing()
 		
 		for(int i = 0; i < players.length; ++i){
 			players[i].setTarget();//------------------------------
@@ -308,23 +357,32 @@ public class CombatPvP {
 	 * 3 if defender dies */
 	private int attackHits(PlayerBase attacker, PlayerBase defender) {
 		Weights harm;
+		int addStars = 0;
 		
 		harm = attacker.getWeapon().getHarmLevel();
 		
 		if (attacker.getWeapon().getStars() > 0) {
 			if (defender.armorBlocks(attacker.getWeapon().getAttack())){//have to see what these conditions are
-				attacker.getWeapon().setStars(attacker.getWeapon().getStars() - 1);
+				addStars = attacker.getWeapon().getStars();
 			}
-			for(int i =0; i < attacker.getWeapon().getStars(); ++i)
-				harm = harm.next();
 		}
 		
 		if (attacker.getWeapon().hasMissles()){
 			//do some roll thing here
 		}
 		
+		
+		//TODO
 		if (attacker.getStrength() > defender.getStrength()){
 			harm = harm.next();
+		}
+		
+		for(int i =0; i < addStars; ++i){
+			if(harm != Weights.TREMENDOUS){
+				harm = harm.next();
+			} else {
+				i = addStars;
+			}
 		}
 		
 		//out till add horses
