@@ -117,9 +117,10 @@ public class PlayerBase extends EntityBase{
 	}
 	
 	// Starts The Player's Turn And Wipes Out There Player's Commands
-	protected void startPlayerTurn () {
+	public void startPlayerTurn () {
 		hidden = false;
 		currentTurn = "";
+		currentClearing.playerMovedToThis(this);
 	}
 	
 	// Do All The Things For Ending The Player's Turn

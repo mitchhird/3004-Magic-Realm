@@ -43,6 +43,7 @@ public class clientController {
 	public void moveToNextPlayer () {
 		currentPlayerIndex++;
 		currentPlayer = thePlayers.get(currentPlayerIndex % thePlayers.size());
+		currentPlayer.startPlayerTurn();
 	}
 	
 	// Starts The Game When Called

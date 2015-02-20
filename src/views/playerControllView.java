@@ -48,7 +48,7 @@ public class playerControllView extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JTabbedPane jTabbedPane5;
     private javax.swing.JTabbedPane jTabbedPane6;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable playerRecord;
 	private static final long serialVersionUID = 1336340316590856087L;
     
 	private gameView parent;
@@ -87,7 +87,7 @@ public class playerControllView extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        playerRecord = new javax.swing.JTable();
         jTabbedPane4 = new javax.swing.JTabbedPane();
         jTabbedPane5 = new javax.swing.JTabbedPane();
         jTabbedPane6 = new javax.swing.JTabbedPane();
@@ -140,7 +140,7 @@ public class playerControllView extends javax.swing.JPanel {
 
         jLabel18.setText("None");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        playerRecord.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -203,7 +203,7 @@ public class playerControllView extends javax.swing.JPanel {
                 }
             });
         
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(playerRecord);
         jScrollPane3.setViewportView(jTable2);
         jScrollPane4.setViewportView(jTable3);
         
@@ -408,7 +408,34 @@ public class playerControllView extends javax.swing.JPanel {
     	playerFameLabel.setText("" + p.getCurrentFame());
     	playerNotirityLabel.setText("" + p.getCurrentNotirity());
     	playerVulnerLabel.setText ("" + p.getVulnerability().name());
+    	
+    	displayRecord(p);
     }
+    
+    // Builds The Record Panel Table
+    private void displayRecord (PlayerBase p) { 
+    	// playerRecordTabel
+    	
+    	ArrayList<String> playerLog = p.getRecordLog();
+        String[] headers = {"Turn", "Mon", "Day", "Color", "Phases", "Action", "Kills"};
+    	String[][] data = new String[playerLog.size()][headers.length];
+    	
+    	// Loop Over The Data
+    	for (int i = 0; i < playerLog.size(); i++) {
+    		data[i][0] = "" + i;
+    		data[i][1] = "";
+    		data[i][2] = "";
+    		data[i][3] = "";
+    		data[i][4] = "";
+    		data[i][5] = playerLog.get(i);
+    		data[i][6] = "";
+    	}
+    	
+    	// Get The Table Model Ready
+    	DefaultTableModel newModel = new DefaultTableModel(data, headers);
+    	playerRecord.setModel(newModel);
+    }
+    
     
     private void search() {
 		PlayerBase currPlayer = parent.getCurrentPlayer();
@@ -459,6 +486,7 @@ public class playerControllView extends javax.swing.JPanel {
     		parent.getCurrentPlayer().endPlayerTurn();
     		parent.getGameController().moveToNextPlayer();
     		parent.getPlayerList().updateTable();
+    		parent.updateRecordTable();
     	}
     }
 

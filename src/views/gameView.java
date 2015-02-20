@@ -252,6 +252,12 @@ public class gameView extends FrameBase {
 		combatFrame.setVisible(true);
 		combatFrame.add(combatPanel);
 	}
+	
+	// Update The Table On Call
+	public void updateRecordTable () {
+		thePlayerButtons.update(getCurrentPlayer());
+	}
+	
 	/*------------------------------- Getters And Setters ---------------------------*/
 	public boardView getBoardView () {
 		return theBoard;
