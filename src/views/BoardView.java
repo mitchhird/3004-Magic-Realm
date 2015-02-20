@@ -151,6 +151,7 @@ public class BoardView extends JPanel {
 
 	private GameView parent;
 	private JFrame hoverFrame = null;
+	@SuppressWarnings("unused")
 	private HoverView hoverPanel;
 	
 	public BoardView (GameView parent){
@@ -172,7 +173,6 @@ public class BoardView extends JPanel {
 		try {
 			img = ImageIO.read(new File(System.getProperty("user.dir")+"/images", "theMap3.gif"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -567,21 +567,24 @@ public class BoardView extends JPanel {
 		});
 	}
 	
-	private void handleImageEnter (Clearing c) {
-		if(hoverFrame == null){
-			hoverFrame = new JFrame();
-			hoverPanel = new HoverView(c);
-			hoverFrame.setSize(300, 300);
-			hoverFrame.setLocation(tk.getScreenSize().width/2 - 300, 300);
-			hoverFrame.setVisible(true);
-		}
+	private void handleImageExit(Clearing c) {
+
 	}
-	
-	private void handleImageExit (Clearing c) {
-		if(hoverFrame != null){
-			hoverFrame.dispose();
-			hoverFrame = null;
+
+	private void handleImageEnter (Clearing c) {
+		
+		if(c.getImageEnitiesOnThis().isEmpty()){
+			return;
 		}
+		if(hoverFrame!=null){
+			hoverFrame.dispose();
+		}
+		hoverFrame = new JFrame();
+		hoverPanel = new HoverView(c);
+		hoverFrame.setSize(160, 250);
+		hoverFrame.setLocation(tk.getScreenSize().width/2 - 300, 300);
+		hoverFrame.setVisible(true);
+		hoverFrame.add(hoverPanel);
 	}
 
 	@Override
