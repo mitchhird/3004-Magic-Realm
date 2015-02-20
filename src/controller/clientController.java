@@ -2,21 +2,21 @@ package controller;
 
 import java.util.ArrayList;
 
-import views.gameView;
+import views.GameView;
 import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
 
 public class clientController {
 	
-	private gameView parent;
+	private GameView parent;
 	private int currentPlayerIndex;
 	private PlayerBase currentPlayer;
 	private ArrayList<PlayerBase> thePlayers;
 	
 	private boolean gameStarted;
 
-	public clientController(gameView theView){
+	public clientController(GameView theView){
 		parent = theView;
 		currentPlayerIndex = 0;
 		thePlayers = new ArrayList<PlayerBase>();

@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 import models.characterModels.playerEnums.CharacterClass;
 
-public class cardView extends JPanel {
+public class CardView extends JPanel {
 	
 	/**
 	 * 
@@ -17,7 +17,7 @@ public class cardView extends JPanel {
 	private Toolkit tk = Toolkit.getDefaultToolkit();
 	private Image img;
 
-	public cardView(String valueAt) {
+	public CardView(String valueAt) {
 		setSize(600,600);
 		setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
 		setVisible(true);

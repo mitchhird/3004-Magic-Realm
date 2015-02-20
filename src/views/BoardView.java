@@ -16,7 +16,7 @@ import models.BoardModels.Clearing;
 import models.characterModels.playerEnums.CharacterClass;
 import models.otherEntities.TreasureModel;
 
-public class boardView extends JPanel {
+public class BoardView extends JPanel {
 
 	/**
 	 * 
@@ -141,9 +141,9 @@ public class boardView extends JPanel {
 	private Clearing lwoods4 = new Clearing("lw4");
 	private Clearing lwoods5 = new Clearing("lw5");
 
-	private gameView parent;
+	private GameView parent;
 	
-	public boardView(gameView parent){
+	public BoardView(GameView parent){
 		init();
 		this.parent = parent;
 	}

@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 
 import models.characterModels.PlayerBase;
 
-	public class playerListView extends javax.swing.JPanel {
+	public class PlayerListView extends javax.swing.JPanel {
 
 		private javax.swing.JButton jButton1;
 	    private javax.swing.JButton jButton2;
@@ -16,11 +16,11 @@ import models.characterModels.PlayerBase;
 	    private javax.swing.JScrollPane jScrollPane3;
 	    private javax.swing.JTable jTable2;      
 	    
-	    private gameView parent;
+	    private GameView parent;
 	    
 		private static final long serialVersionUID = 1L;
 		
-	    public playerListView(gameView parent) {
+	    public PlayerListView(GameView parent) {
 	    	this.parent = parent; 
 	        initComponents();
 	    }

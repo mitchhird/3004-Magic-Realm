@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import models.characterModels.PlayerBase;
 import models.otherEntities.TreasureModel;
 
-public class playerControllView extends javax.swing.JPanel {
+public class PlayerControllView extends javax.swing.JPanel {
 
 	// Variables declaration - do not modify                     
     private javax.swing.JButton jButton1;
@@ -51,7 +51,7 @@ public class playerControllView extends javax.swing.JPanel {
     private javax.swing.JTable playerRecord;
 	private static final long serialVersionUID = 1336340316590856087L;
     
-	private gameView parent;
+	private GameView parent;
 	private javax.swing.JTable jTable2;
 	private JScrollPane jScrollPane3;
 	private JTable jTable3;
@@ -59,7 +59,7 @@ public class playerControllView extends javax.swing.JPanel {
 	
 	private Toolkit tk = Toolkit.getDefaultToolkit();
 	
-    public playerControllView(gameView parentView) {
+    public PlayerControllView(GameView parentView) {
         initComponents();
         massSetButtonState(false);
         parent = parentView;
@@ -442,13 +442,13 @@ public class playerControllView extends javax.swing.JPanel {
 		ArrayList<TreasureModel> treasures = currPlayer.getCurrentClearing().getTreasuresPlayerFound(currPlayer);
 		
 		// Make The Dialog Appear
-		treasureViewDialog lootDialog = new treasureViewDialog(parent, "Loot", false, treasures, currPlayer);
+		TreasureViewDialog lootDialog = new TreasureViewDialog(parent, "Loot", false, treasures, currPlayer);
 		lootDialog.setVisible(true);
 	}
    
 	public void startTrading(){
 		JFrame tradeFrame = new JFrame();
-		tradeView tradePanel = new tradeView();
+		TradeView tradePanel = new TradeView();
 		tradeFrame.setSize(495,355);
 		tradeFrame.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
 		tradeFrame.setVisible(true);

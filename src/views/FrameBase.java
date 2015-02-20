@@ -7,7 +7,7 @@ import java.awt.Insets;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
-public class frameBase extends JFrame {
+public class FrameBase extends JFrame {
 
 	/**
 	 * 

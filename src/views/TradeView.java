@@ -5,7 +5,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.table.DefaultTableModel;
 
-public class tradeView extends javax.swing.JPanel {
+/*
+ * 
+ */
+public class TradeView extends javax.swing.JPanel {
 
     /**
 	 * 
@@ -24,7 +27,7 @@ public class tradeView extends javax.swing.JPanel {
     private javax.swing.JTable theirInventory;
     // End of variables declaration     
     
-    public tradeView() {
+    public TradeView() {
         initComponents();
     }
                      

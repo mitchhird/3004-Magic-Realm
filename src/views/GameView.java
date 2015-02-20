@@ -26,7 +26,7 @@ import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
 import controller.clientController;
 
-public class gameView extends frameBase {
+public class GameView extends FrameBase {
 
 	private static final long serialVersionUID = 1789113344181363284L;
 
@@ -39,29 +39,29 @@ public class gameView extends frameBase {
 	private JScrollPane scrollPane;
 
 	private JPanel mainPanel;
-	private boardView theBoard;
+	private BoardView theBoard;
 	
 	private GridBagLayout layout = new GridBagLayout();
 	private GridBagConstraints layoutConstraints = new GridBagConstraints();
 
 	private JScrollPane theBoardScroller;
 
-	private playerListView thePlayerList;
-	private playerControllView thePlayerButtons;
+	private PlayerListView thePlayerList;
+	private PlayerControllView thePlayerButtons;
 
-	private cardView theCard;
+	private CardView theCard;
 
 	private JFrame cardViewer;
 
 	private JFrame combatFrame;
 
-	private combatView combatPanel;
+	private CombatView combatPanel;
 
 	public static void main(String args[]){
-		new gameView();
+		new GameView();
 	}
 	
-	public gameView(){
+	public GameView(){
 		init();
 	}
 	
@@ -119,10 +119,10 @@ public class gameView extends frameBase {
 	
 	private void showGameButtons(){
 	
-		thePlayerList = new playerListView(this);
+		thePlayerList = new PlayerListView(this);
 		addToGrid(thePlayerList, 0, 0, 1, 1);
 		
-		thePlayerButtons = new playerControllView(this);
+		thePlayerButtons = new PlayerControllView(this);
 		addToGrid(thePlayerButtons, 0, 1, 1, 2);
 		
         thePlayerList.getAddPlayerButton().addActionListener(new java.awt.event.ActionListener() {
@@ -173,7 +173,7 @@ public class gameView extends frameBase {
 		cardViewer.setSize(760,630);
 		cardViewer.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
 		cardViewer.setVisible(true);
-		theCard = new cardView((String) thePlayerList.getjTable2().getValueAt(thePlayerList.getjTable2().getSelectedRow(), 0));
+		theCard = new CardView((String) thePlayerList.getjTable2().getValueAt(thePlayerList.getjTable2().getSelectedRow(), 0));
 		cardViewer.add(theCard);
 	}
 
@@ -204,7 +204,7 @@ public class gameView extends frameBase {
 	}
 
 	private void showBoard(){
-		theBoard = new boardView(this);
+		theBoard = new BoardView(this);
 		theBoardScroller = new JScrollPane(theBoard);
 		theBoardScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		theBoardScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -214,7 +214,7 @@ public class gameView extends frameBase {
 	}
 	
 	private void addPlayerMenu(){
-		new addPlayerView(this);
+		new AddPlayerView(this);
 	}
 	
 	public void addPlayer(String playerName, CharacterClass playerClass){
@@ -246,7 +246,7 @@ public class gameView extends frameBase {
 	// Shows The Combat In It's Own View
 	public void startCombat(){
 		combatFrame = new JFrame();
-		combatPanel = new combatView();
+		combatPanel = new CombatView();
 		combatFrame.setSize(760,630);
 		combatFrame.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
 		combatFrame.setVisible(true);
@@ -259,7 +259,7 @@ public class gameView extends frameBase {
 	}
 	
 	/*------------------------------- Getters And Setters ---------------------------*/
-	public boardView getBoardView () {
+	public BoardView getBoardView () {
 		return theBoard;
 	}
 	
@@ -271,7 +271,7 @@ public class gameView extends frameBase {
 		return theClient;
 	}
 	
-	public playerListView getPlayerList() {
+	public PlayerListView getPlayerList() {
 		return thePlayerList;
 	}
 	

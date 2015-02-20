@@ -3,7 +3,7 @@ package views;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class combatView extends javax.swing.JPanel {
+public class CombatView extends javax.swing.JPanel {
 
     /**
 	 * 
@@ -40,7 +40,7 @@ public class combatView extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea textArea;  
     
-    public combatView() {
+    public CombatView() {
         initComponents();
     }
                      

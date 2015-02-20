@@ -12,14 +12,14 @@ import javax.swing.JTextField;
 
 import models.characterModels.playerEnums.CharacterClass;
 
-public class addPlayerView extends frameBase {
+public class AddPlayerView extends FrameBase {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1991225057723904889L;
 
-	public gameView parent;
+	public GameView parent;
 	
 	protected JLabel nameLabel;
 	protected JLabel chooseLabel;
@@ -31,7 +31,7 @@ public class addPlayerView extends frameBase {
 	
 	private Toolkit tk = Toolkit.getDefaultToolkit();
 	
-	public addPlayerView (gameView parent) {
+	public AddPlayerView (GameView parent) {
 		super ();
 		this.parent = parent;
 		

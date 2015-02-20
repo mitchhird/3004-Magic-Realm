@@ -18,7 +18,7 @@ import javax.swing.JScrollPane;
 import models.characterModels.PlayerBase;
 import models.otherEntities.TreasureModel;
 
-public class treasureViewDialog extends JDialog{
+public class TreasureViewDialog extends JDialog{
 
 	private JButton lootButton;
 	private JButton searchButton;
@@ -35,7 +35,7 @@ public class treasureViewDialog extends JDialog{
 	private static final long serialVersionUID = -7494254554569510620L;
 		
 	// Dialog That The Player Will See When Looting
-	public treasureViewDialog (JFrame owner, String title, boolean modal, ArrayList<TreasureModel> treasures, PlayerBase player) {
+	public TreasureViewDialog (JFrame owner, String title, boolean modal, ArrayList<TreasureModel> treasures, PlayerBase player) {
 		super(owner, title, modal);
 		this.treasures = treasures;
 		this.thePlayer = player;
