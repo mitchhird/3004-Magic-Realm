@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 import models.characterModels.playerEnums.CharacterClass;
 
-public class AddPlayerView extends FrameBase {
+public class addPlayerView extends frameBase {
 
 	/**
 	 * 
@@ -31,7 +31,7 @@ public class AddPlayerView extends FrameBase {
 	
 	private Toolkit tk = Toolkit.getDefaultToolkit();
 	
-	public AddPlayerView (gameView parent) {
+	public addPlayerView (gameView parent) {
 		super ();
 		this.parent = parent;
 		

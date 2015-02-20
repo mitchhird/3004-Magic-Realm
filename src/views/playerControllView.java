@@ -442,7 +442,7 @@ public class playerControllView extends javax.swing.JPanel {
 		ArrayList<TreasureModel> treasures = currPlayer.getCurrentClearing().getTreasuresPlayerFound(currPlayer);
 		
 		// Make The Dialog Appear
-		TreasureViewDialog lootDialog = new TreasureViewDialog(parent, "Loot", false, treasures, currPlayer);
+		treasureViewDialog lootDialog = new treasureViewDialog(parent, "Loot", false, treasures, currPlayer);
 		lootDialog.setVisible(true);
 	}
    

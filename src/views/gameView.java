@@ -26,7 +26,7 @@ import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
 import controller.clientController;
 
-public class gameView extends FrameBase {
+public class gameView extends frameBase {
 
 	private static final long serialVersionUID = 1789113344181363284L;
 
@@ -214,7 +214,7 @@ public class gameView extends FrameBase {
 	}
 	
 	private void addPlayerMenu(){
-		new AddPlayerView(this);
+		new addPlayerView(this);
 	}
 	
 	public void addPlayer(String playerName, CharacterClass playerClass){
