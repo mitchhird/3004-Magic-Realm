@@ -6,14 +6,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import models.characterModels.PlayerBase;
 import models.otherEntities.TreasureModel;
-import utils.GameUtils;
 
 public class playerControllView extends javax.swing.JPanel {
 

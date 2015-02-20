@@ -1,5 +1,10 @@
 package views;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.table.DefaultTableModel;
+
 public class tradeView extends javax.swing.JPanel {
 
     /**
@@ -7,16 +12,16 @@ public class tradeView extends javax.swing.JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-    // Variables declaration - do not modify                     
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    // Variables declaration                 
+    private javax.swing.JButton sellButton;
+    private javax.swing.JButton buyButton;
+    private javax.swing.JButton cancelButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable myInventory;
+    private javax.swing.JTable theirInventory;
     // End of variables declaration     
     
     public tradeView() {
@@ -26,16 +31,16 @@ public class tradeView extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        myInventory = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        theirInventory = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        sellButton = new javax.swing.JButton();
+        buyButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        myInventory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -55,9 +60,9 @@ public class tradeView extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(myInventory);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        theirInventory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -77,17 +82,34 @@ public class tradeView extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        
+        buyButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("buy pressed");
+            }
+        });
+        sellButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("sell pressed");
+            }
+        });
+        cancelButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("cancel pressed");
+            }
+        });
+        
+        jScrollPane2.setViewportView(theirInventory);
 
         jLabel1.setText("Your Invenotry:");
 
         jLabel2.setText("Their Inventory:");
 
-        jButton1.setText("Sell");
+        sellButton.setText("Sell");
 
-        jButton2.setText("Buy");
+        buyButton.setText("Buy");
 
-        jButton3.setText("Cancel");
+        cancelButton.setText("Cancel");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -99,13 +121,13 @@ public class tradeView extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
+                            .addComponent(sellButton))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton3)
+                                .addComponent(cancelButton)
                                 .addGap(99, 99, 99)
-                                .addComponent(jButton2))
+                                .addComponent(buyButton))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
@@ -125,12 +147,32 @@ public class tradeView extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(sellButton)
+                    .addComponent(buyButton)
+                    .addComponent(cancelButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }                       
-              
+    
+	public void addToInventory(String theName, String theDetails, String theValue){
+		((DefaultTableModel) myInventory.getModel()).addRow(new Object[]{theName,theDetails,theValue});
+	}
+	
+	public void addToOtherInventory(String theName, String theDetails, String theValue){
+		((DefaultTableModel) theirInventory.getModel()).addRow(new Object[]{theName,theDetails,theValue});
+	}
+	
+	public void removeFromInvenotry(){
+		if(myInventory.getSelectedRow()==-1){
+			return;
+		}
+		((DefaultTableModel) myInventory.getModel()).removeRow(myInventory.getSelectedRow());
+	}
+	public void removeFromTheirInvenotry(){
+		if(theirInventory.getSelectedRow()==-1){
+			return;
+		}
+		((DefaultTableModel) theirInventory.getModel()).removeRow(theirInventory.getSelectedRow());
+	}
 }
 
