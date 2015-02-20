@@ -109,7 +109,6 @@ public class GameView extends FrameBase {
             }
         });
         
-        startCombat();
 	}
 	
 	private void update(){

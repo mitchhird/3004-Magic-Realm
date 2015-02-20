@@ -3,6 +3,7 @@ package views;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import models.BoardModels.Clearing;
@@ -26,7 +28,8 @@ public class BoardView extends JPanel {
 	 */
 	private static final long serialVersionUID = -3255182183312639441L;
 	private Image img;
-	
+	private Toolkit tk = Toolkit.getDefaultToolkit();
+
 	private ArrayList<Clearing> theButtons = new ArrayList<Clearing>();
 	
 	private Clearing cliff1 = new Clearing("cl1");
@@ -147,6 +150,8 @@ public class BoardView extends JPanel {
 	private Dwelling inn;
 
 	private GameView parent;
+	private JFrame hoverFrame = null;
+	private HoverView hoverPanel;
 	
 	public BoardView (GameView parent){
 		init();
@@ -563,14 +568,22 @@ public class BoardView extends JPanel {
 	}
 	
 	private void handleImageEnter (Clearing c) {
-		System.out.println("Entering Clearing " + c.getClearingName());
+		if(hoverFrame == null){
+			hoverFrame = new JFrame();
+			hoverPanel = new HoverView(c);
+			hoverFrame.setSize(300, 300);
+			hoverFrame.setLocation(tk.getScreenSize().width/2 - 300, 300);
+			hoverFrame.setVisible(true);
+		}
 	}
 	
 	private void handleImageExit (Clearing c) {
-		System.out.println("Exiting Clearing " + c.getClearingName());
+		if(hoverFrame != null){
+			hoverFrame.dispose();
+			hoverFrame = null;
+		}
 	}
-	
-	
+
 	@Override
 	public void paintComponent(Graphics page)
 	{
