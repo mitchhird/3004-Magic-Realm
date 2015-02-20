@@ -151,7 +151,6 @@ public class BoardView extends JPanel {
 
 	private GameView parent;
 	private JFrame hoverFrame = null;
-	@SuppressWarnings("unused")
 	private HoverView hoverPanel;
 	
 	public BoardView (GameView parent){
