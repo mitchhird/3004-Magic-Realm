@@ -12,6 +12,7 @@ import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 import models.characterModels.PlayerBase;
@@ -20,6 +21,7 @@ import models.otherEntities.TreasureModel;
 public class TreasureViewDialog extends JDialog{
 
 	private JButton lootButton;
+	private JButton searchButton;
 	private JButton cancelButton;
 	private JList<TreasureModel> treasureList;
 	private JScrollPane scrollPane;
@@ -52,11 +54,13 @@ public class TreasureViewDialog extends JDialog{
 		scrollPane = new JScrollPane(treasureList);
 		lootButton = new JButton("Loot Treasure");
 		cancelButton = new JButton("Cancel");
+		searchButton = new JButton ("Search Clearing");
 		
 		// Add The Stuff To The View
 		addToFrame(scrollPane, 0, 0, 2, 2);
 		addToFrame(lootButton, 0, 2, 1, 1);
-		addToFrame(cancelButton, 1, 2, 1, 1);
+		addToFrame(searchButton, 1, 2, 1, 1);
+		addToFrame(cancelButton, 0, 3, 2, 1);
 	}
 	
 	// Add The Listeners
@@ -65,13 +69,8 @@ public class TreasureViewDialog extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Loot Button Has Been Pressed");
-				thePlayer.getCurrentClearing().playerLootClearing(thePlayer);
-				treasures = thePlayer.getCurrentClearing().getTreasuresPlayerFound(thePlayer);
-				
-				// Refresh The List
-				TreasureModel[] temp = new TreasureModel[treasures.size()];
-				temp = treasures.toArray(temp);
-				treasureList.setListData(temp);
+				thePlayer.getCurrentClearing().playerLootClearing(thePlayer);		
+				refreshTreasureList();
 			}
 		});
 		
@@ -81,8 +80,36 @@ public class TreasureViewDialog extends JDialog{
 				dispose();
 			}
 		});
-	}
 		
+		searchButton.addActionListener(new ActionListener() {		
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				handleSearchButton();
+			}
+		});
+	}
+	
+    // Handles The Searching
+	private void handleSearchButton() {
+		System.out.println("Find test");
+
+		ArrayList<TreasureModel> foundTreasures = thePlayer.searchCurrentClearing();
+
+		if (foundTreasures.size() == 0) {
+			JOptionPane.showMessageDialog(this, "You Didn't Find Anything In Your Search");
+		} else {
+			refreshTreasureList();
+			JOptionPane.showMessageDialog(this, "You Found Some Treasure In The Clearing. You Can Now Loot It");
+		}
+	}
+
+	private void refreshTreasureList() {
+		treasures = thePlayer.getCurrentClearing().getTreasuresPlayerFound(thePlayer);
+		TreasureModel[] temp = new TreasureModel[treasures.size()];
+		temp = treasures.toArray(temp);
+		treasureList.setListData(temp);
+	}
+    
 	// Add To This Frame 
 	protected void addToFrame (JComponent theComponent, int x, int y, int gridWidth, int gridHeight){
 		layoutConstraints.gridx = x;

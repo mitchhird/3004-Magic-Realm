@@ -19,9 +19,10 @@ import models.characterModels.PlayerBase;
 	    private gameView parent;
 	    
 		private static final long serialVersionUID = 1L;
+		
 	    public playerListView(gameView parent) {
+	    	this.parent = parent; 
 	        initComponents();
-	        this.parent = parent;
 	    }
                    
 	    private void initComponents() {
@@ -32,7 +33,7 @@ import models.characterModels.PlayerBase;
 	        jScrollPane3 = new javax.swing.JScrollPane();
 	        setjTable2(new javax.swing.JTable());
 
-	        getjButton1().setText("Add Player");
+	        getAddPlayerButton().setText("Add Player");
 
 	        getjButton2().setText("Remove Player");
 
@@ -67,7 +68,6 @@ import models.characterModels.PlayerBase;
 
 	        	      String test = (String) jTable2.getValueAt(row, 1);
 	        	      parent.updatePlayerByName(test);
-	        	      System.out.println();
 	        	}
 			});
 
@@ -81,7 +81,7 @@ import models.characterModels.PlayerBase;
 	                .addContainerGap()
 	                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
 	                    .addComponent(getjButton2(), javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	                    .addComponent(getjButton1(), javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                    .addComponent(getAddPlayerButton(), javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 	                    .addComponent(startGameButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 	                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 	                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE))
@@ -89,7 +89,7 @@ import models.characterModels.PlayerBase;
 	        layout.setVerticalGroup(
 	            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 	            .addGroup(layout.createSequentialGroup()
-	                .addComponent(getjButton1())
+	                .addComponent(getAddPlayerButton())
 	                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 	                .addComponent(getjButton2())
 	                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -97,6 +97,9 @@ import models.characterModels.PlayerBase;
 	                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 	            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
 	        );
+	        
+	        // Finally Update The Buttons With The Table Value
+	        update();
 	    }       
 	    
 	    // Sets The Current Player To Active While The Others Are Waiting
@@ -115,6 +118,11 @@ import models.characterModels.PlayerBase;
 	    	}
 	    }
    
+	    // Updates The Buttons Enability
+	    public void update (){
+	    	startGameButton.setEnabled(jTable2.getRowCount() > 0);
+	    }
+	    
 	    public javax.swing.JButton getjButton2() {
 			return jButton2;
 		}
@@ -123,7 +131,7 @@ import models.characterModels.PlayerBase;
 			this.jButton2 = jButton2;
 		}
 
-		public javax.swing.JButton getjButton1() {
+		public javax.swing.JButton getAddPlayerButton() {
 			return jButton1;
 		}
 		
@@ -141,6 +149,7 @@ import models.characterModels.PlayerBase;
 
 		public void addPlayer(String pName, String pClass){
 			((DefaultTableModel) getjTable2().getModel()).addRow(new Object[]{pClass,pName,"Waiting"});
+			update();
 		}
 		
 		public void removePlayer(){

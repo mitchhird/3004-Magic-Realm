@@ -58,13 +58,12 @@ public class playerControllView extends javax.swing.JPanel {
 	private JScrollPane jScrollPane3;
 	private JTable jTable3;
 	private JScrollPane jScrollPane4;
-	private JFrame searchViewer;
-	private searchView theSearch;
 	
 	private Toolkit tk = Toolkit.getDefaultToolkit();
 	
     public playerControllView(gameView parentView) {
         initComponents();
+        massSetButtonState(false);
         parent = parentView;
     }
                   
@@ -275,6 +274,7 @@ public class playerControllView extends javax.swing.JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				 System.out.println("Trade Button Has Been Pressed");
 				 parent.getCurrentPlayer().getCurrentClearing().resetConnectedClearings();
+				 startTrading();
 			}
 		});
 
@@ -413,23 +413,22 @@ public class playerControllView extends javax.swing.JPanel {
     }
     
     private void search() {
-
-		searchViewer = new JFrame();
-		searchViewer.setSize(150,200);
-		searchViewer.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
-		searchViewer.setVisible(true);
-		theSearch = new searchView(parent);
-		searchViewer.add(theSearch);
+		PlayerBase currPlayer = parent.getCurrentPlayer();
+		ArrayList<TreasureModel> treasures = currPlayer.getCurrentClearing().getTreasuresPlayerFound(currPlayer);
 		
-		theSearch.getCancelButton().addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	System.out.println("Cancel test");
-            	searchViewer.dispose();
-            }
-        });
+		// Make The Dialog Appear
+		TreasureViewDialog lootDialog = new TreasureViewDialog(parent, "Loot", false, treasures, currPlayer);
+		lootDialog.setVisible(true);
 	}
    
-    
+	public void startTrading(){
+		JFrame tradeFrame = new JFrame();
+		tradeView tradePanel = new tradeView();
+		tradeFrame.setSize(495,355);
+		tradeFrame.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
+		tradeFrame.setVisible(true);
+		tradeFrame.add(tradePanel);
+	}
     /*---------------------- Event Handler Methods ----------------------------- */
     private void handleHideButton(java.awt.event.ActionEvent evt) {                                         
     	System.out.println("Hide Button Has Been Pressed");
@@ -549,5 +548,15 @@ public class playerControllView extends javax.swing.JPanel {
 
 	private JTable getjTable2() {
 		return jTable2;
+	}
+	
+	public void massSetButtonState (boolean state) {
+		sendTurnButton.setEnabled(state);
+		cancelActionButton.setEnabled(state);
+		hideButton.setEnabled(state);
+		moveButton.setEnabled(state);
+		searchButton.setEnabled(state);
+		restButton.setEnabled(state);
+		tradeButton.setEnabled(state);
 	}
 }

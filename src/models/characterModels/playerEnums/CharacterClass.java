@@ -5,6 +5,7 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
+import models.chitModels.GlobalChits;
 import models.chitModels.WeaponChit;
 
 /**
@@ -100,17 +101,17 @@ public enum CharacterClass {
 	public WeaponChit getStartingWeapon() {
 		switch (this) {
 		case AMAZON:
-			return new WeaponChit(14, 2, Weights.LIGHT);
+			return GlobalChits.LIGHT_BOW;
 		case BLACKNIGHT:
-			return new WeaponChit(10, 1, Weights.MEDIUM);
+			return GlobalChits.SPEAR;
 		case CAPTAIN:
-			return new WeaponChit(10, 1, Weights.MEDIUM);
+			return GlobalChits.SPEAR;
 		case DWARF:
-			return new WeaponChit(2, 1, Weights.MEDIUM);
+			return GlobalChits.AXE;
 		case ELF:
-			return new WeaponChit(14, 2, Weights.LIGHT);
+			return GlobalChits.LIGHT_BOW;
 		case SWORDSMAN:
-			return new WeaponChit(4, 1, Weights.LIGHT);
+			return GlobalChits.SPEAR;
 		default:
 			return new WeaponChit(10, 1, Weights.MEDIUM);
 		}

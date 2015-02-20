@@ -8,11 +8,13 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 
+import models.chitModels.WeaponChit;
+
 /*
  * Utility Class For The Game That Has Static Methods For Ease Of Acesss
  */
 public class GameUtils {
-
+	
 	public static String SEARCH_LOCATE = "LOCATE";
 	public static String SEARCH_LOOT = "LOOT";
 	

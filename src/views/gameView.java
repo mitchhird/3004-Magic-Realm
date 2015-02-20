@@ -11,6 +11,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -113,7 +114,6 @@ public class gameView extends FrameBase {
             }
         });
         
-        startTrading();
         startCombat();
 	}
 	
@@ -130,7 +130,7 @@ public class gameView extends FrameBase {
 		thePlayerButtons = new playerControllView(this);
 		addToGrid(thePlayerButtons, 0, 1, 1, 2);
 		
-        thePlayerList.getjButton1().addActionListener(new java.awt.event.ActionListener() {
+        thePlayerList.getAddPlayerButton().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addPlayerMenu();
             }
@@ -160,9 +160,12 @@ public class gameView extends FrameBase {
         thePlayerList.getStartGameButton().addActionListener(new ActionListener() {
         	@Override
 			public void actionPerformed(ActionEvent arg0) {
+        		System.out.println("Start Game Pressed");
+        		
         		theClient.startGame();
         		thePlayerList.updateTable();
-        		System.out.println("Start Game Pressed");
+        		thePlayerButtons.massSetButtonState(true);
+        		//JOptionPane.showMessageDialog(this, "The Game Has Started!");
 			}
 		});
 	}
@@ -202,6 +205,7 @@ public class gameView extends FrameBase {
 
 		thePlayerList.removePlayer();
 		theClient.removePlayer(playerToRemoveName);
+		thePlayerList.update();
 	}
 
 	private void showBoard(){
@@ -237,19 +241,29 @@ public class gameView extends FrameBase {
 		update();
 	}
 	
+	public void updatePlayerByName (String name) {
+		PlayerBase p = theClient.getPlayerByName(name);
+		
+		if (p != null)
+			thePlayerButtons.update(p);
+	}
+	
+	// Shows The Combat In It's Own View
+	public void startCombat(){
+		combatFrame = new JFrame();
+		combatPanel = new combatView();
+		combatFrame.setSize(760,630);
+		combatFrame.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
+		combatFrame.setVisible(true);
+		combatFrame.add(combatPanel);
+	}
+	/*------------------------------- Getters And Setters ---------------------------*/
 	public boardView getBoardView () {
 		return theBoard;
 	}
 	
 	public PlayerBase getCurrentPlayer () {
 		return theClient.getCurrentPlayer();
-	}
-	
-	public void updatePlayerByName (String name) {
-		PlayerBase p = theClient.getPlayerByName(name);
-		
-		if (p != null)
-			thePlayerButtons.update(p);
 	}
 	
 	public clientController getGameController () {
@@ -267,24 +281,6 @@ public class gameView extends FrameBase {
 	// Sets The Grid Location Based On The Paramenters Given
 	private void addToGrid(JComponent theComponent, int x, int y, int gridWidth, int gridHeight) {
 		addToGrid(mainPanel, theComponent, x, y, gridWidth, gridHeight);
-	}
-	
-	public void startCombat(){
-		combatFrame = new JFrame();
-		combatPanel = new combatView();
-		combatFrame.setSize(760,630);
-		combatFrame.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
-		combatFrame.setVisible(true);
-		combatFrame.add(combatPanel);
-	}
-	
-	public void startTrading(){
-		tradeFrame = new JFrame();
-		tradePanel = new tradeView();
-		tradeFrame.setSize(495,355);
-		tradeFrame.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
-		tradeFrame.setVisible(true);
-		tradeFrame.add(tradePanel);
 	}
 	
 	private void addToGrid(JPanel connectToFrame, JComponent theComponent, int x, int y, int gridWidth, int gridHeight) {

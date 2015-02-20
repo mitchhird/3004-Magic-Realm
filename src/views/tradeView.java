@@ -81,7 +81,7 @@ public class tradeView extends javax.swing.JPanel {
 
         jLabel1.setText("Your Invenotry:");
 
-        jLabel2.setText("Thier Inventory:");
+        jLabel2.setText("Their Inventory:");
 
         jButton1.setText("Sell");
 
