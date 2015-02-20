@@ -10,8 +10,8 @@ import models.characterModels.PlayerBase;
 
 	public class PlayerListView extends javax.swing.JPanel {
 
-		private javax.swing.JButton jButton1;
-	    private javax.swing.JButton jButton2;
+		private javax.swing.JButton addPlayerButton;
+	    private javax.swing.JButton removePlayerButton;
 	    private javax.swing.JButton startGameButton;
 	    private javax.swing.JScrollPane jScrollPane3;
 	    private javax.swing.JTable jTable2;      
@@ -124,19 +124,19 @@ import models.characterModels.PlayerBase;
 	    }
 	    
 	    public javax.swing.JButton getjButton2() {
-			return jButton2;
+			return removePlayerButton;
 		}
 
 		public void setjButton2(javax.swing.JButton jButton2) {
-			this.jButton2 = jButton2;
+			this.removePlayerButton = jButton2;
 		}
 
 		public javax.swing.JButton getAddPlayerButton() {
-			return jButton1;
+			return addPlayerButton;
 		}
 		
 		public void setjButton1(javax.swing.JButton jButton1) {
-			this.jButton1 = jButton1;
+			this.addPlayerButton = jButton1;
 		}
 		
 		public javax.swing.JButton getStartGameButton() {
