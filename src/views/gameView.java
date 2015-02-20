@@ -11,7 +11,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -57,10 +56,6 @@ public class gameView extends FrameBase {
 	private JFrame combatFrame;
 
 	private combatView combatPanel;
-
-	private JFrame tradeFrame;
-
-	private tradeView tradePanel;
 
 	public static void main(String args[]){
 		new gameView();
