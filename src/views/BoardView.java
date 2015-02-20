@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -545,7 +547,29 @@ public class BoardView extends JPanel {
             	}
             }
         });
+		
+		// Display The Images Here
+		c.getButtonTiedToClearing().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				handleImageEnter(c);
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				handleImageExit(c);
+			}
+		});
 	}
+	
+	private void handleImageEnter (Clearing c) {
+		System.out.println("Entering Clearing " + c.getClearingName());
+	}
+	
+	private void handleImageExit (Clearing c) {
+		System.out.println("Exiting Clearing " + c.getClearingName());
+	}
+	
 	
 	@Override
 	public void paintComponent(Graphics page)
