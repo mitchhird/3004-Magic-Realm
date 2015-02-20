@@ -239,4 +239,14 @@ public class Clearing {
 	public void setClearingName(String clearingName) {
 		this.clearingName = clearingName;
 	}
+
+	public ArrayList<Image> getImageEnitiesOnThis() {
+		return imageEnitiesOnThis;
+	}
+
+	public void setImageEnitiesOnThis(ArrayList<Image> imageEnitiesOnThis) {
+		this.imageEnitiesOnThis = imageEnitiesOnThis;
+	}
+	
+	
 }
