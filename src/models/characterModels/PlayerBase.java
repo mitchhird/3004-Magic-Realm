@@ -74,6 +74,8 @@ public class PlayerBase extends EntityBase{
 	//big part of combat system
 	//might also include natives?
 	protected Denizen[] hired;
+	protected Image hiddenImage;
+	protected Image unhiddenImage;
 	
 	protected String history;
 	protected String discovery;
@@ -114,6 +116,10 @@ public class PlayerBase extends EntityBase{
 		// Setup The Player Weapons And Armor
 		weaponChit.add(characterClass.getStartingWeapon());
 		activeWeapon = weaponChit.get(0);
+		
+		// Setup The Image
+		hiddenImage = characterClass.getHiddenTile();
+		unhiddenImage = characterClass.getReadyTile();
 	}
 	
 	// Starts The Player's Turn And Wipes Out There Player's Commands
@@ -159,8 +165,9 @@ public class PlayerBase extends EntityBase{
 				homeClearing = newClearing;
 			}
 			
-			clearConnectedClearings();
-			currentClearing.resetClearing();
+			updateConnectedClearings();
+			currentClearing.updateImage();
+			currentClearing.playerMovedOffOf(this);
 			currentClearing = newClearing;
 			currentClearing.playerMovedToThis(this);
 			return true;
@@ -173,13 +180,7 @@ public class PlayerBase extends EntityBase{
 	public void reset() {
 		hidden = false;
 		moving = false;
-		clearConnectedClearings();
-	}
-
-	private void clearConnectedClearings() {
-		for (Clearing c: currentClearing.getConnectedClearings()) {
-			c.resetClearing();
-		}
+		updateConnectedClearings();
 	}
 	
 	// Treasure Functions
@@ -195,6 +196,11 @@ public class PlayerBase extends EntityBase{
 	
 	public void logAction (String logMessage) {
 		currentTurn += (currentTurn.equals("")) ? logMessage : "," + logMessage;
+	}
+	
+	// Updates All Of The Connected 
+	public void updateConnectedClearings() {
+		currentClearing.updateConnectedTiles();
 	}
 	
 	//can be changed to something else if weight is not an issue;
@@ -262,7 +268,7 @@ public class PlayerBase extends EntityBase{
 	}
 	
 	public Image getImage() {
-		return (hidden) ? characterClass.getHiddenTile() :characterClass.getReadyTile();
+		return (hidden) ? hiddenImage : unhiddenImage;
 	}
 	
 	public String getName(){

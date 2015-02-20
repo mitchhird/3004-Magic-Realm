@@ -13,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import models.BoardModels.Clearing;
+import models.BoardModels.Dwelling;
 import models.characterModels.playerEnums.CharacterClass;
 import models.otherEntities.TreasureModel;
 
@@ -140,12 +141,24 @@ public class BoardView extends JPanel {
 	private Clearing lwoods2 = new Clearing("lw2");
 	private Clearing lwoods4 = new Clearing("lw4");
 	private Clearing lwoods5 = new Clearing("lw5");
+	
+	private Dwelling inn;
 
 	private GameView parent;
 	
-	public BoardView(GameView parent){
+	public BoardView (GameView parent){
 		init();
 		this.parent = parent;
+		
+		// Now For The Inn
+		try {
+			File innImageFile = new File(System.getProperty("user.dir") + "/images/dwellings_c", "inn.gif");
+			Image innImage = ImageIO.read(innImageFile);
+			inn = new Dwelling(dvalley4, innImage);
+			inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void init(){
@@ -273,7 +286,7 @@ public class BoardView extends JPanel {
 		theButtons.add(lwoods2);
 		theButtons.add(lwoods4);
 		theButtons.add(lwoods5);
-
+		
 		for(int i = 0; i < theButtons.size(); i++){
 			add(theButtons.get(i).getButtonTiedToClearing());
 		}
@@ -528,7 +541,7 @@ public class BoardView extends JPanel {
             public void actionPerformed(ActionEvent arg0) {
             	if (parent.getCurrentPlayer().isMoving() && parent.getCurrentPlayer().getCurrentClearing().isVaildMove(c)){
             		parent.getCurrentPlayer().moveToClearing(c);
-            		c.highlightForMove();
+            		c.highlightConnectedClearings();
             	}
             }
         });
@@ -545,7 +558,7 @@ public class BoardView extends JPanel {
 		switch (c) {
 		case SWORDSMAN: return lwoods2;
 		case AMAZON: return cavern1;
-		case BLACKNIGHT: return cvalley5;
+		case BLACKNIGHT: return cavern5;
 		case CAPTAIN: return bvalley5;
 		case DWARF: return mwoods2;
 		case ELF: return nwoods5;

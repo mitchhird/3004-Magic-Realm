@@ -14,7 +14,6 @@ import models.characterModels.PlayerBase;
 import models.otherEntities.TreasureModel;
 
 public class PlayerControllView extends javax.swing.JPanel {
-
 	// Variables declaration - do not modify                     
     private javax.swing.JButton jButton1;
     private javax.swing.JButton sendTurnButton;
@@ -252,7 +251,7 @@ public class PlayerControllView extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Search Button Has Been Pressed");
-				parent.getCurrentPlayer().getCurrentClearing().resetConnectedClearings();
+				parent.getCurrentPlayer().getCurrentClearing().updateConnectedTiles();
 				search();
 			}
 		});
@@ -262,7 +261,7 @@ public class PlayerControllView extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				 System.out.println("Rest Button Has Been Pressed");
-				 parent.getCurrentPlayer().getCurrentClearing().resetConnectedClearings();
+				 parent.getCurrentPlayer().getCurrentClearing().updateConnectedTiles();
 			}
 		});
 
@@ -271,7 +270,7 @@ public class PlayerControllView extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				 System.out.println("Trade Button Has Been Pressed");
-				 parent.getCurrentPlayer().getCurrentClearing().resetConnectedClearings();
+				 parent.getCurrentPlayer().getCurrentClearing().updateConnectedTiles();
 				 startTrading();
 			}
 		});
@@ -460,7 +459,7 @@ public class PlayerControllView extends javax.swing.JPanel {
     	if(parent.getCurrentPlayer()==null){
     		return;
     	}
-    	parent.getCurrentPlayer().getCurrentClearing().resetConnectedClearings();
+    	parent.getCurrentPlayer().getCurrentClearing().updateConnectedTiles();
     	parent.getCurrentPlayer().attemptHide();
     }                                        
 
@@ -470,7 +469,7 @@ public class PlayerControllView extends javax.swing.JPanel {
     		return;
     	}
     	PlayerBase currentPlayer = parent.getCurrentPlayer();
-    	currentPlayer.getCurrentClearing().highlightForMove();
+    	currentPlayer.getCurrentClearing().highlightConnectedClearings();
     	currentPlayer.setMoving(true);
     }                                        
 
@@ -482,7 +481,7 @@ public class PlayerControllView extends javax.swing.JPanel {
     		if(parent.getCurrentPlayer()==null){
     			return;
     		}
-    		parent.getCurrentPlayer().getCurrentClearing().resetConnectedClearings();
+    		parent.getCurrentPlayer().getCurrentClearing().updateConnectedTiles();
     		parent.getCurrentPlayer().endPlayerTurn();
     		parent.getGameController().moveToNextPlayer();
     		parent.getPlayerList().updateTable();

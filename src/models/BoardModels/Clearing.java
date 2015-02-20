@@ -1,11 +1,14 @@
 package models.BoardModels;
 
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -26,13 +29,16 @@ public class Clearing {
 	private Set <Clearing> connectedClearings;
 	private Set <TreasureModel> treasuresInClearing;
 	private Set <EntityBase> entitiesInClearing;
+	private ArrayList <Image> imageEnitiesOnThis;
 	
 	public Clearing (String clearingName) {
 		blocked = false;
+		this.clearingName = clearingName;
+		
 		entitiesInClearing = new HashSet<>();
 		connectedClearings = new HashSet<>();
 		treasuresInClearing = new HashSet<>();
-		this.clearingName = clearingName;
+		imageEnitiesOnThis = new ArrayList<>();
 		
 		// Create The Button Tied To The Clearing
 		buttonTiedToClearing = new JButton("");
@@ -46,15 +52,10 @@ public class Clearing {
 		blocked = true;
 		
 		// Move Off Of The Current Clearing And Onto The Next
-		p.getCurrentClearing().playerMovedOffOf(p);
 		p.setCurrentClearing(this);
 
 		// Set The Button's Icon The Player's Class Image
-		int iconWidth = buttonTiedToClearing.getWidth();
-		int iconHeight = buttonTiedToClearing.getHeight();
-		Image playerIcon = p.getImage().getScaledInstance(iconWidth, iconHeight, Image.SCALE_SMOOTH);
-		buttonTiedToClearing.setIcon(new ImageIcon(playerIcon));
-		buttonTiedToClearing.repaint();
+		addImageToList(p.getImage());
 		
 		// Add Them To The Entity Listing
 		entitiesInClearing.add(p);
@@ -63,33 +64,29 @@ public class Clearing {
 	// Player Moved Away From Clearing
 	public void playerMovedOffOf (PlayerBase p) {
 		entitiesInClearing.remove(p);
-		p.getCurrentClearing().resetClearing();
+		removeImageToList(p.getImage());
 	}
 	
-	// Moves The Player Off 
-	public void resetClearing () {
-		blocked = false;
-		buttonTiedToClearing.setIcon(new ImageIcon());
-		buttonTiedToClearing.repaint();
-	}
 	
-	public void resetConnectedClearings() {
-		for (Clearing c: connectedClearings) {
-			c.resetClearing();
-		}
-	}
-
 	// Checks Player Movement Against The Adjancent Tiles
 	public boolean isVaildMove (Clearing c) {
 		return connectedClearings.contains(c);
 	}
 	
-	/// Highlight Move
+	/// Highlight The Clearing If There Isn't An Image For It
 	public void highlightForMove () {
-		for (Clearing c: connectedClearings) {
-			JButton clearingButton = c.getButtonTiedToClearing();
+		// If There Is Not An Image On This Tile
+		if (imageEnitiesOnThis.size() == 0) {
+			JButton clearingButton = getButtonTiedToClearing();
 			clearingButton.setIcon(new ImageIcon(GameUtils.getValidClearingImg(clearingButton)));
 			clearingButton.repaint();
+		}
+	}
+	
+	// Highlight The Connected Clearings If They Don't Contain An Image
+	public void highlightConnectedClearings () {
+		for (Clearing c: connectedClearings) {
+			c.highlightForMove();
 		}
 	}
 	
@@ -134,7 +131,52 @@ public class Clearing {
 		}
 		return treasures;
 	}
+	
+	// When Adding An Image
+	public void addImageToList (Image i) {
+		imageEnitiesOnThis.add(i);
+		updateImage();
+	}
+	
+	// When Remove An Image Then Update As Well 
+	public void removeImageToList (Image i) {
+		boolean removal = imageEnitiesOnThis.remove(i);
+		updateImage();
+	}
 
+	// Reupdates The Tiles Image With What Is In The List
+	public void updateImage () {
+		ImageIcon displayIcon = new ImageIcon();
+		
+		int width = buttonTiedToClearing.getWidth();
+		int height = buttonTiedToClearing.getHeight();
+		
+		// If There Only One Image
+		if (imageEnitiesOnThis.size() == 1) { 
+			Image display = imageEnitiesOnThis.get(0);
+			Image icon = display.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+			displayIcon = new ImageIcon(icon);
+		} else if (imageEnitiesOnThis.size() > 1){
+			File multiIcon = new File(System.getProperty("user.dir") + "/images/custom/characters", "question.gif");
+			try {
+				Image icon = ImageIO.read(multiIcon);
+				Image multiDisplayIcon = icon.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+				displayIcon = new ImageIcon(multiDisplayIcon);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		buttonTiedToClearing.setIcon(displayIcon);
+		buttonTiedToClearing.repaint();
+	}
+	
+	// Update All Of The Connected Tiles
+	public void updateConnectedTiles () {
+		for (Clearing c: connectedClearings) {
+			c.updateImage();
+		}
+	}
 	
 	/* ------------------- Getters And Setters Below Here -------------------*/
 	public boolean isBlocked() {
@@ -197,5 +239,4 @@ public class Clearing {
 	public void setClearingName(String clearingName) {
 		this.clearingName = clearingName;
 	}
-	
 }
