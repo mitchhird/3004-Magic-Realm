@@ -12,6 +12,7 @@ import models.BoardModels.Clearing;
 import models.characterModels.playerEnums.Attacks;
 import models.characterModels.playerEnums.CharacterClass;
 import models.characterModels.playerEnums.Weights;
+import models.chitModels.ActionChit;
 import models.chitModels.ArmorChit;
 import models.chitModels.Chit;
 import models.chitModels.WeaponChit;
@@ -49,6 +50,11 @@ public class PlayerBase extends EntityBase{
 	protected String playerName;
 	protected String playerClass;
 	protected String tradeRelationship;
+	
+	//Action Chits in different statuses
+	protected ActionChit[] Active;
+	protected ActionChit[] InActive;
+	protected ActionChit[] Wounded;
 	
 	// Compound Data Types For The Object
 	protected Chit[] combatChit;
@@ -209,6 +215,7 @@ public class PlayerBase extends EntityBase{
 	}
 	
 	//can be changed to something else if weight is not an issue;
+	//have to change this so that it will do things to the action chits
 	public void increaseWounds(int d){
 		for(int i = 0; i < d; ++i){
 			wounds = wounds.next();
@@ -395,6 +402,44 @@ public class PlayerBase extends EntityBase{
 
 	public PlayerBase chargingPlayer() {
 		return chargeTarget;
+	}
+
+	public void setWounds(int wounds) {
+		// TODO Auto-generated method stub
+		if(wounds == 1){
+			increaseWounds(wounds);
+		}
+		if(wounds == 2){
+			//no horse
+		}
+		if(wounds == 3){
+			isDead();
+		}
+		
+	}
+
+	public Attacks getAttackDirection() {
+		// TODO Auto-generated method stub
+		//have to set it up so that you can get your weapon to swing a set direction
+		return null;
+	}
+
+	public boolean checkIfHit(Attacks attackDirection) {
+		// TODO Auto-generated method stub
+		// will check manuever vsv attackDirection and if hit then return true
+		return false;
+	}
+
+	public int getSpeed() {
+		// TODO Auto-generated method stub
+		// this is the manuever speed of the player that round
+		return 0;
+	}
+
+	public int checkLure(Set<EntityBase> unhidden) {
+		// TODO Auto-generated method stub
+		// will ask the player if they want to lure any monsters/natives
+		return 0;
 	}
 
 	

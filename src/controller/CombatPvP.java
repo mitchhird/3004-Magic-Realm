@@ -102,14 +102,6 @@ public class CombatPvP {
 		//for that clearing
 		//assigned to UNHIDDEN characters in the clearing
 	}
-
-	private PlayerBase findPlayer(PlayerBase[] players) {
-		// TODO have to send to view for swordsman about starting turn
-		//some kind of random
-		
-//		UNKNOWN IF NEEDED
-		return null;
-	}
 	
 	 /*
 	 * Deployment & Charging
@@ -274,9 +266,8 @@ public class CombatPvP {
 	private void resolveAttacks(PlayerBase[] players, int maxPlayers) {
 		PlayerBase[] orderAttacks = new PlayerBase[maxPlayers];
 		int firstAttack = 0, currAttackNum = 0;
-		int firstAttacker;
+		int firstAttacker = 0;
 		PlayerBase attacker, defender;
-		int damage;
 		// check how the currplayer is attacking
 		// who is the attacker and who is defender
 		
@@ -308,7 +299,7 @@ public class CombatPvP {
 				continue;
 			}
 			
-			int wounds1, wounds2;
+			int wounds1 = 0, wounds2 = 0;
 			if(defender.getWeapon().getWeaponLength() == attacker.getWeapon().getWeaponLength() &&
 			   defender.getWeapon().getWeaponSpeed()  == attacker.getWeapon().getWeaponSpeed()){
 				wounds1 = checkAttack(attacker, defender);
@@ -342,23 +333,11 @@ public class CombatPvP {
 		return nAttacker;
 	}
 	
-	private void setWounds(PlayerBase player, int wounds){
-		if(wounds == 1){
-			player.increaseWounds(wounds);
-		}
-		if(wounds == 2){
-			//no horse
-		}
-		if(wounds == 3){
-			player.isDead();
-		}
-	}
-	
 	private int checkAttack(PlayerBase attacker, PlayerBase defender){
 		int damage = 0;
-		if (attack time vs manuever time){
+		if (!(defender.checkIfHit(attacker.getAttackDirection()))){
 			damage = attackHits(attacker, defender);
-		} else if (attack direction vs manuever direction) {
+		} else if (attacker.getWeapon().getWeaponSpeed() == defender.getSpeed()) {
 			damage = attackHits(attacker, defender);
 		} else {
 			attacker.getWeapon().setAlert(true);
