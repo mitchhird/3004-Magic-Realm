@@ -150,14 +150,19 @@ public class GameView extends FrameBase {
         thePlayerList.getStartGameButton().addActionListener(new ActionListener() {
         	@Override
 			public void actionPerformed(ActionEvent arg0) {
-        		System.out.println("Start Game Pressed");
-        		
-        		theClient.startGame();
-        		thePlayerList.updateTable();
-        		thePlayerButtons.massSetButtonState(true);
-        		//JOptionPane.showMessageDialog(this, "The Game Has Started!");
+        		handleStartGame();
 			}
 		});
+	}
+	
+	private void handleStartGame () {
+		System.out.println("Start Game Pressed");
+		
+		theClient.startGame();
+		thePlayerList.updateTable();
+		thePlayerButtons.massSetButtonState(true);
+		thePlayerList.getStartGameButton().setEnabled(false);
+		JOptionPane.showMessageDialog(this, "The Game Has Started!");
 	}
 
 	private void showCard() {
