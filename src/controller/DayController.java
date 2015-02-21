@@ -70,6 +70,7 @@ public class DayController {
 	private void birdSong(){
 		for(int i = 0; i < totalPlayers; ++i){
 			allPlayers[i].record();
+			
 			//have to pick 2-4 phases out of 10
 			/* the 10 are
 			 * -move (adjacent clearing must be named)
@@ -94,13 +95,14 @@ public class DayController {
 			 * -use spell
 			 * 
 			 */
+			allPlayers[i].unHide();
 		}
 		//will have to add things about moving all hired to
 		//same place
 		
 		//add a thing for prowling creatures
 		if(day%7 == 0){
-			
+			//natives and monsters respawn
 		}
 	}
 	
@@ -119,16 +121,46 @@ public class DayController {
 		for(int i = 0; i < totalPlayers; ++i){
 			orderPlayers[i].unHide();
 			for(int p = 0; p < orderPlayers[i].getMaxPhases(); ++p){//have to add phases and max phases with the record
-				trade with players in clearing
-				rearange belongings
-				do phase
+				//also will have to check if illegal moves
+//				trade with players in clearing
+//				rearange belongings
+				switch (orderPlayers[i].getPhase(p)){
+				case "H":
+//					roll on hide table
+					break;
+				case "M":
+//					move to the clearing specified
+					break;
+				case "S":
+//					can search on search table therefore roll
+//					can loot things if discovered or if abandoned items roll loot table
+//					loot table is a usual roll and then count down from the top of the stack
+//					if roll > stack = nothing
+					break;
+				case "T":
+//					trading with certain people gets initiated
+					break;
+				case "R":
+//					have to do something with the rest can do later
+					break;
+				case "A":
+					orderPlayers[i].getWeapon().setAlerted(true);
+					break;
+				case "F":
+					//will set the following to true and the player they wish to follow
+					break;
+
+				}
+				
+//				blocking might occur
 			}
 			
 //			for(int p = 0; p < totalPlayers; ++p){
 //				check if want to block
 //			}
 			
-			
+//			map chits in tile to clearing where needed
+//			more to do with monsters and natives when that needs to be added
 		}
 		
 //		warning and sound chit become active
@@ -137,14 +169,14 @@ public class DayController {
 	
 	private void evening(){
 		CombatPvP combat = new CombatPvP();
-		combat.combatPvP(orderPlayers, activeClearings);
+		combat.combatPvP(orderPlayers);
 	}
 	
 	private void midnight(){
 		for(int i = 0; i < totalPlayers; ++i){
-			rearrangeBelongins();
-			weapon unalerted;
+//			orderPlayers[i].rearrangeBelongings();
+			orderPlayers[i].getWeapon().setAlerted(false);
 		}
-//		curses removed from chapel
+//		curses removed from players around chapel tile
 	}
 }
