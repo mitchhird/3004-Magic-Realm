@@ -11,17 +11,19 @@ public class WeaponChit extends Chit{
 	private int weaponLength;
 	private int sharpnessStars;
 	private int weaponSpeed;
+	private String weaponName;
 	private Weights weaponHarm;
 	
 	private boolean alerted;
 	private boolean missleBased;
 
 	// Constructor For The Weapon Chit
-	public WeaponChit (int length, int sharpnessLevel, Weights aWeapDmg) {
+	public WeaponChit (String weaponName, int length, int sharpnessLevel, Weights aWeapDmg) {
 		weaponLength = length;
 		sharpnessStars = sharpnessLevel;
 		weaponHarm = aWeapDmg;
-
+		this.weaponName = weaponName;
+		
 		alerted = false;
 		missleBased = false;
 	}
@@ -61,5 +63,13 @@ public class WeaponChit extends Chit{
 
 	public void setWeaponSpeed(int weaponSpeed) {
 		this.weaponSpeed = weaponSpeed;
+	}
+
+	public String getWeaponName() {
+		return weaponName;
+	}
+
+	public void setWeaponName(String weaponName) {
+		this.weaponName = weaponName;
 	}
 }

@@ -1,7 +1,5 @@
 package models.chitModels;
 
-import com.sun.org.apache.bcel.internal.generic.DMUL;
-
 import models.characterModels.playerEnums.Weights;
 
 public class ArmorChit {
@@ -56,7 +54,22 @@ public class ArmorChit {
 		return destoryed;
 	}
 
+	public String getArmorStatus () {
+		if (destoryed) {
+			return "Destroyed";
+		} else if (damaged) {
+			return "Damaged";
+		}
+		
+		return "Undamaged";
+	}
+	
 	public void setDestoryed(boolean destoryed) {
 		this.destoryed = destoryed;
+	}
+	
+	@Override
+	public String toString() {
+		return armourType.name();
 	}
 }
