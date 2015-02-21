@@ -171,11 +171,6 @@ public class PlayerBase extends EntityBase{
 			// Log The Turn
 			logAction("M-" + newClearing.getClearingName());
 			
-			// If First Clearing Then Set It To The Player's Home
-			if (homeClearing == null) {
-				homeClearing = newClearing;
-			}
-			
 			updateConnectedClearings();
 			currentClearing.updateImage();
 			currentClearing.playerMovedOffOf(this);
@@ -187,6 +182,15 @@ public class PlayerBase extends EntityBase{
 		}
 	}
 	
+	// Moves The Player Straight To Home When Called
+	public void moveToHome() {
+		updateConnectedClearings();
+		currentClearing.updateImage();
+		currentClearing.playerMovedOffOf(this);
+		currentClearing = homeClearing;
+		currentClearing.playerMovedToThis(this);
+	}
+	
 	// Resets The Players Values When Called
 	public void reset() {
 		hidden = false;
@@ -194,23 +198,18 @@ public class PlayerBase extends EntityBase{
 		updateConnectedClearings();
 	}
 	
+	// Kills The Player And Adds All Of The Values To This
+	public void killPlayer (PlayerBase oppoent) {
+		this.currentFame += oppoent.currentFame;
+		this.currentGold += oppoent.currentGold;
+		this.currentNotirity += oppoent.currentNotirity;
+		oppoent.moveToHome();
+	}
+	
 	// Treasure Functions
 	public void addTreasure (TreasureModel t) {
 		accquiredTreasures.add(t);
 		currentGold += t.getTreasureGoldValue();
-	}
-	
-	// Register The Players
-	public void hitArmor (ArmorChit a, Weights damageWeight) {
-		// Register The Damage In The Correct Locations
-		if (damageWeight.getWeightValue() > a.getArmourWeight().getWeightValue())
-			a.destoryArmor();
-		else if (damageWeight.getWeightValue() == a.getArmourWeight().getWeightValue())
-			a.damageArmor();
-		
-		// If The Armor Is Destoryed Then Remove It
-		if (a.isDestoryed()) 
-			armorChits.remove(a);
 	}
 	
 	public ArrayList<TreasureModel> searchCurrentClearing () {
@@ -276,6 +275,10 @@ public class PlayerBase extends EntityBase{
 		return turnLog;
 	}
 	
+	public void setHomeClearing(Clearing homeClearing) {
+		this.homeClearing = homeClearing;
+	}
+
 	public void setClass(CharacterClass newPlayerClass) {
 		characterClass = newPlayerClass;
 	}
@@ -455,5 +458,8 @@ public class PlayerBase extends EntityBase{
 		return 0;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Player: " + getName();
+	}
 }

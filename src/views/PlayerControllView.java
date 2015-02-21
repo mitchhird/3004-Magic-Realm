@@ -503,12 +503,7 @@ public class PlayerControllView extends javax.swing.JPanel {
 
 	// Shows The Combat In It's Own View
 	public void startCombat(ArrayList <PlayerBase> combatingPlayers){
-		JFrame combatFrame = new JFrame();
-		JPanel combatPanel = new CombatView(combatFrame, combatingPlayers);
-		combatFrame.setSize(760,630);
-		combatFrame.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
-		combatFrame.setVisible(true);
-		combatFrame.add(combatPanel);
+		new CombatView(combatingPlayers);
 	}
 	
     /*----------------- Getters And Setters ------------------- */

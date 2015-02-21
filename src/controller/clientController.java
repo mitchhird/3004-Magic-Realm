@@ -52,6 +52,7 @@ public class clientController {
 		for (PlayerBase p: thePlayers) {
 			Clearing playerStart = parent.getBoardView().getDefaultClearingForClass(p.getPlayerClass());
 			p.setCurrentClearing(playerStart);
+			p.setHomeClearing(playerStart);
 			playerStart.playerMovedToThis(p);
 		}
 	}

@@ -1,19 +1,19 @@
 package views;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.swing.JFrame;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 
-import sun.java2d.Disposer;
-import controller.CombatPVPHandler;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.Attacks;
+import controller.CombatPVPHandler;
 
-public class CombatView extends javax.swing.JPanel {
+public class CombatView extends FrameBase {
 
     /**
 	 * 
@@ -41,6 +41,7 @@ public class CombatView extends javax.swing.JPanel {
     private javax.swing.JButton smashButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private JLabel targetPlayerLabel;
     private javax.swing.JLabel smashShield;
     private javax.swing.JLabel swindShield;
     private javax.swing.JLabel thrustShield;
@@ -49,17 +50,53 @@ public class CombatView extends javax.swing.JPanel {
     private javax.swing.JLabel helmet;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea textArea;  
+    private JComboBox<PlayerBase> playersCanAttack;
     
     // Setup The Combat Handler For The View
-    private JFrame parentFrame;
     private CombatPVPHandler combatHandler;
     private ArrayList<PlayerBase> combatingPlayers;
+    private ArrayList<PlayerBase> targetPlayers;
+    private Toolkit tk = Toolkit.getDefaultToolkit();
     
-    public CombatView(JFrame parent, ArrayList<PlayerBase> combatingPlayers) {
-        initComponents();
-        parentFrame = parent;
-        combatHandler = new CombatPVPHandler(combatingPlayers, parentFrame);
-        this.combatingPlayers = combatingPlayers;
+    // Constructor For This
+    public CombatView(ArrayList<PlayerBase> combatingPlayers) {
+    	this.combatingPlayers = combatingPlayers;
+    	combatHandler = new CombatPVPHandler(combatingPlayers, this);
+
+    	initComponents();
+        initWindow();
+        addAllComponents();
+        update();
+    }
+    
+    // Initialize The Window
+    public void initWindow () {
+		setSize(760,300);
+		setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
+		setLayout(layout);
+		setName ("Combat Screen");
+		setVisible(true);
+    }
+    
+    // Adds All Of The Compoents To The Window
+    public void addAllComponents () {
+    
+    	// First Is The Text Area
+    	addToFrame(this, textArea, layout, 0, 0, 1, 4);
+    	    	
+    	// Add In All Of The Buttons
+    	addToFrame(this, jLabel2, layout, 1, 0, 1, 1);
+    	addToFrame(this, smashButton, layout, 2, 0, 1, 1);
+    	addToFrame(this, thrustButton, layout, 3, 0, 1, 1);
+    	addToFrame(this, swingButton, layout, 4, 0, 1, 1);
+    	
+    	// Attackable Players Window
+    	addToFrame(this, targetPlayerLabel, layout, 1, 1, 1, 1);
+    	addToFrame(this, playersCanAttack, layout, 2, 1, 3, 1);
+    	
+    	// More Buttons
+    	addToFrame (this, nextButton, layout, 1, 3, 2, 1);
+    	addToFrame (this, runButton, layout, 3, 3, 2, 1);
     }
                      
     private void initComponents() {
@@ -93,19 +130,9 @@ public class CombatView extends javax.swing.JPanel {
         breastPlate = new javax.swing.JLabel();
         helmet = new javax.swing.JLabel();
         resetButton = new javax.swing.JButton();
+        targetPlayerLabel = new JLabel("Target:");
+        playersCanAttack = new JComboBox<>();
         
-        enemy1Button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("enemy1 pressed");
-                combatHandler.setDefender(combatingPlayers.get(0));
-            }
-        });
-        enemy2Button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("enemy2 pressed");
-                combatHandler.setDefender(combatingPlayers.get(1));
-            }
-        });
         enemy3Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 System.out.println("enemy3 pressed");
@@ -131,6 +158,7 @@ public class CombatView extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent arg0) {
                 System.out.println("thrust pressed");
                 combatHandler.setCurrentAttack(Attacks.THRUST);
+                nextButton.setEnabled(true);
                 println("Setting Current Attack To " + Attacks.THRUST);
             }
         });
@@ -138,12 +166,14 @@ public class CombatView extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent arg0) {
                 System.out.println("swing pressed");
                 combatHandler.setCurrentAttack(Attacks.SWING);
+                nextButton.setEnabled(true);
                 println("Setting Current Attack To " + Attacks.SWING);
             }
         });
         smashButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 System.out.println("smash pressed");
+                nextButton.setEnabled(true);
                 println("Setting Current Attack To " + Attacks.SMASH);
             }
         });
@@ -160,15 +190,24 @@ public class CombatView extends javax.swing.JPanel {
         runButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 System.out.println("run pressed");
-                parentFrame.dispose();
+                dispose();
             }
         });
         
         nextButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 System.out.println("next pressed");
+                combatHandler.setCurrentDefender(targetPlayers.get(playersCanAttack.getSelectedIndex()));
+                
+                // Display For Display Purposes
+                println ("Attack Submitted:");
+                println ("  --- Attacker: " + combatHandler.getCurrentAttacker().getName());
+                println ("  --- Defender: " + combatHandler.getCurrentDefender().getName());
+                println ("");
+                
+                // Go To The Next Attack
                 combatHandler.setNextAttacker();
-                println("Moving To the Next Player");
+                update();
             }
         });
         endButton.addActionListener(new ActionListener() {
@@ -237,7 +276,7 @@ public class CombatView extends javax.swing.JPanel {
 
         abandonButton.setText("Abandon Belongings");
 
-        nextButton.setText("Next");
+        nextButton.setText("Move To Next Attacker");
 
         endButton.setText("End");
 
@@ -254,154 +293,32 @@ public class CombatView extends javax.swing.JPanel {
         helmet.setText("Helmet");
 
         resetButton.setText("Reset");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(enemy5Button)
-                            .addComponent(enemy4Button)
-                            .addComponent(enemy3Button)
-                            .addComponent(enemy6Button)
-                            .addComponent(enemy1Button)
-                            .addComponent(enemy2Button))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(duckButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(thrustButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(smashButton, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(swingButton, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(activateButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(alertButton)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(nextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(endButton))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(thrustShield)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(chargeButton))))
-                            .addComponent(suitOfArmor, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(breastPlate, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(helmet, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(resetButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(runButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(smashShield)
-                                    .addComponent(abandonButton)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(swindShield)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(dodgeButton)))))))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(enemy1Button)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(enemy2Button)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(enemy3Button)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(enemy4Button)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(enemy5Button))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(swingButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(smashButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(thrustButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(enemy6Button)
-                            .addComponent(duckButton)
-                            .addComponent(smashShield))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(dodgeButton)
-                            .addComponent(swindShield))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(chargeButton)
-                            .addComponent(thrustShield))
-                        .addGap(26, 26, 26)
-                        .addComponent(helmet)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(breastPlate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(suitOfArmor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(abandonButton)
-                            .addComponent(runButton)
-                            .addComponent(resetButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(activateButton)
-                            .addComponent(endButton)
-                            .addComponent(nextButton)
-                            .addComponent(alertButton)))
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
-        );
-        
     }
     
-    public void setEnemies(String enemy1, String enemy2, String enemy3, String enemy4, String enemy5, String enemy6){
-    	if(enemy1==""){
-    		enemy1Button.setVisible(false);
+    // Updates This Window With Need Material
+    private void update () {
+    	// Get The Combobox ready
+    	targetPlayers = getPlayersToAttack();
+        PlayerBase[] attackables = new PlayerBase[targetPlayers.size()];
+        attackables = targetPlayers.toArray(attackables);
+        DefaultComboBoxModel<PlayerBase> model = new DefaultComboBoxModel<>( attackables );
+        playersCanAttack.setModel(model);
+        
+        // Set The Next Player To Disabled
+        nextButton.setEnabled(false);
+        nextButton.setText((combatHandler.getReadyPlayerNum() == combatingPlayers.size() - 1) 
+        					? "Start Combat" : "Move To Next Attacker");
+    }
+    
+    // Get All Of The Players To Attack
+    private ArrayList<PlayerBase> getPlayersToAttack () {
+    	ArrayList<PlayerBase> returnVal = new ArrayList<>();
+    	for (PlayerBase p: combatingPlayers) {
+    		if (p != combatHandler.getCurrentAttacker()) {
+    			returnVal.add(p);
+    		}
     	}
-    	enemy1Button.setText(enemy1);
-    	if(enemy2==""){
-       		enemy2Button.setVisible(false);
-    	}
-    	enemy2Button.setText(enemy2);
-    	if(enemy3==""){
-    		enemy3Button.setVisible(false);
-    	}
-    	enemy3Button.setText(enemy3);
-    	if(enemy4==""){
-    		enemy4Button.setVisible(false);
-    	}
-    	enemy4Button.setText(enemy4);
-    	if(enemy5==""){
-    		enemy5Button.setVisible(false);
-    	}
-    	enemy5Button.setText(enemy5);
-    	if(enemy6==""){
-    		enemy6Button.setVisible(false);
-    	}
-    	enemy6Button.setText(enemy6);
+    	return returnVal;
     }
     
     public void setArmor(String suit, String breast, String newHelmet){

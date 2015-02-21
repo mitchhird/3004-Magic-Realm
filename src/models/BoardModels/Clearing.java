@@ -30,7 +30,7 @@ public class Clearing {
 	private Set <TreasureModel> treasuresInClearing;
 	private Set <EntityBase> entitiesInClearing;
 	private Set <PlayerBase> playersInClearing;
-	private ArrayList <Image> imageEnitiesOnThis;
+	private Set <Image> imageEnitiesOnThis;
 	
 	public Clearing (String clearingName) {
 		blocked = false;
@@ -40,7 +40,7 @@ public class Clearing {
 		connectedClearings = new HashSet<>();
 		treasuresInClearing = new HashSet<>();
 		playersInClearing = new HashSet<>();
-		imageEnitiesOnThis = new ArrayList<>();
+		imageEnitiesOnThis = new HashSet<>();
 		
 		// Create The Button Tied To The Clearing
 		buttonTiedToClearing = new JButton("");
@@ -62,6 +62,8 @@ public class Clearing {
 		// Add Them To The Entity Listing
 		entitiesInClearing.add(p);
 		playersInClearing.add(p);
+		
+		updateImage();
 	}
 	
 	// Player Moved Away From Clearing
@@ -69,6 +71,7 @@ public class Clearing {
 		entitiesInClearing.remove(p);
 		playersInClearing.remove(p);
 		removeImageToList(p.getImage());
+		updateImage();
 	}
 	
 	
@@ -157,7 +160,7 @@ public class Clearing {
 		
 		// If There Only One Image
 		if (imageEnitiesOnThis.size() == 1) { 
-			Image display = imageEnitiesOnThis.get(0);
+			Image display = imageEnitiesOnThis.iterator().next();
 			Image icon = display.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 			displayIcon = new ImageIcon(icon);
 		} else if (imageEnitiesOnThis.size() > 1){
@@ -245,10 +248,15 @@ public class Clearing {
 	}
 
 	public ArrayList<Image> getImageEnitiesOnThis() {
-		return imageEnitiesOnThis;
+		ArrayList<Image> images = new ArrayList<>();
+		for (Image i: imageEnitiesOnThis) {
+			images.add(i);
+		}
+		
+		return images;
 	}
 
-	public void setImageEnitiesOnThis(ArrayList<Image> imageEnitiesOnThis) {
+	public void setImageEnitiesOnThis(Set<Image> imageEnitiesOnThis) {
 		this.imageEnitiesOnThis = imageEnitiesOnThis;
 	}
 

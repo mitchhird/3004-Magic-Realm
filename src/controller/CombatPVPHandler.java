@@ -29,10 +29,10 @@ public class CombatPVPHandler {
 	private Set<Pair<PlayerBase, PlayerBase>> readyPlayers;
 	private Set<CombatDataContainer> combatData;
 	
-	private JFrame parentView; 
+	private CombatView parentView; 
 	
 	// Constructor For The Combat Handler
-	public CombatPVPHandler (ArrayList <PlayerBase> combattingPlayers, JFrame parentView) {
+	public CombatPVPHandler (ArrayList <PlayerBase> combattingPlayers, CombatView parentView) {
 		this.combattingPlayers = combattingPlayers;
 		currentAttacker = getFirstAttacker();
 				
@@ -102,6 +102,7 @@ public class CombatPVPHandler {
 		
 		// If Harm Is Higher Then Or Equal To Vulernability Then The Player Is Dead
 		if (weaponWeight.getWeightValue() >= defendingPlayer.getVulnerability().getWeightValue()) {
+			attackingPlayer.killPlayer(defendingPlayer);
 			return true;
 		} else {
 			return false;
@@ -110,7 +111,18 @@ public class CombatPVPHandler {
 	
 	// Hit This Armor So Register The Hit
 	private void hitPlayersArmor (PlayerBase p, ArmorChit a, Weights incomingDamage) {
-		p.hitArmor(a, incomingDamage);
+		// Register The Damage In The Correct Locations
+		if (incomingDamage.getWeightValue() > a.getArmourWeight().getWeightValue()) {
+			a.destoryArmor();
+		}
+		else if (incomingDamage.getWeightValue() == a.getArmourWeight().getWeightValue()) {
+			a.damageArmor();
+		}
+		
+		// If The Armor Is Destoryed Then Remove It
+		if (a.isDestoryed()) {
+			p.getArmorChits().remove(a);
+		}
 	}
 	
 	// Gathers The First Player For The Combat 
@@ -174,15 +186,29 @@ public class CombatPVPHandler {
 		}
 		return null;
 	}
-
-	// TODO: TEMP HOLDER FOR DEFENDER
-	public void setDefender (PlayerBase p) {
-		currentDefender = p;
-		
-	}
 	
 	/*---------------------------- Getters And Setters ---------------------- */
 	public void setCurrentAttack (Attacks attack) {
 		currentAttack = attack;
+	}
+
+	public PlayerBase getCurrentAttacker() {
+		return currentAttacker;
+	}
+	
+	public int getReadyPlayerNum () {
+		return readyPlayers.size();
+	}
+
+	public void setCurrentAttacker(PlayerBase currentAttacker) {
+		this.currentAttacker = currentAttacker;
+	}
+
+	public PlayerBase getCurrentDefender() {
+		return currentDefender;
+	}
+
+	public void setCurrentDefender(PlayerBase currentDefender) {
+		this.currentDefender = currentDefender;
 	}
 } 
