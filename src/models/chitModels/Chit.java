@@ -20,11 +20,6 @@ public class Chit {
 		return false;
 	}
 
-	public void setAlert(boolean b) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void setStars(int i) {
 		// TODO Auto-generated method stub
 		

@@ -200,6 +200,19 @@ public class PlayerBase extends EntityBase{
 		currentGold += t.getTreasureGoldValue();
 	}
 	
+	// Register The Players
+	public void hitArmor (ArmorChit a, Weights damageWeight) {
+		// Register The Damage In The Correct Locations
+		if (damageWeight.getWeightValue() > a.getArmourWeight().getWeightValue())
+			a.destoryArmor();
+		else if (damageWeight.getWeightValue() == a.getArmourWeight().getWeightValue())
+			a.damageArmor();
+		
+		// If The Armor Is Destoryed Then Remove It
+		if (a.isDestoryed()) 
+			armorChits.remove(a);
+	}
+	
 	public ArrayList<TreasureModel> searchCurrentClearing () {
 		logAction("S-" + currentClearing.getClearingName());
 		return currentClearing.searchClearing(this);
@@ -347,14 +360,17 @@ public class PlayerBase extends EntityBase{
 		return activeWeapon;
 	}
 
+	public ArrayList<ArmorChit> getArmorChits() {
+		return armorChits;
+	}
+
+	public void setArmorChits(ArrayList<ArmorChit> armorChits) {
+		this.armorChits = armorChits;
+	}
+
 	public int getStrength() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	public boolean checkArmor(Weights harm) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	public void checkIfDamaged(Weights harm) {
@@ -369,9 +385,6 @@ public class PlayerBase extends EntityBase{
 		// TODO Auto-generated method stub
 		//should loop through what can be blocked in the attack types
 		//if blockable attack then return true
-		if(false){
-			return true;
-		}
 		return true;
 	}
 

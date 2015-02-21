@@ -52,11 +52,7 @@ public class GameView extends FrameBase {
 	private CardView theCard;
 
 	private JFrame cardViewer;
-
-	private JFrame combatFrame;
-
-	private CombatView combatPanel;
-
+	
 	public static void main(String args[]){
 		new GameView();
 	}
@@ -240,16 +236,6 @@ public class GameView extends FrameBase {
 		
 		if (p != null)
 			thePlayerButtons.update(p);
-	}
-	
-	// Shows The Combat In It's Own View
-	public void startCombat(){
-		combatFrame = new JFrame();
-		combatPanel = new CombatView();
-		combatFrame.setSize(760,630);
-		combatFrame.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
-		combatFrame.setVisible(true);
-		combatFrame.add(combatPanel);
 	}
 	
 	// Update The Table On Call

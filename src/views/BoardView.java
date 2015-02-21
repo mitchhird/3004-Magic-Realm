@@ -23,9 +23,6 @@ import models.otherEntities.TreasureModel;
 
 public class BoardView extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3255182183312639441L;
 	private Image img;
 	private Toolkit tk = Toolkit.getDefaultToolkit();
@@ -558,21 +555,13 @@ public class BoardView extends JPanel {
 			public void mouseEntered(MouseEvent e) {
 				handleImageEnter(c);
 			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				handleImageExit(c);
-			}
 		});
 	}
 	
-	private void handleImageExit(Clearing c) {
-
-	}
-
+	// Handles The Mouse Entering The Image
 	private void handleImageEnter (Clearing c) {
 		
-		if(c.getImageEnitiesOnThis().isEmpty()){
+		if(c.getImageEnitiesOnThis().isEmpty() || c.getImageEnitiesOnThis().size() == 1){
 			return;
 		}
 		if(hoverFrame!=null){
@@ -595,12 +584,12 @@ public class BoardView extends JPanel {
 	
 	public Clearing getDefaultClearingForClass (CharacterClass c) {
 		switch (c) {
-		case SWORDSMAN: return lwoods2;
-		case AMAZON: return cavern1;
-		case BLACKNIGHT: return cavern5;
-		case CAPTAIN: return bvalley5;
-		case DWARF: return mwoods2;
-		case ELF: return nwoods5;
+		case SWORDSMAN: return inn.getClearingThisOn();
+		case AMAZON: return inn.getClearingThisOn();
+		case BLACKNIGHT: return inn.getClearingThisOn();
+		case CAPTAIN: return inn.getClearingThisOn();
+		case DWARF: return inn.getClearingThisOn();
+		case ELF: return inn.getClearingThisOn();
 		default: return avalley2;
 		}
 	}

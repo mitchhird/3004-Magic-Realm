@@ -29,6 +29,7 @@ public class Clearing {
 	private Set <Clearing> connectedClearings;
 	private Set <TreasureModel> treasuresInClearing;
 	private Set <EntityBase> entitiesInClearing;
+	private Set <PlayerBase> playersInClearing;
 	private ArrayList <Image> imageEnitiesOnThis;
 	
 	public Clearing (String clearingName) {
@@ -38,6 +39,7 @@ public class Clearing {
 		entitiesInClearing = new HashSet<>();
 		connectedClearings = new HashSet<>();
 		treasuresInClearing = new HashSet<>();
+		playersInClearing = new HashSet<>();
 		imageEnitiesOnThis = new ArrayList<>();
 		
 		// Create The Button Tied To The Clearing
@@ -59,11 +61,13 @@ public class Clearing {
 		
 		// Add Them To The Entity Listing
 		entitiesInClearing.add(p);
+		playersInClearing.add(p);
 	}
 	
 	// Player Moved Away From Clearing
 	public void playerMovedOffOf (PlayerBase p) {
 		entitiesInClearing.remove(p);
+		playersInClearing.remove(p);
 		removeImageToList(p.getImage());
 	}
 	
@@ -140,7 +144,7 @@ public class Clearing {
 	
 	// When Remove An Image Then Update As Well 
 	public void removeImageToList (Image i) {
-		boolean removal = imageEnitiesOnThis.remove(i);
+		imageEnitiesOnThis.remove(i);
 		updateImage();
 	}
 
@@ -247,6 +251,16 @@ public class Clearing {
 	public void setImageEnitiesOnThis(ArrayList<Image> imageEnitiesOnThis) {
 		this.imageEnitiesOnThis = imageEnitiesOnThis;
 	}
-	
-	
+
+	public ArrayList<PlayerBase> getPlayersInClearing() {
+		ArrayList<PlayerBase> returnVal = new ArrayList<>();
+		for (PlayerBase p: playersInClearing) {
+			returnVal.add(p);
+		}
+		return returnVal;
+	}
+
+	public void setPlayersInClearing(HashSet<PlayerBase> playersInClearing) {
+		this.playersInClearing = playersInClearing;
+	}
 }

@@ -4,8 +4,12 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -481,15 +485,32 @@ public class PlayerControllView extends javax.swing.JPanel {
     		if(parent.getCurrentPlayer()==null){
     			return;
     		}
-    		parent.getCurrentPlayer().getCurrentClearing().updateConnectedTiles();
-    		parent.getCurrentPlayer().endPlayerTurn();
+    		
+    		PlayerBase currentPlayer = parent.getCurrentPlayer();
+    		currentPlayer.getCurrentClearing().updateConnectedTiles();
+    		currentPlayer.endPlayerTurn();
     		parent.getGameController().moveToNextPlayer();
     		parent.getPlayerList().updateTable();
     		parent.updateRecordTable();
+    	
+    		// If There Is Multiple Players In The Clearing Then Fight
+    		ArrayList<PlayerBase> playersInClearing = currentPlayer.getCurrentClearing().getPlayersInClearing();
+    		if (playersInClearing.size() > 1) {
+    			startCombat(playersInClearing);
+    		}
     	}
     }
 
-    
+	// Shows The Combat In It's Own View
+	public void startCombat(ArrayList <PlayerBase> combatingPlayers){
+		JFrame combatFrame = new JFrame();
+		JPanel combatPanel = new CombatView(combatFrame, combatingPlayers);
+		combatFrame.setSize(760,630);
+		combatFrame.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
+		combatFrame.setVisible(true);
+		combatFrame.add(combatPanel);
+	}
+	
     /*----------------- Getters And Setters ------------------- */
     
     public javax.swing.JLabel getPlayerClassLabel() {

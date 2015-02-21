@@ -2,6 +2,16 @@ package views;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.swing.JFrame;
+
+import sun.java2d.Disposer;
+import controller.CombatPVPHandler;
+import models.characterModels.PlayerBase;
+import models.characterModels.playerEnums.Attacks;
 
 public class CombatView extends javax.swing.JPanel {
 
@@ -40,8 +50,16 @@ public class CombatView extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea textArea;  
     
-    public CombatView() {
+    // Setup The Combat Handler For The View
+    private JFrame parentFrame;
+    private CombatPVPHandler combatHandler;
+    private ArrayList<PlayerBase> combatingPlayers;
+    
+    public CombatView(JFrame parent, ArrayList<PlayerBase> combatingPlayers) {
         initComponents();
+        parentFrame = parent;
+        combatHandler = new CombatPVPHandler(combatingPlayers, parentFrame);
+        this.combatingPlayers = combatingPlayers;
     }
                      
     private void initComponents() {
@@ -79,11 +97,13 @@ public class CombatView extends javax.swing.JPanel {
         enemy1Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 System.out.println("enemy1 pressed");
+                combatHandler.setDefender(combatingPlayers.get(0));
             }
         });
         enemy2Button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 System.out.println("enemy2 pressed");
+                combatHandler.setDefender(combatingPlayers.get(1));
             }
         });
         enemy3Button.addActionListener(new ActionListener() {
@@ -110,16 +130,21 @@ public class CombatView extends javax.swing.JPanel {
         thrustButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 System.out.println("thrust pressed");
+                combatHandler.setCurrentAttack(Attacks.THRUST);
+                println("Setting Current Attack To " + Attacks.THRUST);
             }
         });
         swingButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 System.out.println("swing pressed");
+                combatHandler.setCurrentAttack(Attacks.SWING);
+                println("Setting Current Attack To " + Attacks.SWING);
             }
         });
         smashButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 System.out.println("smash pressed");
+                println("Setting Current Attack To " + Attacks.SMASH);
             }
         });
         dodgeButton.addActionListener(new ActionListener() {
@@ -135,12 +160,15 @@ public class CombatView extends javax.swing.JPanel {
         runButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 System.out.println("run pressed");
+                parentFrame.dispose();
             }
         });
         
         nextButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 System.out.println("next pressed");
+                combatHandler.setNextAttacker();
+                println("Moving To the Next Player");
             }
         });
         endButton.addActionListener(new ActionListener() {
@@ -213,11 +241,11 @@ public class CombatView extends javax.swing.JPanel {
 
         endButton.setText("End");
 
-        smashShield.setText("Smash Shield");
+        smashShield.setText("Protects Against Smash");
 
-        swindShield.setText("Swing Shield");
+        swindShield.setText("Protects Against Swing");
 
-        thrustShield.setText("Thrust Shield");
+        thrustShield.setText("Protects Against Thrust");
 
         suitOfArmor.setText("Suit of Armor");
 
@@ -385,5 +413,4 @@ public class CombatView extends javax.swing.JPanel {
     public void println(String theLine){
     	textArea.append(theLine + "\n");
     }
-    
 }
