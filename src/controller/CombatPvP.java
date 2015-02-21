@@ -132,18 +132,10 @@ public class CombatPvP {
 	
 	private void deployment(PlayerBase[] players){
 		for(int i = 0; i < players.length; ++i){
-			Set<EntityBase> chargeAble;
-			if(found "hidden enemies"){//something to do with the search phase of the day
-				chargeAble = players[i].getCurrentClearing().getEntitiesInClearing();
-			} else {
-				if (players[i].getCurrentClearing().getUnhiddenEntities() != null){
-					chargeAble = players[i].getCurrentClearing().getUnhiddenEntities();
-				}
-			}
 			
 //			for each see if they want to charge player
 //				if so both unhidden
-			players[i].toCharge(chargeAble);//-----------------------------------
+			players[i].setCharge();//-----------------------------------
 			if(players[i].chargingPlayer() != null){
 				players[i].chargingPlayer().unHide();
 				players[i].unHide();
@@ -182,6 +174,8 @@ public class CombatPvP {
 //				if not
 //					may alert any 1 belonging or abandon any number of belongings
 		
+		currOrder = GameUtils.randomOrder(players);
+		
 		melee(players);
 	}
 	
@@ -197,23 +191,10 @@ public class CombatPvP {
 	private void melee(PlayerBase[] players) {
 		//rotate through attention chits and select attack targets
 		
-//		will have to go through each player in order and have their clearing order and go through each clearing one at a time
-//		currOrder = GameUtils.randomOrder(players);
-		
-		//equipe all armor
-		
-//		for(int i = 0; i < currClearings.size(); ++i){
-//			PlayerBase[] clearingOrder = {};
-//			for(int j = 0; j < currOrder.length; ++j){
-//				if(currOrder[j].getCurrentClearing() == currClearings.get(i))
-//					clearingOrder[clearingOrder.length] = currOrder[j];
-//			}
-//			
-//		}
-//		currOrder[i].getCurrentClearing()
+//		will have to go through each player to setup their targets and defence/attack
 		
 		for(int i = 0; i < players.length; ++i){
-			players[i].setTarget();//------------------------------
+			players[i].selectTarget();//------------------------------
 			//should be visible to everyone and go in order
 		}
 		
@@ -233,16 +214,32 @@ public class CombatPvP {
 			}
 		}
 		
-		//loops through the clearning with players and resolves attacks in each
-		for(int i = 0; i < clearings.playerClearings().length; ++i){
-			resolveAttacks(clearing.getEntities());
+		//loops through the players and resolves attacks in each
+		for(int i = 0; i < currOrder.length; ++i){
+			PlayerBase[] clearingOrder = new PlayerBase[currOrder.length];
+			int currNum = 0;
+			//loops through all the players to see if they have are in the same clearing
+			for(int j = 0; j < currOrder.length; j++){
+				if(currOrder[i].getCurrentClearing() == currOrder[j].getCurrentClearing()){
+					clearingOrder[currNum++] = currOrder[i];
+				}
+			}
+			//sees if the current players clearing is in the list of current clearings
+			//will remove if there and run the melee for that clearing else next
+			for(int j = 0; j < currClearings.size(); ++j){
+				if(currClearings.get(j) == currOrder[i].getCurrentClearing()){
+					currClearings.remove(j);
+					resolveAttacks(clearingOrder, currNum);
+				}
+			}
 		}
 	}
 	
 	private void setTactics(PlayerBase player){
-		player.setAttack();
-		player.setManuever();
-		player.setArmor();
+//		TODO
+//		player.setAttack();
+//		player.setManuever();
+//		player.setArmor();
 	}
 	
 	//will have to have something in regards to the clearing and attack order
@@ -274,26 +271,35 @@ public class CombatPvP {
 	
 	
 	////TODO make sure this works properly - Albert
-	private void resolveAttacks(PlayerBase[] players) {
-		PlayerBase currplayer = findPlayer(players);
+	private void resolveAttacks(PlayerBase[] players, int maxPlayers) {
+		PlayerBase[] orderAttacks = new PlayerBase[maxPlayers];
+		int firstAttack = 0, currAttackNum = 0;
+		int firstAttacker;
 		PlayerBase attacker, defender;
 		int damage;
 		// check how the currplayer is attacking
 		// who is the attacker and who is defender
-		int currBest = 0;
-		for(int i = 0; i < currClearing.getPlayers().length(); ++i){
-			if(currClearing.getPlayer(i).getWeapon().getLength() > currBest){
-				currBest = currClearing.getPlayer(i).getWeapon().getLength();
-				attacker = currClearing.getPlayer(i);
+		
+		for(int i = 0; i < maxPlayers; ++i){
+			for(int j = 0; j < maxPlayers; ++j){
+				if(players[j].getWeapon().getWeaponLength() > firstAttack){
+					firstAttacker = j;
+					firstAttack = players[j].getWeapon().getWeaponLength();
+				}
 			}
+			orderAttacks[currAttackNum++] = players[firstAttacker];
+			firstAttack = 0;
 		}
+		
+		attacker = orderAttacks[0];
 		defender = attacker.attackList();
+		orderAttacks = removeFirst(orderAttacks);
 		
 		//check all the lengths of weapons in clearning
 		//check length then speed if equal
 		//then if same for both both attack and hit the other
 		//both can die
-		while(currplayer != null){
+		while(true){
 			if(!(defender.isLiving())){
 				continue;
 			}
@@ -303,8 +309,8 @@ public class CombatPvP {
 			}
 			
 			int wounds1, wounds2;
-			if(defender.getWeapon().getLength() == attacker.getWeapon().getLength() &&
-			   defender.getWeapon().getSpeed()  == attacker.getWeapon().getSpeed()){
+			if(defender.getWeapon().getWeaponLength() == attacker.getWeapon().getWeaponLength() &&
+			   defender.getWeapon().getWeaponSpeed()  == attacker.getWeapon().getWeaponSpeed()){
 				wounds1 = checkAttack(attacker, defender);
 				wounds2 = checkAttack(defender, attacker);
 			}
@@ -315,6 +321,16 @@ public class CombatPvP {
 			attacker = nextAttacker(players);
 			defender = attacker.attackList();
 		}
+	}
+	
+	private PlayerBase[] removeFirst(PlayerBase[] players){
+		int i = 0;
+		while(true){
+			players[i] = players[++i];
+			if(players[i] == null)
+				break;
+		}
+		return players;
 	}
 	
 	private PlayerBase nextAttacker(PlayerBase[] entities){

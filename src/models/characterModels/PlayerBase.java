@@ -2,6 +2,7 @@ package models.characterModels;
 
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.ImageIcon;
@@ -85,6 +86,7 @@ public class PlayerBase extends EntityBase{
 	// Boolean Flags
 	protected boolean moving;
 	protected boolean living;
+	protected boolean foundHidden;
 	
 	// Default Constructor
 	public PlayerBase () {
@@ -104,6 +106,7 @@ public class PlayerBase extends EntityBase{
 		currentFame = 0;
 		currentNotirity = 0;
 		currentGold = 10;
+		foundHidden = false;
 		hidden = false;
 		living = true;
 		currentTurn = "";
@@ -220,6 +223,30 @@ public class PlayerBase extends EntityBase{
 		wounds = Weights.NEGLIGABLE;
 	}
 	
+	public void setCharge() {
+		// TODO Auto-generated method stub
+		Set<EntityBase> chargeAble = getSelectable();
+		//have to take the chargeAble to view for selection or none
+	}
+	
+	public void selectTarget(){
+		// TODO
+		Set<EntityBase> targetAble = getSelectable();
+		//have to send to view to see if selection
+	}
+	
+	private Set<EntityBase> getSelectable(){
+		Set<EntityBase> Selectable = new HashSet<EntityBase>();
+		if(foundHidden){//something to do with the search phase of the day
+			Selectable.addAll(getCurrentClearing().getEntitiesInClearing());
+		} else {
+			if (getCurrentClearing().getUnhiddenEntities() != null){
+				Selectable.addAll(getCurrentClearing().getUnhiddenEntities());
+			}
+		}
+		return Selectable;
+	}
+	
 	//*********
 	//if a player dies will start over again at the in as the same or different
 	//character but will be forfeiring all his possessions/fame/notoriety/gold/discoveries
@@ -309,8 +336,8 @@ public class PlayerBase extends EntityBase{
 		hidden = false;
 	}
 
-	public Chit getWeapon() {
-		return null;
+	public WeaponChit getWeapon() {
+		return activeWeapon;
 	}
 
 	public int getStrength() {
@@ -369,4 +396,6 @@ public class PlayerBase extends EntityBase{
 	public PlayerBase chargingPlayer() {
 		return chargeTarget;
 	}
+
+	
 }

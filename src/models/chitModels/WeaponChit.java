@@ -10,6 +10,7 @@ public class WeaponChit extends Chit{
 	
 	private int weaponLength;
 	private int sharpnessStars;
+	private int weaponSpeed;
 	private Weights weaponHarm;
 	
 	private boolean alerted;
@@ -52,5 +53,13 @@ public class WeaponChit extends Chit{
 	
 	public Weights getWeaponDamage () {
 		return weaponHarm;
+	}
+
+	public int getWeaponSpeed() {
+		return weaponSpeed;
+	}
+
+	public void setWeaponSpeed(int weaponSpeed) {
+		this.weaponSpeed = weaponSpeed;
 	}
 }
