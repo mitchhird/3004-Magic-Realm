@@ -41,7 +41,6 @@ public class CombatView extends FrameBase {
     private JLabel targetPlayerLabel;
     private JLabel weaponLabel;
     private JLabel weaponHarmLabel;
-    private JLabel currDirection;
     private javax.swing.JLabel smashShield;
     private javax.swing.JLabel swindShield;
     private javax.swing.JLabel thrustShield;
@@ -93,7 +92,6 @@ public class CombatView extends FrameBase {
     	// Weapon Information
     	addToFrame(this, weaponLabel, layout, 5, 1, 1, 1);
     	addToFrame(this, weaponHarmLabel, layout, 6, 1, 1, 1);
-    	addToFrame (this, currDirection, layout, 7, 1, 1, 1);
     	
     	// Attackable Players Window
     	addToFrame(this, targetPlayerLabel, layout, 5, 2, 1, 1);
@@ -136,7 +134,6 @@ public class CombatView extends FrameBase {
         targetPlayerLabel = new JLabel("Target:");
         weaponLabel = new JLabel();
         weaponHarmLabel = new JLabel();
-        currDirection = new JLabel();
         playersCanAttack = new JComboBox<>();
         
         // Setup The Listeners For This View
@@ -191,12 +188,11 @@ public class CombatView extends FrameBase {
         resetButton.setText("Reset");
     }
 
-    // Sets Up All The Listeners
+    // SA
 	private void setupListeners() {
 		thrustButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 combatHandler.setCurrentAttack(Attacks.THRUST);
-                currDirection.setText("Attack Direction: " + Attacks.THRUST.name());
                 nextButton.setEnabled(true);
                 println("Setting Current Attack To " + Attacks.THRUST);
             }
@@ -204,7 +200,6 @@ public class CombatView extends FrameBase {
         swingButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 combatHandler.setCurrentAttack(Attacks.SWING);
-                currDirection.setText("Attack Direction: " + Attacks.SWING.name());
                 nextButton.setEnabled(true);
                 println("Setting Current Attack To " + Attacks.SWING);
             }
@@ -212,7 +207,6 @@ public class CombatView extends FrameBase {
         smashButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 combatHandler.setCurrentAttack(Attacks.SMASH);
-                currDirection.setText("Attack Direction: " + Attacks.SMASH.name());
                 nextButton.setEnabled(true);
                 println("Setting Current Attack To " + Attacks.SMASH);
             }
