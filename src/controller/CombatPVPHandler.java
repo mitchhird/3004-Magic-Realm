@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import models.characterModels.PlayerBase;
@@ -59,6 +58,10 @@ public class CombatPVPHandler {
 	
 	// Executes The Combat When Everyone Is Done
 	public void executeAttacks () {
+		
+		parentView.println("");
+		parentView.println("Beginning Combat:");
+		
 		// Execute The Attacks For The Players
 		for (Pair<PlayerBase, PlayerBase> p: readyPlayers) {
 			PlayerBase attacker = p.getFirst();
@@ -71,10 +74,11 @@ public class CombatPVPHandler {
 			
 			// If The Player's Armor Doesn't Prevent Damage Then They Get Hit
 			if (armorHit == null){
-				boolean defenderDead = checkForPlayerDeath (attacker, defender);
+				boolean defenderDead = checkForPlayerDeath (attackerData, defender);
 				
 				// If The Defender Died Let The Player Now
 				if (defenderDead) {
+					parentView.println("   --- Player " + defender.getName() + " Has Died");
 					JOptionPane.showMessageDialog(parentView, "Player " + defender.getName() + " Has Died");
 					combattingPlayers.remove(defender);
 					
@@ -85,11 +89,12 @@ public class CombatPVPHandler {
 					}
 				}
 			} else {
-				Weights weaponWeight = calculateWeaponHarm(attackerData.getThePlayer(), defender);
+				Weights weaponWeight = calculateWeaponHarm(attackerData, defender);
 				hitPlayersArmor(defender, armorHit, weaponWeight.prev());
+				
+				parentView.println("   --- Hit " + defender.getName() + "'s " + armorHit.getArmourType());
+				parentView.println("   --- Armour Status: " + armorHit.getArmorStatus());
 			}
-			
-			System.out.println("Combatting Players");
 		}
 		
 		// Now Purge The List Of Ready Players And Get Ready For The Next Round
@@ -97,12 +102,12 @@ public class CombatPVPHandler {
 	}
 	
 	// See If Player Dies, Do The According Stuff 
-	private boolean checkForPlayerDeath (PlayerBase attackingPlayer, PlayerBase defendingPlayer){
-		Weights weaponWeight = calculateWeaponHarm (attackingPlayer, defendingPlayer);
+	private boolean checkForPlayerDeath (CombatDataContainer attackingData, PlayerBase defendingPlayer){
+		Weights weaponWeight = calculateWeaponHarm (attackingData, defendingPlayer);
 		
 		// If Harm Is Higher Then Or Equal To Vulernability Then The Player Is Dead
 		if (weaponWeight.getWeightValue() >= defendingPlayer.getVulnerability().getWeightValue()) {
-			attackingPlayer.killPlayer(defendingPlayer);
+			attackingData.getThePlayer().killPlayer(defendingPlayer);
 			return true;
 		} else {
 			return false;
@@ -137,17 +142,23 @@ public class CombatPVPHandler {
 	}
 	
 	// Calculates The Weapon's Harm Value
-	private Weights calculateWeaponHarm(PlayerBase attacker, PlayerBase defender) {
+	private Weights calculateWeaponHarm(CombatDataContainer attacker, PlayerBase defender) {
 		int addStars = 0;
-		Weights harm = attacker.getWeapon().getWeaponDamage();
+		PlayerBase theAttacker = attacker.getThePlayer();
+		Weights harm = theAttacker.getWeapon().getWeaponDamage();
 		
 		// Find The Stars Amount For The Player's Attack
-		if (attacker.getWeapon().getSharpnessStars() > 0) {
-			addStars = attacker.getWeapon().getSharpnessStars();
+		if (theAttacker.getWeapon().getSharpnessStars() > 0) {
+			addStars = theAttacker.getWeapon().getSharpnessStars();
+
+			// If We Hit Armor, Then Sharpness Goes Down One Star
+			if (checkIfArmorProtects(defender, attacker.getAttack()) != null) {
+				addStars = Math.max(0, theAttacker.getWeapon().getSharpnessStars());
+			}
 		}
 		
 		// If The Attacker's Strength Is Higher, Increment Harm level
-		if (attacker.getStrength() > defender.getStrength()){
+		if (theAttacker.getStrength() > defender.getStrength()){
 			harm = harm.next();
 		}
 		
@@ -159,8 +170,8 @@ public class CombatPVPHandler {
 	}
 	
 	// Check To See If The Armor Protects
-	private ArmorChit checkIfArmorProtects (PlayerBase p, Attacks incomingAttack) {
-		ArrayList<ArmorChit> playerArmor = p.getArmorChits();
+	private ArmorChit checkIfArmorProtects (PlayerBase defendingPlayer, Attacks incomingAttack) {
+		ArrayList<ArmorChit> playerArmor = defendingPlayer.getArmorChits();
 		
 		// Iterate Over The Player's Armor And See If Blocks
 		for (ArmorChit a: playerArmor) {
@@ -190,6 +201,10 @@ public class CombatPVPHandler {
 	/*---------------------------- Getters And Setters ---------------------- */
 	public void setCurrentAttack (Attacks attack) {
 		currentAttack = attack;
+	}
+	
+	public Attacks getCurrentAttack () {
+		return currentAttack;
 	}
 
 	public PlayerBase getCurrentAttacker() {

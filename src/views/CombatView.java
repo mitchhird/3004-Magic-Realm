@@ -8,9 +8,12 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 
+import sun.awt.HorizBagLayout;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.Attacks;
+import models.chitModels.WeaponChit;
 import controller.CombatPVPHandler;
 
 public class CombatView extends FrameBase {
@@ -20,7 +23,6 @@ public class CombatView extends FrameBase {
 	 */
 	private static final long serialVersionUID = -611514956127664758L;
     // Variables declaration - do not modify                     
-    private javax.swing.JButton enemy1Button;
     private javax.swing.JButton chargeButton;
     private javax.swing.JButton dodgeButton;
     private javax.swing.JButton duckButton;
@@ -31,25 +33,23 @@ public class CombatView extends FrameBase {
     private javax.swing.JButton nextButton;
     private javax.swing.JButton endButton;
     private javax.swing.JButton resetButton;
-    private javax.swing.JButton enemy2Button;
-    private javax.swing.JButton enemy3Button;
-    private javax.swing.JButton enemy4Button;
-    private javax.swing.JButton enemy5Button;
-    private javax.swing.JButton enemy6Button;
     private javax.swing.JButton thrustButton;
     private javax.swing.JButton swingButton;
     private javax.swing.JButton smashButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private JLabel targetPlayerLabel;
+    private JLabel weaponLabel;
+    private JLabel weaponHarmLabel;
+    private JLabel currDirection;
     private javax.swing.JLabel smashShield;
     private javax.swing.JLabel swindShield;
     private javax.swing.JLabel thrustShield;
     private javax.swing.JLabel suitOfArmor;
     private javax.swing.JLabel breastPlate;
     private javax.swing.JLabel helmet;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea textArea;  
+    private JScrollPane textContainer;
     private JComboBox<PlayerBase> playersCanAttack;
     
     // Setup The Combat Handler For The View
@@ -78,37 +78,38 @@ public class CombatView extends FrameBase {
 		setVisible(true);
     }
     
-    // Adds All Of The Compoents To The Window
+    // Adds All Of The Components To The Window
     public void addAllComponents () {
     
     	// First Is The Text Area
-    	addToFrame(this, textArea, layout, 0, 0, 1, 4);
+    	addToFrame(this, textContainer, layout, 0, 0, 5, 5);
     	    	
-    	// Add In All Of The Buttons
-    	addToFrame(this, jLabel2, layout, 1, 0, 1, 1);
-    	addToFrame(this, smashButton, layout, 2, 0, 1, 1);
-    	addToFrame(this, thrustButton, layout, 3, 0, 1, 1);
-    	addToFrame(this, swingButton, layout, 4, 0, 1, 1);
+    	// Add In All Of The Attack Buttons Buttons
+    	addToFrame(this, jLabel2, layout, 5, 0, 1, 1);
+    	addToFrame(this, smashButton, layout, 6, 0, 1, 1);
+    	addToFrame(this, thrustButton, layout, 7, 0, 1, 1);
+    	addToFrame(this, swingButton, layout, 8, 0, 1, 1);
+    	
+    	// Weapon Information
+    	addToFrame(this, weaponLabel, layout, 5, 1, 1, 1);
+    	addToFrame(this, weaponHarmLabel, layout, 6, 1, 1, 1);
+    	addToFrame (this, currDirection, layout, 7, 1, 1, 1);
     	
     	// Attackable Players Window
-    	addToFrame(this, targetPlayerLabel, layout, 1, 1, 1, 1);
-    	addToFrame(this, playersCanAttack, layout, 2, 1, 3, 1);
+    	addToFrame(this, targetPlayerLabel, layout, 5, 2, 1, 1);
+    	addToFrame(this, playersCanAttack, layout, 6, 2, 3, 1);
     	
     	// More Buttons
-    	addToFrame (this, nextButton, layout, 1, 3, 2, 1);
-    	addToFrame (this, runButton, layout, 3, 3, 2, 1);
+    	addToFrame (this, nextButton, layout, 5, 4, 2, 1);
+    	addToFrame (this, runButton, layout, 7, 4, 2, 1);
     }
                      
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
         textArea = new javax.swing.JTextArea();
-        enemy1Button = new javax.swing.JButton();
-        enemy2Button = new javax.swing.JButton();
-        enemy3Button = new javax.swing.JButton();
-        enemy4Button = new javax.swing.JButton();
-        enemy5Button = new javax.swing.JButton();
-        enemy6Button = new javax.swing.JButton();
+        textContainer = new JScrollPane(textArea);
+        
+        // Buttons
         thrustButton = new javax.swing.JButton();
         swingButton = new javax.swing.JButton();
         smashButton = new javax.swing.JButton();
@@ -123,6 +124,8 @@ public class CombatView extends FrameBase {
         abandonButton = new javax.swing.JButton();
         nextButton = new javax.swing.JButton();
         endButton = new javax.swing.JButton();
+        
+        // Labels
         smashShield = new javax.swing.JLabel();
         swindShield = new javax.swing.JLabel();
         thrustShield = new javax.swing.JLabel();
@@ -131,126 +134,19 @@ public class CombatView extends FrameBase {
         helmet = new javax.swing.JLabel();
         resetButton = new javax.swing.JButton();
         targetPlayerLabel = new JLabel("Target:");
+        weaponLabel = new JLabel();
+        weaponHarmLabel = new JLabel();
+        currDirection = new JLabel();
         playersCanAttack = new JComboBox<>();
         
-        enemy3Button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("enemy3 pressed");
-            }
-        });
-        enemy4Button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("enemy4 pressed");
-            }
-        });
-        enemy5Button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("enemy5 pressed");
-            }
-        });
-        enemy6Button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("enemy6 pressed");
-            }
-        });
+        // Setup The Listeners For This View
+        setupListeners();
         
-        thrustButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("thrust pressed");
-                combatHandler.setCurrentAttack(Attacks.THRUST);
-                nextButton.setEnabled(true);
-                println("Setting Current Attack To " + Attacks.THRUST);
-            }
-        });
-        swingButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("swing pressed");
-                combatHandler.setCurrentAttack(Attacks.SWING);
-                nextButton.setEnabled(true);
-                println("Setting Current Attack To " + Attacks.SWING);
-            }
-        });
-        smashButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("smash pressed");
-                nextButton.setEnabled(true);
-                println("Setting Current Attack To " + Attacks.SMASH);
-            }
-        });
-        dodgeButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("dodge pressed");
-            }
-        });
-        duckButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("duck pressed");
-            }
-        });
-        runButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("run pressed");
-                dispose();
-            }
-        });
-        
-        nextButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("next pressed");
-                combatHandler.setCurrentDefender(targetPlayers.get(playersCanAttack.getSelectedIndex()));
-                
-                // Display For Display Purposes
-                println ("Attack Submitted:");
-                println ("  --- Attacker: " + combatHandler.getCurrentAttacker().getName());
-                println ("  --- Defender: " + combatHandler.getCurrentDefender().getName());
-                println ("");
-                
-                // Go To The Next Attack
-                combatHandler.setNextAttacker();
-                update();
-            }
-        });
-        endButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("end pressed");
-            }
-        });
-        alertButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("alert pressed");
-            }
-        });
-        activateButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("activate pressed");
-            }
-        });
-        abandonButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("abandon pressed");
-            }
-        });
-        resetButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                System.out.println("reset pressed");
-            }
-        });
-
+        // Setup The Scroll Pane For The Text Field
         textArea.setColumns(20);
         textArea.setRows(5);
-        jScrollPane1.setViewportView(textArea);
-
-        enemy1Button.setText("Enemy 1");
-
-        enemy2Button.setText("Enemy 2");
-
-        enemy3Button.setText("Enemy 3");
-
-        enemy4Button.setText("Enemy 4");
-
-        enemy5Button.setText("Enemy 5");
-
-        enemy6Button.setText("Enemy 6");
+        textContainer.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        textContainer.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         thrustButton.setText("Thrust");
 
@@ -294,6 +190,93 @@ public class CombatView extends FrameBase {
 
         resetButton.setText("Reset");
     }
+
+    // Sets Up All The Listeners
+	private void setupListeners() {
+		thrustButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                combatHandler.setCurrentAttack(Attacks.THRUST);
+                currDirection.setText("Attack Direction: " + Attacks.THRUST.name());
+                nextButton.setEnabled(true);
+                println("Setting Current Attack To " + Attacks.THRUST);
+            }
+        });
+        swingButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                combatHandler.setCurrentAttack(Attacks.SWING);
+                currDirection.setText("Attack Direction: " + Attacks.SWING.name());
+                nextButton.setEnabled(true);
+                println("Setting Current Attack To " + Attacks.SWING);
+            }
+        });
+        smashButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                combatHandler.setCurrentAttack(Attacks.SMASH);
+                currDirection.setText("Attack Direction: " + Attacks.SMASH.name());
+                nextButton.setEnabled(true);
+                println("Setting Current Attack To " + Attacks.SMASH);
+            }
+        });
+        dodgeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("dodge pressed");
+            }
+        });
+        duckButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("duck pressed");
+            }
+        });
+        runButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("run pressed");
+                dispose();
+            }
+        });
+        
+        nextButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("next pressed");
+                combatHandler.setCurrentDefender(targetPlayers.get(playersCanAttack.getSelectedIndex()));
+                
+                // Display For Display Purposes
+                println ("Attack Submitted:");
+                println ("  --- Attacker: " + combatHandler.getCurrentAttacker().getName());
+                println ("  --- Defender: " + combatHandler.getCurrentDefender().getName());
+                println ("");
+                
+                // Go To The Next Attack
+                combatHandler.setNextAttacker();
+                nextButton.setEnabled(false);
+                update();
+            }
+        });
+        endButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("end pressed");
+            }
+        });
+        alertButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("alert pressed");
+            }
+        });
+        activateButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("activate pressed");
+            }
+        });
+        abandonButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("abandon pressed");
+            }
+        });
+        resetButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                System.out.println("reset pressed");
+            }
+        });
+	}
     
     // Updates This Window With Need Material
     private void update () {
@@ -305,9 +288,13 @@ public class CombatView extends FrameBase {
         playersCanAttack.setModel(model);
         
         // Set The Next Player To Disabled
-        nextButton.setEnabled(false);
         nextButton.setText((combatHandler.getReadyPlayerNum() == combatingPlayers.size() - 1) 
         					? "Start Combat" : "Move To Next Attacker");
+        
+        // Player Weapon Display
+        WeaponChit equipWeapon = combatHandler.getCurrentAttacker().getWeapon();
+        weaponLabel.setText("Equipped Weapon: " + equipWeapon.getWeaponName());
+        weaponHarmLabel.setText("Harm Level: " + equipWeapon.getWeaponDamage());
     }
     
     // Get All Of The Players To Attack

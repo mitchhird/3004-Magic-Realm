@@ -116,18 +116,11 @@ public class PlayerBase extends EntityBase{
 		hidden = false;
 		living = true;
 		currentTurn = "";
-		vulnerability = Weights.LIGHT;
 		
 		// Setup the lists
 		turnLog = new ArrayList<>();
 		accquiredTreasures = new ArrayList<>();
-		weaponChit = new ArrayList<WeaponChit>();
-		armorChits = new ArrayList<ArmorChit>();
-		
-		// Setup The Player Weapons And Armor
-		weaponChit.add(characterClass.getStartingWeapon());
-		activeWeapon = weaponChit.get(0);
-		
+
 		// Setup The Image
 		hiddenImage = characterClass.getHiddenTile();
 		unhiddenImage = characterClass.getReadyTile();
@@ -281,6 +274,17 @@ public class PlayerBase extends EntityBase{
 
 	public void setClass(CharacterClass newPlayerClass) {
 		characterClass = newPlayerClass;
+		vulnerability = newPlayerClass.getVulner();
+		
+		// Weapon For This Player
+		weaponChit = new ArrayList<>();
+		weaponChit.add(newPlayerClass.getStartingWeapon());
+		activeWeapon = weaponChit.get(0);
+
+		// Armor Chits
+		armorChits = new ArrayList<>();
+		armorChits.addAll(newPlayerClass.getArmour());
+		System.out.println();
 	}
 	
 	public void setName(String newPlayerName){
@@ -460,6 +464,6 @@ public class PlayerBase extends EntityBase{
 
 	@Override
 	public String toString() {
-		return "Player: " + getName();
+		return "(Player: " + getName() + ", Class: " + getPlayerClass() + ")";
 	}
 }

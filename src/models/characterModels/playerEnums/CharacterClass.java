@@ -2,10 +2,12 @@ package models.characterModels.playerEnums;
 
 import java.awt.Image;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import models.chitModels.GlobalChits;
+import models.chitModels.ArmorChit;
+import models.chitModels.ChitFactory;
 import models.chitModels.WeaponChit;
 
 /**
@@ -101,19 +103,67 @@ public enum CharacterClass {
 	public WeaponChit getStartingWeapon() {
 		switch (this) {
 		case AMAZON:
-			return GlobalChits.LIGHT_BOW;
+			return ChitFactory.LIGHT_BOW;
 		case BLACKNIGHT:
-			return GlobalChits.SPEAR;
+			return ChitFactory.SPEAR;
 		case CAPTAIN:
-			return GlobalChits.SPEAR;
+			return ChitFactory.SPEAR;
 		case DWARF:
-			return GlobalChits.AXE;
+			return ChitFactory.AXE;
 		case ELF:
-			return GlobalChits.LIGHT_BOW;
+			return ChitFactory.LIGHT_BOW;
 		case SWORDSMAN:
-			return GlobalChits.SPEAR;
+			return ChitFactory.SPEAR;
 		default:
-			return new WeaponChit(10, 1, Weights.MEDIUM);
+			return ChitFactory.SPEAR;
 		}
    }
+	
+	public Weights getVulner () {
+		switch (this) {
+		case AMAZON:
+			return Weights.MEDIUM;
+		case BLACKNIGHT:
+			return Weights.MEDIUM;
+		case CAPTAIN:
+			return Weights.MEDIUM;
+		case DWARF:
+			return Weights.HEAVY;
+		case ELF:
+			return Weights.LIGHT;
+		case SWORDSMAN:
+			return Weights.LIGHT;
+		default:
+			return Weights.LIGHT;	
+		}
+	}
+	
+	// Gather The Armour Chits For This Player Class
+	public ArrayList<ArmorChit> getArmour () {
+		ArrayList<ArmorChit> returnVal = new ArrayList<>();
+		switch (this) {
+		case AMAZON:
+			returnVal.add(ChitFactory.getHelmet());
+			returnVal.add(ChitFactory.getShield());
+			returnVal.add(ChitFactory.getBreastPlate());
+			break;
+		case BLACKNIGHT:
+			returnVal.add(ChitFactory.getHelmet());
+			returnVal.add(ChitFactory.getBreastPlate());
+			break;
+		case CAPTAIN:
+			returnVal.add(ChitFactory.getShield());
+			break;
+		case DWARF:
+			returnVal.add(ChitFactory.getHelmet());
+			break;
+		case ELF:
+			break;
+		case SWORDSMAN:
+			break;
+		default:
+			break;
+		}
+		return returnVal;
+	}
 }
