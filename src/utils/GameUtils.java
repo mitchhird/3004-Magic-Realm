@@ -53,26 +53,26 @@ public class GameUtils {
 	}
 	
 	//Tables that are constant and all will return a string for result
-	public static String missleTable(int roll){
-		String result = null;
+	public static int missleTable(int roll){
+		int result = 0;
 		switch (roll){
 		case 1:
-			result = "Plus2";
+			result = 2;
 			break;
 		case 2:
-			result = "Plus1";
+			result = 1;
 			break;
 		case 3:
-			result = "Nothing";
+			result = 0;
 			break;
 		case 4:
-			result = "Neg1";
+			result = -1;
 			break;
 		case 5:
-			result = "Neg2";
+			result = -2;
 			break;
 		case 6:
-			result = "Neg3";
+			result = -3;
 			break;
 		}
 		return result;

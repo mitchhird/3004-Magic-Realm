@@ -15,11 +15,6 @@ public class Chit {
 		return 0;
 	}
 
-	public boolean hasMissles() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	public void setStars(int i) {
 		// TODO Auto-generated method stub
 		

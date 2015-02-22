@@ -36,6 +36,10 @@ public class WeaponChit extends Chit{
 	public void setWeaponLength(int weaponLength) {
 		this.weaponLength = weaponLength;
 	}
+	
+	public boolean hasMissles() {
+		return missleBased;
+	}
 
 	public int getSharpnessStars() {
 		return sharpnessStars;

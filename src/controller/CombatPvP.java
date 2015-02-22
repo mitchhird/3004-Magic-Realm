@@ -364,6 +364,7 @@ public class CombatPvP {
 		
 		if (attacker.getWeapon().hasMissles()){
 			//do some roll thing here
+			//GameUtils.missleTable(roll);
 		}
 		
 		

@@ -136,6 +136,7 @@ public class DayController {
 //					can loot things if discovered or if abandoned items roll loot table
 //					loot table is a usual roll and then count down from the top of the stack
 //					if roll > stack = nothing
+//					GameUtils.seachTable(selected, roll)
 					break;
 				case "T":
 //					trading with certain people gets initiated
