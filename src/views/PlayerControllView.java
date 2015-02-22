@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -255,8 +256,7 @@ public class PlayerControllView extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Search Button Has Been Pressed");
-				parent.getCurrentPlayer().getCurrentClearing().updateConnectedTiles();
-				search();
+				handleSearchButtonPressed();
 			}
 		});
 
@@ -417,8 +417,7 @@ public class PlayerControllView extends javax.swing.JPanel {
     
     // Builds The Record Panel Table
     private void displayRecord (PlayerBase p) { 
-    	// playerRecordTabel
-    	
+    	// Initialize The Data
     	ArrayList<String> playerLog = p.getRecordLog();
         String[] headers = {"Turn", "Mon", "Day", "Color", "Phases", "Action", "Kills"};
     	String[][] data = new String[playerLog.size()][headers.length];
@@ -431,7 +430,7 @@ public class PlayerControllView extends javax.swing.JPanel {
     		data[i][3] = "";
     		data[i][4] = "";
     		data[i][5] = playerLog.get(i);
-    		data[i][6] = "";
+    		data[i][6] = "" + p.getKillCount();
     	}
     	
     	// Get The Table Model Ready
@@ -439,7 +438,7 @@ public class PlayerControllView extends javax.swing.JPanel {
     	playerRecord.setModel(newModel);
     }
     
-    
+    // Opens The New Search Dialog
     private void search() {
 		PlayerBase currPlayer = parent.getCurrentPlayer();
 		ArrayList<TreasureModel> treasures = currPlayer.getCurrentClearing().getTreasuresPlayerFound(currPlayer);
@@ -458,23 +457,53 @@ public class PlayerControllView extends javax.swing.JPanel {
 		tradeFrame.add(tradePanel);
 	}
     /*---------------------- Event Handler Methods ----------------------------- */
+	private void handleSearchButtonPressed() {
+		PlayerBase currentPlayer = parent.getCurrentPlayer();
+		currentPlayer.getCurrentClearing().updateConnectedTiles();
+		
+		if (currentPlayer.getAvailableActions() > 0) {
+			search();
+		} else {
+    		JOptionPane.showMessageDialog(this, "You Have No More Actions For This Turn");
+    	}
+	}
+	
     private void handleHideButton(java.awt.event.ActionEvent evt) {                                         
     	System.out.println("Hide Button Has Been Pressed");
-    	if(parent.getCurrentPlayer()==null){
+    	PlayerBase currentPlayer = parent.getCurrentPlayer();
+    	
+    	if(currentPlayer == null){
     		return;
     	}
-    	parent.getCurrentPlayer().getCurrentClearing().updateConnectedTiles();
-    	parent.getCurrentPlayer().attemptHide();
+    	
+    	// Still Want To Update And Clear The Surronding Tiles If Need Be
+    	currentPlayer.getCurrentClearing().updateConnectedTiles();
+
+    	// If The Player Can Do The Action
+    	if (currentPlayer.getAvailableActions() > 0) {
+    		currentPlayer.attemptHide();
+    	} else {
+    		JOptionPane.showMessageDialog(this, "You Have No More Actions For This Turn");
+    	}
     }                                        
 
+    // Handles The Move Button Press
     private void handleMoveButtonPress(java.awt.event.ActionEvent evt) {                                         
     	System.out.println("Move Has Been Pressed");
-    	if(parent.getCurrentPlayer()==null){
+    	PlayerBase currentPlayer = parent.getCurrentPlayer();
+    	
+    	// If There Is No Current Player Do Nothing
+    	if(currentPlayer==null){
     		return;
     	}
-    	PlayerBase currentPlayer = parent.getCurrentPlayer();
-    	currentPlayer.getCurrentClearing().highlightConnectedClearings();
-    	currentPlayer.setMoving(true);
+    	
+    	// If The Player Still Has Actions Available
+    	if (currentPlayer.getAvailableActions() > 0) {
+    		currentPlayer.getCurrentClearing().highlightConnectedClearings();
+    		currentPlayer.setMoving(true);
+    	} else {
+    		JOptionPane.showMessageDialog(this, "You Have No More Actions For This Turn");
+    	}
     }                                        
 
     private void handleSendTurn () {

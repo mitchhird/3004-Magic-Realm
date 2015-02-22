@@ -19,6 +19,7 @@ import models.chitModels.WeaponChit;
 import models.otherEntities.Denizen;
 import models.otherEntities.EntityBase;
 import models.otherEntities.TreasureModel;
+import sun.security.krb5.internal.tools.Klist;
 import utils.GameUtils;
 
 /*
@@ -45,6 +46,8 @@ public class PlayerBase extends EntityBase{
 	//    need 15 and gets 17
 	protected int vicotryPoints;
 	protected int winVictoryPoints;
+	protected int killCount;
+	protected int availableActions;
 	
 	// Player's Name And Class
 	protected String playerName;
@@ -112,6 +115,8 @@ public class PlayerBase extends EntityBase{
 		currentFame = 0;
 		currentNotirity = 0;
 		currentGold = 10;
+		killCount = 0;
+		availableActions = 5;
 		foundHidden = false;
 		hidden = false;
 		living = true;
@@ -131,6 +136,9 @@ public class PlayerBase extends EntityBase{
 		hidden = false;
 		currentTurn = "";
 		currentClearing.playerMovedToThis(this);
+
+		// Set The Available Actions To 0
+		availableActions = 5;
 	}
 	
 	// Do All The Things For Ending The Player's Turn
@@ -141,6 +149,7 @@ public class PlayerBase extends EntityBase{
 	
 	// Attempts To Hide The Player, Consult Die Table For Reasoning For Result
 	public boolean attemptHide () {
+		availableActions--;
 		int dieRoll = GameUtils.createRandomInt(1, 6);
 		hidden = (hidden) ? true : dieRoll < 6;
 		
@@ -161,7 +170,8 @@ public class PlayerBase extends EntityBase{
 	public boolean moveToClearing (Clearing newClearing) {
 		if (currentClearing.isVaildMove(newClearing)) {
 			
-			// Log The Turn
+			// Log The Turn On The Player's Log And Subtract An Action
+			availableActions--;
 			logAction("M-" + newClearing.getClearingName());
 			
 			updateConnectedClearings();
@@ -196,6 +206,7 @@ public class PlayerBase extends EntityBase{
 		this.currentFame += oppoent.currentFame;
 		this.currentGold += oppoent.currentGold;
 		this.currentNotirity += oppoent.currentNotirity;
+		killCount++;
 		oppoent.moveToHome();
 	}
 	
@@ -207,6 +218,7 @@ public class PlayerBase extends EntityBase{
 	
 	public ArrayList<TreasureModel> searchCurrentClearing () {
 		logAction("S-" + currentClearing.getClearingName());
+		availableActions--;
 		return currentClearing.searchClearing(this);
 	}
 	
@@ -386,6 +398,22 @@ public class PlayerBase extends EntityBase{
 
 	public void isDead() {
 		living = false;
+	}	
+	
+	public int getKillCount() {
+		return killCount;
+	}
+
+	public void setKillCount(int killCount) {
+		this.killCount = killCount;
+	}
+
+	public int getAvailableActions() {
+		return availableActions;
+	}
+
+	public void setAvailableActions(int availableActions) {
+		this.availableActions = availableActions;
 	}
 
 	public boolean armorBlocks(Attacks attack) {

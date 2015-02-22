@@ -69,8 +69,7 @@ public class TreasureViewDialog extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Loot Button Has Been Pressed");
-				thePlayer.getCurrentClearing().playerLootClearing(thePlayer);		
-				refreshTreasureList();
+				handleLootButton();
 			}
 		});
 		
@@ -89,18 +88,33 @@ public class TreasureViewDialog extends JDialog{
 		});
 	}
 	
+	
+	// Handles The Looting
+	private void handleLootButton () {
+		if (thePlayer.getAvailableActions() > 0) {
+			thePlayer.getCurrentClearing().playerLootClearing(thePlayer);		
+			refreshTreasureList();
+		} else {
+    		JOptionPane.showMessageDialog(this, "You Have No More Actions For This Turn");
+    	}
+	}
+	
     // Handles The Searching
 	private void handleSearchButton() {
 		System.out.println("Find test");
 
-		ArrayList<TreasureModel> foundTreasures = thePlayer.searchCurrentClearing();
-
-		if (foundTreasures.size() == 0) {
-			JOptionPane.showMessageDialog(this, "You Didn't Find Anything In Your Search");
+		// If There Is Available Actions
+		if (thePlayer.getAvailableActions() > 0) {
+			ArrayList<TreasureModel> foundTreasures = thePlayer.searchCurrentClearing();
+			if (foundTreasures.size() == 0) {
+				JOptionPane.showMessageDialog(this, "You Didn't Find Anything In Your Search");
+			} else {
+				refreshTreasureList();
+				JOptionPane.showMessageDialog(this, "You Found Some Treasure In The Clearing. You Can Now Loot It");
+			}
 		} else {
-			refreshTreasureList();
-			JOptionPane.showMessageDialog(this, "You Found Some Treasure In The Clearing. You Can Now Loot It");
-		}
+    		JOptionPane.showMessageDialog(this, "You Have No More Actions For This Turn");
+    	}
 	}
 
 	private void refreshTreasureList() {

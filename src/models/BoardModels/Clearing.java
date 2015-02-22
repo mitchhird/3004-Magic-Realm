@@ -47,6 +47,9 @@ public class Clearing {
 		buttonTiedToClearing.setSize(30, 30);
 		buttonTiedToClearing.setOpaque(false);
 		buttonTiedToClearing.setContentAreaFilled(false);
+		
+		// Create Some Random Treasures For This
+		genRandomTreasures();
 	}
 	
 	// Player Movement To The Clearing
@@ -102,6 +105,19 @@ public class Clearing {
 		for (TreasureModel t: treasures) {
 			treasuresInClearing.add(t);
 		}
+	}
+	
+	// Generate Some Random Treasure Because We Can
+	private void genRandomTreasures () {
+		// Wheither Or Not We Should Have Treasures On This Clearing (20% chance)
+		if (Math.random() <= 1) {
+			int numOfTreasures = GameUtils.createRandomInt(1, 5);
+			
+			for (int i = 0; i < numOfTreasures; i++) {
+				boolean greatTreasure = (Math.random() < 0.2);
+				addTreasures(new TreasureModel(greatTreasure));
+			}
+		} 
 	}
 	
 	// Player Search's Clearing When Called

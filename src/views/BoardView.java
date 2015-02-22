@@ -365,7 +365,7 @@ public class BoardView extends JPanel {
 		bland5.setLocation(395,590);
 		bland6.setLocation(350,558);
 
-		bland1.addToConnectedClearings(hpass2, bland6, bvalley5);
+		bland1.addToConnectedClearings(hpass2, bland6);
 		bland2.addToConnectedClearings(owoods2, bland3, evalley4);
 		bland3.addToConnectedClearings(bland2, bland6, bland5);
 		bland4.addToConnectedClearings(ledges4, bland5, bland6);
@@ -544,7 +544,13 @@ public class BoardView extends JPanel {
             public void actionPerformed(ActionEvent arg0) {
             	if (parent.getCurrentPlayer().isMoving() && parent.getCurrentPlayer().getCurrentClearing().isVaildMove(c)){
             		parent.getCurrentPlayer().moveToClearing(c);
-            		c.highlightConnectedClearings();
+            		
+            		// If Player Has No More Movements Then Stop Them
+            		if (parent.getCurrentPlayer().getAvailableActions() > 0) {
+            			c.highlightConnectedClearings();
+            		} else {
+            			parent.getCurrentPlayer().setMoving(false);
+            		}
             	}
             }
         });
