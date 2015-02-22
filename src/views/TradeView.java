@@ -27,10 +27,12 @@ public class TradeView extends javax.swing.JPanel {
     private javax.swing.JTable theirInventory;
     // End of variables declaration     
     
+    //Constructor for this view
     public TradeView() {
         initComponents();
     }
-                     
+                
+    //Initializes the components
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -43,6 +45,7 @@ public class TradeView extends javax.swing.JPanel {
         buyButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
+        //Table declaration
         myInventory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -86,6 +89,7 @@ public class TradeView extends javax.swing.JPanel {
             }
         });
         
+        //Action listeners
         buyButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 System.out.println("buy pressed");
@@ -113,7 +117,8 @@ public class TradeView extends javax.swing.JPanel {
         buyButton.setText("Buy");
 
         cancelButton.setText("Cancel");
-
+        
+        //Layout for this view
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -157,6 +162,7 @@ public class TradeView extends javax.swing.JPanel {
         );
     }                       
     
+    //Getter ,setter, adder, remover
 	public void addToInventory(String theName, String theDetails, String theValue){
 		((DefaultTableModel) myInventory.getModel()).addRow(new Object[]{theName,theDetails,theValue});
 	}

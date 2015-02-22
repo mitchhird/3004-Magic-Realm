@@ -10,7 +10,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
-import sun.awt.HorizBagLayout;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.Attacks;
 import models.chitModels.WeaponChit;

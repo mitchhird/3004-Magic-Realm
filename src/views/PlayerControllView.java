@@ -4,13 +4,8 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -19,7 +14,7 @@ import models.characterModels.PlayerBase;
 import models.otherEntities.TreasureModel;
 
 public class PlayerControllView extends javax.swing.JPanel {
-	// Variables declaration - do not modify                     
+	// Variables declaration                   
     private javax.swing.JButton jButton1;
     private javax.swing.JButton sendTurnButton;
     private javax.swing.JButton cancelActionButton;
@@ -63,12 +58,14 @@ public class PlayerControllView extends javax.swing.JPanel {
 	
 	private Toolkit tk = Toolkit.getDefaultToolkit();
 	
+	//constructor for the playerControllView
     public PlayerControllView(GameView parentView) {
         initComponents();
         massSetButtonState(false);
         parent = parentView;
     }
-                  
+    
+    //initializes the components in this view
     private void initComponents() {
 
         setjButton1(new javax.swing.JButton());
@@ -109,41 +106,26 @@ public class PlayerControllView extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         jScrollPane4= new javax.swing.JScrollPane();
 
-
+        //Set the text of components in this view
         getjButton1().setText("Show Card");
-
         playerLabel.setText("Player:");
-
         jLabel3.setText("Gold:");
-
         jLabel4.setText("Fame:");
-
         jLabel5.setText("Notoriety:");
-
         jLabel6.setText("Vulnerability:");
-
         getPlayerDisplayLabel().setText("None");
-
         getPlayerGoldLabel().setText("1");
-
         playerFameLabel.setText("2");
-
         playerNotirityLabel.setText("3");
-
         playerVulnerLabel.setText("4");
-
         jLabel13.setText("Badges:");
-
         jLabel14.setText("Colors:");
-
         jLabel15.setText("Curses:");
-
         jLabel16.setText("None");
-
         jLabel17.setText("None");
-
         jLabel18.setText("None");
 
+        //Table declarations
         playerRecord.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -220,6 +202,8 @@ public class PlayerControllView extends javax.swing.JPanel {
 
         jScrollPane2.setViewportView(jTabbedPane1);
 
+        
+        //Action listeners
         sendTurnButton.setText("Send Turn");
         sendTurnButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -280,9 +264,9 @@ public class PlayerControllView extends javax.swing.JPanel {
 		});
 
         classLabel.setText("Class:");
-
         getPlayerClassLabel().setText("None");
 
+        //Layout for this view
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -506,6 +490,7 @@ public class PlayerControllView extends javax.swing.JPanel {
     	}
     }                                        
 
+    //method used for sending a turn to the controller
     private void handleSendTurn () {
     	System.out.println("Send Turn Has Been Pressed");
     	

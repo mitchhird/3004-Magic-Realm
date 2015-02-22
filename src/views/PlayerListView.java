@@ -10,6 +10,7 @@ import models.characterModels.PlayerBase;
 
 	public class PlayerListView extends javax.swing.JPanel {
 
+		//Variable declarations
 		private javax.swing.JButton addPlayerButton;
 	    private javax.swing.JButton removePlayerButton;
 	    private javax.swing.JButton startGameButton;
@@ -20,11 +21,13 @@ import models.characterModels.PlayerBase;
 	    
 		private static final long serialVersionUID = 1L;
 		
+		//Constructor for this view
 	    public PlayerListView(GameView parent) {
 	    	this.parent = parent; 
 	        initComponents();
 	    }
-                   
+                
+	    //Initializes the components in this view
 	    private void initComponents() {
 
 	        setjButton1(new javax.swing.JButton());
@@ -34,10 +37,10 @@ import models.characterModels.PlayerBase;
 	        setjTable2(new javax.swing.JTable());
 
 	        getAddPlayerButton().setText("Add Player");
-
 	        getjButton2().setText("Remove Player");
-
 	        startGameButton.setText("Start Game");
+	        
+	        //Table declaration
 	        getjTable2().setModel(new javax.swing.table.DefaultTableModel(
 	            new Object [][] {
 
@@ -60,6 +63,7 @@ import models.characterModels.PlayerBase;
 	        });
 			getjTable2().setSelectionMode(1);
 			
+			//Action listeners
 			getjTable2().addMouseListener(new MouseAdapter() {
 	        	@Override
 	        	public void mouseClicked(MouseEvent e) {
@@ -73,6 +77,7 @@ import models.characterModels.PlayerBase;
 
 	        jScrollPane3.setViewportView(getjTable2());
 
+	        //Layout for this view
 	        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 	        this.setLayout(layout);
 	        layout.setHorizontalGroup(

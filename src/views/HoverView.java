@@ -27,6 +27,7 @@ public class HoverView extends javax.swing.JPanel {
     private javax.swing.JLabel counterLabel;
     // End of variables declaration      
     
+    //Constructor for the hoverview
 	public HoverView(Clearing c) {
 		initComponents();
 		imageList = c.getImageEnitiesOnThis();
@@ -37,15 +38,18 @@ public class HoverView extends javax.swing.JPanel {
 		}
 	}
 	
+	//changes the numbers displayed in the item counter at the top
 	private void setCounter(int size, int current){
 		counterLabel.setText(current + "/" + size);
 	}
 	
+	//used to change the image displayed in this view
 	private void setLabel(Image image){
 		ImageIcon icon = new ImageIcon(image); 
 		imageLabel.setIcon(icon);
 	}
 	
+	//initializes this view
 	private void initComponents() {
 
         imageLabel = new javax.swing.JLabel();
@@ -53,6 +57,8 @@ public class HoverView extends javax.swing.JPanel {
         backButton = new javax.swing.JButton();
         nextButton = new javax.swing.JButton();
 
+        
+        //Action listeners
         backButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 back();
@@ -65,14 +71,13 @@ public class HoverView extends javax.swing.JPanel {
             }
         });
         
+        //Set text for the components in this view
         imageLabel.setText("");
-
         counterLabel.setText("");
-
         backButton.setText("Back");
-
         nextButton.setText("Next");
 
+        //The layout 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,6 +110,7 @@ public class HoverView extends javax.swing.JPanel {
         );
     }
 
+	//done when pressing the next button
 	private void next() {
 		if(currentSelection < imageList.size()){
 			currentSelection++;
@@ -112,7 +118,8 @@ public class HoverView extends javax.swing.JPanel {
 			setCounter(imageList.size(),currentSelection);
 		}
 	}
-
+	
+	//done when pressing the back button
 	private void back() {
 		if(currentSelection > 1){
 			currentSelection--;

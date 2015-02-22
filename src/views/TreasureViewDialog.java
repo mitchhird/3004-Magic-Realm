@@ -20,6 +20,7 @@ import models.otherEntities.TreasureModel;
 
 public class TreasureViewDialog extends JDialog{
 
+	//Variable declarations
 	private JButton lootButton;
 	private JButton searchButton;
 	private JButton cancelButton;
