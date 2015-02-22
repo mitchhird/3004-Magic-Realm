@@ -340,7 +340,7 @@ public class CombatPvP {
 		} else if (attacker.getWeapon().getWeaponSpeed() == defender.getSpeed()) {
 			damage = attackHits(attacker, defender);
 		} else {
-			attacker.getWeapon().setAlert(true);
+			attacker.getWeapon().setAlerted(true);
 		}
 		return damage;
 	}
@@ -387,8 +387,8 @@ public class CombatPvP {
 				return 2;
 			}
 		} else */ 
-		if(true){//will have to change this to check if the defender is a character when denizens
-			//are added
+		/*
+		if(true){//will have to change this to check if the defender is a character when denizens are added
 			if(defender.checkArmor(harm)){
 				defender.checkIfDamaged(harm);
 				if (harm == Weights.MEDIUM || harm == Weights.HEAVY ||
@@ -402,13 +402,16 @@ public class CombatPvP {
 				if (!(harm == Weights.NEGLIGABLE)){
 					return 1;
 				}
-				attacker.getWeapon().setAlert(false);
+				attacker.getWeapon().setAlerted(false);
 			}
-		} /*else {
+		}*/
+		/*
+		 * else {
 			if(defender.getVulnerability().compareTo(harm) >= 0){
 				return 3;
 			}
-		}  add this when the denizens are added*/
+		}  add this when the denizens are added
+		*/
 		
 		return 0;
 	}

@@ -64,12 +64,12 @@ public class DayController {
 			midnight();
 		}
 		
-		check all victory things
+		// check all victory things
 	}
 	
 	private void birdSong(){
 		for(int i = 0; i < totalPlayers; ++i){
-			allPlayers[i].record();
+			// allPlayers[i].record();
 			
 			//have to pick 2-4 phases out of 10
 			/* the 10 are
@@ -107,6 +107,7 @@ public class DayController {
 	}
 	
 	private void dayLight(){
+		/*
 		//this orders the players for the day
 		//will have to change this to add for swordsman wanting to go
 		for(int i = 0; i < totalPlayers; ++i){
@@ -166,6 +167,7 @@ public class DayController {
 		
 //		warning and sound chit become active
 //		more things about monsters moving to hexes
+ */
 	}
 	
 	private void evening(){
