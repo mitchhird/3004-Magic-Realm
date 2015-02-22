@@ -30,6 +30,7 @@ public class GameView extends FrameBase {
 
 	private static final long serialVersionUID = 1789113344181363284L;
 
+	//Field declarations
 	private Toolkit tk = Toolkit.getDefaultToolkit();
 	
 	private clientController theClient;
@@ -53,10 +54,12 @@ public class GameView extends FrameBase {
 
 	private JFrame cardViewer;
 	
+	//Main method
 	public static void main(String args[]){
 		new GameView();
 	}
 	
+	//Constructor for gameView
 	public GameView(){
 		init();
 	}
@@ -87,6 +90,7 @@ public class GameView extends FrameBase {
         fileMenu.add(newAction);
         fileMenu.add(exitAction);
         
+        //Action listeners
         newAction.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 startGame();
@@ -107,11 +111,13 @@ public class GameView extends FrameBase {
         
 	}
 	
+	//update method resizes the screen to get it to repaint
 	private void update(){
 		setSize((int)tk.getScreenSize().getWidth(),(int)tk.getScreenSize().getHeight()-20);
 		setSize((int)tk.getScreenSize().getWidth(),(int)tk.getScreenSize().getHeight()-40);
 	}
 	
+	//Dispalys the gameButtons and user interface
 	private void showGameButtons(){
 	
 		thePlayerList = new PlayerListView(this);
@@ -120,6 +126,7 @@ public class GameView extends FrameBase {
 		thePlayerButtons = new PlayerControllView(this);
 		addToGrid(thePlayerButtons, 0, 1, 1, 2);
 		
+		//Action listeners
         thePlayerList.getAddPlayerButton().addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addPlayerMenu();
@@ -155,6 +162,7 @@ public class GameView extends FrameBase {
 		});
 	}
 	
+	//happens when you press the start game button, initlizes the game
 	private void handleStartGame () {
 		System.out.println("Start Game Pressed");
 		
@@ -165,6 +173,7 @@ public class GameView extends FrameBase {
 		JOptionPane.showMessageDialog(this, "The Game Has Started!");
 	}
 
+	//Shows the player's detailed character sheet
 	private void showCard() {
 		if(thePlayerList.getjTable2().getSelectedRow() == -1){
 			return;
@@ -177,11 +186,13 @@ public class GameView extends FrameBase {
 		cardViewer.add(theCard);
 	}
 
+	//changes the ui to show details of the selected player
 	private void setPlayerInterface(int selectedRow) {
 		thePlayerButtons.getPlayerClassLabel().setText((String) thePlayerList.getjTable2().getValueAt(selectedRow, 0));
 		thePlayerButtons.getPlayerDisplayLabel().setText((String) thePlayerList.getjTable2().getValueAt(selectedRow, 1));
 	}
 
+	//removes the selected player for the player list and from the controller class
 	private void removePlayer() {
 		
 		if(thePlayerList.getjTable2().getSelectedRow()==-1){
@@ -203,6 +214,7 @@ public class GameView extends FrameBase {
 		thePlayerList.update();
 	}
 
+	//Displays and initializes the board in the game view
 	private void showBoard(){
 		theBoard = new BoardView(this);
 		theBoardScroller = new JScrollPane(theBoard);
@@ -213,16 +225,19 @@ public class GameView extends FrameBase {
 		theBoardScroller.setPreferredSize(new Dimension(((int)tk.getScreenSize().getWidth()/2), ((int)tk.getScreenSize().getHeight()/2)));
 	}
 	
+	//opens the addplayer menu that letss the user select their name and class
 	private void addPlayerMenu(){
 		new AddPlayerView(this);
 	}
 	
+	//Adds the new palyer to the controller and the UI list
 	public void addPlayer(String playerName, CharacterClass playerClass){
 		theClient.addPlayer(playerClass, playerName);
 		thePlayerList.addPlayer(playerName, playerClass.name());
 		setPlayerInterface(thePlayerList.getjTable2().getRowCount()-1);
 	}
 	
+	//closes the game and disposes of all components
 	private void exitGame(){
 		System.out.println("Exiting");
 		dispose();
@@ -236,6 +251,7 @@ public class GameView extends FrameBase {
 		update();
 	}
 	
+	//updates a player given their name
 	public void updatePlayerByName (String name) {
 		PlayerBase p = theClient.getPlayerByName(name);
 		
@@ -265,6 +281,7 @@ public class GameView extends FrameBase {
 		return thePlayerList;
 	}
 	
+	//checks if the game has started or not
 	public boolean hasGameStarted() {
 		return theClient.isGameStarted();
 	}
@@ -274,6 +291,7 @@ public class GameView extends FrameBase {
 		addToGrid(mainPanel, theComponent, x, y, gridWidth, gridHeight);
 	}
 	
+	//used to add components to this frame in specified locations
 	private void addToGrid(JPanel connectToFrame, JComponent theComponent, int x, int y, int gridWidth, int gridHeight) {
 		layoutConstraints.gridx = x;
 		layoutConstraints.gridy = y;

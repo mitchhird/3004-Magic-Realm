@@ -22,7 +22,7 @@ public class CombatView extends FrameBase {
 	 * 
 	 */
 	private static final long serialVersionUID = -611514956127664758L;
-    // Variables declaration - do not modify                     
+    // Variables declaration                     
     private javax.swing.JButton chargeButton;
     private javax.swing.JButton dodgeButton;
     private javax.swing.JButton duckButton;
@@ -145,50 +145,31 @@ public class CombatView extends FrameBase {
         textContainer.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         textContainer.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
+        // Set the text of all the components
         thrustButton.setText("Thrust");
-
         swingButton.setText("Swing");
-
         smashButton.setText("Smash");
-
         chargeButton.setText("Charge");
-
         dodgeButton.setText("Dodge");
-
         duckButton.setText("Duck");
-
         jLabel1.setText("Defences:");
-
         jLabel2.setText("Attacks:");
-
         runButton.setText("Run");
-
         alertButton.setText("Alert Wepon/Chit");
-
         activateButton.setText("Activate/Inactivate");
-
         abandonButton.setText("Abandon Belongings");
-
         nextButton.setText("Move To Next Attacker");
-
         endButton.setText("End");
-
         smashShield.setText("Protects Against Smash");
-
         swindShield.setText("Protects Against Swing");
-
         thrustShield.setText("Protects Against Thrust");
-
         suitOfArmor.setText("Suit of Armor");
-
         breastPlate.setText("Breastplate");
-
         helmet.setText("Helmet");
-
         resetButton.setText("Reset");
     }
 
-    // SA
+    // Set up all the action listeners
 	private void setupListeners() {
 		thrustButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -302,12 +283,14 @@ public class CombatView extends FrameBase {
     	return returnVal;
     }
     
+    //Used to set the armor labels
     public void setArmor(String suit, String breast, String newHelmet){
     	suitOfArmor.setText(suit);
     	breastPlate.setText(breast);
     	helmet.setText(newHelmet);
     }
     
+    //used to print a line to the text area
     public void println(String theLine){
     	textArea.append(theLine + "\n");
     }

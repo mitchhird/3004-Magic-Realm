@@ -17,6 +17,7 @@ public class CardView extends JPanel {
 	private Toolkit tk = Toolkit.getDefaultToolkit();
 	private Image img;
 
+	//constructor for cardview, displays the detailed character stats of the currently selected players class
 	public CardView(String valueAt) {
 		setSize(600,600);
 		setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
@@ -25,6 +26,7 @@ public class CardView extends JPanel {
 		img = charClass.getDetailImage();
 	}
 	
+	//Overrides the paintComponent method in JPanel
 	@Override
 	public void paintComponent(Graphics page)
 	{

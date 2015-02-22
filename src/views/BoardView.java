@@ -24,6 +24,8 @@ import models.otherEntities.TreasureModel;
 public class BoardView extends JPanel {
 
 	private static final long serialVersionUID = -3255182183312639441L;
+	
+	//Field declarations
 	private Image img;
 	private Toolkit tk = Toolkit.getDefaultToolkit();
 
@@ -150,6 +152,7 @@ public class BoardView extends JPanel {
 	private JFrame hoverFrame = null;
 	private HoverView hoverPanel;
 	
+	//Constructor for the BoardView
 	public BoardView (GameView parent){
 		init();
 		this.parent = parent;
@@ -164,7 +167,7 @@ public class BoardView extends JPanel {
 			e.printStackTrace();
 		}
 	}
-	
+	//Initialization method, sets up the board
 	private void init(){
 		try {
 			img = ImageIO.read(new File(System.getProperty("user.dir")+"/images", "theMap3.gif"));
@@ -290,6 +293,7 @@ public class BoardView extends JPanel {
 		theButtons.add(lwoods4);
 		theButtons.add(lwoods5);
 		
+		//Adds the components to the board
 		for(int i = 0; i < theButtons.size(); i++){
 			add(theButtons.get(i).getButtonTiedToClearing());
 		}
@@ -305,6 +309,7 @@ public class BoardView extends JPanel {
 		}
 	}
 
+	//Initializes the clearings
 	private void initClearings() {
 		cliff1.setLocation(419, 188);
 		cliff2.setLocation(496, 204);
@@ -539,6 +544,7 @@ public class BoardView extends JPanel {
 		cavern1.addTreasures(new TreasureModel(true), new TreasureModel(false));
 	}
 	
+	//Adds a listener to the clearing that is passed to this function
 	private void addListener (final Clearing c) {
 		c.getButtonTiedToClearing().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
@@ -581,6 +587,7 @@ public class BoardView extends JPanel {
 		hoverFrame.add(hoverPanel);
 	}
 
+	//Overrides the paint component method of jPanel
 	@Override
 	public void paintComponent(Graphics page)
 	{
@@ -588,6 +595,7 @@ public class BoardView extends JPanel {
 	    page.drawImage(img, 0, 0, this);
 	}
 	
+	//returns the default clearing of a class (always the inn)
 	public Clearing getDefaultClearingForClass (CharacterClass c) {
 		switch (c) {
 		case SWORDSMAN: return inn.getClearingThisOn();

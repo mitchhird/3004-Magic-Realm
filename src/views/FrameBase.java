@@ -16,6 +16,7 @@ public class FrameBase extends JFrame {
 	protected GridBagLayout layout = new GridBagLayout();
 	protected GridBagConstraints layoutConstraints = new GridBagConstraints(); 
 		
+	//A method for adding other jFrames to this FrameBase
 	protected void addToFrame (JFrame connectToFrame, JComponent theComponent, GridBagLayout layout, int x, int y, int gridWidth, int gridHeight){
 		layoutConstraints.gridx = x;
 		layoutConstraints.gridy = y;
