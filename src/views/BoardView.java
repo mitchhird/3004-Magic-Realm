@@ -546,6 +546,9 @@ public class BoardView extends JPanel {
 	private void addListener (final Clearing c) {
 		c.getButtonTiedToClearing().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+            	if(parent.getCurrentPlayer() == null){
+            		return;
+            	}
             	if (parent.getCurrentPlayer().isMoving() && parent.getCurrentPlayer().getCurrentClearing().isVaildMove(c)){
             		parent.getCurrentPlayer().moveToClearing(c);
             		
