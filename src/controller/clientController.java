@@ -51,10 +51,21 @@ public class clientController {
 		currentPlayer.startPlayerTurn();
 
 		if(currentPlayer.getDay()==28){
+			parent.displayWinner(getWinner());
 			parent.dispose();
 		}
 	}
 	
+	private String getWinner() {
+		
+		int winnerCounter = 0;
+		for(int i = 0; i<thePlayers.size();i++){
+			winnerCounter = i;
+		}
+		
+		return thePlayers.get(winnerCounter).getName();
+	}
+
 	// Starts The Game When Called
 	public void startGame () {
 		gameStarted = true;

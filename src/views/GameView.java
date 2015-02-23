@@ -300,4 +300,14 @@ public class GameView extends FrameBase {
 		layout.setConstraints(theComponent, layoutConstraints);
 		mainPanel.add(theComponent);
 	}
+
+	public void displayWinner(String winner) {
+		int selectedOption = JOptionPane.showConfirmDialog(null, 
+                "The game is over and " + winner + " has won!", 
+                "End", 
+                JOptionPane.YES_OPTION); 
+		if (selectedOption == JOptionPane.YES_OPTION) {
+			return;
+		}
+	}
 }
