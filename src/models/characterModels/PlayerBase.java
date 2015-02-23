@@ -35,6 +35,7 @@ public class PlayerBase extends EntityBase{
 	protected int currentFame;
 	protected int currentNotirity;
 	protected int currentGold;
+	protected int currentDay;
 	
 	//weapons/armor/horses/treasure cards
 	//reading runes at treasure sites
@@ -120,6 +121,8 @@ public class PlayerBase extends EntityBase{
 		hidden = false;
 		living = true;
 		currentTurn = "";
+		
+		currentDay = 0;
 		
 		// Setup the lists
 		turnLog = new ArrayList<>();
@@ -492,5 +495,13 @@ public class PlayerBase extends EntityBase{
 	@Override
 	public String toString() {
 		return "(Player: " + getName() + ", Class: " + getPlayerClass() + ")";
+	}
+
+	public void newDay() {
+		currentDay++;
+	}
+
+	public int getDay() {
+		return currentDay;
 	}
 }

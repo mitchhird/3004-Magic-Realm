@@ -42,8 +42,17 @@ public class clientController {
 	// Moves To Next Player's Turn, Using Modulo Math
 	public void moveToNextPlayer () {
 		currentPlayerIndex++;
+		if(currentPlayerIndex % thePlayers.size() == 0){
+			for(int i = 0; i < thePlayers.size(); i++){
+				thePlayers.get(i).newDay();
+			}
+		}
 		currentPlayer = thePlayers.get(currentPlayerIndex % thePlayers.size());
 		currentPlayer.startPlayerTurn();
+
+		if(currentPlayer.getDay()==28){
+			parent.dispose();
+		}
 	}
 	
 	// Starts The Game When Called
