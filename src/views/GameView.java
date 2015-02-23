@@ -54,11 +54,6 @@ public class GameView extends FrameBase {
 
 	private JFrame cardViewer;
 	
-	//Main method
-	public static void main(String args[]){
-		new GameView();
-	}
-	
 	//Constructor for gameView
 	public GameView(){
 		init();
@@ -252,8 +247,8 @@ public class GameView extends FrameBase {
 	}
 	
 	//updates a player given their name
-	public void updatePlayerByName (String name) {
-		PlayerBase p = theClient.getPlayerByName(name);
+	public void updatePlayer (String name, CharacterClass charClass) {
+		PlayerBase p = theClient.getPlayer(name, charClass);
 		
 		if (p != null)
 			thePlayerButtons.update(p);

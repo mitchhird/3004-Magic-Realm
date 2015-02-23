@@ -29,19 +29,19 @@ public enum CharacterClass {
 		try {
 			switch (this) {
 			case AMAZON:
-				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","amazonUnhidden.png"));
+				return ImageIO.read(getClass().getResource("/characterGameTiles/amazonUnhidden.png"));
 			case BLACKNIGHT:
-				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","black_knightUnhidden.png"));
+				return ImageIO.read(getClass().getResource("/characterGameTiles/black_knightUnhidden.png"));
 			case CAPTAIN:
-				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","captainUnhidden.png"));
+				return ImageIO.read(getClass().getResource("/characterGameTiles/captainUnhidden.png"));
 			case DWARF:
-				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","dwarfUnhidden.png"));
+				return ImageIO.read(getClass().getResource("/characterGameTiles/dwarfUnhidden.png"));
 			case ELF:
-				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","elfUnhidden.png"));
+				return ImageIO.read(getClass().getResource("/characterGameTiles/elfUnhidden.png"));
 			case SWORDSMAN:
-				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","swordsmanUnhidden.png"));
+				return ImageIO.read(getClass().getResource("/characterGameTiles/swordsmanUnhidden.png"));
 			default:
-				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","amazonUnhidden.png"));
+				return ImageIO.read(getClass().getResource("/characterGameTiles/amazonUnhidden.png"));
 			}
 	   } catch (Exception e) {
 		   e.printStackTrace();
@@ -55,19 +55,19 @@ public enum CharacterClass {
 		try {
 			switch (this) {
 			case AMAZON:
-				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","amazonHidden.png"));
+				return ImageIO.read(getClass().getResource("/characterGameTiles/amazonHidden.png"));
 			case BLACKNIGHT:
-				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","black_knightHidden.png"));
+				return ImageIO.read(getClass().getResource("/characterGameTiles/black_knightHidden.png"));
 			case CAPTAIN:
-				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","captainHidden.png"));
+				return ImageIO.read(getClass().getResource("/characterGameTiles/captainHidden.png"));
 			case DWARF:
-				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","dwarfHidden.png"));
+				return ImageIO.read(getClass().getResource("/characterGameTiles/dwarfHidden.png"));
 			case ELF:
-				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","elfHidden.png"));
+				return ImageIO.read(getClass().getResource("/characterGameTiles/elfHidden.png"));
 			case SWORDSMAN:
-				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","swordsmanHidden.png"));
+				return ImageIO.read(getClass().getResource("/characterGameTiles/swordsmanHidden.png"));
 			default:
-				return ImageIO.read(new File(baseDir + "/images/characterGameTiles","amazonHidden.png"));
+				return ImageIO.read(getClass().getResource("/characterGameTiles/amazonHidden.png"));
 			}
 	   } catch (Exception e) {
 		   e.printStackTrace();
@@ -80,19 +80,19 @@ public enum CharacterClass {
 		try {
 			switch (this) {
 			case AMAZON:
-				return ImageIO.read(new File(baseDir + "/images/characterdetail","amazon.jpg"));
+				return ImageIO.read(getClass().getResource("/characterdetail/amazon.jpg"));
 			case BLACKNIGHT:
-				return ImageIO.read(new File(baseDir + "/images/characterdetail","black_knight.jpg"));
+				return ImageIO.read(getClass().getResource("/characterdetail/black_knight.jpg"));
 			case CAPTAIN:
-				return ImageIO.read(new File(baseDir + "/images/characterdetail","captain.jpg"));
+				return ImageIO.read(getClass().getResource("/characterdetail/captain.jpg"));
 			case DWARF:
-				return ImageIO.read(new File(baseDir + "/images/characterdetail","dwarf.jpg"));
+				return ImageIO.read(getClass().getResource("/characterdetail/dwarf.jpg"));
 			case ELF:
-				return ImageIO.read(new File(baseDir + "/images/characterdetail","elf.jpg"));
+				return ImageIO.read(getClass().getResource("/characterdetail/elf.jpg"));
 			case SWORDSMAN:
-				return ImageIO.read(new File(baseDir + "/images/characterdetail","swordsman.jpg"));
+				return ImageIO.read(getClass().getResource("/characterdetail/swordsman.jpg"));
 			default:
-				return ImageIO.read(new File(baseDir + "/images/characterdetail","amazon.jpg"));
+				return ImageIO.read(getClass().getResource("/characterdetail/amazon.jpg"));
 			}
 	   } catch (Exception e) {
 		   e.printStackTrace();

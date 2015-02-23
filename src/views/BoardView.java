@@ -159,8 +159,7 @@ public class BoardView extends JPanel {
 		
 		// Now For The Inn
 		try {
-			File innImageFile = new File(System.getProperty("user.dir") + "/images/dwellings_c", "inn.gif");
-			Image innImage = ImageIO.read(innImageFile);
+			Image innImage = ImageIO.read(getClass().getResource("/dwellings_c/inn.gif"));
 			inn = new Dwelling(dvalley4, innImage);
 			inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
 		} catch (Exception e) {
@@ -170,7 +169,7 @@ public class BoardView extends JPanel {
 	//Initialization method, sets up the board
 	private void init(){
 		try {
-			img = ImageIO.read(new File(System.getProperty("user.dir")+"/images", "theMap3.gif"));
+			img = ImageIO.read(getClass().getResource("/theMap3.gif"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

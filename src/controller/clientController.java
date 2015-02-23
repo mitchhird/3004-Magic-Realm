@@ -68,9 +68,9 @@ public class clientController {
 	}
 	
 	// Get Player By Name 
-	public PlayerBase getPlayerByName (String name) {
+	public PlayerBase getPlayer (String name, CharacterClass charClass) {
 		for (PlayerBase p: thePlayers) {
-			if (p.getName().equals(name)) {
+			if (p.getName().equals(name) && p.getPlayerClass() == charClass) {
 				return p;
 			}
 		}

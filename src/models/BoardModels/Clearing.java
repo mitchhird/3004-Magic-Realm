@@ -88,8 +88,14 @@ public class Clearing {
 		// If There Is Not An Image On This Tile
 		if (imageEnitiesOnThis.size() == 0) {
 			JButton clearingButton = getButtonTiedToClearing();
-			clearingButton.setIcon(new ImageIcon(GameUtils.getValidClearingImg(clearingButton)));
-			clearingButton.repaint();
+			try {
+				Image highlight = ImageIO.read(getClass().getResource("/moveableClearing.png"));
+				Image icon = highlight.getScaledInstance(buttonTiedToClearing.getWidth(), buttonTiedToClearing.getHeight(), Image.SCALE_SMOOTH);
+				clearingButton.setIcon(new ImageIcon(icon));
+				clearingButton.repaint();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -180,9 +186,8 @@ public class Clearing {
 			Image icon = display.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 			displayIcon = new ImageIcon(icon);
 		} else if (imageEnitiesOnThis.size() > 1){
-			File multiIcon = new File(System.getProperty("user.dir") + "/images/custom/characters", "question.gif");
 			try {
-				Image icon = ImageIO.read(multiIcon);
+				Image icon = ImageIO.read(getClass().getResource("/custom/characters/question.gif"));
 				Image multiDisplayIcon = icon.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 				displayIcon = new ImageIcon(multiDisplayIcon);
 			} catch (IOException e) {

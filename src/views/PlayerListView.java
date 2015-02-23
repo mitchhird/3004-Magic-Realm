@@ -7,6 +7,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import models.characterModels.PlayerBase;
+import models.characterModels.playerEnums.CharacterClass;
 
 	public class PlayerListView extends javax.swing.JPanel {
 
@@ -71,7 +72,8 @@ import models.characterModels.PlayerBase;
 	        	      int row = target.getSelectedRow();
 
 	        	      String test = (String) jTable2.getValueAt(row, 1);
-	        	      parent.updatePlayerByName(test);
+	        	      CharacterClass characterClass = CharacterClass.valueOf((String)jTable2.getValueAt(row, 0));
+	        	      parent.updatePlayer(test, characterClass);
 	        	}
 			});
 
