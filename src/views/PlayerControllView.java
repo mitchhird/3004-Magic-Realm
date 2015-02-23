@@ -556,6 +556,7 @@ public class PlayerControllView extends javax.swing.JPanel {
 		this.jButton1 = jButton1;
 	}   
 	
+	// ---------Methods used for inventory records and chits
 	public void addToInventory(String theName, String theDetails){
 		((DefaultTableModel) getjTable3().getModel()).addRow(new Object[]{theName,theDetails,"Active"});
 	}
