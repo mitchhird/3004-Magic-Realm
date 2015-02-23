@@ -164,6 +164,8 @@ public class GameView extends FrameBase {
 		theClient.startGame();
 		thePlayerList.updateTable();
 		thePlayerButtons.massSetButtonState(true);
+		thePlayerList.getjButton2().setEnabled(false);
+		thePlayerList.getAddPlayerButton().setEnabled(false);
 		thePlayerList.getStartGameButton().setEnabled(false);
 		JOptionPane.showMessageDialog(this, "The Game Has Started!");
 	}
