@@ -1,6 +1,5 @@
 package controller;
 
-import utils.GameUtils;
 import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
 

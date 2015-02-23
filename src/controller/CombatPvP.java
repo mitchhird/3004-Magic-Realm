@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import utils.GameUtils;
 import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.Weights;
-import models.chitModels.Chit;
 import models.otherEntities.EntityBase;
+import utils.GameUtils;
 
 public class CombatPvP {
 	private List<Clearing> currClearings;
