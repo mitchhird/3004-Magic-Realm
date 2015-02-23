@@ -56,14 +56,17 @@ public class clientController {
 		}
 	}
 	
-	private String getWinner() {
-		
-		int winnerCounter = 0;
-		for(int i = 0; i<thePlayers.size();i++){
-			winnerCounter = i;
+	private String getWinner() {		
+		int maxGold = -1;
+		String winner = "";
+		for (int i = 0; i<thePlayers.size();i++) {
+		   if (thePlayers.get(i).getGold() > maxGold) {
+		      maxGold  =thePlayers.get(i).getGold();
+		      winner = thePlayers.get(i).getName();
+		   }
 		}
 		
-		return thePlayers.get(winnerCounter).getName();
+		return winner;
 	}
 
 	// Starts The Game When Called

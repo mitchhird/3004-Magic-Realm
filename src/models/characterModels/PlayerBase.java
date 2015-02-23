@@ -504,4 +504,8 @@ public class PlayerBase extends EntityBase{
 	public int getDay() {
 		return currentDay;
 	}
+
+	public int getGold() {
+		return currentGold;
+	}
 }
