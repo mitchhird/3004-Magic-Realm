@@ -17,6 +17,8 @@ public class TreasureModel {
 	private ArrayList<PlayerBase> playersFoundThis;
 	
 	// Static Array of Values For The Treasure Amounts
+	private int fameAmount;
+	private int notorietyAmount;
 	private int[] goldAmounts = {10, 20, 30, 40, 50};
 	
 	public TreasureModel (boolean greatTreasure) {
@@ -25,6 +27,9 @@ public class TreasureModel {
 		// Determine The Gold Amount, Rando For Now
 		int startRange = (greatTreasure) ? 3 : 0;
 		int endRange = (greatTreasure) ? goldAmounts.length - 1: 2;
+		
+		fameAmount = GameUtils.createRandomInt(1, 20);
+		notorietyAmount = GameUtils.createRandomInt(-5, 30);
 		treasureGoldValue = goldAmounts[GameUtils.createRandomInt(startRange, endRange)];
 	}
 	
@@ -42,10 +47,17 @@ public class TreasureModel {
 		return treasureGoldValue;
 	}
 	
+	public int getFameAmount() {
+		return fameAmount;
+	}
+
+	public int getNotorietyAmount() {
+		return notorietyAmount;
+	}
+
 	@Override
 	public String toString() {
 		String displayString = (greatTreasure) ? "Great Treasure - Value: " : "Normal Treasure - Value: ";
-		return displayString + treasureGoldValue;
-		
+		return displayString + treasureGoldValue + ", Fame: " + fameAmount + ", Notoriety: " + notorietyAmount;
 	}
 }

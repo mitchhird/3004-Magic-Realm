@@ -215,6 +215,8 @@ public class PlayerBase extends EntityBase{
 	public void addTreasure (TreasureModel t) {
 		accquiredTreasures.add(t);
 		currentGold += t.getTreasureGoldValue();
+		currentFame += t.getFameAmount();
+		currentNotirity += t.getNotorietyAmount();
 	}
 	
 	public ArrayList<TreasureModel> searchCurrentClearing () {
