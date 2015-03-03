@@ -58,9 +58,6 @@ public class Clearing {
 		
 		// Move Off Of The Current Clearing And Onto The Next
 		p.setCurrentClearing(this);
-
-		// Set The Button's Icon The Player's Class Image
-		addImageToList(p.getImage());
 		
 		// Add Them To The Entity Listing
 		entitiesInClearing.add(p);
@@ -73,7 +70,6 @@ public class Clearing {
 	public void playerMovedOffOf (PlayerBase p) {
 		entitiesInClearing.remove(p);
 		playersInClearing.remove(p);
-		removeImageToList(p.getImage());
 		updateImage();
 	}
 	
@@ -85,8 +81,11 @@ public class Clearing {
 	
 	/// Highlight The Clearing If There Isn't An Image For It
 	public void highlightForMove () {
+		
+		ArrayList<Image> images = getImageEnitiesOnThis();
+		
 		// If There Is Not An Image On This Tile
-		if (imageEnitiesOnThis.size() == 0) {
+		if (images.size() == 0) {
 			JButton clearingButton = getButtonTiedToClearing();
 			try {
 				Image highlight = ImageIO.read(getClass().getResource("/moveableClearing.png"));
@@ -180,12 +179,15 @@ public class Clearing {
 		int width = buttonTiedToClearing.getWidth();
 		int height = buttonTiedToClearing.getHeight();
 		
+		// Gather The Images On The Clearing
+		ArrayList<Image> images = getImageEnitiesOnThis();
+		
 		// If There Only One Image
-		if (imageEnitiesOnThis.size() == 1) { 
-			Image display = imageEnitiesOnThis.iterator().next();
+		if (images.size() == 1) { 
+			Image display = images.iterator().next();
 			Image icon = display.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 			displayIcon = new ImageIcon(icon);
-		} else if (imageEnitiesOnThis.size() > 1){
+		} else if (images.size() > 1){
 			try {
 				Image icon = ImageIO.read(getClass().getResource("/custom/characters/question.gif"));
 				Image multiDisplayIcon = icon.getScaledInstance(width, height, Image.SCALE_SMOOTH);
@@ -272,6 +274,11 @@ public class Clearing {
 		ArrayList<Image> images = new ArrayList<>();
 		for (Image i: imageEnitiesOnThis) {
 			images.add(i);
+		}
+		
+		// Add The Player Image's 
+		for (PlayerBase p: playersInClearing) {
+			images.add(p.getImage());
 		}
 		
 		return images;

@@ -161,8 +161,7 @@ public class PlayerBase extends EntityBase{
 		if (hidden) {
 			JButton clearingButton = currentClearing.getButtonTiedToClearing();
 			Image playerIcon = getImage().getScaledInstance(clearingButton.getWidth(), clearingButton.getHeight(), Image.SCALE_SMOOTH);
-			currentClearing.getButtonTiedToClearing().setIcon(new ImageIcon (playerIcon));
-			clearingButton.repaint();
+			currentClearing.updateImage();
 		}
 		
 		return hidden;
