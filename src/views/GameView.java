@@ -53,6 +53,12 @@ public class GameView extends FrameBase {
 	private CardView theCard;
 
 	private JFrame cardViewer;
+
+	private JFrame cheatModeFrame;
+
+	private JFrame joinViewer;
+
+	private JFrame hostViewer;
 	
 	//Constructor for gameView
 	public GameView(){
@@ -76,14 +82,27 @@ public class GameView extends FrameBase {
 		add(scrollPane);
 		
 		JMenu fileMenu = new JMenu("File");
+		JMenu netMenu = new JMenu("Netwokring");
+		JMenu optMenu = new JMenu("Options");
 		
 		menuBar.add(fileMenu);
+		menuBar.add(netMenu);
+		menuBar.add(optMenu);
 		
 		JMenuItem newAction = new JMenuItem("New Game");
         JMenuItem exitAction = new JMenuItem("Exit");
+		JMenuItem joinAction = new JMenuItem("Join Game");
+        JMenuItem hostAction = new JMenuItem("Host Game");
+		JMenuItem cheatAction = new JMenuItem("Cheat Mode");
+        JMenuItem helpAction = new JMenuItem("Help");
 
         fileMenu.add(newAction);
         fileMenu.add(exitAction);
+        
+        netMenu.add(joinAction);
+        netMenu.add(hostAction);
+        optMenu.add(cheatAction);
+        optMenu.add(helpAction);
         
         //Action listeners
         newAction.addActionListener(new ActionListener() {
@@ -97,7 +116,25 @@ public class GameView extends FrameBase {
                 exitGame();
             }
         });
+        
+        hostAction.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                hostGame();
+            }
+        });
  
+        joinAction.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                joinGame();
+            }
+        });
+        
+        cheatAction.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                cheatMode();
+            }
+        });
+        
         addWindowListener(new WindowAdapter(){
             public void windowClosing(WindowEvent e){
             	exitGame();
@@ -106,6 +143,27 @@ public class GameView extends FrameBase {
         
 	}
 	
+	private void cheatMode() {
+		cheatModeFrame = new JFrame();
+		cheatModeFrame.setSize(760,630);
+		cheatModeFrame.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
+		cheatModeFrame.setVisible(true);
+	}
+
+	private void joinGame() {
+		joinViewer = new JFrame();
+		joinViewer.setSize(760,630);
+		joinViewer.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
+		joinViewer.setVisible(true);
+	}
+
+	private void hostGame() {
+		hostViewer = new JFrame();
+		hostViewer.setSize(760,630);
+		hostViewer.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
+		hostViewer.setVisible(true);
+	}
+
 	//update method resizes the screen to get it to repaint
 	private void update(){
 		setSize((int)tk.getScreenSize().getWidth(),(int)tk.getScreenSize().getHeight()-20);
