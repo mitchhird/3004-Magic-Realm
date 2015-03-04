@@ -59,6 +59,8 @@ public class GameView extends FrameBase {
 	private JFrame joinViewer;
 
 	private JFrame hostViewer;
+
+	private HostView theHostView;
 	
 	//Constructor for gameView
 	public GameView(){
@@ -94,7 +96,6 @@ public class GameView extends FrameBase {
 		JMenuItem joinAction = new JMenuItem("Join Game");
         JMenuItem hostAction = new JMenuItem("Host Game");
 		JMenuItem cheatAction = new JMenuItem("Cheat Mode");
-        JMenuItem helpAction = new JMenuItem("Help");
 
         fileMenu.add(newAction);
         fileMenu.add(exitAction);
@@ -102,7 +103,6 @@ public class GameView extends FrameBase {
         netMenu.add(joinAction);
         netMenu.add(hostAction);
         optMenu.add(cheatAction);
-        optMenu.add(helpAction);
         
         //Action listeners
         newAction.addActionListener(new ActionListener() {
@@ -159,9 +159,11 @@ public class GameView extends FrameBase {
 
 	private void hostGame() {
 		hostViewer = new JFrame();
-		hostViewer.setSize(760,630);
+		hostViewer.setSize(155,105);
 		hostViewer.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
 		hostViewer.setVisible(true);
+		theHostView = new HostView();
+		hostViewer.add(theHostView);
 	}
 
 	//update method resizes the screen to get it to repaint
@@ -170,7 +172,7 @@ public class GameView extends FrameBase {
 		setSize((int)tk.getScreenSize().getWidth(),(int)tk.getScreenSize().getHeight()-40);
 	}
 	
-	//Dispalys the gameButtons and user interface
+	//Displays the gameButtons and user interface
 	private void showGameButtons(){
 	
 		thePlayerList = new PlayerListView(this);
