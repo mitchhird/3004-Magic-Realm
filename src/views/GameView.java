@@ -61,6 +61,8 @@ public class GameView extends FrameBase {
 	private JFrame hostViewer;
 
 	private HostView theHostView;
+
+	private JoinView theJoinView;
 	
 	//Constructor for gameView
 	public GameView(){
@@ -152,14 +154,16 @@ public class GameView extends FrameBase {
 
 	private void joinGame() {
 		joinViewer = new JFrame();
-		joinViewer.setSize(760,630);
+		joinViewer.setSize(235,140);
 		joinViewer.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
 		joinViewer.setVisible(true);
+		theJoinView = new JoinView();
+		joinViewer.add(theJoinView);
 	}
 
 	private void hostGame() {
 		hostViewer = new JFrame();
-		hostViewer.setSize(155,105);
+		hostViewer.setSize(225,135);
 		hostViewer.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
 		hostViewer.setVisible(true);
 		theHostView = new HostView();
