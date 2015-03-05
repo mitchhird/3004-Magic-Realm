@@ -51,14 +51,19 @@ public class GameView extends FrameBase {
 	private PlayerControllView thePlayerButtons;
 
 	private CardView theCard;
-
 	private JFrame cardViewer;
-
-	private JFrame cheatModeFrame;
-
 	private JoinView joinViewer;
-
 	private HostView hostViewer;
+
+	private JMenuItem newAction;
+
+	private JMenuItem exitAction;
+
+	private JMenuItem joinAction;
+
+	private JMenuItem hostAction;
+
+	private JMenuItem cheatAction;
 
 	
 	//Constructor for gameView
@@ -90,12 +95,15 @@ public class GameView extends FrameBase {
 		menuBar.add(netMenu);
 		menuBar.add(optMenu);
 		
-		JMenuItem newAction = new JMenuItem("New Game");
-        JMenuItem exitAction = new JMenuItem("Exit");
-		JMenuItem joinAction = new JMenuItem("Join Game");
-        JMenuItem hostAction = new JMenuItem("Host Game");
-		JMenuItem cheatAction = new JMenuItem("Cheat Mode");
+		newAction = new JMenuItem("New Game");
+        exitAction = new JMenuItem("Exit");
+		joinAction = new JMenuItem("Join Game");
+        hostAction = new JMenuItem("Host Game");
+		cheatAction = new JMenuItem("Cheat Mode");
 
+		joinAction.setEnabled(false);
+		hostAction.setEnabled(false);
+		
         fileMenu.add(newAction);
         fileMenu.add(exitAction);
         
@@ -297,6 +305,9 @@ public class GameView extends FrameBase {
 	
 	// Starts The Game
 	private void startGame(){
+		joinAction.setEnabled(true);
+		hostAction.setEnabled(true);
+		newAction.setEnabled(false);
 		showGameButtons();
 		showBoard();
 		update();

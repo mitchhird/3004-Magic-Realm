@@ -139,5 +139,6 @@ public class HostView extends javax.swing.JFrame {
     
     private void handleCancelButton () {
     	System.out.println("Cancel Button Has Been Pressed");
+    	dispose();
     }
 }

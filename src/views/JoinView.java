@@ -107,6 +107,13 @@ public class JoinView extends javax.swing.JFrame {
 				handleConnectButton();
 			}
 		});
+    	
+    	cancelButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				handleCancelButton();
+			}
+		});
     }
     
     // Handles The Connect Button
@@ -118,5 +125,9 @@ public class JoinView extends javax.swing.JFrame {
     	
     	// Display A Message
     	JOptionPane.showMessageDialog(this, "Connected To Server At: " + ipAddressField.getText());
+    }
+    
+    private void handleCancelButton(){
+    	dispose();
     }
 }
