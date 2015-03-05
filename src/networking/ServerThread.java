@@ -5,6 +5,7 @@ import java.net.Socket;
 /**
  * Client Thread That Will Communicate With The Server And Give The Client Updates
  *    - Will Be Expanded Upon In The Future But For Now It's A Skeleton
+ *    - Might Be Best If This An Observable,
  * @author Mitchell
  */
 public class ServerThread extends TransmissionThreadBase {

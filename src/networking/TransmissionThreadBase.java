@@ -90,8 +90,8 @@ public class TransmissionThreadBase extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				inStream.readObject();
-			} catch (ClassNotFoundException | IOException e) {
+				Thread.sleep(500);
+			} catch (Exception e) {
 				closeConnection();
 				break;
 			}
