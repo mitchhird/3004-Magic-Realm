@@ -3,12 +3,13 @@ package views;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /*
  * 
  */
-public class TradeView extends javax.swing.JPanel {
+public class TradeView extends javax.swing.JFrame {
 
     /**
 	 * 
@@ -25,6 +26,7 @@ public class TradeView extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable myInventory;
     private javax.swing.JTable theirInventory;
+    private JPanel theView;
     // End of variables declaration     
     
     //Constructor for this view
@@ -35,6 +37,7 @@ public class TradeView extends javax.swing.JPanel {
     //Initializes the components
     private void initComponents() {
 
+    	theView = new JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         myInventory = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -119,8 +122,8 @@ public class TradeView extends javax.swing.JPanel {
         cancelButton.setText("Cancel");
         
         //Layout for this view
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(theView);
+        theView.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -160,6 +163,7 @@ public class TradeView extends javax.swing.JPanel {
                     .addComponent(cancelButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        add(theView);
     }                       
     
     //Getter ,setter, adder, remover

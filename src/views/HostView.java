@@ -6,10 +6,11 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import networking.ServerMainThread;
 
-public class HostView extends javax.swing.JPanel {
+public class HostView extends javax.swing.JFrame {
 
 	private String hostAddress;
 	private static final long serialVersionUID = -1426060840272234842L;
@@ -21,6 +22,7 @@ public class HostView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField portField;
+    private JPanel theView;
     
 	// Constructor For This view
 	public HostView() {
@@ -45,6 +47,7 @@ public class HostView extends javax.swing.JPanel {
         portField = new javax.swing.JTextField();
         hostButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
+        theView = new JPanel();
 
         jLabel1.setText("Select Port:");
 
@@ -58,8 +61,8 @@ public class HostView extends javax.swing.JPanel {
 
         cancelButton.setText("Cancel");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(theView);
+        theView.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -96,6 +99,8 @@ public class HostView extends javax.swing.JPanel {
                     .addComponent(cancelButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        
+        this.add(theView);
     }// </editor-fold>                        
                  
     // Adds The Listeners To The Game When It Is Called

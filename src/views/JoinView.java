@@ -6,10 +6,11 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import networking.ClientThread;
 
-public class JoinView extends javax.swing.JPanel {
+public class JoinView extends javax.swing.JFrame {
 
     private javax.swing.JButton connectButton;
     private javax.swing.JButton cancelButton;
@@ -19,6 +20,7 @@ public class JoinView extends javax.swing.JPanel {
     private javax.swing.JTextField portAddressField;
     
 	private String hostAddress;
+	private JPanel theView;
 	private static final long serialVersionUID = 1166000215438136225L;
 	
 	// Constructor For This Class
@@ -36,6 +38,7 @@ public class JoinView extends javax.swing.JPanel {
 	// Initialize The Components
     private void initComponents() {
 
+        theView = new JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         ipAddressField = new javax.swing.JTextField();
@@ -55,8 +58,8 @@ public class JoinView extends javax.swing.JPanel {
 
         cancelButton.setText("Cancel");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(theView);
+        theView.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -93,6 +96,7 @@ public class JoinView extends javax.swing.JPanel {
                     .addComponent(cancelButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+        add(theView);
     }// </editor-fold>                        
     
     // Add In The Listeners To This View

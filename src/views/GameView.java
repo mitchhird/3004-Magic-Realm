@@ -56,13 +56,10 @@ public class GameView extends FrameBase {
 
 	private JFrame cheatModeFrame;
 
-	private JFrame joinViewer;
+	private JoinView joinViewer;
 
-	private JFrame hostViewer;
+	private HostView hostViewer;
 
-	private HostView theHostView;
-
-	private JoinView theJoinView;
 	
 	//Constructor for gameView
 	public GameView(){
@@ -146,28 +143,21 @@ public class GameView extends FrameBase {
 	}
 	
 	private void cheatMode() {
-		cheatModeFrame = new JFrame();
-		cheatModeFrame.setSize(760,630);
-		cheatModeFrame.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
-		cheatModeFrame.setVisible(true);
+		
 	}
 
 	private void joinGame() {
-		joinViewer = new JFrame();
+		joinViewer = new JoinView();
 		joinViewer.setSize(235,140);
 		joinViewer.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
 		joinViewer.setVisible(true);
-		theJoinView = new JoinView();
-		joinViewer.add(theJoinView);
 	}
 
 	private void hostGame() {
-		hostViewer = new JFrame();
+		hostViewer = new HostView();
 		hostViewer.setSize(225,135);
 		hostViewer.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
 		hostViewer.setVisible(true);
-		theHostView = new HostView();
-		hostViewer.add(theHostView);
 	}
 
 	//update method resizes the screen to get it to repaint
