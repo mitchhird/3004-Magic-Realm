@@ -56,13 +56,9 @@ public class GameView extends FrameBase {
 	private HostView hostViewer;
 
 	private JMenuItem newAction;
-
 	private JMenuItem exitAction;
-
 	private JMenuItem joinAction;
-
 	private JMenuItem hostAction;
-
 	private JMenuItem cheatAction;
 
 	
