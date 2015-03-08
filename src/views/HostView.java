@@ -24,17 +24,18 @@ public class HostView extends javax.swing.JFrame {
     private javax.swing.JTextField portField;
     private JPanel theView;
     
+    private GameView parent;
+    
 	// Constructor For This view
-	public HostView() {
+	public HostView(GameView parent) {
         try {
+        	this.parent = parent;
 			hostAddress = InetAddress.getLocalHost().getHostAddress();
 			initComponents();
 			addListeners();
 		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
 	}
                
 	
@@ -128,10 +129,12 @@ public class HostView extends javax.swing.JFrame {
 		// Kick Up The Server Runnable, And Connect This Machine To It
 		try {
 			int serverPort = Integer.parseInt(portField.getText());
-			ServerMainThread test = new ServerMainThread(serverPort);
+			ServerMainThread test = new ServerMainThread(serverPort, parent);
 			test.start();
 			
+			// Show Display And Close The Window
 			JOptionPane.showMessageDialog(this, "Server Started On Port " + serverPort);
+			dispose();
 		} catch (Exception e) {	
 			JOptionPane.showMessageDialog(this, "Invalid Port Specified Please Enter A Number");
 		}

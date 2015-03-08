@@ -28,10 +28,25 @@ public class clientController {
 		PlayerBase aPlayer = new PlayerBase(playerName, playerClass);
 		thePlayers.add(aPlayer);
 		
-		// If That Is The First Player, Set The Current Player To That
-		if (thePlayers.size() == 1) {
-			currentPlayer = aPlayer;
-		}
+		setCurrentPlayer(aPlayer);
+		parent.getPlayerList().updateTable();
+		
+		// TODO: Add The Proper Object For Board Interaction
+		parent.sendMessage("Added Player");
+	}
+	
+	// Adds The Player To The Game 
+	public void addPlayer (CharacterClass playerClass, String playerName, String ip) {
+		
+		// Add The Player Into The List
+		PlayerBase aPlayer = new PlayerBase(playerName, playerClass, ip);
+		thePlayers.add(aPlayer);
+		
+		setCurrentPlayer(aPlayer);
+		parent.getPlayerList().updateTable();
+		
+		// TODO: Add The Proper Object For Board Interaction
+		parent.sendMessage("Added Player");
 	}
 	
 	// Returns The player List From The Game
@@ -54,6 +69,9 @@ public class clientController {
 			parent.displayWinner(getWinner());
 			parent.dispose();
 		}
+		
+		// TODO: Add The Proper Object For Board Interaction
+		parent.sendMessage("Switching To Next Player");
 	}
 	
 	private String getWinner() {		
@@ -88,6 +106,9 @@ public class clientController {
 				return;
 			}
 		}
+		
+		// TODO: Add The Proper Object For Board Interaction
+		parent.sendMessage("Removing Player");
 	}
 	
 	// Get Player By Name 
@@ -122,5 +143,12 @@ public class clientController {
 
 	public void setGameStarted(boolean gameStarted) {
 		this.gameStarted = gameStarted;
+	}
+	
+	private void setCurrentPlayer(PlayerBase aPlayer) {
+		// If That Is The First Player, Set The Current Player To That
+		if (thePlayers.size() == 1) {
+			currentPlayer = aPlayer;
+		}
 	}
 }

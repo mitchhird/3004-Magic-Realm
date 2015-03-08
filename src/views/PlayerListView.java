@@ -47,7 +47,7 @@ import models.characterModels.playerEnums.CharacterClass;
 
 	            },
 	            new String [] {
-	                "Class", "Player", "Status"
+	                "Class", "Player", "Status", "IP Address"
 	            }
 	        ) {
 	            /**
@@ -122,6 +122,9 @@ import models.characterModels.playerEnums.CharacterClass;
 	    			jTable2.setValueAt("Playing", i, 2);
 	    		else
 	    			jTable2.setValueAt("Waiting", i, 2);
+	    		
+	    		// Set The Player's Host Here
+	    		jTable2.setValueAt(currentPlayer.getPlayerIP(), i, 3);
 	    	}
 	    }
    

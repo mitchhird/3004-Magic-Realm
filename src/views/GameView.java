@@ -22,6 +22,9 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import networking.ClientWriterThread;
+import networking.ServerMainThread;
+import networking.ServerReadThread;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
 import controller.clientController;
@@ -61,11 +64,16 @@ public class GameView extends FrameBase {
 	private JMenuItem hostAction;
 	private JMenuItem cheatAction;
 
+	// Networking Variables
+	private boolean networkedGame;
+	private ClientWriterThread clientThread;		
+	private ServerMainThread serverThread;
 	
 	//Constructor for gameView
 	public GameView(){
 		init();
-	}
+		networkedGame = false;
+    }
 	
 	// Initialization Method 
 	public void init(){
@@ -151,14 +159,16 @@ public class GameView extends FrameBase {
 	}
 
 	private void joinGame() {
-		joinViewer = new JoinView();
+		joinViewer = new JoinView(this);
 		joinViewer.setSize(235,140);
 		joinViewer.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
 		joinViewer.setVisible(true);
 	}
 
+	// Open A Host Game View While Passing Along This Object
+	// This Is So the Server Has Free Range To This If It Is Needed
 	private void hostGame() {
-		hostViewer = new HostView();
+		hostViewer = new HostView(this);
 		hostViewer.setSize(225,135);
 		hostViewer.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
 		hostViewer.setVisible(true);
@@ -322,6 +332,19 @@ public class GameView extends FrameBase {
 		thePlayerButtons.update(getCurrentPlayer());
 	}
 	
+	// Send Message To The Correct Device
+	public void sendMessage (Object obj) {
+		// We Are The Master, So Send To Everyone
+		if (networkedGame && serverThread != null) {
+			serverThread.boardcastToAll(obj);
+		}
+		
+		// We Are The Client So Send Over To Server
+		else if (networkedGame && clientThread != null) {
+			clientThread.writeMsg(obj);
+		}
+	}
+	
 	/*------------------------------- Getters And Setters ---------------------------*/
 	public BoardView getBoardView () {
 		return theBoard;
@@ -344,6 +367,24 @@ public class GameView extends FrameBase {
 		return theClient.isGameStarted();
 	}
 	
+	public boolean isNetworkedGame() {
+		return networkedGame;
+	}
+
+	public void setNetworkedGame(boolean networkedGame) {
+		this.networkedGame = networkedGame;
+	}
+
+	public void setClientThread(ClientWriterThread clientThread) {
+		this.networkedGame = true;
+		this.clientThread = clientThread;
+	}
+
+	public void setServerThread(ServerMainThread serverThread) {
+		this.networkedGame = true;
+		this.serverThread = serverThread;
+	}
+
 	// Sets The Grid Location Based On The Paramenters Given
 	private void addToGrid(JComponent theComponent, int x, int y, int gridWidth, int gridHeight) {
 		addToGrid(mainPanel, theComponent, x, y, gridWidth, gridHeight);

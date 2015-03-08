@@ -7,9 +7,9 @@ import java.net.Socket;
 
 public class TransmissionThreadBase extends Thread {
 
-	private Socket transmissionSocket;
-	private ObjectInputStream inStream;
-	private ObjectOutputStream outStream;
+	protected Socket transmissionSocket;
+	protected ObjectInputStream inStream;
+	protected ObjectOutputStream outStream;
 
 	// IP And Port Constructor
 	public TransmissionThreadBase (String host, int port) {
@@ -90,11 +90,21 @@ public class TransmissionThreadBase extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				Thread.sleep(500);
+				
 			} catch (Exception e) {
 				closeConnection();
 				break;
 			}
 		}
 	}
+
+	public ObjectInputStream getInStream() {
+		return inStream;
+	}
+
+	public ObjectOutputStream getOutStream() {
+		return outStream;
+	}
+	
+	
 }

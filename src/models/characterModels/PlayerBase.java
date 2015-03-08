@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import models.BoardModels.Clearing;
@@ -53,6 +52,7 @@ public class PlayerBase extends EntityBase{
 	protected String playerName;
 	protected String playerClass;
 	protected String tradeRelationship;
+	protected String playerIP;
 	
 	//Action Chits in different statuses
 	protected ActionChit[] Active;
@@ -102,10 +102,20 @@ public class PlayerBase extends EntityBase{
 		initPlayerStats();
 	}
 	
+	// Constructor When Multiple Instances For The Player Are Known
 	public PlayerBase (String playerName, CharacterClass c) {
 		setName(playerName);
 		setClass(c);
 		initPlayerStats();
+	}
+	
+	// Constructor When Making A Network Based Model
+	public PlayerBase (String playerName, CharacterClass c, String playerIP) {
+		setName(playerName);
+		setClass(c);
+		initPlayerStats();
+		
+		setPlayerIP(playerIP);
 	}
 	
 	
@@ -116,13 +126,17 @@ public class PlayerBase extends EntityBase{
 		currentNotirity = 0;
 		currentGold = 10;
 		killCount = 0;
-		availableActions = 5;
-		foundHidden = false;
+		currentDay = 0;
+        availableActions = 5;
+		
+        // Boolean Values
+        foundHidden = false;
 		hidden = false;
 		living = true;
-		currentTurn = "";
 		
-		currentDay = 0;
+		// String Values
+		currentTurn = "";
+		playerIP = "localhost";
 		
 		// Setup the lists
 		turnLog = new ArrayList<>();
@@ -274,15 +288,19 @@ public class PlayerBase extends EntityBase{
 		return Selectable;
 	}
 	
-	//*********
-	//if a player dies will start over again at the in as the same or different
-	//character but will be forfeiring all his possessions/fame/notoriety/gold/discoveries
-	
 	/*-------------- Getters And Setters -------------- */
 	public ArrayList<String> getRecordLog () {
 		return turnLog;
 	}
 	
+	public String getPlayerIP() {
+		return playerIP;
+	}
+
+	public void setPlayerIP(String playerIP) {
+		this.playerIP = playerIP;
+	}
+
 	public void setHomeClearing(Clearing homeClearing) {
 		this.homeClearing = homeClearing;
 	}

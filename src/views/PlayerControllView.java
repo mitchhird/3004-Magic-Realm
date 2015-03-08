@@ -173,7 +173,7 @@ public class PlayerControllView extends javax.swing.JPanel {
 
                 },
                 new String [] {
-                    "Name","Details","Status"
+                    "Name","Details","Status", "IP"
                 }
             ) {
                 /**

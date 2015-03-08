@@ -8,7 +8,7 @@ import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import networking.ClientThread;
+import networking.ClientWriterThread;
 
 public class JoinView extends javax.swing.JFrame {
 
@@ -23,9 +23,12 @@ public class JoinView extends javax.swing.JFrame {
 	private JPanel theView;
 	private static final long serialVersionUID = 1166000215438136225L;
 	
+	private GameView parent;
+	
 	// Constructor For This Class
-	public JoinView() {
+	public JoinView(GameView parent) {
         try {
+        	this.parent = parent;
 			hostAddress = InetAddress.getLocalHost().getHostAddress();
 			initComponents();
 			addListeners();
@@ -120,7 +123,10 @@ public class JoinView extends javax.swing.JFrame {
     private void handleConnectButton () {
     	System.out.println("Connect Button Has Been Pressed");
     	int portNum = Integer.parseInt(portAddressField.getText());
-    	ClientThread test = new ClientThread(ipAddressField.getText(), portNum);
+    	
+    	// Start The Client Thread Up
+    	ClientWriterThread test = new ClientWriterThread(ipAddressField.getText(), portNum, parent);
+    	parent.setClientThread(test);
     	test.start();
     	
     	// Display A Message
