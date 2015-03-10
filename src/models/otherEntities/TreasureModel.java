@@ -1,5 +1,6 @@
 package models.otherEntities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import utils.GameUtils;
@@ -10,7 +11,7 @@ import models.characterModels.PlayerBase;
  * Players find treasure by looking in a clearing and then looting it
  * @author Mitchell
  */
-public class TreasureModel {
+public class TreasureModel implements Serializable {
 
 	private int treasureGoldValue;
 	private boolean greatTreasure;
@@ -21,6 +22,8 @@ public class TreasureModel {
 	private int notorietyAmount;
 	private int[] goldAmounts = {10, 20, 30, 40, 50};
 	
+	private static final long serialVersionUID = 4563361734587526172L;
+
 	public TreasureModel (boolean greatTreasure) {
 		playersFoundThis = new ArrayList<PlayerBase>();
 		

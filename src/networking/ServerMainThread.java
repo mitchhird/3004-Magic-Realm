@@ -5,6 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import models.characterModels.PlayerBase;
 import utils.Pair;
 import views.GameView;
 
@@ -63,7 +64,7 @@ public class ServerMainThread extends Thread {
 				System.out.println("New Client Connected: " + clientIp);
 				
 				// Now Connect The Clients That Are Connected To The Server
-				ServerReadThread newClient = new ServerReadThread(newSocket);
+				ServerReadThread newClient = new ServerReadThread(newSocket, this);
 				ServerWriteThread clientWriter = new ServerWriteThread(newClient.getOutStream(), theGame, clientIp);
 				
 				// Start The Reader And Writers
@@ -76,5 +77,13 @@ public class ServerMainThread extends Thread {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/*************************** Handle The Incoming Messages ************************/
+	public void handleIncomingPlayer (PlayerBase incoming, ServerReadThread caller) {
+	   System.out.println("Handling New Player Addition");
+	   incoming.initializePlayer();
+	   theGame.addPlayer(incoming);
+	   broadcastToOthers(incoming, caller);
 	}
 }

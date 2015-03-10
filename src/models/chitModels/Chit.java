@@ -1,9 +1,13 @@
 package models.chitModels;
 
+import java.io.Serializable;
+
 import models.characterModels.playerEnums.Attacks;
 import models.characterModels.playerEnums.Weights;
 
-public class Chit {
+public class Chit implements Serializable {
+
+	private static final long serialVersionUID = -7738177057999862224L;
 
 	public Weights getHarmLevel() {
 		// TODO Auto-generated method stub

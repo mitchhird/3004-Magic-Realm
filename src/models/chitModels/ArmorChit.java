@@ -1,14 +1,17 @@
 package models.chitModels;
 
+import java.io.Serializable;
+
 import models.characterModels.playerEnums.ArmorType;
 import models.characterModels.playerEnums.Weights;
 
-public class ArmorChit {
+public class ArmorChit implements Serializable {
 
 	private ArmorType armourType;
 	private boolean damaged;
 	private boolean destoryed;
 	private Weights armourWeight;
+	private static final long serialVersionUID = -7767434016059709312L;
 	
 	public ArmorChit (ArmorType aType, Weights aWeight) {
 		armourType = aType;

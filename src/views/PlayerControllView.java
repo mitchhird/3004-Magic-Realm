@@ -466,6 +466,7 @@ public class PlayerControllView extends javax.swing.JPanel {
     	// If The Player Can Do The Action
     	if (currentPlayer.getAvailableActions() > 0) {
     		currentPlayer.attemptHide();
+    		parent.sendMessage("Attempting Hide");
     	} else {
     		JOptionPane.showMessageDialog(this, "You Have No More Actions For This Turn");
     	}

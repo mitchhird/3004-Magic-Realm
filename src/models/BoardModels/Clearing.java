@@ -3,6 +3,7 @@ package models.BoardModels;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,17 +22,19 @@ import models.otherEntities.TreasureModel;
  * Object that represents the logic behind the clearing objects
  * Used mainly for the character's movement but can be expanded on if needed
  */
-public class Clearing {
+public class Clearing implements Serializable {
 
 	private boolean blocked;
 	private String clearingName;
 	private JButton buttonTiedToClearing;
 	private Set <Clearing> connectedClearings;
 	private Set <TreasureModel> treasuresInClearing;
-	private Set <EntityBase> entitiesInClearing;
 	private Set <PlayerBase> playersInClearing;
 	private Set <Image> imageEnitiesOnThis;
 	
+	private transient Set <EntityBase> entitiesInClearing;
+	private static final long serialVersionUID = -3697827851116659513L;
+
 	public Clearing (String clearingName) {
 		blocked = false;
 		this.clearingName = clearingName;

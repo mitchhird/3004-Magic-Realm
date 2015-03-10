@@ -302,6 +302,13 @@ public class GameView extends FrameBase {
 		setPlayerInterface(thePlayerList.getjTable2().getRowCount()-1);
 	}
 	
+	// Overridden Add New Player, Called When Player Is Known
+	public void addPlayer (PlayerBase newPlayer) {
+		theClient.addPlayer(newPlayer);
+		thePlayerList.addPlayer(newPlayer.getName(), newPlayer.getPlayerClass().name());
+		setPlayerInterface(thePlayerList.getjTable2().getRowCount() - 1);
+	}
+	
 	//closes the game and disposes of all components
 	private void exitGame(){
 		System.out.println("Exiting");
@@ -342,6 +349,7 @@ public class GameView extends FrameBase {
 		// We Are The Client So Send Over To Server
 		else if (networkedGame && clientThread != null) {
 			clientThread.writeMsg(obj);
+			System.out.println("Sent To Server: " + clientThread);
 		}
 	}
 	

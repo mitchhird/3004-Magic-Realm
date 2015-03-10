@@ -24,29 +24,26 @@ public class clientController {
 	
 	// Adds The Player to The Game
 	public void addPlayer(CharacterClass playerClass, String playerName){
-		// Add The Player Into The List
-		PlayerBase aPlayer = new PlayerBase(playerName, playerClass);
-		thePlayers.add(aPlayer);
-		
-		setCurrentPlayer(aPlayer);
-		parent.getPlayerList().updateTable();
-		
-		// TODO: Add The Proper Object For Board Interaction
-		parent.sendMessage("Added Player");
+		addPlayer(playerClass, playerName, "localhost");
 	}
 	
 	// Adds The Player To The Game 
 	public void addPlayer (CharacterClass playerClass, String playerName, String ip) {
-		
 		// Add The Player Into The List
 		PlayerBase aPlayer = new PlayerBase(playerName, playerClass, ip);
-		thePlayers.add(aPlayer);
+		addPlayer(aPlayer);
 		
+		// Boardcast The Message Back Out
+		if (parent.isNetworkedGame()) {
+			parent.sendMessage(aPlayer);
+		}
+	}
+	
+	// Adds A Player That Is Already Known To The System
+	public void addPlayer(PlayerBase aPlayer) {
+		thePlayers.add(aPlayer);
 		setCurrentPlayer(aPlayer);
 		parent.getPlayerList().updateTable();
-		
-		// TODO: Add The Proper Object For Board Interaction
-		parent.sendMessage("Added Player");
 	}
 	
 	// Returns The player List From The Game
@@ -106,9 +103,6 @@ public class clientController {
 				return;
 			}
 		}
-		
-		// TODO: Add The Proper Object For Board Interaction
-		parent.sendMessage("Removing Player");
 	}
 	
 	// Get Player By Name 

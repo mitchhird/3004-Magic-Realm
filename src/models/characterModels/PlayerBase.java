@@ -1,6 +1,7 @@
 package models.characterModels;
 
 import java.awt.Image;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,7 +29,7 @@ import utils.GameUtils;
  * testing
  */
 
-public class PlayerBase extends EntityBase{
+public class PlayerBase extends EntityBase implements Serializable {
 	
 	//fame/not can be negative and are public to others, gold can't be neg
 	protected int currentFame;
@@ -55,9 +56,9 @@ public class PlayerBase extends EntityBase{
 	protected String playerIP;
 	
 	//Action Chits in different statuses
-	protected ActionChit[] Active;
-	protected ActionChit[] InActive;
-	protected ActionChit[] Wounded;
+	protected transient ActionChit[] Active;
+	protected transient ActionChit[] InActive;
+	protected transient ActionChit[] Wounded;
 	
 	// Compound Data Types For The Object
 	protected Chit[] combatChit;
@@ -75,19 +76,12 @@ public class PlayerBase extends EntityBase{
 	protected PlayerBase chargeTarget;
 	
 	// Clearing Stuff
-	protected Clearing homeClearing;
-	protected Clearing currentClearing;
+	protected transient Clearing homeClearing;
+	protected transient Clearing currentClearing;
 	
 	// Log Recording
 	protected String currentTurn;
 	protected ArrayList<String> turnLog;
-	
-	//controllable units might need might not
-	//big part of combat system
-	//might also include natives?
-	protected Denizen[] hired;
-	protected Image hiddenImage;
-	protected Image unhiddenImage;
 	
 	protected String history;
 	protected String discovery;
@@ -97,6 +91,14 @@ public class PlayerBase extends EntityBase{
 	protected boolean living;
 	protected boolean foundHidden;
 	
+	// Non Serialization Data
+	protected transient Denizen[] hired;	
+	protected transient Image hiddenImage;
+	protected transient Image unhiddenImage;
+
+	// Serialization Flag
+	private static final long serialVersionUID = 1087220843681586963L;
+
 	// Default Constructor
 	public PlayerBase () {
 		initPlayerStats();
@@ -142,6 +144,11 @@ public class PlayerBase extends EntityBase{
 		turnLog = new ArrayList<>();
 		accquiredTreasures = new ArrayList<>();
 
+		initializePlayer();
+	}
+
+	// Initializes Player Transient Objects
+	public void initializePlayer() {
 		// Setup The Image
 		hiddenImage = characterClass.getHiddenTile();
 		unhiddenImage = characterClass.getReadyTile();
