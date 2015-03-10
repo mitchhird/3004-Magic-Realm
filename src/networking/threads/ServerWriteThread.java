@@ -1,4 +1,4 @@
-package networking;
+package networking.threads;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;

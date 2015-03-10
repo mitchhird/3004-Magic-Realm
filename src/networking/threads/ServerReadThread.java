@@ -1,4 +1,4 @@
-package networking;
+package networking.threads;
 
 import java.net.Socket;
 
@@ -40,13 +40,15 @@ public class ServerReadThread extends TransmissionThreadBase {
 				Object incoming = inStream.readObject();
 				System.out.println("Recieved From Client: " + incoming);
 				
+				parentThread.setProcessing(true);
+				
 				// Call The Corresponding Function To The Data Type
 				if (incoming instanceof PlayerBase) {
 					PlayerBase incomingPlayer = (PlayerBase) incoming;
 					parentThread.handleIncomingPlayer(incomingPlayer, this);
 				} else if (incoming instanceof String) {
 					String incomingString = (String) incoming;
-					boardcastToOthers(incomingString);
+					parentThread.handleStringMessage(incomingString, this);
 				}
 				
 				// Broadcast The Message To The Others

@@ -1,10 +1,11 @@
-package networking;
+package networking.threads;
 
 import java.io.ObjectInputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+import networking.sendables.GenericMessages;
 import models.characterModels.PlayerBase;
 import views.GameView;
 
@@ -16,12 +17,14 @@ import views.GameView;
 public class ClientReadThread extends Thread {
 
 	private GameView parent;
+	private boolean processing;
 	private ObjectInputStream readStream;
 	
 	// Specific Server To Connect Top
 	public ClientReadThread (ObjectInputStream inStream, GameView parent) {
 		readStream = inStream;
 		this.parent = parent;
+		processing = false;
 		
 		// Set The Thread Name So We Can See It
 		setName("Client Read Thead");
@@ -44,11 +47,15 @@ public class ClientReadThread extends Thread {
 				Object incoming = readStream.readObject();
 				System.out.println("Recieved From Server: " + incoming);
 				
+				// We Have Read Something, Set Processing To True
+				processing = true;
+				
 				if (incoming instanceof PlayerBase) {
 					PlayerBase incomingPlayer = (PlayerBase) incoming;
 					handleIncomingPlayer(incomingPlayer);
 				} else if (incoming instanceof String) {
 					String incomingString = (String) incoming;
+					handleStringMessage(incomingString);
 				}
 				
 			} catch (Exception e) {
@@ -62,5 +69,22 @@ public class ClientReadThread extends Thread {
 	public void handleIncomingPlayer (PlayerBase incoming) {
 	   System.out.println("Handling New Player Addition");
 	   parent.addPlayer(incoming);
+	   processing = false;
 	}
+	
+	public void handleStringMessage (String incoming) {
+		if (incoming.equals(GenericMessages.START_GAME)) {
+			parent.handleStartGame();
+		}
+		processing = false;
+	}
+
+	/************************** Getters And Setters *********************************/
+	public boolean isProcessing() {
+		return processing;
+	}
+
+	public void setProcessing(boolean processing) {
+		this.processing = processing;
+	}	
 }

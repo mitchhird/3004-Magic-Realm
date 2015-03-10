@@ -1,10 +1,11 @@
-package networking;
+package networking.threads;
 
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import networking.sendables.GenericMessages;
 import models.characterModels.PlayerBase;
 import utils.Pair;
 import views.GameView;
@@ -19,6 +20,7 @@ import views.GameView;
 public class ServerMainThread extends Thread {
 	
 	private int serverPort;
+	private boolean processing = false;
 	private String serverThreadName = "Server Main ";
 	private ArrayList <Pair<ServerReadThread, ServerWriteThread>> connectedClients;
 	
@@ -36,6 +38,7 @@ public class ServerMainThread extends Thread {
 	
 	// Sends An Object To All Other Threads Then The One That Called
 	public synchronized void broadcastToOthers (Object objectToSend, ServerReadThread caller) {
+		processing = false;
 		for (Pair<ServerReadThread, ServerWriteThread> s: connectedClients) {
 			if (s.getFirst() != caller) {
 				s.getSecond().writeMsg(objectToSend);
@@ -85,5 +88,20 @@ public class ServerMainThread extends Thread {
 	   incoming.initializePlayer();
 	   theGame.addPlayer(incoming);
 	   broadcastToOthers(incoming, caller);
+	}
+	
+	public void handleStringMessage (String incoming, ServerReadThread caller) {
+		if (incoming.equals(GenericMessages.START_GAME)){
+			theGame.handleStartGame();
+			broadcastToOthers(incoming, caller);
+		}
+	}
+
+	public boolean isProcessing() {
+		return processing;
+	}
+
+	public void setProcessing(boolean processing) {
+		this.processing = processing;
 	}
 }

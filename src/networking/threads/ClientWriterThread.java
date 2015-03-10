@@ -1,4 +1,4 @@
-package networking;
+package networking.threads;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -36,20 +36,10 @@ public class ClientWriterThread extends TransmissionThreadBase {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		// Now Setup The Reader Thread So We Can Update When Needed
-		setupReaderThread(inStream);
-	}
-	
-	// Sets Up The Reading Thread
-	public void setupReaderThread(ObjectInputStream inStream) { 
-		ClientReadThread newReader = new ClientReadThread(inStream, parent);
-		newReader.start();
 	}
 	
 	// Socket Constructor For The Thread
 	public ClientWriterThread(Socket newSocket) {
 		super(newSocket);
 	}
-
 }

@@ -22,9 +22,11 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import networking.ClientWriterThread;
-import networking.ServerMainThread;
-import networking.ServerReadThread;
+import networking.sendables.GenericMessages;
+import networking.threads.ClientReadThread;
+import networking.threads.ClientWriterThread;
+import networking.threads.ServerMainThread;
+import networking.threads.ServerReadThread;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
 import controller.clientController;
@@ -66,7 +68,8 @@ public class GameView extends FrameBase {
 
 	// Networking Variables
 	private boolean networkedGame;
-	private ClientWriterThread clientThread;		
+	private ClientWriterThread clientThread;
+	private ClientReadThread clientReaderThread;
 	private ServerMainThread serverThread;
 	
 	//Constructor for gameView
@@ -226,7 +229,7 @@ public class GameView extends FrameBase {
 	}
 	
 	//happens when you press the start game button, initlizes the game
-	private void handleStartGame () {
+	public void handleStartGame () {
 		System.out.println("Start Game Pressed");
 		
 		theClient.startGame();
@@ -236,6 +239,11 @@ public class GameView extends FrameBase {
 		thePlayerList.getAddPlayerButton().setEnabled(false);
 		thePlayerList.getStartGameButton().setEnabled(false);
 		JOptionPane.showMessageDialog(this, "The Game Has Started!");
+		
+		// If We Are Networked, Let Everyone Else Know Game Is Starting
+		if (networkedGame) {
+			sendMessage(GenericMessages.START_GAME);
+		}
 	}
 
 	//Shows the player's detailed character sheet
@@ -343,13 +351,18 @@ public class GameView extends FrameBase {
 	public void sendMessage (Object obj) {
 		// We Are The Master, So Send To Everyone
 		if (networkedGame && serverThread != null) {
-			serverThread.boardcastToAll(obj);
+			if (!serverThread.isProcessing()) {
+				serverThread.boardcastToAll(obj);
+			} 
+			serverThread.setProcessing(false);
 		}
 		
 		// We Are The Client So Send Over To Server
 		else if (networkedGame && clientThread != null) {
-			clientThread.writeMsg(obj);
-			System.out.println("Sent To Server: " + clientThread);
+			if (!clientReaderThread.isProcessing()) {
+				clientThread.writeMsg(obj);
+				System.out.println("Sent To Server: " + clientThread);
+			}
 		}
 	}
 	
@@ -386,6 +399,14 @@ public class GameView extends FrameBase {
 	public void setClientThread(ClientWriterThread clientThread) {
 		this.networkedGame = true;
 		this.clientThread = clientThread;
+	}
+
+	public ClientReadThread getClientReaderThread() {
+		return clientReaderThread;
+	}
+
+	public void setClientReaderThread(ClientReadThread clientReaderThread) {
+		this.clientReaderThread = clientReaderThread;
 	}
 
 	public void setServerThread(ServerMainThread serverThread) {

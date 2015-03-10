@@ -8,7 +8,8 @@ import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import networking.ClientWriterThread;
+import networking.threads.ClientReadThread;
+import networking.threads.ClientWriterThread;
 
 public class JoinView extends javax.swing.JFrame {
 
@@ -126,8 +127,12 @@ public class JoinView extends javax.swing.JFrame {
     	
     	// Start The Client Thread Up
     	ClientWriterThread test = new ClientWriterThread(ipAddressField.getText(), portNum, parent);
-    	parent.setClientThread(test);
+    	ClientReadThread reader = new ClientReadThread(test.getInStream(), parent);
     	test.start();
+    	reader.start();
+    	
+    	parent.setClientThread(test);
+    	parent.setClientReaderThread(reader);
     	
     	// Display A Message
     	JOptionPane.showMessageDialog(this, "Connected To Server At: " + ipAddressField.getText());

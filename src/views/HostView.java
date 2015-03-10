@@ -8,7 +8,7 @@ import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import networking.ServerMainThread;
+import networking.threads.ServerMainThread;
 
 public class HostView extends javax.swing.JFrame {
 
