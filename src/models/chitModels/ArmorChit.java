@@ -1,5 +1,6 @@
 package models.chitModels;
 
+import models.characterModels.playerEnums.ArmorType;
 import models.characterModels.playerEnums.Weights;
 
 public class ArmorChit {

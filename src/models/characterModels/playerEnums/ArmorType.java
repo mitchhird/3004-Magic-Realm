@@ -1,4 +1,4 @@
-package models.chitModels;
+package models.characterModels.playerEnums;
 
 public enum ArmorType {
 	ARMOUR,

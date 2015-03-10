@@ -7,10 +7,10 @@ import java.util.Set;
 import javax.swing.JOptionPane;
 
 import models.characterModels.PlayerBase;
+import models.characterModels.playerEnums.ArmorType;
 import models.characterModels.playerEnums.Attacks;
 import models.characterModels.playerEnums.Weights;
 import models.chitModels.ArmorChit;
-import models.chitModels.ArmorType;
 import models.otherEntities.CombatDataContainer;
 import utils.Pair;
 import views.CombatView;
