@@ -110,6 +110,7 @@ public class GameView extends FrameBase {
 
 		joinAction.setEnabled(false);
 		hostAction.setEnabled(false);
+		cheatAction.setEnabled(false);
 		
         fileMenu.add(newAction);
         fileMenu.add(exitAction);
