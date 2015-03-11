@@ -59,6 +59,7 @@ public class GameView extends FrameBase {
 	private JFrame cardViewer;
 	private JoinView joinViewer;
 	private HostView hostViewer;
+	private RollView rollViewer;
 
 	private JMenuItem newAction;
 	private JMenuItem exitAction;
@@ -146,7 +147,7 @@ public class GameView extends FrameBase {
         
         cheatAction.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                cheatMode();
+                cheatMode(0);
             }
         });
         
@@ -158,8 +159,10 @@ public class GameView extends FrameBase {
         
 	}
 	
-	private void cheatMode() {
-		
+	private void cheatMode(int maxRoll) {
+		rollViewer = new RollView(maxRoll);
+		rollViewer.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
+		rollViewer.setVisible(true);
 	}
 
 	private void joinGame() {
@@ -329,6 +332,7 @@ public class GameView extends FrameBase {
 	private void startGame(){
 		joinAction.setEnabled(true);
 		hostAction.setEnabled(true);
+		cheatAction.setEnabled(true);
 		newAction.setEnabled(false);
 		showGameButtons();
 		showBoard();
