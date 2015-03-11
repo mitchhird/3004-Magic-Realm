@@ -95,7 +95,7 @@ public class GameView extends FrameBase {
 		add(scrollPane);
 		
 		JMenu fileMenu = new JMenu("File");
-		JMenu netMenu = new JMenu("Netwokring");
+		JMenu netMenu = new JMenu("Networking");
 		JMenu optMenu = new JMenu("Options");
 		
 		menuBar.add(fileMenu);
