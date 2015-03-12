@@ -76,8 +76,8 @@ public class PlayerBase extends EntityBase implements Serializable {
 	protected PlayerBase chargeTarget;
 	
 	// Clearing Stuff
-	protected transient Clearing homeClearing;
-	protected transient Clearing currentClearing;
+	protected Clearing homeClearing;
+	protected Clearing currentClearing;
 	
 	// Log Recording
 	protected String currentTurn;
@@ -190,29 +190,29 @@ public class PlayerBase extends EntityBase implements Serializable {
 	
 	// Attempts To Move The Player To The Designated Clearing
 	public boolean moveToClearing (Clearing newClearing) {
-		if (currentClearing.isVaildMove(newClearing)) {
-			
-			// Log The Turn On The Player's Log And Subtract An Action
-			availableActions--;
-			logAction("M-" + newClearing.getClearingName());
-			
-			updateConnectedClearings();
-			currentClearing.updateImage();
-			currentClearing.playerMovedOffOf(this);
-			currentClearing = newClearing;
-			currentClearing.playerMovedToThis(this);
-			return true;
-		} else{
-			return false;
-		}
+		// Log The Turn On The Player's Log And Subtract An Action
+		availableActions--;
+		logAction("M-" + newClearing.getClearingName());
+
+		updateConnectedClearings();
+		currentClearing.updateImage();
+		currentClearing.playerMovedOffOf(this);
+		currentClearing = newClearing;
+		currentClearing.playerMovedToThis(this);
+		return true;
 	}
 	
 	// Moves The Player Straight To Home When Called
 	public void moveToHome() {
+		forceMove(homeClearing);
+	}
+
+	// Forces A Move To The Clearing Provided
+	public void forceMove(Clearing moveTo) {
 		updateConnectedClearings();
 		currentClearing.updateImage();
 		currentClearing.playerMovedOffOf(this);
-		currentClearing = homeClearing;
+		currentClearing = moveTo;
 		currentClearing.playerMovedToThis(this);
 	}
 	

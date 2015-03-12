@@ -22,11 +22,12 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import networking.sendables.GenericMessages;
+import networking.sendables.MessageType;
 import networking.threads.ClientReadThread;
 import networking.threads.ClientWriterThread;
 import networking.threads.ServerMainThread;
 import networking.threads.ServerReadThread;
+import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
 import controller.clientController;
@@ -246,7 +247,7 @@ public class GameView extends FrameBase {
 		
 		// If We Are Networked, Let Everyone Else Know Game Is Starting
 		if (networkedGame) {
-			sendMessage(GenericMessages.START_GAME);
+			sendMessage(MessageType.START_GAME);
 		}
 	}
 
@@ -366,7 +367,7 @@ public class GameView extends FrameBase {
 		else if (networkedGame && clientThread != null) {
 			if (!clientReaderThread.isProcessing()) {
 				clientThread.writeMsg(obj);
-				System.out.println("Sent To Server: " + clientThread);
+				System.out.println("Sent To Server: " + obj);
 			}
 		}
 	}
@@ -378,6 +379,10 @@ public class GameView extends FrameBase {
 	
 	public PlayerBase getCurrentPlayer () {
 		return theClient.getCurrentPlayer();
+	}
+	
+	public Clearing getClearingByName (String clearingName) {
+		return theBoard.getClearingByName(clearingName);
 	}
 	
 	public clientController getGameController () {

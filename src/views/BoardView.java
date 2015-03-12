@@ -34,7 +34,7 @@ public class BoardView extends JPanel {
 	
 	private float scale = 1;
 
-	private ArrayList<Clearing> theButtons = new ArrayList<Clearing>();
+	private ArrayList<Clearing> clearings = new ArrayList<Clearing>();
 	
 	private Clearing cliff1 = new Clearing("cl1");
 	private Clearing cliff2 = new Clearing("cl2");
@@ -115,12 +115,12 @@ public class BoardView extends JPanel {
 	private Clearing mwoods4 = new Clearing("mw4");
 	private Clearing mwoods5 = new Clearing("mw5");
 	
-	private Clearing caves1 = new Clearing("cv1");
-	private Clearing caves2 = new Clearing("cv2");
-	private Clearing caves3 = new Clearing("cv3");
-	private Clearing caves4 = new Clearing("cv4");
-	private Clearing caves5 = new Clearing("cv5");
-	private Clearing caves6 = new Clearing("cv6");
+	private Clearing caves1 = new Clearing("cav1");
+	private Clearing caves2 = new Clearing("cav2");
+	private Clearing caves3 = new Clearing("cav3");
+	private Clearing caves4 = new Clearing("cav4");
+	private Clearing caves5 = new Clearing("cav5");
+	private Clearing caves6 = new Clearing("cav6");
 	
 	private Clearing pwoods2 = new Clearing("pw2");
 	private Clearing pwoods4 = new Clearing("pw4");
@@ -182,124 +182,124 @@ public class BoardView extends JPanel {
 		setPreferredSize( new Dimension(1300,1486));
 		setLayout(null);
 		
-		theButtons.add(cliff1);
-		theButtons.add(cliff2);
-		theButtons.add(cliff3);
-		theButtons.add(cliff4);
-		theButtons.add(cliff5);
-		theButtons.add(cliff6);
+		clearings.add(cliff1);
+		clearings.add(cliff2);
+		clearings.add(cliff3);
+		clearings.add(cliff4);
+		clearings.add(cliff5);
+		clearings.add(cliff6);
 		
-		theButtons.add(evalley1);
-		theButtons.add(evalley2);
-		theButtons.add(evalley4);
-		theButtons.add(evalley5);
+		clearings.add(evalley1);
+		clearings.add(evalley2);
+		clearings.add(evalley4);
+		clearings.add(evalley5);
 		
-		theButtons.add(hpass1);
-		theButtons.add(hpass2);
-		theButtons.add(hpass3);
-		theButtons.add(hpass4);
-		theButtons.add(hpass5);
-		theButtons.add(hpass6);
+		clearings.add(hpass1);
+		clearings.add(hpass2);
+		clearings.add(hpass3);
+		clearings.add(hpass4);
+		clearings.add(hpass5);
+		clearings.add(hpass6);
 		
-		theButtons.add(ledges1);
-		theButtons.add(ledges2);
-		theButtons.add(ledges3);
-		theButtons.add(ledges4);
-		theButtons.add(ledges5);
-		theButtons.add(ledges6);
+		clearings.add(ledges1);
+		clearings.add(ledges2);
+		clearings.add(ledges3);
+		clearings.add(ledges4);
+		clearings.add(ledges5);
+		clearings.add(ledges6);
 		
-		theButtons.add(bland1);
-		theButtons.add(bland2);
-		theButtons.add(bland3);
-		theButtons.add(bland4);
-		theButtons.add(bland5);
-		theButtons.add(bland6);
+		clearings.add(bland1);
+		clearings.add(bland2);
+		clearings.add(bland3);
+		clearings.add(bland4);
+		clearings.add(bland5);
+		clearings.add(bland6);
 		
-		theButtons.add(cavern1);
-		theButtons.add(cavern2);
-		theButtons.add(cavern3);
-		theButtons.add(cavern4);
-		theButtons.add(cavern5);
-		theButtons.add(cavern6);
+		clearings.add(cavern1);
+		clearings.add(cavern2);
+		clearings.add(cavern3);
+		clearings.add(cavern4);
+		clearings.add(cavern5);
+		clearings.add(cavern6);
 		
-		theButtons.add(crag1);
-		theButtons.add(crag2);
-		theButtons.add(crag3);
-		theButtons.add(crag4);
-		theButtons.add(crag5);
-		theButtons.add(crag6);
+		clearings.add(crag1);
+		clearings.add(crag2);
+		clearings.add(crag3);
+		clearings.add(crag4);
+		clearings.add(crag5);
+		clearings.add(crag6);
 		
-		theButtons.add(owoods2);
-		theButtons.add(owoods4);
-		theButtons.add(owoods5);
+		clearings.add(owoods2);
+		clearings.add(owoods4);
+		clearings.add(owoods5);
 		
-		theButtons.add(bvalley1);
-		theButtons.add(bvalley2);
-		theButtons.add(bvalley4);
-		theButtons.add(bvalley5);
+		clearings.add(bvalley1);
+		clearings.add(bvalley2);
+		clearings.add(bvalley4);
+		clearings.add(bvalley5);
 		
-		theButtons.add(mountain1);
-		theButtons.add(mountain2);
-		theButtons.add(mountain3);
-		theButtons.add(mountain4);
-		theButtons.add(mountain5);
-		theButtons.add(mountain6);
+		clearings.add(mountain1);
+		clearings.add(mountain2);
+		clearings.add(mountain3);
+		clearings.add(mountain4);
+		clearings.add(mountain5);
+		clearings.add(mountain6);
 		
-		theButtons.add(dvalley1);
-		theButtons.add(dvalley2);
-		theButtons.add(dvalley4);
-		theButtons.add(dvalley5);
+		clearings.add(dvalley1);
+		clearings.add(dvalley2);
+		clearings.add(dvalley4);
+		clearings.add(dvalley5);
 		
-		theButtons.add(dwoods1);
-		theButtons.add(dwoods2);
-		theButtons.add(dwoods3);
-		theButtons.add(dwoods4);
-		theButtons.add(dwoods5);
-		theButtons.add(dwoods6);
+		clearings.add(dwoods1);
+		clearings.add(dwoods2);
+		clearings.add(dwoods3);
+		clearings.add(dwoods4);
+		clearings.add(dwoods5);
+		clearings.add(dwoods6);
 		
-		theButtons.add(mwoods2);
-		theButtons.add(mwoods4);
-		theButtons.add(mwoods5);
+		clearings.add(mwoods2);
+		clearings.add(mwoods4);
+		clearings.add(mwoods5);
 		
-		theButtons.add(caves1);
-		theButtons.add(caves2);
-		theButtons.add(caves3);
-		theButtons.add(caves4);
-		theButtons.add(caves5);
-		theButtons.add(caves6);
+		clearings.add(caves1);
+		clearings.add(caves2);
+		clearings.add(caves3);
+		clearings.add(caves4);
+		clearings.add(caves5);
+		clearings.add(caves6);
 		
-		theButtons.add(pwoods2);
-		theButtons.add(pwoods4);
-		theButtons.add(pwoods5);
+		clearings.add(pwoods2);
+		clearings.add(pwoods4);
+		clearings.add(pwoods5);
 		
-		theButtons.add(cvalley1);
-		theButtons.add(cvalley2);
-		theButtons.add(cvalley4);
-		theButtons.add(cvalley5);
+		clearings.add(cvalley1);
+		clearings.add(cvalley2);
+		clearings.add(cvalley4);
+		clearings.add(cvalley5);
 		
-		theButtons.add(nwoods5);
-		theButtons.add(nwoods2);
-		theButtons.add(nwoods4);
+		clearings.add(nwoods5);
+		clearings.add(nwoods2);
+		clearings.add(nwoods4);
 		
-		theButtons.add(ruins1);
-		theButtons.add(ruins2);
-		theButtons.add(ruins3);
-		theButtons.add(ruins4);
-		theButtons.add(ruins5);
-		theButtons.add(ruins6);
+		clearings.add(ruins1);
+		clearings.add(ruins2);
+		clearings.add(ruins3);
+		clearings.add(ruins4);
+		clearings.add(ruins5);
+		clearings.add(ruins6);
 		
-		theButtons.add(avalley1);
-		theButtons.add(avalley2);
-		theButtons.add(avalley4);
-		theButtons.add(avalley5);
+		clearings.add(avalley1);
+		clearings.add(avalley2);
+		clearings.add(avalley4);
+		clearings.add(avalley5);
 		
-		theButtons.add(lwoods2);
-		theButtons.add(lwoods4);
-		theButtons.add(lwoods5);
+		clearings.add(lwoods2);
+		clearings.add(lwoods4);
+		clearings.add(lwoods5);
 		
 		//Adds the components to the board
-		for(int i = 0; i < theButtons.size(); i++){
-			add(theButtons.get(i).getButtonTiedToClearing());
+		for(int i = 0; i < clearings.size(); i++){
+			add(clearings.get(i).getButtonTiedToClearing());
 		}
 		
 		initClearings();
@@ -308,7 +308,7 @@ public class BoardView extends JPanel {
 
 	// Adds All Of The Clearing Listeners
 	private void addClearingListeners() {
-		for (Clearing c: theButtons) {
+		for (Clearing c: clearings) {
 			addListener(c);
 		}
 	}
@@ -557,6 +557,7 @@ public class BoardView extends JPanel {
             	}
             	if (parent.getCurrentPlayer().isMoving() && parent.getCurrentPlayer().getCurrentClearing().isVaildMove(c)){
             		parent.getCurrentPlayer().moveToClearing(c);
+            		parent.sendMessage(c);
             		
             		// If Player Has No More Movements Then Stop Them
             		if (parent.getCurrentPlayer().getAvailableActions() > 0) {
@@ -640,5 +641,16 @@ public class BoardView extends JPanel {
 		case ELF: return inn.getClearingThisOn();
 		default: return avalley2;
 		}
+	}
+	
+	/************************** Getters And Setters **********************/
+	public Clearing getClearingByName(String clearingName) {
+		// Loop Over The Clearings And Return The One Want To Move To
+		for (Clearing c: clearings) {
+			if (c.getClearingName().equals(clearingName)) {
+				return c;
+			}
+		}
+		return null;
 	}
 }

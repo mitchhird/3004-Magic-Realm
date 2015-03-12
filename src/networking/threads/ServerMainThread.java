@@ -5,7 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import networking.sendables.GenericMessages;
+import networking.sendables.MessageType;
+import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
 import utils.Pair;
 import views.GameView;
@@ -86,14 +87,19 @@ public class ServerMainThread extends Thread {
 	public void handleIncomingPlayer (PlayerBase incoming, ServerReadThread caller) {
 	   System.out.println("Handling New Player Addition");
 	   incoming.initializePlayer();
+	   incoming.setPlayerIP(caller.getReadingIp());
 	   theGame.addPlayer(incoming);
-	   broadcastToOthers(incoming, caller);
 	}
 	
-	public void handleStringMessage (String incoming, ServerReadThread caller) {
-		if (incoming.equals(GenericMessages.START_GAME)){
+	public void handleUpdate (Clearing incoming, ServerReadThread caller) {
+		System.out.println("Handling Player Update");
+		Clearing moveTo = theGame.getClearingByName(incoming.getClearingName());
+		theGame.getCurrentPlayer().moveToClearing(moveTo);
+	}
+	
+	public void handleMessage (MessageType incoming, ServerReadThread caller) {
+		if (incoming.equals(MessageType.START_GAME)){
 			theGame.handleStartGame();
-			broadcastToOthers(incoming, caller);
 		}
 	}
 

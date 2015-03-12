@@ -5,7 +5,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import networking.sendables.GenericMessages;
+import networking.sendables.MessageType;
+import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
 import views.GameView;
 
@@ -53,11 +54,12 @@ public class ClientReadThread extends Thread {
 				if (incoming instanceof PlayerBase) {
 					PlayerBase incomingPlayer = (PlayerBase) incoming;
 					handleIncomingPlayer(incomingPlayer);
-				} else if (incoming instanceof String) {
-					String incomingString = (String) incoming;
-					handleStringMessage(incomingString);
+				} else if (incoming instanceof MessageType) {
+					MessageType incomingString = (MessageType) incoming;
+					handleMessage(incomingString);
 				}
 				
+			   processing = false;
 			} catch (Exception e) {
 				closeConnection();
 				break;
@@ -69,16 +71,21 @@ public class ClientReadThread extends Thread {
 	public void handleIncomingPlayer (PlayerBase incoming) {
 	   System.out.println("Handling New Player Addition");
 	   parent.addPlayer(incoming);
-	   processing = false;
+	   incoming.initializePlayer();
 	}
 	
-	public void handleStringMessage (String incoming) {
-		if (incoming.equals(GenericMessages.START_GAME)) {
+	public void handleMessage (MessageType incoming) {
+		if (incoming.equals(MessageType.START_GAME)){
 			parent.handleStartGame();
 		}
-		processing = false;
 	}
-
+	
+	public void handleUpdate (Clearing incoming, ServerReadThread caller) {
+		System.out.println("Handling Player Update");
+		Clearing moveTo = parent.getClearingByName(incoming.getClearingName());
+		parent.getCurrentPlayer().moveToClearing(moveTo);
+	}
+	
 	/************************** Getters And Setters *********************************/
 	public boolean isProcessing() {
 		return processing;

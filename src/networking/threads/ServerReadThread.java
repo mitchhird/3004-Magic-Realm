@@ -4,6 +4,9 @@ import java.net.Socket;
 
 import javax.print.attribute.standard.Severity;
 
+import networking.sendables.MessageType;
+import sun.awt.windows.ThemeReader;
+import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
 
 /**
@@ -13,6 +16,7 @@ import models.characterModels.PlayerBase;
  */
 public class ServerReadThread extends TransmissionThreadBase {
 
+	private String readingIp;
 	private ServerMainThread parentThread;
 	
 	// Specific Server To Connect Top
@@ -25,7 +29,8 @@ public class ServerReadThread extends TransmissionThreadBase {
 	public ServerReadThread(Socket newSocket, ServerMainThread parent) {
 		super(newSocket);
 		parentThread = parent;
-		setName("Server Read Thread (" + newSocket.getInetAddress().getHostAddress() +")");
+		readingIp = newSocket.getInetAddress().getHostAddress();
+		setName("Server Read Thread (" + readingIp +")");
 	}
 
 	// Tell The Server To Send The Object To The Other Clients For Processing
@@ -46,13 +51,18 @@ public class ServerReadThread extends TransmissionThreadBase {
 				if (incoming instanceof PlayerBase) {
 					PlayerBase incomingPlayer = (PlayerBase) incoming;
 					parentThread.handleIncomingPlayer(incomingPlayer, this);
-				} else if (incoming instanceof String) {
-					String incomingString = (String) incoming;
-					parentThread.handleStringMessage(incomingString, this);
+				} else if (incoming instanceof MessageType) {
+					MessageType incomingMessage = (MessageType) incoming;
+					parentThread.handleMessage(incomingMessage, this);
+				} else if (incoming instanceof Clearing) {
+					Clearing incomingClearing = (Clearing) incoming;
+					parentThread.handleUpdate(incomingClearing, this);
 				}
 				
 				// Broadcast The Message To The Others
 				boardcastToOthers(incoming);
+				
+				parentThread.setProcessing(false);
 			} catch (Exception e) {
 				e.printStackTrace();
 				closeConnection();
@@ -60,5 +70,13 @@ public class ServerReadThread extends TransmissionThreadBase {
 			}
 		};
 	}
-	
+
+	/************************** Getters And Setters ****************************/
+	public String getReadingIp() {
+		return readingIp;
+	}
+
+	public void setReadingIp(String readingIp) {
+		this.readingIp = readingIp;
+	}
 }

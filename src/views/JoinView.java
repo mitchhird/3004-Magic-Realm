@@ -31,6 +31,9 @@ public class JoinView extends javax.swing.JFrame {
         try {
         	this.parent = parent;
 			hostAddress = InetAddress.getLocalHost().getHostAddress();
+			setName("Join Game");
+			
+			// Initialize Everything
 			initComponents();
 			addListeners();
 		} catch (UnknownHostException e) {
@@ -109,6 +112,7 @@ public class JoinView extends javax.swing.JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				handleConnectButton();
+				dispose();
 			}
 		});
     	

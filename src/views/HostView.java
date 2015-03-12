@@ -31,6 +31,9 @@ public class HostView extends javax.swing.JFrame {
         try {
         	this.parent = parent;
 			hostAddress = InetAddress.getLocalHost().getHostAddress();
+			setName("Host View");
+			
+			// Initialize Components
 			initComponents();
 			addListeners();
 		} catch (UnknownHostException e) {

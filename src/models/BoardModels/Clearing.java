@@ -30,8 +30,8 @@ public class Clearing implements Serializable {
 	private Set <Clearing> connectedClearings;
 	private Set <TreasureModel> treasuresInClearing;
 	private Set <PlayerBase> playersInClearing;
-	private Set <Image> imageEnitiesOnThis;
 	
+	private transient Set <Image> imageEnitiesOnThis;
 	private transient Set <EntityBase> entitiesInClearing;
 	private static final long serialVersionUID = -3697827851116659513L;
 
