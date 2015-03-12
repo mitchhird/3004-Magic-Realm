@@ -126,7 +126,7 @@ public class GameView extends FrameBase {
         //Action listeners
         newAction.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                startGame();
+                newGame();
             }
         });
         
@@ -241,7 +241,7 @@ public class GameView extends FrameBase {
 	public void handleStartGame () {
 		System.out.println("Start Game Pressed");
 		
-		theBoard.setInn();
+		theBoard.placeItemsOnBoard();
 		theClient.startGame();
 		thePlayerList.updateTable();
 		thePlayerButtons.massSetButtonState(true);
@@ -335,7 +335,7 @@ public class GameView extends FrameBase {
 	}
 	
 	// Starts The Game
-	private void startGame(){
+	private void newGame(){
 		joinAction.setEnabled(true);
 		hostAction.setEnabled(true);
 		cheatAction.setEnabled(true);

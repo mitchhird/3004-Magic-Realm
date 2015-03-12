@@ -158,7 +158,7 @@ public class BoardView extends JPanel {
 	private JFrame hoverFrame = null;
 	private HoverView hoverPanel;
 
-	private Clearing cheatLocation;
+	private Clearing currentClearing;
 	
 	//Constructor for the BoardView
 	public BoardView (GameView parent){
@@ -166,21 +166,25 @@ public class BoardView extends JPanel {
 		this.parent = parent;
 	}
 	
-	public void setInn(){
+	public void placeItemsOnBoard(){
 		try {
 			Image innImage = ImageIO.read(getClass().getResource("/dwellings_c/inn.gif"));
 			if(GameUtils.getCheatMode()){
-				PlacementView thePlacer = new PlacementView(new String[]{"Inn"}, clearings, this);
-				thePlacer.setVisible(true);
-				inn = new Dwelling(cheatLocation, innImage);
+				int temp = getCurrentClearing();
 			}else{
-				inn = new Dwelling(dvalley4, innImage);
+				currentClearing = dvalley4;
 			}
-			inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
+			inn = new Dwelling(currentClearing, innImage);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+	private int getCurrentClearing() {
+		PlacementView thePlacer = new PlacementView(new String[]{"Inn"}, clearings, this);
+		thePlacer.setVisible(true);
+		return 0;
+	}
+
 	//Initialization method, sets up the board
 	private void init(){
 		try {
@@ -675,6 +679,6 @@ public class BoardView extends JPanel {
 	}
 
 	public void setCheatClearing(Clearing clearing) {
-		cheatLocation = clearing;
+		currentClearing = clearing;
 	}
 }
