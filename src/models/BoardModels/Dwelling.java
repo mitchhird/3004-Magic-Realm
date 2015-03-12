@@ -1,6 +1,7 @@
 package models.BoardModels;
 
 import java.awt.Image;
+import java.util.ArrayList;
 
 import utils.GameUtils;
 import views.PlacementView;
@@ -14,13 +15,8 @@ public class Dwelling {
 	private Image imageRepresentation;
 	
 	// Constructor For The Clearing Object
-	public Dwelling (Clearing theClearing, Image imageRep, String theName) {
-		if(GameUtils.getCheatMode()){
-			PlacementView thePlacer = new PlacementView(new String[]{theName});
-			thePlacer.setVisible(true);
-		}else{
-			clearingThisOn = theClearing;
-		}
+	public Dwelling (Clearing theClearing, Image imageRep) {
+		clearingThisOn = theClearing;
 		imageRepresentation = imageRep;
 	}
 
@@ -41,5 +37,8 @@ public class Dwelling {
 		this.imageRepresentation = imageRepresentation;
 	}
 	
+	public void setClearing(Clearing newClearing){
+		clearingThisOn = newClearing;
+	}
 	
 }

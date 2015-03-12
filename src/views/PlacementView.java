@@ -2,6 +2,11 @@ package views;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+
+import models.BoardModels.Clearing;
 
 @SuppressWarnings("rawtypes")
 public class PlacementView extends javax.swing.JFrame {
@@ -14,11 +19,16 @@ public class PlacementView extends javax.swing.JFrame {
 	private javax.swing.JComboBox itemList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;    
+    private BoardView ourParent;
+    private ArrayList<Clearing> theClearings;
     
     @SuppressWarnings("unchecked")
-	public PlacementView(String[] theModel1) {
+	public PlacementView(String[] theModel1, ArrayList<Clearing> newClearings, BoardView theParent) {
         initComponents();
         itemList.setModel(new javax.swing.DefaultComboBoxModel(theModel1));
+        locationList.setModel(new javax.swing.DefaultComboBoxModel(newClearings.toArray()));
+        ourParent = theParent;
+        theClearings = newClearings;
     }
                          
     @SuppressWarnings("unchecked")
@@ -35,8 +45,13 @@ public class PlacementView extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent arg0) {
             	placeItem();
             }
-        });		
+        });	
         
+        addWindowListener(new WindowAdapter(){
+            public void windowClosing(WindowEvent e){
+            	dispose();
+            }
+        });
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Item:");
@@ -94,7 +109,8 @@ public class PlacementView extends javax.swing.JFrame {
     }                           
     
     private void placeItem() {
-		
+		ourParent.setCheatClearing(theClearings.get(locationList.getSelectedIndex()));
+		dispose();
 	}
 
 	@SuppressWarnings("unchecked")

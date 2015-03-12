@@ -19,6 +19,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import utils.GameUtils;
 import models.BoardModels.Clearing;
 import models.BoardModels.Dwelling;
 import models.characterModels.playerEnums.CharacterClass;
@@ -156,6 +157,8 @@ public class BoardView extends JPanel {
 	private GameView parent;
 	private JFrame hoverFrame = null;
 	private HoverView hoverPanel;
+
+	private Clearing cheatLocation;
 	
 	//Constructor for the BoardView
 	public BoardView (GameView parent){
@@ -166,7 +169,13 @@ public class BoardView extends JPanel {
 	public void setInn(){
 		try {
 			Image innImage = ImageIO.read(getClass().getResource("/dwellings_c/inn.gif"));
-			inn = new Dwelling(dvalley4, innImage, "Inn");
+			if(GameUtils.getCheatMode()){
+				PlacementView thePlacer = new PlacementView(new String[]{"Inn"}, clearings, this);
+				thePlacer.setVisible(true);
+				inn = new Dwelling(cheatLocation, innImage);
+			}else{
+				inn = new Dwelling(dvalley4, innImage);
+			}
 			inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -596,17 +605,7 @@ public class BoardView extends JPanel {
 	}
 	
 	private void scaleButtons(){
-		int new1;
-		int new2;
 		for(int i = 0; i < clearings.size();i++){
-			/*
-			new1 = (int) (clearings.get(i).getButtonTiedToClearing().getSize().getWidth()*scale);
-			new2 = (int) (clearings.get(i).getButtonTiedToClearing().getSize().getHeight()*scale);
-			clearings.get(i).setSize(new1,new2);
-			new1 = (int) (clearings.get(i).getButtonTiedToClearing().getLocation().getX()*scale);
-			new2 = (int) (clearings.get(i).getButtonTiedToClearing().getLocation().getY()*scale);
-			clearings.get(i).setLocation(new1,new2);
-			*/
 			clearings.get(i).scaleClearing(scale);
 		}
 	}
@@ -673,5 +672,9 @@ public class BoardView extends JPanel {
 			}
 		}
 		return null;
+	}
+
+	public void setCheatClearing(Clearing clearing) {
+		cheatLocation = clearing;
 	}
 }

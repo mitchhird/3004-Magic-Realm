@@ -328,4 +328,9 @@ public class Clearing implements Serializable {
 	public void setPlayersInClearing(HashSet<PlayerBase> playersInClearing) {
 		this.playersInClearing = playersInClearing;
 	}
+	
+	@Override
+	public String toString(){
+		return clearingName;
+	}
 }
