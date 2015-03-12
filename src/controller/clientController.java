@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 
+import utils.GameUtils;
 import views.GameView;
 import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
@@ -13,13 +14,11 @@ public class clientController {
 	private int currentPlayerIndex;
 	private PlayerBase currentPlayer;
 	private ArrayList<PlayerBase> thePlayers;
-	boolean cheatMode;
 	
 	private boolean gameStarted;
 
 	public clientController(GameView theView){
 		parent = theView;
-		cheatMode = false;
 		currentPlayerIndex = 0;
 		thePlayers = new ArrayList<PlayerBase>();
 	}
@@ -39,14 +38,6 @@ public class clientController {
 		if (parent.isNetworkedGame()) {
 			parent.sendMessage(aPlayer);
 		}
-	}
-	
-	public void setCheatMode(boolean flag){
-		cheatMode = flag;
-	}
-	
-	public boolean getCheatMode(){
-		return cheatMode;
 	}
 	
 	// Adds A Player That Is Already Known To The System

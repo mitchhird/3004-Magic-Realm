@@ -2,6 +2,7 @@ package utils;
 
 import java.util.Random;
 
+import views.RollView;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.TradeRelation;
 
@@ -12,11 +13,28 @@ public class GameUtils {
 	
 	public static String SEARCH_LOCATE = "LOCATE";
 	public static String SEARCH_LOOT = "LOOT";
+	private static boolean cheatMode = false;
+	private static RollView theRoller;
+	private static int cheatRoll = 0;
 	
 	// Returns A Random Value Between Ranges
 	public static int createRandomInt (int beginRange, int endRange) {
-		Random randomizer = new Random();
-		return (randomizer.nextInt((endRange - beginRange) + 1) + beginRange);
+		if(cheatMode){
+			theRoller = new RollView(endRange);
+			theRoller.setVisible(true);
+			return cheatRoll;
+		}else{
+			Random randomizer = new Random();
+			return (randomizer.nextInt((endRange - beginRange) + 1) + beginRange);
+		}
+	}
+	
+	public static boolean getCheatMode(){
+		return cheatMode;
+	}
+	
+	public static void setCheatMode(boolean theMode){
+		cheatMode = theMode;
 	}
 	
 	//Returns A Random Array of Players From Another Array
@@ -373,5 +391,13 @@ public class GameUtils {
 			break;
 		}
 		return result;
+	}
+
+	public static int getCheatRoll() {
+		return cheatRoll;
+	}
+
+	public static void setCheatRoll(int cheatRoll) {
+		GameUtils.cheatRoll = cheatRoll;
 	}
 }

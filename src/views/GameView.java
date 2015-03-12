@@ -23,6 +23,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import utils.GameUtils;
 import networking.sendables.MessageType;
 import networking.threads.ClientReadThread;
 import networking.threads.ClientWriterThread;
@@ -162,10 +163,10 @@ public class GameView extends FrameBase {
 	}
 	
 	private void cheatMode() {
-		if(theClient.getCheatMode()){
-			theClient.setCheatMode(false);
+		if(GameUtils.getCheatMode()){
+			GameUtils.setCheatMode(false);
 		}else{
-			theClient.setCheatMode(true);
+			GameUtils.setCheatMode(true);
 		}
 		/*
 		rollViewer = new RollView(12);

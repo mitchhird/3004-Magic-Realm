@@ -6,6 +6,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Random;
 
+import javax.swing.JButton;
+
+import utils.GameUtils;
+
 public class RollView extends javax.swing.JFrame {
 
 	private static final long serialVersionUID = 6220875929681965271L;
@@ -109,10 +113,15 @@ public class RollView extends javax.swing.JFrame {
 			}
 		});
     }
+    
+    public JButton getSetButton(){
+    	return setButton;
+    }
 
 	private void handleSetButton() {
 		if(!(Integer.parseInt(desiredRollField.getText())>Integer.parseInt(maxRollLabel.getText()))){
-			//Todo
+			GameUtils.setCheatRoll(Integer.parseInt(desiredRollField.getText()));
+			dispose();
 		}
 	}
 
