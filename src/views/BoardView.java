@@ -304,6 +304,7 @@ public class BoardView extends JPanel {
 		
 		initClearings();
 		addClearingListeners();	
+		addZoomScroller();
 	}
 
 	// Adds All Of The Clearing Listeners
@@ -576,12 +577,15 @@ public class BoardView extends JPanel {
 				handleImageEnter(c);
 			}
 		});
-		
+	}
+	
+	private void addZoomScroller() {
 		addMouseWheelListener(new MouseAdapter() {
 
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
-                double delta = 0.0006f * e.getPreciseWheelRotation();
+            	System.out.println(e.getPreciseWheelRotation());
+                double delta = 0.057f * e.getPreciseWheelRotation();
                 scale += delta;
                 scaleButtons();
                 revalidate();
