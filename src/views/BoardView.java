@@ -583,8 +583,8 @@ public class BoardView extends JPanel {
             public void mouseWheelMoved(MouseWheelEvent e) {
                 double delta = 0.0006f * e.getPreciseWheelRotation();
                 scale += delta;
-                revalidate();
                 scaleButtons();
+                revalidate();
                 repaint();
             }
 
@@ -592,9 +592,15 @@ public class BoardView extends JPanel {
 	}
 	
 	private void scaleButtons(){
+		int new1;
+		int new2;
 		for(int i = 0; i < clearings.size();i++){
-			clearings.get(i).setSize(clearings.get(i).getButtonTiedToClearing().getSize().width*scale,clearings.get(i).getButtonTiedToClearing().getSize().height*scale);
-			clearings.get(i).setLocation((int)(clearings.get(i).getButtonTiedToClearing().getLocation().x*scale),(int)(clearings.get(i).getButtonTiedToClearing().getLocation().y*scale));
+			new1 = (int) (clearings.get(i).getButtonTiedToClearing().getSize().getWidth()*scale);
+			new2 = (int) (clearings.get(i).getButtonTiedToClearing().getSize().getHeight()*scale);
+			clearings.get(i).setSize(new1,new2);
+			new1 = (int) (clearings.get(i).getButtonTiedToClearing().getLocation().getX()*scale);
+			new2 = (int) (clearings.get(i).getButtonTiedToClearing().getLocation().getY()*scale);
+			clearings.get(i).setLocation(new1,new2);
 		}
 	}
 	

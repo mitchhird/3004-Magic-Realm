@@ -245,8 +245,8 @@ public class Clearing implements Serializable {
 		buttonTiedToClearing.setLocation(x, y);
 	}
 
-	public void setSize (float x, float y) {
-		buttonTiedToClearing.setSize((int)x, (int)y);
+	public void setSize (int x, int y) {
+		buttonTiedToClearing.setSize(x, y);
 	}
 		
 	public Set<Clearing> getConnectedClearings() {
