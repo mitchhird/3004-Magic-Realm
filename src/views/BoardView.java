@@ -170,21 +170,17 @@ public class BoardView extends JPanel {
 		try {
 			Image innImage = ImageIO.read(getClass().getResource("/dwellings_c/inn.gif"));
 			if(GameUtils.getCheatMode()){
-				int temp = getCurrentClearing();
+				PlacementView thePlacer = new PlacementView(new String[]{"Inn"}, clearings, this);
+				thePlacer.setVisible(true);
 			}else{
 				currentClearing = dvalley4;
 			}
 			inn = new Dwelling(currentClearing, innImage);
+			inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	private int getCurrentClearing() {
-		PlacementView thePlacer = new PlacementView(new String[]{"Inn"}, clearings, this);
-		thePlacer.setVisible(true);
-		return 0;
-	}
-
 	//Initialization method, sets up the board
 	private void init(){
 		try {

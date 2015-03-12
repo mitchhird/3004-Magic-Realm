@@ -18,7 +18,6 @@ public class Dwelling {
 	public Dwelling (Clearing theClearing, Image imageRep) {
 		clearingThisOn = theClearing;
 		imageRepresentation = imageRep;
-		clearingThisOn.addImageToList(imageRepresentation);
 	}
 
 	/*------------------ Getters And Setters ----------------*/
