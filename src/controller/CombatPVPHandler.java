@@ -40,8 +40,21 @@ public class CombatPVPHandler {
 		readyPlayers = new HashSet<>();
 		
 		this.parentView = parentView;
+		setArmor();
 	}
-	
+
+	private void setArmor() {
+		String suit = null;
+		String breast = null;
+		String helmet = null;
+		for(int i = 0;i<currentDefender.getArmorChits().size();i++){
+			if(currentDefender.getArmorChits().get(i).getArmourType().equals(ArmorType.HELMET)){
+				
+			}
+		}
+		parentView.setArmor(suit, breast, helmet);
+	}
+
 	// Gets The Next Attacker
 	public void setNextAttacker () {
 		combatData.add(new CombatDataContainer(currentAttacker, currentAttack, null));
