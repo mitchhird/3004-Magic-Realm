@@ -49,7 +49,11 @@ public class CombatPVPHandler {
 		String helmet = null;
 		for(int i = 0;i<currentDefender.getArmorChits().size();i++){
 			if(currentDefender.getArmorChits().get(i).getArmourType().equals(ArmorType.HELMET)){
-				
+				helmet = currentDefender.getArmorChits().get(i).toString();
+			}else if(currentDefender.getArmorChits().get(i).getArmourType().equals(ArmorType.BREASTPLATE)){
+				breast = currentDefender.getArmorChits().get(i).toString();
+			}else if(currentDefender.getArmorChits().get(i).getArmourType().equals(ArmorType.ARMOUR)){
+				suit = currentDefender.getArmorChits().get(i).toString();
 			}
 		}
 		parentView.setArmor(suit, breast, helmet);
