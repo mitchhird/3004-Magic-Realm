@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import networking.sendables.MessageType;
+import networking.sendables.UpdateDataObject;
 import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
 import views.GameView;
@@ -84,6 +85,12 @@ public class ClientReadThread extends Thread {
 		System.out.println("Handling Player Update");
 		Clearing moveTo = parent.getClearingByName(incoming.getClearingName());
 		parent.getCurrentPlayer().moveToClearing(moveTo);
+	}
+	
+	public void handleContainer (UpdateDataObject incoming) {
+		if (incoming.getUpdateType() == MessageType.UPDATE_PLAYER_HIDE) {
+			parent.getCurrentPlayer().setHidden(incoming.isHidden());
+		}
 	}
 	
 	/************************** Getters And Setters *********************************/

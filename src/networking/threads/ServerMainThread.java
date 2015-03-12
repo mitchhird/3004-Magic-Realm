@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import networking.sendables.MessageType;
+import networking.sendables.UpdateDataObject;
 import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
 import utils.Pair;
@@ -91,18 +92,27 @@ public class ServerMainThread extends Thread {
 	   theGame.addPlayer(incoming);
 	}
 	
-	public void handleUpdate (Clearing incoming, ServerReadThread caller) {
+	public void handleUpdate (Clearing incoming) {
 		System.out.println("Handling Player Update");
 		Clearing moveTo = theGame.getClearingByName(incoming.getClearingName());
 		theGame.getCurrentPlayer().moveToClearing(moveTo);
 	}
 	
-	public void handleMessage (MessageType incoming, ServerReadThread caller) {
+	public void handleMessage (MessageType incoming) {
 		if (incoming.equals(MessageType.START_GAME)){
 			theGame.handleStartGame();
+		} else if (incoming == MessageType.SEND_TURN) {
+			// TODO: Fill This In
+		}
+	}
+	
+	public void handleContainer (UpdateDataObject incoming) {
+		if (incoming.getUpdateType() == MessageType.UPDATE_PLAYER_HIDE) {
+			theGame.getCurrentPlayer().setHidden(incoming.isHidden());
 		}
 	}
 
+	/**************************** Getters And Setters ****************************/
 	public boolean isProcessing() {
 		return processing;
 	}

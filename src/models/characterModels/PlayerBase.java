@@ -173,17 +173,10 @@ public class PlayerBase extends EntityBase implements Serializable {
 	// Attempts To Hide The Player, Consult Die Table For Reasoning For Result
 	public boolean attemptHide () {
 		availableActions--;
+		
 		int dieRoll = GameUtils.createRandomInt(1, 6);
-		hidden = (hidden) ? true : dieRoll < 6;
-		
+		setHidden((hidden) ? true : dieRoll < 6);		
 		logAction ("H");
-		
-		// If The Player Hid Then Simply Refresh The Player's Image
-		if (hidden) {
-			JButton clearingButton = currentClearing.getButtonTiedToClearing();
-			Image playerIcon = getImage().getScaledInstance(clearingButton.getWidth(), clearingButton.getHeight(), Image.SCALE_SMOOTH);
-			currentClearing.updateImage();
-		}
 		
 		return hidden;
 	}
@@ -533,5 +526,11 @@ public class PlayerBase extends EntityBase implements Serializable {
 
 	public int getGold() {
 		return currentGold;
+	}
+	
+	@Override
+	public void setHidden(boolean hidden) {
+		super.setHidden(hidden);
+		currentClearing.updateImage();
 	}
 }

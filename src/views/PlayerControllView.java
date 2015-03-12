@@ -4,12 +4,15 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import networking.sendables.MessageType;
+import networking.sendables.UpdateDataObject;
 import models.characterModels.PlayerBase;
 import models.otherEntities.TreasureModel;
 
@@ -466,7 +469,8 @@ public class PlayerControllView extends javax.swing.JPanel {
     	// If The Player Can Do The Action
     	if (currentPlayer.getAvailableActions() > 0) {
     		currentPlayer.attemptHide();
-    		parent.sendMessage("Attempting Hide");
+    		UpdateDataObject data = new UpdateDataObject(currentPlayer, MessageType.UPDATE_PLAYER_HIDE);
+    		parent.sendMessage(data);
     	} else {
     		JOptionPane.showMessageDialog(this, "You Have No More Actions For This Turn");
     	}
@@ -492,7 +496,7 @@ public class PlayerControllView extends javax.swing.JPanel {
     }                                        
 
     //method used for sending a turn to the controller
-    private void handleSendTurn () {
+    public void handleSendTurn () {
     	System.out.println("Send Turn Has Been Pressed");
     	
     	// If The Game Has Started

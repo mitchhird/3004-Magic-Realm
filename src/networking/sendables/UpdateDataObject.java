@@ -11,4 +11,32 @@ import models.characterModels.PlayerBase;
 public class UpdateDataObject implements Serializable {
 	private PlayerBase sentPlayer;
 	private MessageType updateType;
+	
+	private boolean hidden;
+	
+	public UpdateDataObject (PlayerBase sentPlayer, MessageType updateType) {
+		this.sentPlayer = sentPlayer;
+		this.updateType = updateType;
+		this.hidden = sentPlayer.isHidden();
+	}
+
+	public PlayerBase getSentPlayer() {
+		return sentPlayer;
+	}
+
+	public void setSentPlayer(PlayerBase sentPlayer) {
+		this.sentPlayer = sentPlayer;
+	}
+
+	public MessageType getUpdateType() {
+		return updateType;
+	}
+
+	public void setUpdateType(MessageType updateType) {
+		this.updateType = updateType;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
 }

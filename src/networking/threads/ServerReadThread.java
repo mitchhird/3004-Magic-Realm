@@ -5,6 +5,7 @@ import java.net.Socket;
 import javax.print.attribute.standard.Severity;
 
 import networking.sendables.MessageType;
+import networking.sendables.UpdateDataObject;
 import sun.awt.windows.ThemeReader;
 import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
@@ -53,10 +54,13 @@ public class ServerReadThread extends TransmissionThreadBase {
 					parentThread.handleIncomingPlayer(incomingPlayer, this);
 				} else if (incoming instanceof MessageType) {
 					MessageType incomingMessage = (MessageType) incoming;
-					parentThread.handleMessage(incomingMessage, this);
+					parentThread.handleMessage(incomingMessage);
 				} else if (incoming instanceof Clearing) {
 					Clearing incomingClearing = (Clearing) incoming;
-					parentThread.handleUpdate(incomingClearing, this);
+					parentThread.handleUpdate(incomingClearing);
+				} else if (incoming instanceof UpdateDataObject) {
+					UpdateDataObject incomingContainer = (UpdateDataObject) incoming;
+					parentThread.handleContainer(incomingContainer);
 				}
 				
 				// Broadcast The Message To The Others
