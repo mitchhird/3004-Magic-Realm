@@ -52,6 +52,7 @@ public class PlacementView extends javax.swing.JFrame {
             	dispose();
             }
         });
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Item:");

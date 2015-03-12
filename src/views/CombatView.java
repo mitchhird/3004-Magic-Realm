@@ -80,7 +80,7 @@ public class CombatView extends FrameBase {
     public void addAllComponents () {
     
     	// First Is The Text Area
-    	addToFrame(this, textContainer, layout, 0, 0, 5, 5);
+    	addToFrame(this, textContainer, layout, 0, 0, 5, 6);
     	    	
     	// Add In All Of The Attack Buttons
     	addToFrame(this, jLabel2, layout, 5, 0, 1, 1);
@@ -168,9 +168,9 @@ public class CombatView extends FrameBase {
         abandonButton.setText("Abandon Belongings");
         nextButton.setText("Move To Next Attacker");
         endButton.setText("End");
-        smashShield.setText("Protects Against Smash");
-        swingShield.setText("Protects Against Swing");
-        thrustShield.setText("Protects Against Thrust");
+        smashShield.setText("Smash Shield");
+        swingShield.setText("Swing Shield");
+        thrustShield.setText("Thrust Shield");
         suitOfArmor.setText("Suit of Armor");
         breastPlate.setText("Breastplate");
         helmet.setText("Helmet");
