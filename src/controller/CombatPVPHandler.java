@@ -40,7 +40,7 @@ public class CombatPVPHandler {
 		readyPlayers = new HashSet<>();
 		
 		this.parentView = parentView;
-		setArmor();
+		//setArmor();
 	}
 
 	private void setArmor() {
