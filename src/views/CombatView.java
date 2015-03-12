@@ -41,7 +41,7 @@ public class CombatView extends FrameBase {
     private JLabel weaponLabel;
     private JLabel weaponHarmLabel;
     private javax.swing.JLabel smashShield;
-    private javax.swing.JLabel swindShield;
+    private javax.swing.JLabel swingShield;
     private javax.swing.JLabel thrustShield;
     private javax.swing.JLabel suitOfArmor;
     private javax.swing.JLabel breastPlate;
@@ -82,23 +82,32 @@ public class CombatView extends FrameBase {
     	// First Is The Text Area
     	addToFrame(this, textContainer, layout, 0, 0, 5, 5);
     	    	
-    	// Add In All Of The Attack Buttons Buttons
+    	// Add In All Of The Attack Buttons
     	addToFrame(this, jLabel2, layout, 5, 0, 1, 1);
     	addToFrame(this, smashButton, layout, 6, 0, 1, 1);
     	addToFrame(this, thrustButton, layout, 7, 0, 1, 1);
     	addToFrame(this, swingButton, layout, 8, 0, 1, 1);
     	
+    	//Add In All Of The Defence Buttons
+    	addToFrame(this, jLabel1, layout, 5, 1, 1, 1);
+    	addToFrame(this, suitOfArmor, layout, 6, 1, 1, 1);
+    	addToFrame(this, helmet, layout, 7, 1, 1, 1);
+    	addToFrame(this, breastPlate, layout, 8, 1, 1, 1);
+    	addToFrame(this, dodgeButton, layout, 6, 2, 1, 1);
+    	addToFrame(this, duckButton, layout, 7, 2, 1, 1);
+    	addToFrame(this, chargeButton, layout, 8, 2, 1, 1);
+
     	// Weapon Information
-    	addToFrame(this, weaponLabel, layout, 5, 1, 1, 1);
-    	addToFrame(this, weaponHarmLabel, layout, 6, 1, 1, 1);
+    	addToFrame(this, weaponLabel, layout, 5, 3, 1, 1);
+    	addToFrame(this, weaponHarmLabel, layout, 6, 3, 1, 1);
     	
     	// Attackable Players Window
-    	addToFrame(this, targetPlayerLabel, layout, 5, 2, 1, 1);
-    	addToFrame(this, playersCanAttack, layout, 6, 2, 3, 1);
+    	addToFrame(this, targetPlayerLabel, layout, 5, 4, 1, 1);
+    	addToFrame(this, playersCanAttack, layout, 6, 4, 3, 1);
     	
     	// More Buttons
-    	addToFrame (this, nextButton, layout, 5, 4, 2, 1);
-    	addToFrame (this, runButton, layout, 7, 4, 2, 1);
+    	addToFrame (this, nextButton, layout, 5, 5, 2, 1);
+    	addToFrame (this, runButton, layout, 7, 5, 2, 1);
     }
                      
     private void initComponents() {
@@ -124,7 +133,7 @@ public class CombatView extends FrameBase {
         
         // Labels
         smashShield = new javax.swing.JLabel();
-        swindShield = new javax.swing.JLabel();
+        swingShield = new javax.swing.JLabel();
         thrustShield = new javax.swing.JLabel();
         suitOfArmor = new javax.swing.JLabel();
         breastPlate = new javax.swing.JLabel();
@@ -160,7 +169,7 @@ public class CombatView extends FrameBase {
         nextButton.setText("Move To Next Attacker");
         endButton.setText("End");
         smashShield.setText("Protects Against Smash");
-        swindShield.setText("Protects Against Swing");
+        swingShield.setText("Protects Against Swing");
         thrustShield.setText("Protects Against Thrust");
         suitOfArmor.setText("Suit of Armor");
         breastPlate.setText("Breastplate");
