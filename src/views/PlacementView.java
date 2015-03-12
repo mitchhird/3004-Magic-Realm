@@ -1,44 +1,55 @@
 package views;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 @SuppressWarnings("rawtypes")
 public class PlacementView extends javax.swing.JFrame {
 	
 	private static final long serialVersionUID = 5579711826997490491L;
 	
-	private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-	private javax.swing.JComboBox jComboBox1;
-	private javax.swing.JComboBox jComboBox2;
+	private javax.swing.JButton placeButton;
+    private javax.swing.JButton randomizeButton;
+	private javax.swing.JComboBox locationList;
+	private javax.swing.JComboBox itemList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;    
     
-    public PlacementView() {
+    @SuppressWarnings("unchecked")
+	public PlacementView(String[] theModel1) {
         initComponents();
+        itemList.setModel(new javax.swing.DefaultComboBoxModel(theModel1));
     }
                          
     @SuppressWarnings("unchecked")
 	private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        locationList = new javax.swing.JComboBox();
+        itemList = new javax.swing.JComboBox();
+        placeButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        randomizeButton = new javax.swing.JButton();
 
+        placeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	placeItem();
+            }
+        });		
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Item:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        locationList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        itemList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton1.setText("Place");
+        placeButton.setText("Place");
 
         jLabel2.setText("Location:");
 
-        jButton2.setText("Randomize");
+        randomizeButton.setText("Randomize");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -53,12 +64,12 @@ public class PlacementView extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(itemList, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(locationList, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(placeButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)))
+                        .addComponent(randomizeButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -67,18 +78,31 @@ public class PlacementView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(itemList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(locationList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(placeButton)
+                    .addComponent(randomizeButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }                           
+    
+    private void placeItem() {
+		
+	}
+
+	@SuppressWarnings("unchecked")
+	public void setItems(String[] theModel){
+        locationList.setModel(new javax.swing.DefaultComboBoxModel(theModel));
+    }    
+    @SuppressWarnings("unchecked")
+	public void setLocations(String[] theModel){
+        itemList.setModel(new javax.swing.DefaultComboBoxModel(theModel));
+    }
 }

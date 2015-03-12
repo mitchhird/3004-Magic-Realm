@@ -241,6 +241,7 @@ public class GameView extends FrameBase {
 	public void handleStartGame () {
 		System.out.println("Start Game Pressed");
 		
+		theBoard.setInn();
 		theClient.startGame();
 		thePlayerList.updateTable();
 		thePlayerButtons.massSetButtonState(true);

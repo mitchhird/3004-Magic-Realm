@@ -161,11 +161,12 @@ public class BoardView extends JPanel {
 	public BoardView (GameView parent){
 		init();
 		this.parent = parent;
-		
-		// Now For The Inn
+	}
+	
+	public void setInn(){
 		try {
 			Image innImage = ImageIO.read(getClass().getResource("/dwellings_c/inn.gif"));
-			inn = new Dwelling(dvalley4, innImage);
+			inn = new Dwelling(dvalley4, innImage, "Inn");
 			inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
 		} catch (Exception e) {
 			e.printStackTrace();
