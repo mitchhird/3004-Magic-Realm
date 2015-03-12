@@ -2,12 +2,16 @@ package views;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -25,8 +29,10 @@ public class BoardView extends JPanel {
 	private static final long serialVersionUID = -3255182183312639441L;
 	
 	//Field declarations
-	private Image img;
+	private BufferedImage img;
 	private Toolkit tk = Toolkit.getDefaultToolkit();
+	
+	private float scale = 1;
 
 	private ArrayList<Clearing> theButtons = new ArrayList<Clearing>();
 	
@@ -569,6 +575,18 @@ public class BoardView extends JPanel {
 				handleImageEnter(c);
 			}
 		});
+		
+		addMouseWheelListener(new MouseAdapter() {
+
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                double delta = 0.002f * e.getPreciseWheelRotation();
+                scale += delta;
+                revalidate();
+                repaint();
+            }
+
+        });
 	}
 	
 	// Handles The Mouse Entering The Image
@@ -590,11 +608,26 @@ public class BoardView extends JPanel {
 
 	//Overrides the paint component method of jPanel
 	@Override
+	
 	public void paintComponent(Graphics page)
 	{
 	    super.paintComponent(page);
-	    page.drawImage(img, 0, 0, this);
+	    Graphics2D g2d = (Graphics2D) page.create();
+        AffineTransform at = new AffineTransform();
+        at.scale(scale, scale);
+        g2d.drawImage(img, at, this);
+        g2d.dispose();
 	}
+	
+	@Override
+    public Dimension getPreferredSize() {            
+        Dimension size = new Dimension(200, 200);
+        if (img != null) {            
+            size.width = Math.round(img.getWidth() * scale);
+            size.height = Math.round(img.getHeight() * scale);                
+        }        
+        return size;
+    }
 	
 	//returns the default clearing of a class (always the inn)
 	public Clearing getDefaultClearingForClass (CharacterClass c) {
