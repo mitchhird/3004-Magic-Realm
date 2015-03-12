@@ -584,10 +584,18 @@ public class BoardView extends JPanel {
                 double delta = 0.0006f * e.getPreciseWheelRotation();
                 scale += delta;
                 revalidate();
+                scaleButtons();
                 repaint();
             }
 
         });
+	}
+	
+	private void scaleButtons(){
+		for(int i = 0; i < clearings.size();i++){
+			clearings.get(i).setSize(clearings.get(i).getButtonTiedToClearing().getSize().width*scale,clearings.get(i).getButtonTiedToClearing().getSize().height*scale);
+			clearings.get(i).setLocation((int)(clearings.get(i).getButtonTiedToClearing().getLocation().x*scale),(int)(clearings.get(i).getButtonTiedToClearing().getLocation().y*scale));
+		}
 	}
 	
 	// Handles The Mouse Entering The Image
