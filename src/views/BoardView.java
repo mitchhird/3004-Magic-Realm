@@ -599,12 +599,15 @@ public class BoardView extends JPanel {
 		int new1;
 		int new2;
 		for(int i = 0; i < clearings.size();i++){
+			/*
 			new1 = (int) (clearings.get(i).getButtonTiedToClearing().getSize().getWidth()*scale);
 			new2 = (int) (clearings.get(i).getButtonTiedToClearing().getSize().getHeight()*scale);
 			clearings.get(i).setSize(new1,new2);
 			new1 = (int) (clearings.get(i).getButtonTiedToClearing().getLocation().getX()*scale);
 			new2 = (int) (clearings.get(i).getButtonTiedToClearing().getLocation().getY()*scale);
 			clearings.get(i).setLocation(new1,new2);
+			*/
+			clearings.get(i).scaleClearing(scale);
 		}
 	}
 	

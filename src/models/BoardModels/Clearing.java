@@ -34,6 +34,12 @@ public class Clearing implements Serializable {
 	private transient Set <Image> imageEnitiesOnThis;
 	private transient Set <EntityBase> entitiesInClearing;
 	private static final long serialVersionUID = -3697827851116659513L;
+	
+	// Initial Coordinates
+	private int startX = 0;
+	private int startY = 0;
+	private int startWidth = 0;
+	private int startHeight = 0;
 
 	public Clearing (String clearingName) {
 		blocked = false;
@@ -50,6 +56,9 @@ public class Clearing implements Serializable {
 		buttonTiedToClearing.setSize(30, 30);
 		buttonTiedToClearing.setOpaque(false);
 		buttonTiedToClearing.setContentAreaFilled(false);
+		
+		startHeight = 30;
+		startWidth = 30;
 		
 		// Create Some Random Treasures For This
 		genRandomTreasures();
@@ -242,12 +251,25 @@ public class Clearing implements Serializable {
 	}
 
 	public void setLocation (int x, int y) {
+		
+		startX = (startX == 0) ? x : startX;
+		startY = (startY == 0) ? y : startY;
+		
 		buttonTiedToClearing.setLocation(x, y);
 	}
-
+	
 	public void setSize (int x, int y) {
+		startWidth = (startWidth == 0) ? x : startWidth;
+		startHeight = (startHeight == 0) ? y : startHeight;
+		
 		buttonTiedToClearing.setSize(x, y);
 	}
+	
+	public void scaleClearing (float scale) {
+		buttonTiedToClearing.setLocation((int) (startX * scale), (int) (startY * scale));
+		buttonTiedToClearing.setSize((int) (startWidth * scale), (int) (startHeight * scale));
+	}
+
 		
 	public Set<Clearing> getConnectedClearings() {
 		return connectedClearings;
