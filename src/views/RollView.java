@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Random;
 
 public class RollView extends javax.swing.JFrame {
 
@@ -111,11 +112,11 @@ public class RollView extends javax.swing.JFrame {
 
 	private void handleSetButton() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	private void handleRandomizeButton() {
-		// TODO Auto-generated method stub
-		
+		Random rand = new Random();
+		int randomNum = rand.nextInt((maxRollValue-1) + 1) + 1;
+		desiredRollField.setText(Integer.toString(randomNum));
 	}
 }

@@ -147,7 +147,7 @@ public class GameView extends FrameBase {
         
         cheatAction.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                cheatMode(0);
+                cheatMode();
             }
         });
         
@@ -159,8 +159,8 @@ public class GameView extends FrameBase {
         
 	}
 	
-	private void cheatMode(int maxRoll) {
-		rollViewer = new RollView(maxRoll);
+	private void cheatMode() {
+		rollViewer = new RollView(12);
 		rollViewer.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
 		rollViewer.setVisible(true);
 	}
