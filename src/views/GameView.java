@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -66,7 +67,7 @@ public class GameView extends FrameBase {
 	private JMenuItem exitAction;
 	private JMenuItem joinAction;
 	private JMenuItem hostAction;
-	private JMenuItem cheatAction;
+	private JCheckBoxMenuItem cheatAction;
 
 	// Networking Variables
 	private boolean networkedGame;
@@ -108,7 +109,7 @@ public class GameView extends FrameBase {
         exitAction = new JMenuItem("Exit");
 		joinAction = new JMenuItem("Join Game");
         hostAction = new JMenuItem("Host Game");
-		cheatAction = new JMenuItem("Cheat Mode");
+		cheatAction = new JCheckBoxMenuItem("Cheat Mode");
 
 		joinAction.setEnabled(false);
 		hostAction.setEnabled(false);
@@ -161,9 +162,16 @@ public class GameView extends FrameBase {
 	}
 	
 	private void cheatMode() {
+		if(theClient.getCheatMode()){
+			theClient.setCheatMode(false);
+		}else{
+			theClient.setCheatMode(true);
+		}
+		/*
 		rollViewer = new RollView(12);
 		rollViewer.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
 		rollViewer.setVisible(true);
+		*/
 	}
 
 	private void joinGame() {
