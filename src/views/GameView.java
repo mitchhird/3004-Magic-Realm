@@ -168,11 +168,6 @@ public class GameView extends FrameBase {
 		}else{
 			GameUtils.setCheatMode(true);
 		}
-		/*
-		rollViewer = new RollView(12);
-		rollViewer.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
-		rollViewer.setVisible(true);
-		*/
 	}
 
 	private void joinGame() {
@@ -204,7 +199,7 @@ public class GameView extends FrameBase {
 		addToGrid(thePlayerList, 0, 0, 1, 1);
 		
 		thePlayerButtons = new PlayerControllView(this);
-		addToGrid(thePlayerButtons, 0, 1, 1, 2);
+		addToGrid(thePlayerButtons, 0, 1, 1, 1);
 		
 		//Action listeners
         thePlayerList.getAddPlayerButton().addActionListener(new java.awt.event.ActionListener() {
@@ -308,7 +303,7 @@ public class GameView extends FrameBase {
 		theBoardScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		theBoardScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		theBoardScroller.getVerticalScrollBar().setUnitIncrement(20);
-		addToGrid(theBoardScroller, 1, 0, 4, 4);
+		addToGrid(theBoardScroller, 1, 0, 1, 2);
 		theBoardScroller.setPreferredSize(new Dimension(((int)tk.getScreenSize().getWidth()/2), ((int)tk.getScreenSize().getHeight()/2)));
 	}
 	

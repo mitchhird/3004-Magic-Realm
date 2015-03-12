@@ -584,7 +584,6 @@ public class BoardView extends JPanel {
 
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
-            	System.out.println(e.getPreciseWheelRotation());
                 double delta = 0.057f * e.getPreciseWheelRotation();
                 scale += delta;
                 scaleButtons();

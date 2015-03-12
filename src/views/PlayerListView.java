@@ -55,7 +55,7 @@ import models.characterModels.playerEnums.CharacterClass;
 				 */
 				private static final long serialVersionUID = -7438589133658495131L;
 				boolean[] canEdit = new boolean [] {
-	                false, false, false
+	                false, false, false, false
 	            };
 
 	            public boolean isCellEditable(int rowIndex, int columnIndex) {
