@@ -49,7 +49,7 @@ public class RollView extends javax.swing.JFrame {
         desiredRollField.setText("0");
 
         jLabel2.setText("Maximum Roll Value:");
-
+       
         maxRollLabel.setText(Integer.toString(maxRollValue));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -111,7 +111,9 @@ public class RollView extends javax.swing.JFrame {
     }
 
 	private void handleSetButton() {
-		// TODO Auto-generated method stub
+		if(!(Integer.parseInt(desiredRollField.getText())>Integer.parseInt(maxRollLabel.getText()))){
+			//Todo
+		}
 	}
 
 	private void handleRandomizeButton() {

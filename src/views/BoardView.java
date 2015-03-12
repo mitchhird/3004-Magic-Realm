@@ -580,7 +580,7 @@ public class BoardView extends JPanel {
 
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
-                double delta = 0.002f * e.getPreciseWheelRotation();
+                double delta = 0.0006f * e.getPreciseWheelRotation();
                 scale += delta;
                 revalidate();
                 repaint();
