@@ -176,6 +176,11 @@ public class CombatView extends FrameBase {
         breastPlate.setText("Breastplate");
         helmet.setText("Helmet");
         resetButton.setText("Reset");
+
+        nextButton.setEnabled(false);
+        dodgeButton.setEnabled(false);
+        duckButton.setEnabled(false);
+        chargeButton.setEnabled(false);
     }
 
     // Set up all the action listeners
@@ -183,39 +188,51 @@ public class CombatView extends FrameBase {
 		thrustButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 combatHandler.setCurrentAttack(Attacks.THRUST);
-                nextButton.setEnabled(true);
+                dodgeButton.setEnabled(true);
+                duckButton.setEnabled(true);
+                chargeButton.setEnabled(true);
                 println("Setting Current Attack To " + Attacks.THRUST);
             }
         });
         swingButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 combatHandler.setCurrentAttack(Attacks.SWING);
-                nextButton.setEnabled(true);
+                dodgeButton.setEnabled(true);
+                duckButton.setEnabled(true);
+                chargeButton.setEnabled(true);
                 println("Setting Current Attack To " + Attacks.SWING);
             }
         });
         smashButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 combatHandler.setCurrentAttack(Attacks.SMASH);
-                nextButton.setEnabled(true);
+                dodgeButton.setEnabled(true);
+                duckButton.setEnabled(true);
+                chargeButton.setEnabled(true);
                 println("Setting Current Attack To " + Attacks.SMASH);
             }
         });
         dodgeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
             	combatHandler.setCurrentDefence(Defences.DODGE);
+                println("Setting Current Defence To " + Defences.DODGE);
+                nextButton.setEnabled(true);
                 System.out.println("dodge pressed");
             }
         });
         duckButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
             	combatHandler.setCurrentDefence(Defences.DUCK);
+                println("Setting Current Defence To " + Defences.DUCK);
+                nextButton.setEnabled(true);
             	System.out.println("duck pressed");
             }
         });
         chargeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
             	combatHandler.setCurrentDefence(Defences.CHARGE);
+                println("Setting Current Defence To " + Defences.CHARGE);
+                nextButton.setEnabled(true);
             	System.out.println("charge pressed");
             }
         });
@@ -240,6 +257,9 @@ public class CombatView extends FrameBase {
                 // Go To The Next Attack
                 combatHandler.setNextAttacker();
                 nextButton.setEnabled(false);
+                dodgeButton.setEnabled(false);
+                duckButton.setEnabled(false);
+                chargeButton.setEnabled(false);
                 update();
             }
         });
