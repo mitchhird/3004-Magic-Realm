@@ -436,12 +436,10 @@ public class PlayerControllView extends javax.swing.JPanel {
 	}
    
 	public void startTrading(){
-		JFrame tradeFrame = new JFrame();
 		TradeView tradePanel = new TradeView();
-		tradeFrame.setSize(495,355);
-		tradeFrame.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
-		tradeFrame.setVisible(true);
-		tradeFrame.add(tradePanel);
+		tradePanel.setSize(495,355);
+		tradePanel.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
+		tradePanel.setVisible(true);
 	}
     /*---------------------- Event Handler Methods ----------------------------- */
 	private void handleSearchButtonPressed() {
