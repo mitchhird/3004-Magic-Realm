@@ -28,7 +28,8 @@ public class CombatPVPHandler {
 	private Set<Pair<PlayerBase, PlayerBase>> readyPlayers;
 	private Set<CombatDataContainer> combatData;
 	
-	private CombatView parentView; 
+	private CombatView parentView;
+	private Attacks currentDefence; 
 	
 	// Constructor For The Combat Handler
 	public CombatPVPHandler (ArrayList <PlayerBase> combattingPlayers, CombatView parentView) {
@@ -61,7 +62,7 @@ public class CombatPVPHandler {
 
 	// Gets The Next Attacker
 	public void setNextAttacker () {
-		combatData.add(new CombatDataContainer(currentAttacker, currentAttack, null));
+		combatData.add(new CombatDataContainer(currentAttacker, currentAttack, currentDefence));
 		readyPlayers.add(new Pair<PlayerBase, PlayerBase>(currentAttacker, currentDefender));
 		
 		// If All The Players Have Submitted Then Start The Attack
@@ -242,5 +243,12 @@ public class CombatPVPHandler {
 
 	public void setCurrentDefender(PlayerBase currentDefender) {
 		this.currentDefender = currentDefender;
+	}
+
+	public void setCurrentDefence(Attacks attack) {
+		currentDefence = attack;
+	}
+	public Attacks getCurrentDefence() {
+		return currentDefence;
 	}
 } 

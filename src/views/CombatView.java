@@ -202,12 +202,20 @@ public class CombatView extends FrameBase {
         });
         dodgeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+            	combatHandler.setCurrentDefence(Attacks.THRUST);
                 System.out.println("dodge pressed");
             }
         });
         duckButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                System.out.println("duck pressed");
+            	combatHandler.setCurrentDefence(Attacks.SWING);
+            	System.out.println("duck pressed");
+            }
+        });
+        chargeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	combatHandler.setCurrentDefence(Attacks.SMASH);
+            	System.out.println("charge pressed");
             }
         });
         runButton.addActionListener(new ActionListener() {
