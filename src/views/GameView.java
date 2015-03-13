@@ -28,7 +28,6 @@ import networking.sendables.MessageType;
 import networking.threads.ClientReadThread;
 import networking.threads.ClientWriterThread;
 import networking.threads.ServerMainThread;
-import networking.threads.ServerReadThread;
 import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
@@ -62,8 +61,6 @@ public class GameView extends FrameBase {
 	private JFrame cardViewer;
 	private JoinView joinViewer;
 	private HostView hostViewer;
-	private RollView rollViewer;
-
 	private JMenuItem newAction;
 	private JMenuItem exitAction;
 	private JMenuItem joinAction;
