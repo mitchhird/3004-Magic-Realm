@@ -2,6 +2,7 @@ package models.otherEntities;
 
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.Attacks;
+import models.characterModels.playerEnums.Defences;
 
 /**
  * Just A Small Container That Holds Helpful Data
@@ -10,12 +11,12 @@ import models.characterModels.playerEnums.Attacks;
 public class CombatDataContainer {
 	private PlayerBase thePlayer;
 	private Attacks attack;
-	private Attacks defense;
+	private Defences defense;
 	
-	public CombatDataContainer (PlayerBase p, Attacks attack, Attacks defense) {
+	public CombatDataContainer (PlayerBase p, Attacks attack, Defences currentDefence) {
 		thePlayer = p;
 		this.attack = attack;
-		this.defense = defense;
+		this.defense = currentDefence;
 	}
 
 	/*---------------------- Getters And Setters ---------------------------*/
@@ -35,11 +36,11 @@ public class CombatDataContainer {
 		this.attack = attack;
 	}
 
-	public Attacks getDefense() {
+	public Defences getDefense() {
 		return defense;
 	}
 
-	public void setDefense(Attacks defense) {
+	public void setDefense(Defences defense) {
 		this.defense = defense;
 	}
 }

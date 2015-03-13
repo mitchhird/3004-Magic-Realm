@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.Attacks;
+import models.characterModels.playerEnums.Defences;
 import models.chitModels.WeaponChit;
 import controller.CombatPVPHandler;
 
@@ -202,19 +203,19 @@ public class CombatView extends FrameBase {
         });
         dodgeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	combatHandler.setCurrentDefence(Attacks.THRUST);
+            	combatHandler.setCurrentDefence(Defences.DODGE);
                 System.out.println("dodge pressed");
             }
         });
         duckButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	combatHandler.setCurrentDefence(Attacks.SWING);
+            	combatHandler.setCurrentDefence(Defences.DUCK);
             	System.out.println("duck pressed");
             }
         });
         chargeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	combatHandler.setCurrentDefence(Attacks.SMASH);
+            	combatHandler.setCurrentDefence(Defences.CHARGE);
             	System.out.println("charge pressed");
             }
         });

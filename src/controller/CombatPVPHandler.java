@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.ArmorType;
 import models.characterModels.playerEnums.Attacks;
+import models.characterModels.playerEnums.Defences;
 import models.characterModels.playerEnums.Weights;
 import models.chitModels.ArmorChit;
 import models.otherEntities.CombatDataContainer;
@@ -29,7 +30,7 @@ public class CombatPVPHandler {
 	private Set<CombatDataContainer> combatData;
 	
 	private CombatView parentView;
-	private Attacks currentDefence; 
+	private Defences currentDefence; 
 	
 	// Constructor For The Combat Handler
 	public CombatPVPHandler (ArrayList <PlayerBase> combattingPlayers, CombatView parentView) {
@@ -245,10 +246,10 @@ public class CombatPVPHandler {
 		this.currentDefender = currentDefender;
 	}
 
-	public void setCurrentDefence(Attacks attack) {
-		currentDefence = attack;
+	public void setCurrentDefence(Defences dodge) {
+		currentDefence = dodge;
 	}
-	public Attacks getCurrentDefence() {
+	public Defences getCurrentDefence() {
 		return currentDefence;
 	}
 } 
