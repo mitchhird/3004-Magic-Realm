@@ -184,7 +184,7 @@ public class PlayerControllView extends javax.swing.JPanel {
     			 */
     			private static final long serialVersionUID = 7653752904224053856L;
     			boolean[] canEdit = new boolean [] {
-                    false, false
+                    false, false,false,false
                 };
 
                 public boolean isCellEditable(int rowIndex, int columnIndex) {
