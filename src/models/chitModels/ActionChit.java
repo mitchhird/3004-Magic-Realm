@@ -6,7 +6,9 @@ public class ActionChit {
 	protected int stars;
 	protected int speed;
 	protected Weights capacity;
-	private boolean fight;
+	protected boolean fight;
+	
+	protected int magic;//add this with magic
 	
 	public ActionChit(Weights cap, int speed, int stars, boolean fight){
 		capacity = cap;
@@ -29,5 +31,9 @@ public class ActionChit {
 	
 	public int getStars(){
 		return stars;
+	}
+	
+	private int getMagicVal(){
+		return magic;
 	}
 }

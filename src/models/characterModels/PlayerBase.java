@@ -56,17 +56,15 @@ public class PlayerBase extends EntityBase implements Serializable {
 	protected String playerIP;
 	
 	//Action Chits in different statuses
-	protected transient ActionChit[] Active;
-	protected transient ActionChit[] InActive;
-	protected transient ActionChit[] Wounded;
+	protected transient ArrayList<ActionChit> active;
+	protected transient ArrayList<ActionChit> inActive;
+	protected transient ArrayList<ActionChit> wounded;
 	
 	// Compound Data Types For The Object
 	protected Chit[] combatChit;
-	protected Chit horse;
 	protected Weights wounds;
 	protected Weights vulnerability;
 	protected CharacterClass characterClass;
-	protected WeaponChit activeWeapon;
 
 	// Lists For The Player
 	protected ArrayList<ArmorChit> armorChits;
@@ -74,10 +72,6 @@ public class PlayerBase extends EntityBase implements Serializable {
 	protected ArrayList<TreasureModel> accquiredTreasures;
 	protected ArrayList<PlayerBase> listAttacks;
 	protected PlayerBase chargeTarget;
-	
-	// Clearing Stuff
-	protected Clearing homeClearing;
-	protected Clearing currentClearing;
 	
 	// Log Recording
 	protected String currentTurn;
@@ -309,6 +303,9 @@ public class PlayerBase extends EntityBase implements Serializable {
 		characterClass = newPlayerClass;
 		vulnerability = newPlayerClass.getVulner();
 		
+		// Action Chit For Player
+		active.addAll(newPlayerClass.getStartingChit());
+		
 		// Weapon For This Player
 		weaponChit = new ArrayList<>();
 		weaponChit.add(newPlayerClass.getStartingWeapon());
@@ -485,7 +482,7 @@ public class PlayerBase extends EntityBase implements Serializable {
 			isDead();
 		}
 		
-	}
+	}//have to change this to get some information for what the player wishes to wound
 
 	public Attacks getAttackDirection() {
 		// TODO Auto-generated method stub

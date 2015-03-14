@@ -3,9 +3,11 @@ package models.characterModels.playerEnums;
 import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.imageio.ImageIO;
 
+import models.chitModels.ActionChit;
 import models.chitModels.ArmorChit;
 import models.chitModels.ChitFactory;
 import models.chitModels.WeaponChit;
@@ -165,5 +167,99 @@ public enum CharacterClass {
 			break;
 		}
 		return returnVal;
+	}
+
+	// Starting Action Chits
+	public ArrayList<ActionChit> getStartingChit() {
+		ArrayList<ActionChit> rList = new ArrayList<>();
+		switch (this) {
+		case AMAZON:
+			rList.add(ChitFactory.MM40);
+			rList.add(ChitFactory.MM31);
+			rList.add(ChitFactory.FL40);
+			rList.add(ChitFactory.MM40);
+			rList.add(ChitFactory.FM50);
+			rList.add(ChitFactory.FM41);
+			rList.add(ChitFactory.MM31);
+			rList.add(ChitFactory.FM32);
+			rList.add(ChitFactory.FH42);
+			rList.add(ChitFactory.FM41);
+			rList.add(ChitFactory.FM32);
+			rList.add(ChitFactory.MM31);
+			break;
+		case BLACKNIGHT:
+			rList.add(ChitFactory.MM50);
+			rList.add(ChitFactory.MH51);
+			rList.add(ChitFactory.FH51);
+			rList.add(ChitFactory.MH60);
+			rList.add(ChitFactory.MM41);
+			rList.add(ChitFactory.FH60);
+			rList.add(ChitFactory.FM41);
+			rList.add(ChitFactory.FM41);
+			rList.add(ChitFactory.FM50);
+			rList.add(ChitFactory.MH42);
+			rList.add(ChitFactory.FH42);
+			rList.add(ChitFactory.FM32);
+			break;
+		case CAPTAIN:
+			rList.add(ChitFactory.MM41);
+			rList.add(ChitFactory.MM50);
+			rList.add(ChitFactory.FH51);
+			rList.add(ChitFactory.FM50);
+			rList.add(ChitFactory.FM32);
+			rList.add(ChitFactory.MM32);
+			rList.add(ChitFactory.MM41);
+			rList.add(ChitFactory.FH51);
+			rList.add(ChitFactory.FM41);
+			rList.add(ChitFactory.MM41);
+			rList.add(ChitFactory.FH60);
+			rList.add(ChitFactory.FM41);
+			break;
+		case DWARF:
+			rList.add(ChitFactory.DT31);
+			rList.add(ChitFactory.MH60);
+			rList.add(ChitFactory.FH51);
+			rList.add(ChitFactory.MT61);
+			rList.add(ChitFactory.FH60);
+			rList.add(ChitFactory.FH42);
+			rList.add(ChitFactory.MH51);
+			rList.add(ChitFactory.FT61);
+			rList.add(ChitFactory.FH42);
+			rList.add(ChitFactory.MT52);
+			rList.add(ChitFactory.FT52);
+			rList.add(ChitFactory.FT52);
+			break;
+		case ELF:
+//			rList.add(ChitFactory.MM40); Magic
+//			rList.add(ChitFactory.MM31);
+//			rList.add(ChitFactory.FL40);
+//			rList.add(ChitFactory.MM40);
+//			rList.add(ChitFactory.FM50);
+//			rList.add(ChitFactory.FM41);
+			rList.add(ChitFactory.ML31);
+			rList.add(ChitFactory.FL31);
+			rList.add(ChitFactory.ML21);
+			rList.add(ChitFactory.MM40);
+			rList.add(ChitFactory.FM31);
+			rList.add(ChitFactory.FM40);
+			break;
+		case SWORDSMAN:
+			rList.add(ChitFactory.ML40);
+			rList.add(ChitFactory.ML31);
+			rList.add(ChitFactory.FL31);
+			rList.add(ChitFactory.ML31);
+			rList.add(ChitFactory.FL22);
+			rList.add(ChitFactory.ML22);
+			rList.add(ChitFactory.MM41);
+			rList.add(ChitFactory.FM41);
+			rList.add(ChitFactory.FM32);
+			rList.add(ChitFactory.FL40);
+			rList.add(ChitFactory.FM50);
+			rList.add(ChitFactory.FL22);
+			break;
+		default:
+			break;
+		}
+		return rList;
 	}
 }
