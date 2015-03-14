@@ -63,7 +63,6 @@ public class PlayerBase extends EntityBase implements Serializable {
 	// Compound Data Types For The Object
 	protected Chit[] combatChit;
 	protected Weights wounds;
-	protected Weights vulnerability;
 	protected CharacterClass characterClass;
 
 	// Lists For The Player
@@ -71,7 +70,8 @@ public class PlayerBase extends EntityBase implements Serializable {
 	protected ArrayList<WeaponChit> weaponChit;
 	protected ArrayList<TreasureModel> accquiredTreasures;
 	protected ArrayList<PlayerBase> listAttacks;
-	protected PlayerBase chargeTarget;
+	protected WeaponChit activeWeapon;
+	protected EntityBase chargeTarget;
 	
 	// Log Recording
 	protected String currentTurn;
@@ -86,13 +86,14 @@ public class PlayerBase extends EntityBase implements Serializable {
 	protected boolean foundHidden;
 	
 	// Non Serialization Data
-	protected transient Denizen[] hired;	
+	protected transient ArrayList<Denizen> hired;	
 	protected transient Image hiddenImage;
 	protected transient Image unhiddenImage;
 
 	// Serialization Flag
 	private static final long serialVersionUID = 1087220843681586963L;
-
+	
+	// Player Setup---
 	// Default Constructor
 	public PlayerBase () {
 		initPlayerStats();
@@ -148,6 +149,14 @@ public class PlayerBase extends EntityBase implements Serializable {
 		unhiddenImage = characterClass.getReadyTile();
 	}
 	
+	// Turn Calls---
+	// Resets The Players Values When Called
+	public void reset() {
+		hidden = false;
+		moving = false;
+		updateConnectedClearings();
+	}
+	
 	// Starts The Player's Turn And Wipes Out There Player's Commands
 	public void startPlayerTurn () {
 		hidden = false;
@@ -164,6 +173,7 @@ public class PlayerBase extends EntityBase implements Serializable {
 		currentTurn = "";
 	}
 	
+	// Turn Activity---
 	// Attempts To Hide The Player, Consult Die Table For Reasoning For Result
 	public boolean attemptHide () {
 		availableActions--;
@@ -189,34 +199,9 @@ public class PlayerBase extends EntityBase implements Serializable {
 		return true;
 	}
 	
-	// Moves The Player Straight To Home When Called
-	public void moveToHome() {
-		forceMove(homeClearing);
-	}
-
-	// Forces A Move To The Clearing Provided
-	public void forceMove(Clearing moveTo) {
-		updateConnectedClearings();
-		currentClearing.updateImage();
-		currentClearing.playerMovedOffOf(this);
-		currentClearing = moveTo;
-		currentClearing.playerMovedToThis(this);
-	}
-	
-	// Resets The Players Values When Called
-	public void reset() {
-		hidden = false;
-		moving = false;
-		updateConnectedClearings();
-	}
-	
-	// Kills The Player And Adds All Of The Values To This
-	public void killPlayer (PlayerBase oppoent) {
-		this.currentFame += oppoent.currentFame;
-		this.currentGold += oppoent.currentGold;
-		this.currentNotirity += oppoent.currentNotirity;
-		killCount++;
-		oppoent.moveToHome();
+	// Updates All Of The Connected 
+	public void updateConnectedClearings() {
+		currentClearing.updateConnectedTiles();
 	}
 	
 	// Treasure Functions
@@ -237,9 +222,28 @@ public class PlayerBase extends EntityBase implements Serializable {
 		currentTurn += (currentTurn.equals("")) ? logMessage : "," + logMessage;
 	}
 	
-	// Updates All Of The Connected 
-	public void updateConnectedClearings() {
-		currentClearing.updateConnectedTiles();
+	// Moves The Player Straight To Home When Called
+	public void moveToHome() {
+		forceMove(homeClearing);
+	}
+
+	// Forces A Move To The Clearing Provided
+	public void forceMove(Clearing moveTo) {
+		updateConnectedClearings();
+		currentClearing.updateImage();
+		currentClearing.playerMovedOffOf(this);
+		currentClearing = moveTo;
+		currentClearing.playerMovedToThis(this);
+	}
+	
+	// Combat Features---
+	// Kills The Player And Adds All Of The Values To This
+	public void killPlayer (PlayerBase oppoent) {
+		this.currentFame += oppoent.currentFame;
+		this.currentGold += oppoent.currentGold;
+		this.currentNotirity += oppoent.currentNotirity;
+		killCount++;
+		oppoent.moveToHome();
 	}
 	
 	//can be changed to something else if weight is not an issue;
@@ -259,13 +263,11 @@ public class PlayerBase extends EntityBase implements Serializable {
 	}
 	
 	public void setCharge() {
-		// TODO Auto-generated method stub
 		Set<EntityBase> chargeAble = getSelectable();
 		//have to take the chargeAble to view for selection or none
 	}
 	
 	public void selectTarget(){
-		// TODO
 		Set<EntityBase> targetAble = getSelectable();
 		//have to send to view to see if selection
 	}
@@ -282,23 +284,24 @@ public class PlayerBase extends EntityBase implements Serializable {
 		return Selectable;
 	}
 	
-	/*-------------- Getters And Setters -------------- */
-	public ArrayList<String> getRecordLog () {
-		return turnLog;
+	//will return 0 if not able to change
+	public int rollTacChange() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
-	public String getPlayerIP() {
-		return playerIP;
+	public boolean armorBlocks(Attacks attack) {
+		// TODO Auto-generated method stub
+		//should loop through what can be blocked in the attack types
+		//if blockable attack then return true
+		return true;
 	}
-
-	public void setPlayerIP(String playerIP) {
-		this.playerIP = playerIP;
+	
+	public void checkIfDamaged(Weights harm) {
+		// TODO Auto-generated method stub
 	}
-
-	public void setHomeClearing(Clearing homeClearing) {
-		this.homeClearing = homeClearing;
-	}
-
+	
+	/*-------------- Getters And Setters -------------- */
 	public void setClass(CharacterClass newPlayerClass) {
 		characterClass = newPlayerClass;
 		vulnerability = newPlayerClass.getVulner();
@@ -317,6 +320,22 @@ public class PlayerBase extends EntityBase implements Serializable {
 		System.out.println();
 	}
 	
+	public ArrayList<String> getRecordLog () {
+		return turnLog;
+	}
+	
+	public String getPlayerIP() {
+		return playerIP;
+	}
+
+	public void setPlayerIP(String playerIP) {
+		this.playerIP = playerIP;
+	}
+
+	public void setHomeClearing(Clearing homeClearing) {
+		this.homeClearing = homeClearing;
+	}
+	
 	public void setName(String newPlayerName){
 		playerName = newPlayerName;
 	}
@@ -327,14 +346,6 @@ public class PlayerBase extends EntityBase implements Serializable {
 	
 	public CharacterClass getPlayerClass(){
 		return characterClass;
-	}
-	
-	public Weights getVulnerability(){
-		return vulnerability;
-	}
-	
-	public void setVulnerability(Weights vul){
-		this.vulnerability = vul;
 	}
 	
 	public boolean isMoving() {
@@ -388,10 +399,6 @@ public class PlayerBase extends EntityBase implements Serializable {
 	public boolean isLiving(){
 		return living;
 	}
-	
-	public void unHide(){
-		hidden = false;
-	}
 
 	public WeaponChit getWeapon() {
 		return activeWeapon;
@@ -409,11 +416,7 @@ public class PlayerBase extends EntityBase implements Serializable {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	public void checkIfDamaged(Weights harm) {
-		// TODO Auto-generated method stub
-	}
-
+	
 	public void isDead() {
 		living = false;
 	}	
@@ -433,20 +436,7 @@ public class PlayerBase extends EntityBase implements Serializable {
 	public void setAvailableActions(int availableActions) {
 		this.availableActions = availableActions;
 	}
-
-	public boolean armorBlocks(Attacks attack) {
-		// TODO Auto-generated method stub
-		//should loop through what can be blocked in the attack types
-		//if blockable attack then return true
-		return true;
-	}
-
-	//will return 0 if not able to change
-	public int rollTacChange() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	
 	public int selection() {
 		// TODO Auto-generated method stub
 		//will ask if player wants to alert weapon, run, or fly (can cast spell here) or nothing
@@ -460,13 +450,13 @@ public class PlayerBase extends EntityBase implements Serializable {
 		//must alert something or abandon an amount of belongings
 	}
 
-	public void toCharge(Set<EntityBase> chargeAble) {
+	public void setCharge(Set<EntityBase> chargeAble) {
 		// TODO Auto-generated method stub
 		//will change charge target to something
 		
 	}
 
-	public PlayerBase chargingPlayer() {
+	public EntityBase getChargingPlayer() {
 		return chargeTarget;
 	}
 
@@ -492,7 +482,7 @@ public class PlayerBase extends EntityBase implements Serializable {
 
 	public boolean checkIfHit(Attacks attackDirection) {
 		// TODO Auto-generated method stub
-		// will check manuever vsv attackDirection and if hit then return true
+		// will check manuever vs attackDirection and if hit then return true
 		return false;
 	}
 

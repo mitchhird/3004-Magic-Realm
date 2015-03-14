@@ -127,8 +127,8 @@ public class CombatPvP {
 //			for each see if they want to charge player
 //				if so both unhidden
 			players[i].setCharge();//-----------------------------------
-			if(players[i].chargingPlayer() != null){
-				players[i].chargingPlayer().unHide();
+			if(players[i].getChargingPlayer() != null){
+				players[i].getChargingPlayer().unHide();
 				players[i].unHide();
 			}
 		}
@@ -149,7 +149,7 @@ public class CombatPvP {
 	
 	private void encounter(PlayerBase[] players) {
 		for(int i = 0; i < players.length; ++i){
-			if(players[i].chargingPlayer() == null){
+			if(players[i].getChargingPlayer() == null){
 				continue;
 			} else {
 				int f = players[i].selection();//---------------------

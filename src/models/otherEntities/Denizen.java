@@ -7,10 +7,13 @@ public class Denizen extends EntityBase {
 	//else controlled by the player that is hiredBy
 	private PlayerBase hiredBy;
 	
+	//need to get some weapon
+	//might armor
+	
 	public Denizen(){
 		setHiredBy(null);
 	}
-
+	
 	//setters and getters
 	public PlayerBase getHiredBy() {
 		return hiredBy;
@@ -18,6 +21,10 @@ public class Denizen extends EntityBase {
 
 	public void setHiredBy(PlayerBase hiredBy) {
 		this.hiredBy = hiredBy;
+	}
+	
+	public void removeHired(){
+		hiredBy = null;
 	}
 	
 }
