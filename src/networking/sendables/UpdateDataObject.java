@@ -9,10 +9,11 @@ import models.characterModels.PlayerBase;
  * @author Mitchell
  */
 public class UpdateDataObject implements Serializable {
-	private PlayerBase sentPlayer;
-	private MessageType updateType;
 	
 	private boolean hidden;
+	private PlayerBase sentPlayer;
+	private MessageType updateType;	
+	private static final long serialVersionUID = -6607394420041280613L;
 	
 	public UpdateDataObject (PlayerBase sentPlayer, MessageType updateType) {
 		this.sentPlayer = sentPlayer;

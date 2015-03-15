@@ -1,4 +1,4 @@
-package views;
+package views.PopupViews;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

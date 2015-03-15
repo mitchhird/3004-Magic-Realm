@@ -1,4 +1,4 @@
-package networking.threads;
+package networking.threads.ProcessingThreads;
 
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -7,10 +7,11 @@ import java.util.ArrayList;
 
 import networking.sendables.MessageType;
 import networking.sendables.UpdateDataObject;
+import networking.threads.BaseThreads.ReaderThreadBase;
 import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
 import utils.Pair;
-import views.GameView;
+import views.MainViews.GameView;
 
 /**
  * Thread That Contains The Actual Server, This Way Clients Can Host There Own Game
@@ -19,7 +20,7 @@ import views.GameView;
  *    --- Might Want This To Be An Observable So It 
  * @author Mitchell
  */
-public class ServerMainThread extends Thread {
+public class ServerMainThread extends ReaderThreadBase {
 	
 	private int serverPort;
 	private boolean processing = false;
@@ -84,34 +85,6 @@ public class ServerMainThread extends Thread {
 		}
 	}
 	
-	/*************************** Handle The Incoming Messages ************************/
-	public void handleIncomingPlayer (PlayerBase incoming, ServerReadThread caller) {
-	   System.out.println("Handling New Player Addition");
-	   incoming.initializePlayer();
-	   incoming.setPlayerIP(caller.getReadingIp());
-	   theGame.addPlayer(incoming);
-	}
-	
-	public void handleUpdate (Clearing incoming) {
-		System.out.println("Handling Player Update");
-		Clearing moveTo = theGame.getClearingByName(incoming.getClearingName());
-		theGame.getCurrentPlayer().moveToClearing(moveTo);
-	}
-	
-	public void handleMessage (MessageType incoming) {
-		if (incoming.equals(MessageType.START_GAME)){
-			theGame.handleStartGame();
-		} else if (incoming == MessageType.SEND_TURN) {
-			// TODO: Fill This In
-		}
-	}
-	
-	public void handleContainer (UpdateDataObject incoming) {
-		if (incoming.getUpdateType() == MessageType.UPDATE_PLAYER_HIDE) {
-			theGame.getCurrentPlayer().setHidden(incoming.isHidden());
-		}
-	}
-
 	/**************************** Getters And Setters ****************************/
 	public boolean isProcessing() {
 		return processing;

@@ -1,7 +1,8 @@
-package views;
+package views.MainViews;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -19,12 +20,14 @@ import models.characterModels.playerEnums.CharacterClass;
 	    private javax.swing.JTable jTable2;      
 	    
 	    private GameView parent;
+	    private ArrayList <PlayerBase> playersConnected;
 	    
 		private static final long serialVersionUID = 1L;
 		
 		//Constructor for this view
 	    public PlayerListView(GameView parent) {
 	    	this.parent = parent; 
+	    	playersConnected = new ArrayList<>();
 	        initComponents();
 	    }
                 
@@ -122,9 +125,6 @@ import models.characterModels.playerEnums.CharacterClass;
 	    			jTable2.setValueAt("Playing", i, 2);
 	    		else
 	    			jTable2.setValueAt("Waiting", i, 2);
-	    		
-	    		// Set The Player's Host Here
-	    		jTable2.setValueAt(currentPlayer.getPlayerIP(), i, 3);
 	    	}
 	    }
    
@@ -133,6 +133,8 @@ import models.characterModels.playerEnums.CharacterClass;
 	    	startGameButton.setEnabled(jTable2.getRowCount() > 0);
 	    }
 	    
+	    
+	    /*************************************** Getters And Setters ***************************************/
 	    public javax.swing.JButton getjButton2() {
 			return removePlayerButton;
 		}
@@ -157,8 +159,10 @@ import models.characterModels.playerEnums.CharacterClass;
 			this.startGameButton = startGameButton;
 		}
 
-		public void addPlayer(String pName, String pClass){
-			((DefaultTableModel) getjTable2().getModel()).addRow(new Object[]{pClass,pName,"Waiting"});
+		public void addPlayer(PlayerBase newPlayer){
+			playersConnected.add(newPlayer);
+			((DefaultTableModel) getjTable2().getModel()).addRow(new Object[]{newPlayer.getPlayerClass().name(),
+																			  newPlayer.getName(),"Waiting", newPlayer.getPlayerIP()});
 			update();
 		}
 		

@@ -1,9 +1,9 @@
-package networking.threads;
+package networking.threads.ProcessingThreads;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-import views.GameView;
+import views.MainViews.GameView;
 
 public class ServerWriteThread extends Thread {
 	private GameView parent;

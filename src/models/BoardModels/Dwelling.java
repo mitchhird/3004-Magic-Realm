@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 
 import utils.GameUtils;
-import views.PlacementView;
+import views.PopupViews.PlacementView;
 
 /**
  * The Dwelling Objects That A Clearing Can Have On It

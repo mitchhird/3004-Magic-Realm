@@ -2,7 +2,7 @@ package utils;
 
 import java.util.Random;
 
-import views.RollView;
+import views.PopupViews.RollView;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.TradeRelation;
 

@@ -1,35 +1,34 @@
-package networking.threads;
+package networking.threads.ProcessingThreads;
 
 import java.io.ObjectInputStream;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
 
-import networking.sendables.MessageType;
-import networking.sendables.UpdateDataObject;
 import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
-import views.GameView;
+import networking.sendables.MessageType;
+import networking.sendables.UpdateDataObject;
+import networking.threads.BaseThreads.ReaderThreadBase;
+import views.MainViews.GameView;
 
 /**
  * Client Reading Thread That Will Simply Read Messages From The Server And Process The Data
  *    --- Basically Acts A Little Mini Server, But It Board Casts 0 Messages
  * @author Mitchell
  */
-public class ClientReadThread extends Thread {
+public class ClientReadThread extends ReaderThreadBase {
 
-	private GameView parent;
 	private boolean processing;
+	private String connectedTo;
 	private ObjectInputStream readStream;
 	
 	// Specific Server To Connect Top
-	public ClientReadThread (ObjectInputStream inStream, GameView parent) {
-		readStream = inStream;
-		this.parent = parent;
+	public ClientReadThread (ObjectInputStream inStream, String serverIP, GameView parent) {
 		processing = false;
+		this.mainGame = parent;
+		readStream = inStream;
+		connectedTo = serverIP;
 		
 		// Set The Thread Name So We Can See It
-		setName("Client Read Thead");
+		setName("Client Read Thead (" + connectedTo + ")");
 	}
 	
 	// Close The Connection Up
@@ -71,26 +70,11 @@ public class ClientReadThread extends Thread {
 	/*************************** Handle The Incoming Messages ************************/
 	public void handleIncomingPlayer (PlayerBase incoming) {
 	   System.out.println("Handling New Player Addition");
-	   parent.addPlayer(incoming);
-	   incoming.initializePlayer();
-	}
-	
-	public void handleMessage (MessageType incoming) {
-		if (incoming.equals(MessageType.START_GAME)){
-			parent.handleStartGame();
-		}
-	}
-	
-	public void handleUpdate (Clearing incoming, ServerReadThread caller) {
-		System.out.println("Handling Player Update");
-		Clearing moveTo = parent.getClearingByName(incoming.getClearingName());
-		parent.getCurrentPlayer().moveToClearing(moveTo);
-	}
-	
-	public void handleContainer (UpdateDataObject incoming) {
-		if (incoming.getUpdateType() == MessageType.UPDATE_PLAYER_HIDE) {
-			parent.getCurrentPlayer().setHidden(incoming.isHidden());
-		}
+	   incoming.initPlayerStats();
+	   incoming.setClass(incoming.getPlayerClass());
+	   incoming.initializePlayerImage();
+	   incoming.setPlayerIP(connectedTo);
+	   mainGame.addPlayer(incoming);
 	}
 	
 	/************************** Getters And Setters *********************************/

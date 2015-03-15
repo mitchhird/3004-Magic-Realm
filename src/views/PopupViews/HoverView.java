@@ -1,4 +1,4 @@
-package views;
+package views.PopupViews;
 
 import java.awt.Image;
 import java.awt.event.ActionEvent;

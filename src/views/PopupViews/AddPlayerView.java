@@ -1,4 +1,4 @@
-package views;
+package views.PopupViews;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -10,6 +10,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import views.FrameBase;
+import views.MainViews.GameView;
 import models.characterModels.playerEnums.CharacterClass;
 
 public class AddPlayerView extends FrameBase {

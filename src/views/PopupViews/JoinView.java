@@ -1,4 +1,4 @@
-package views;
+package views.PopupViews;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,8 +8,9 @@ import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import networking.threads.ClientReadThread;
-import networking.threads.ClientWriterThread;
+import views.MainViews.GameView;
+import networking.threads.ProcessingThreads.ClientReadThread;
+import networking.threads.ProcessingThreads.ClientWriterThread;
 
 public class JoinView extends javax.swing.JFrame {
 
@@ -131,7 +132,7 @@ public class JoinView extends javax.swing.JFrame {
     	
     	// Start The Client Thread Up
     	ClientWriterThread test = new ClientWriterThread(ipAddressField.getText(), portNum, parent);
-    	ClientReadThread reader = new ClientReadThread(test.getInStream(), parent);
+    	ClientReadThread reader = new ClientReadThread(test.getInStream(), ipAddressField.getText(), parent);
     	test.start();
     	reader.start();
     	

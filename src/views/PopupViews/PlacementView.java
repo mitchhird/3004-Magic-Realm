@@ -1,4 +1,4 @@
-package views;
+package views.PopupViews;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,6 +6,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
+import views.MainViews.BoardView;
 import models.BoardModels.Clearing;
 
 @SuppressWarnings("rawtypes")

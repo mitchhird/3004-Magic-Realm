@@ -1,4 +1,4 @@
-package views;
+package views.MainViews;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -11,6 +11,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import views.PopupViews.CombatView;
+import views.PopupViews.TradeView;
+import views.PopupViews.TreasureViewDialog;
 import networking.sendables.MessageType;
 import networking.sendables.UpdateDataObject;
 import models.characterModels.PlayerBase;
@@ -210,7 +213,7 @@ public class PlayerControllView extends javax.swing.JPanel {
         sendTurnButton.setText("Send Turn");
         sendTurnButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                handleSendTurn();
+                parent.sendTurn();
             }
         });
         
@@ -441,6 +444,21 @@ public class PlayerControllView extends javax.swing.JPanel {
 		tradePanel.setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
 		tradePanel.setVisible(true);
 	}
+	
+	// Method Enables / Disables All Buttons Based On Whether Or Not The Player Is Currently Playing 
+	public void updateButtonsForNetwork () {
+		if (parent.isNetworkedGame()) {
+			boolean isLocalPlayer = parent.getCurrentPlayer().getPlayerIP().equals("localhost");
+			searchButton.setEnabled(isLocalPlayer);
+			moveButton.setEnabled(isLocalPlayer);
+			sendTurnButton.setEnabled(isLocalPlayer);
+			hideButton.setEnabled(isLocalPlayer);
+			tradeButton.setEnabled(isLocalPlayer);
+			cancelActionButton.setEnabled(isLocalPlayer);
+			restButton.setEnabled(isLocalPlayer);
+		}
+	}
+	
     /*---------------------- Event Handler Methods ----------------------------- */
 	private void handleSearchButtonPressed() {
 		PlayerBase currentPlayer = parent.getCurrentPlayer();
@@ -492,31 +510,6 @@ public class PlayerControllView extends javax.swing.JPanel {
     		JOptionPane.showMessageDialog(this, "You Have No More Actions For This Turn");
     	}
     }                                        
-
-    //method used for sending a turn to the controller
-    public void handleSendTurn () {
-    	System.out.println("Send Turn Has Been Pressed");
-    	
-    	// If The Game Has Started
-    	if (parent.hasGameStarted()) {
-    		if(parent.getCurrentPlayer()==null){
-    			return;
-    		}
-    		
-    		PlayerBase currentPlayer = parent.getCurrentPlayer();
-    		currentPlayer.getCurrentClearing().updateConnectedTiles();
-    		currentPlayer.endPlayerTurn();
-    		parent.getGameController().moveToNextPlayer();
-    		parent.getPlayerList().updateTable();
-    		parent.updateRecordTable();
-    	
-    		// If There Is Multiple Players In The Clearing Then Fight
-    		ArrayList<PlayerBase> playersInClearing = currentPlayer.getCurrentClearing().getPlayersInClearing();
-    		if (playersInClearing.size() > 1) {
-    			startCombat(playersInClearing);
-    		}
-    	}
-    }
 
 	// Shows The Combat In It's Own View
 	public void startCombat(ArrayList <PlayerBase> combatingPlayers){

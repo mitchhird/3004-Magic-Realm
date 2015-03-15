@@ -1,4 +1,4 @@
-package views;
+package views.MainViews;
 
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
@@ -24,10 +25,16 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import utils.GameUtils;
+import views.FrameBase;
+import views.PopupViews.AddPlayerView;
+import views.PopupViews.CombatView;
+import views.PopupViews.HostView;
+import views.PopupViews.JoinView;
 import networking.sendables.MessageType;
-import networking.threads.ClientReadThread;
-import networking.threads.ClientWriterThread;
-import networking.threads.ServerMainThread;
+import networking.sendables.UpdateDataObject;
+import networking.threads.ProcessingThreads.ClientReadThread;
+import networking.threads.ProcessingThreads.ClientWriterThread;
+import networking.threads.ProcessingThreads.ServerMainThread;
 import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
@@ -251,8 +258,41 @@ public class GameView extends FrameBase {
 		if (networkedGame) {
 			sendMessage(MessageType.START_GAME);
 		}
+		
+		thePlayerButtons.updateButtonsForNetwork();
 	}
 
+	// Handles The Send Turn, By Calling The Control Vieww
+	public void sendTurn () {
+		
+		// If The Game Has Started, Send The Turn
+    	if (hasGameStarted()) {
+    		if(getCurrentPlayer()==null){
+    			return;
+    		}
+    		
+    		PlayerBase currentPlayer = getCurrentPlayer();
+    		currentPlayer.getCurrentClearing().updateConnectedTiles();
+    		currentPlayer.endPlayerTurn();
+    		theClient.moveToNextPlayer();
+    		thePlayerList.updateTable();
+    		updateRecordTable();
+    	
+    		// If There Is Multiple Players In The Clearing Then Start Combat
+    		ArrayList<PlayerBase> playersInClearing = currentPlayer.getCurrentClearing().getPlayersInClearing();
+    		if (playersInClearing.size() > 1) {
+    			new CombatView(playersInClearing);
+    		}
+    		
+    		thePlayerButtons.updateButtonsForNetwork();
+    	}
+    	
+    	// If We Are Networked Then Boardcast The Message
+    	if (networkedGame) {
+    		sendMessage(MessageType.SEND_TURN);
+    	}
+	}
+	
 	//Shows the player's detailed character sheet
 	private void showCard() {
 		if(thePlayerList.getjTable2().getSelectedRow() == -1){
@@ -313,14 +353,14 @@ public class GameView extends FrameBase {
 	//Adds the new palyer to the controller and the UI list
 	public void addPlayer(String playerName, CharacterClass playerClass){
 		theClient.addPlayer(playerClass, playerName);
-		thePlayerList.addPlayer(playerName, playerClass.name());
+		thePlayerList.addPlayer(theClient.getLastPlayer());
 		setPlayerInterface(thePlayerList.getjTable2().getRowCount()-1);
 	}
 	
 	// Overridden Add New Player, Called When Player Is Known
 	public void addPlayer (PlayerBase newPlayer) {
 		theClient.addPlayer(newPlayer);
-		thePlayerList.addPlayer(newPlayer.getName(), newPlayer.getPlayerClass().name());
+		thePlayerList.addPlayer(theClient.getLastPlayer());
 		setPlayerInterface(thePlayerList.getjTable2().getRowCount() - 1);
 	}
 	
@@ -361,8 +401,7 @@ public class GameView extends FrameBase {
 		if (networkedGame && serverThread != null) {
 			if (!serverThread.isProcessing()) {
 				serverThread.boardcastToAll(obj);
-			} 
-			serverThread.setProcessing(false);
+			}
 		}
 		
 		// We Are The Client So Send Over To Server

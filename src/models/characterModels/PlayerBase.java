@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.swing.JButton;
-
 import models.BoardModels.Clearing;
 import models.characterModels.playerEnums.Attacks;
 import models.characterModels.playerEnums.CharacterClass;
@@ -55,11 +53,6 @@ public class PlayerBase extends EntityBase implements Serializable {
 	protected String tradeRelationship;
 	protected String playerIP;
 	
-	//Action Chits in different statuses
-	protected transient ArrayList<ActionChit> active;
-	protected transient ArrayList<ActionChit> inActive;
-	protected transient ArrayList<ActionChit> wounded;
-	
 	// Compound Data Types For The Object
 	protected Chit[] combatChit;
 	protected Weights wounds;
@@ -84,11 +77,16 @@ public class PlayerBase extends EntityBase implements Serializable {
 	protected boolean moving;
 	protected boolean living;
 	protected boolean foundHidden;
+	protected boolean networkedPlayer;
 	
 	// Non Serialization Data
-	protected transient ArrayList<Denizen> hired;	
 	protected transient Image hiddenImage;
 	protected transient Image unhiddenImage;
+	protected transient ArrayList<Denizen> hired;	
+	protected transient ArrayList<ActionChit> active;
+	protected transient ArrayList<ActionChit> inActive;
+	protected transient ArrayList<ActionChit> wounded;
+	
 
 	// Serialization Flag
 	private static final long serialVersionUID = 1087220843681586963L;
@@ -102,23 +100,22 @@ public class PlayerBase extends EntityBase implements Serializable {
 	// Constructor When Multiple Instances For The Player Are Known
 	public PlayerBase (String playerName, CharacterClass c) {
 		setName(playerName);
-		setClass(c);
 		initPlayerStats();
+		setClass(c);
+		initializePlayerImage();
 	}
 	
 	// Constructor When Making A Network Based Model
 	public PlayerBase (String playerName, CharacterClass c, String playerIP) {
 		setName(playerName);
-		setClass(c);
 		initPlayerStats();
-		
-		setPlayerIP(playerIP);
+		setClass(c);
+		initializePlayerImage();
+		this.playerIP = playerIP;
 	}
 	
-	
-	//sould have a starting location on a dwelling
 	// Initialize The Player Stats
-	protected void initPlayerStats () {
+	public void initPlayerStats () {
 		currentFame = 0;
 		currentNotirity = 0;
 		currentGold = 10;
@@ -127,29 +124,28 @@ public class PlayerBase extends EntityBase implements Serializable {
         availableActions = 5;
 		
         // Boolean Values
-        foundHidden = false;
-		hidden = false;
 		living = true;
+		hidden = false;
+		foundHidden = false;
+		networkedPlayer = false;
 		
 		// String Values
 		currentTurn = "";
 		playerIP = "localhost";
 		
 		// Setup the lists
+		active = new ArrayList<>();
 		turnLog = new ArrayList<>();
 		accquiredTreasures = new ArrayList<>();
-
-		initializePlayer();
 	}
 
 	// Initializes Player Transient Objects
-	public void initializePlayer() {
+	public void initializePlayerImage() {
 		// Setup The Image
 		hiddenImage = characterClass.getHiddenTile();
 		unhiddenImage = characterClass.getReadyTile();
 	}
 	
-	// Turn Calls---
 	// Resets The Players Values When Called
 	public void reset() {
 		hidden = false;
@@ -301,7 +297,19 @@ public class PlayerBase extends EntityBase implements Serializable {
 		// TODO Auto-generated method stub
 	}
 	
-	/*-------------- Getters And Setters -------------- */
+	/*--------------------------------- Getters And Setters ---------------------------- */
+	public ArrayList<String> getRecordLog () {
+		return turnLog;
+	}
+	
+	public String getPlayerIP() {
+		return (networkedPlayer) ? playerIP : "localhost";
+	}
+	
+	public CharacterClass getPlayerClass(){
+		return characterClass;
+	}
+	
 	public void setClass(CharacterClass newPlayerClass) {
 		characterClass = newPlayerClass;
 		vulnerability = newPlayerClass.getVulner();
@@ -320,15 +328,9 @@ public class PlayerBase extends EntityBase implements Serializable {
 		System.out.println();
 	}
 	
-	public ArrayList<String> getRecordLog () {
-		return turnLog;
-	}
 	
-	public String getPlayerIP() {
-		return playerIP;
-	}
-
 	public void setPlayerIP(String playerIP) {
+		networkedPlayer = true;
 		this.playerIP = playerIP;
 	}
 
@@ -344,24 +346,28 @@ public class PlayerBase extends EntityBase implements Serializable {
 		currentGold = Math.max(amount, 0);
 	}
 	
-	public CharacterClass getPlayerClass(){
-		return characterClass;
-	}
-	
-	public boolean isMoving() {
-		return moving;
+	public void setCurrentClearing(Clearing currentClearing) {
+		this.currentClearing = currentClearing;
 	}
 
 	public void setMoving(boolean moving) {
 		this.moving = moving;
 	}
 
+	public boolean isMoving() {
+		return moving;
+	}
+
 	public Clearing getCurrentClearing() {
 		return currentClearing;
 	}
 
-	public void setCurrentClearing(Clearing currentClearing) {
-		this.currentClearing = currentClearing;
+	public int getDay() {
+		return currentDay;
+	}
+	
+	public int getGold() {
+		return currentGold;
 	}
 	
 	public Image getImage() {
@@ -472,8 +478,8 @@ public class PlayerBase extends EntityBase implements Serializable {
 			isDead();
 		}
 		
-	}//have to change this to get some information for what the player wishes to wound
-
+	}
+	
 	public Attacks getAttackDirection() {
 		// TODO Auto-generated method stub
 		//have to set it up so that you can get your weapon to swing a set direction
@@ -507,13 +513,6 @@ public class PlayerBase extends EntityBase implements Serializable {
 		currentDay++;
 	}
 
-	public int getDay() {
-		return currentDay;
-	}
-
-	public int getGold() {
-		return currentGold;
-	}
 	
 	@Override
 	public void setHidden(boolean hidden) {

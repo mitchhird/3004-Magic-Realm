@@ -1,12 +1,11 @@
-package networking.threads;
+package networking.threads.ProcessingThreads;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import views.GameView;
+import networking.threads.BaseThreads.TransmissionThreadBase;
+import views.MainViews.GameView;
 
 /**
  * Client Thread That Will Communicate With The Server And Give The Client Updates

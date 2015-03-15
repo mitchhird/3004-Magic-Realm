@@ -1,4 +1,4 @@
-package views;
+package views.PopupViews;
 
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -10,6 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
+import views.FrameBase;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.Attacks;
 import models.characterModels.playerEnums.Defences;
@@ -66,6 +67,8 @@ public class CombatView extends FrameBase {
         initWindow();
         addAllComponents();
         update();
+        
+        setName("Combat PVP");
     }
     
     // Initialize The Window

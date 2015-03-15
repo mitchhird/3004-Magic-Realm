@@ -3,7 +3,7 @@ package controller;
 import java.util.ArrayList;
 
 import utils.GameUtils;
-import views.GameView;
+import views.MainViews.GameView;
 import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
@@ -50,6 +50,11 @@ public class clientController {
 	// Returns The player List From The Game
 	public ArrayList<PlayerBase> getPlayers(){
 		return thePlayers;
+	}
+	
+	// Returns The Last Player
+	public PlayerBase getLastPlayer () {
+		return thePlayers.get(thePlayers.size() - 1);
 	}
 	
 	// Moves To Next Player's Turn, Using Modulo Math

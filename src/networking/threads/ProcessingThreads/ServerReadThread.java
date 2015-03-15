@@ -1,4 +1,4 @@
-package networking.threads;
+package networking.threads.ProcessingThreads;
 
 import java.net.Socket;
 
@@ -6,6 +6,7 @@ import javax.print.attribute.standard.Severity;
 
 import networking.sendables.MessageType;
 import networking.sendables.UpdateDataObject;
+import networking.threads.BaseThreads.TransmissionThreadBase;
 import sun.awt.windows.ThemeReader;
 import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;

@@ -1,6 +1,6 @@
 package app;
 
-import views.GameView;
+import views.MainViews.GameView;
 
 /**
  * Main Class For The Magic Realm Game. Creates A Game View And Starts Everything

@@ -1,4 +1,4 @@
-package views;
+package views.PopupViews;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,7 +8,8 @@ import java.net.UnknownHostException;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import networking.threads.ServerMainThread;
+import views.MainViews.GameView;
+import networking.threads.ProcessingThreads.ServerMainThread;
 
 public class HostView extends javax.swing.JFrame {
 

@@ -1,4 +1,4 @@
-package networking.threads;
+package networking.threads.BaseThreads;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

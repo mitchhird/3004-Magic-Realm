@@ -1,4 +1,4 @@
-package views;
+package views.MainViews;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -20,6 +20,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import utils.GameUtils;
+import views.PopupViews.HoverView;
+import views.PopupViews.PlacementView;
 import models.BoardModels.Clearing;
 import models.BoardModels.Dwelling;
 import models.characterModels.playerEnums.CharacterClass;
@@ -554,9 +556,6 @@ public class BoardView extends JPanel {
 		lwoods2.addConnectedClearing(lwoods4);
 		lwoods4.addToConnectedClearings(lwoods2, ruins2);		
 		lwoods5.addConnectedClearing(avalley2);
-		
-		// Temp
-		cavern1.addTreasures(new TreasureModel(true), new TreasureModel(false));
 	}
 	
 	//Adds a listener to the clearing that is passed to this function
