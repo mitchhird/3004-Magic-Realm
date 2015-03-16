@@ -112,7 +112,7 @@ public class PlacementView extends javax.swing.JFrame {
     
     private void placeItem() {
 		ourParent.addCheatClearing(theClearings.get(locationList.getSelectedIndex()));
-		itemList.remove(locationList.getSelectedIndex());
+		itemList.remove(itemList.getSelectedIndex());
 		if(itemList.getItemCount()==0){
 			dispose();
 		}
