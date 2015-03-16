@@ -25,9 +25,8 @@ import views.PopupViews.PlacementView;
 import models.BoardModels.Clearing;
 import models.BoardModels.Dwelling;
 import models.characterModels.playerEnums.CharacterClass;
+import models.monsterModels.Ghost;
 import models.monsterModels.Giant;
-import models.monsterModels.MonsterBase;
-import models.otherEntities.TreasureModel;
 
 public class BoardView extends JPanel {
 
@@ -198,8 +197,12 @@ public class BoardView extends JPanel {
 				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
 
 				currentClearing = cheatClearings.get(4);
-				Giant currentMonster = new Giant();
-				currentClearing.addImageToList(currentMonster.getImage());
+				Giant theGiant = new Giant();
+				currentClearing.addImageToList(theGiant.getImage());
+				
+				currentClearing = cheatClearings.get(5);
+				Ghost aGhost = new Ghost();
+				currentClearing.addImageToList(aGhost.getImage());
 				
 			}else{
 				currentClearing = bvalley5;
@@ -221,9 +224,13 @@ public class BoardView extends JPanel {
 				currentDwelling = new Dwelling(currentClearing, currentImage);
 				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
 				
+				currentClearing = evalley4;
+				Giant theGiant = new Giant();
+				currentClearing.addImageToList(theGiant.getImage());
+				
 				currentClearing = evalley5;
-				Giant currentMonster = new Giant();
-				currentClearing.addImageToList(currentMonster.getImage());
+				Ghost aGhost = new Ghost();
+				currentClearing.addImageToList(aGhost.getImage());
 				
 			}
 		} catch (Exception e) {
