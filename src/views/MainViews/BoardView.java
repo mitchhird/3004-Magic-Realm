@@ -38,6 +38,7 @@ public class BoardView extends JPanel {
 	private float scale = 1;
 
 	private ArrayList<Clearing> clearings = new ArrayList<Clearing>();
+	private ArrayList<Clearing> cheatClearings = new ArrayList<Clearing>();
 	
 	private Clearing cliff1 = new Clearing("cl1");
 	private Clearing cliff2 = new Clearing("cl2");
@@ -170,15 +171,30 @@ public class BoardView extends JPanel {
 	
 	public void placeItemsOnBoard(){
 		try {
-			Image innImage = ImageIO.read(getClass().getResource("/dwellings_c/inn.gif"));
+			Image currentImage = ImageIO.read(getClass().getResource("/dwellings_c/inn.gif"));
 			if(GameUtils.getCheatMode()){
-				PlacementView thePlacer = new PlacementView(new String[]{"Inn"}, clearings, this);
+				PlacementView thePlacer = new PlacementView(new String[]{"Inn", "Chapel"}, clearings, this);
 				thePlacer.setVisible(true);
+				
+				currentClearing = cheatClearings.get(0);
+				inn = new Dwelling(currentClearing, currentImage);
+				inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
+				
+				currentImage = ImageIO.read(getClass().getResource("/dwellings_c/chapel.gif"));
+				currentClearing = cheatClearings.get(1);;
+				Dwelling currentDwelling = new Dwelling(currentClearing, currentImage);
+				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
+				
 			}else{
-				currentClearing = dvalley4;
+				currentClearing = bvalley5;
+				inn = new Dwelling(currentClearing, currentImage);
+				inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
+				
+				currentImage = ImageIO.read(getClass().getResource("/dwellings_c/chapel.gif"));
+				currentClearing = avalley5;
+				Dwelling currentDwelling = new Dwelling(currentClearing, currentImage);
+				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
 			}
-			inn = new Dwelling(currentClearing, innImage);
-			inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -673,7 +689,7 @@ public class BoardView extends JPanel {
 		return null;
 	}
 
-	public void setCheatClearing(Clearing clearing) {
-		currentClearing = clearing;
+	public void addCheatClearing(Clearing clearing) {
+		cheatClearings.add(clearing);
 	}
 }
