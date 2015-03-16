@@ -174,7 +174,7 @@ public class BoardView extends JPanel {
 		try {
 			Image currentImage = ImageIO.read(getClass().getResource("/dwellings_c/inn.gif"));
 			if(GameUtils.getCheatMode()){
-				PlacementView thePlacer = new PlacementView(new String[]{"Inn", "Chapel", "House", "Guard", "Giant"}, clearings, this);
+				PlacementView thePlacer = new PlacementView(new String[]{"Inn", "Chapel", "House", "Guard", "Ghost"}, clearings, this);
 				thePlacer.setVisible(true);
 				
 				currentClearing = cheatClearings.get(0);
@@ -195,12 +195,8 @@ public class BoardView extends JPanel {
 				currentClearing = cheatClearings.get(3);
 				currentDwelling = new Dwelling(currentClearing, currentImage);
 				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
-
-				currentClearing = cheatClearings.get(4);
-				Giant theGiant = new Giant();
-				currentClearing.addImageToList(theGiant.getImage());
 				
-				currentClearing = cheatClearings.get(5);
+				currentClearing = cheatClearings.get(4);
 				Ghost aGhost = new Ghost();
 				currentClearing.addImageToList(aGhost.getImage());
 				
@@ -223,10 +219,6 @@ public class BoardView extends JPanel {
 				currentClearing = dvalley5;
 				currentDwelling = new Dwelling(currentClearing, currentImage);
 				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
-				
-				currentClearing = evalley4;
-				Giant theGiant = new Giant();
-				currentClearing.addImageToList(theGiant.getImage());
 				
 				currentClearing = evalley5;
 				Ghost aGhost = new Ghost();
