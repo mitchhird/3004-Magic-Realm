@@ -194,7 +194,6 @@ public class BoardView extends JPanel {
 				currentClearing = cheatClearings.get(3);;
 				currentDwelling = new Dwelling(currentClearing, currentImage);
 				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
-				
 			}else{
 				currentClearing = bvalley5;
 				inn = new Dwelling(currentClearing, currentImage);
