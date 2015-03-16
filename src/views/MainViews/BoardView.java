@@ -196,11 +196,11 @@ public class BoardView extends JPanel {
 				currentClearing = cheatClearings.get(3);
 				currentDwelling = new Dwelling(currentClearing, currentImage);
 				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
-				
-				currentImage = ImageIO.read(getClass().getResource("/monsters_c/giant.gif"));
+
 				currentClearing = cheatClearings.get(4);
-				currentDwelling = new Dwelling(currentClearing, currentImage);
-				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
+				Giant currentMonster = new Giant();
+				currentClearing.addImageToList(currentMonster.getImage());
+				
 			}else{
 				currentClearing = bvalley5;
 				inn = new Dwelling(currentClearing, currentImage);
@@ -223,7 +223,7 @@ public class BoardView extends JPanel {
 				
 				currentClearing = evalley5;
 				Giant currentMonster = new Giant();
-				evalley5.addImageToList(currentMonster.getImage());
+				currentClearing.addImageToList(currentMonster.getImage());
 				
 			}
 		} catch (Exception e) {
