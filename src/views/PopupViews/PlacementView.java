@@ -30,6 +30,7 @@ public class PlacementView extends javax.swing.JFrame {
         locationList.setModel(new javax.swing.DefaultComboBoxModel(newClearings.toArray()));
         ourParent = theParent;
         theClearings = newClearings;
+        itemList.setEnabled(false);
     }
                          
     @SuppressWarnings("unchecked")
