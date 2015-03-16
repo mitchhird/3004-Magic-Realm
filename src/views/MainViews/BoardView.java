@@ -642,7 +642,7 @@ public class BoardView extends JPanel {
             public void mouseWheelMoved(MouseWheelEvent e) {
                 double delta = 0.057f * e.getPreciseWheelRotation();
                 scale += delta;
-                scaleButtons();
+                scaleClearings();
                 revalidate();
                 repaint();
             }
@@ -650,7 +650,7 @@ public class BoardView extends JPanel {
         });
 	}
 	
-	private void scaleButtons(){
+	private void scaleClearings(){
 		for(int i = 0; i < clearings.size();i++){
 			clearings.get(i).scaleClearing(scale);
 		}

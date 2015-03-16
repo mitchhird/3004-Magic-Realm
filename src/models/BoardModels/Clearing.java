@@ -268,6 +268,7 @@ public class Clearing implements Serializable {
 	public void scaleClearing (float scale) {
 		buttonTiedToClearing.setLocation((int) (startX * scale), (int) (startY * scale));
 		buttonTiedToClearing.setSize((int) (startWidth * scale), (int) (startHeight * scale));
+		updateImage();
 	}
 
 		
