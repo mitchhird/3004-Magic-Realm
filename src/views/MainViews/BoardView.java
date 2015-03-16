@@ -25,6 +25,8 @@ import views.PopupViews.PlacementView;
 import models.BoardModels.Clearing;
 import models.BoardModels.Dwelling;
 import models.characterModels.playerEnums.CharacterClass;
+import models.monsterModels.Giant;
+import models.monsterModels.MonsterBase;
 import models.otherEntities.TreasureModel;
 
 public class BoardView extends JPanel {
@@ -219,10 +221,9 @@ public class BoardView extends JPanel {
 				currentDwelling = new Dwelling(currentClearing, currentImage);
 				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
 				
-				currentImage = ImageIO.read(getClass().getResource("/monsters_c/giant.gif"));
 				currentClearing = evalley5;
-				currentDwelling = new Dwelling(currentClearing, currentImage);
-				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
+				Giant currentMonster = new Giant();
+				evalley5.addImageToList(currentMonster.getImage());
 				
 			}
 		} catch (Exception e) {
