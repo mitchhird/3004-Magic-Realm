@@ -173,7 +173,7 @@ public class BoardView extends JPanel {
 		try {
 			Image currentImage = ImageIO.read(getClass().getResource("/dwellings_c/inn.gif"));
 			if(GameUtils.getCheatMode()){
-				PlacementView thePlacer = new PlacementView(new String[]{"Inn", "Chapel", "House", "Guard"}, clearings, this);
+				PlacementView thePlacer = new PlacementView(new String[]{"Inn", "Chapel", "House", "Guard", "Giant"}, clearings, this);
 				thePlacer.setVisible(true);
 				
 				currentClearing = cheatClearings.get(0);
@@ -181,17 +181,22 @@ public class BoardView extends JPanel {
 				inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
 				
 				currentImage = ImageIO.read(getClass().getResource("/dwellings_c/chapel.gif"));
-				currentClearing = cheatClearings.get(1);;
+				currentClearing = cheatClearings.get(1);
 				Dwelling currentDwelling = new Dwelling(currentClearing, currentImage);
 				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
 				
 				currentImage = ImageIO.read(getClass().getResource("/dwellings_c/house.gif"));
-				currentClearing = cheatClearings.get(2);;
+				currentClearing = cheatClearings.get(2);
 				currentDwelling = new Dwelling(currentClearing, currentImage);
 				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
 				
 				currentImage = ImageIO.read(getClass().getResource("/dwellings_c/guard.gif"));
-				currentClearing = cheatClearings.get(3);;
+				currentClearing = cheatClearings.get(3);
+				currentDwelling = new Dwelling(currentClearing, currentImage);
+				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
+				
+				currentImage = ImageIO.read(getClass().getResource("/monsters_c/giant.gif"));
+				currentClearing = cheatClearings.get(4);
 				currentDwelling = new Dwelling(currentClearing, currentImage);
 				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
 			}else{
@@ -213,6 +218,12 @@ public class BoardView extends JPanel {
 				currentClearing = dvalley5;
 				currentDwelling = new Dwelling(currentClearing, currentImage);
 				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
+				
+				currentImage = ImageIO.read(getClass().getResource("/monsters_c/giant.gif"));
+				currentClearing = evalley5;
+				currentDwelling = new Dwelling(currentClearing, currentImage);
+				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
