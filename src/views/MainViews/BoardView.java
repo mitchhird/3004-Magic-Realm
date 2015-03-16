@@ -686,6 +686,7 @@ public class BoardView extends JPanel {
 				return c;
 			}
 		}
+		
 		return null;
 	}
 
