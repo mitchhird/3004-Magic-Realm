@@ -1,7 +1,13 @@
 package models.chitModels;
 
+import java.util.ArrayList;
+
 import models.characterModels.playerEnums.ArmorType;
 import models.characterModels.playerEnums.Weights;
+import models.chitModels.EnvironmentChit.EnvironmentChit;
+import models.chitModels.EnvironmentChit.SiteChit;
+import models.chitModels.EnvironmentChit.SoundChit;
+import models.chitModels.EnvironmentChit.WarningChit;
 import models.chitModels.SpecialActionChits.DuckChit;
 
 public class ChitFactory {
@@ -64,4 +70,105 @@ public class ChitFactory {
 	public static ArmorChit getArmor () {
 		return new ArmorChit(ArmorType.ARMOUR, Weights.MEDIUM);
 	}
+	// Environment Chits
+	// Site
+	public static SiteChit alter = new SiteChit(0, "Altar");
+	public static SiteChit cairns = new SiteChit(0, "Cairns");
+	public static SiteChit hoard = new SiteChit(0, "Hoard");
+	public static SiteChit lair = new SiteChit(0, "Lair");
+	public static SiteChit pool = new SiteChit(0, "Pool");
+	public static SiteChit shrine = new SiteChit(0, "Shrine");
+	public static SiteChit statue = new SiteChit(0, "Statue");
+	public static SiteChit vault = new SiteChit(0, "Vault");
+	// Sound
+	public static SoundChit flutter1 = new SoundChit(1, "Flutter1");
+	public static SoundChit flutter2 = new SoundChit(2, "Flutter2");
+	public static SoundChit howl4 = new SoundChit(4, "Howl4");
+	public static SoundChit howl5 = new SoundChit(5, "Howl5");
+	public static SoundChit LostCity = new SoundChit(0, "Lost Castle");
+	public static SoundChit LostCastle = new SoundChit(0, "Lost City");
+	public static SoundChit patter2 = new SoundChit(2, "Patter2");
+	public static SoundChit patter5 = new SoundChit(5, "Patter5");
+	public static SoundChit roar4 = new SoundChit(4, "Roar4");
+	public static SoundChit roar6 = new SoundChit(6, "Roar6");
+	public static SoundChit slither3 = new SoundChit(3, "Slither3");
+	public static SoundChit slither6 = new SoundChit(6, "Slither6");
+	// Warning
+	public static WarningChit bonesC = new WarningChit(0, "BonesC");
+	public static WarningChit bonesM = new WarningChit(0, "BonesM");
+	public static WarningChit bonesV = new WarningChit(0, "BonesV");
+	public static WarningChit bonesW = new WarningChit(0, "BonesW");
+	public static WarningChit dankC = new WarningChit(0, "DankC");
+	public static WarningChit dankM = new WarningChit(0, "DankM");
+	public static WarningChit dankV = new WarningChit(0, "DankV");
+	public static WarningChit dankW = new WarningChit(0, "DankW");
+	public static WarningChit ruinsC = new WarningChit(0, "RuinsC");
+	public static WarningChit ruinsM = new WarningChit(0, "RuinsM");
+	public static WarningChit ruinsV = new WarningChit(0, "RuinsV");
+	public static WarningChit ruinsW = new WarningChit(0, "RuinsW");
+	public static WarningChit smokeC = new WarningChit(0, "SmokeC");
+	public static WarningChit smokeM = new WarningChit(0, "SmokeM");
+	public static WarningChit smokeV = new WarningChit(0, "SmokeV");
+	public static WarningChit smokeW = new WarningChit(0, "SmokeW");
+	public static WarningChit stinkC = new WarningChit(0, "StinkC");
+	public static WarningChit stinkM = new WarningChit(0, "StinkM");
+	public static WarningChit stinkV = new WarningChit(0, "StinkV");
+	public static WarningChit stinkW = new WarningChit(0, "StinkW");
+	
+	public ArrayList<EnvironmentChit> getWarning(){
+		ArrayList<EnvironmentChit> rlist = new ArrayList<EnvironmentChit>();
+		rlist.add(bonesC);
+		rlist.add(bonesM);
+		rlist.add(bonesV);
+		rlist.add(bonesW);
+		rlist.add(dankC);
+		rlist.add(dankM);
+		rlist.add(dankV);
+		rlist.add(dankW);
+		rlist.add(ruinsC);
+		rlist.add(ruinsM);
+		rlist.add(ruinsV);
+		rlist.add(ruinsW);
+		rlist.add(smokeC);
+		rlist.add(smokeM);
+		rlist.add(smokeV);
+		rlist.add(smokeW);
+		rlist.add(stinkC);
+		rlist.add(stinkM);
+		rlist.add(stinkV);
+		rlist.add(stinkW);
+		return rlist;
+	}
+	
+	public ArrayList<EnvironmentChit> getMap(){
+		ArrayList<EnvironmentChit> rlist = new ArrayList<EnvironmentChit>();
+		// Site
+		rlist.add(alter);
+		rlist.add(cairns);
+		rlist.add(hoard);
+		rlist.add(lair);
+		rlist.add(pool);
+		rlist.add(shrine);
+		rlist.add(statue);
+		rlist.add(vault);
+		// Sound
+		rlist.add(flutter1);
+		rlist.add(flutter2);
+		rlist.add(howl4);
+		rlist.add(howl5);
+		rlist.add(patter2);
+		rlist.add(patter5);
+		rlist.add(roar4);
+		rlist.add(roar6);
+		rlist.add(slither3);
+		rlist.add(slither6);
+		return rlist;
+	}
+	
+	public ArrayList<EnvironmentChit> addCityCastle(ArrayList<EnvironmentChit> start){
+		start.add(LostCity);
+		start.add(LostCastle);
+		return start;
+	}
+
 }

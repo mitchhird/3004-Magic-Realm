@@ -35,6 +35,11 @@ public class PlayerBase extends EntityBase implements Serializable {
 	protected int currentGold;
 	protected int currentDay;
 	
+	protected int reqFame;
+	protected int reqNotirity;
+	protected int reqGold;
+	protected int reqGreatTreasure;
+	
 	//weapons/armor/horses/treasure cards
 	//reading runes at treasure sites
 	//magical artifacts/spell books
@@ -122,6 +127,11 @@ public class PlayerBase extends EntityBase implements Serializable {
 		killCount = 0;
 		currentDay = 0;
         availableActions = 5;
+        
+        reqFame = 0;
+    	reqNotirity = 0;
+    	reqGold = 0;
+    	reqGreatTreasure = 0;
 		
         // Boolean Values
 		living = true;
@@ -167,6 +177,13 @@ public class PlayerBase extends EntityBase implements Serializable {
 	public void endPlayerTurn () {
 		turnLog.add(currentTurn);
 		currentTurn = "";
+	}
+	
+	public void addVicPoints(){
+		//get the great treasure value * 1 for req
+		//get the fame value * 10
+		//get the notoritiy value * 20
+		//get the gold value * 30
 	}
 	
 	// Turn Activity---
