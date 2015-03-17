@@ -18,12 +18,14 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.text.html.HTMLDocument.RunElement;
 
 import utils.GameUtils;
 import views.PopupViews.HoverView;
 import views.PopupViews.PlacementView;
 import models.BoardModels.Clearing;
 import models.BoardModels.Dwelling;
+import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
 import models.monsterModels.Ghost;
 import models.monsterModels.Giant;
@@ -361,6 +363,7 @@ public class BoardView extends JPanel {
 		}
 		
 		initClearings();
+		initHiddenClearings();
 		addClearingListeners();	
 		addZoomScroller();
 	}
@@ -385,7 +388,7 @@ public class BoardView extends JPanel {
 		cliff2.addToConnectedClearings(ledges3, cliff3);
 		cliff3.addToConnectedClearings(cliff6, cliff5, cliff2);
 		cliff4.addConnectedClearing(cliff6);
-		cliff5.addToConnectedClearings(cliff3, cliff2);		
+		cliff5.addToConnectedClearings(cliff3);		
 		cliff6.addToConnectedClearings(cliff1, cliff4, cliff3);
 		
 		evalley1.setLocation(255,267);
@@ -419,12 +422,12 @@ public class BoardView extends JPanel {
 		ledges5.setLocation(545,445);
 		ledges6.setLocation(628,342);
 		
-		ledges1.addToConnectedClearings(ledges6, ledges3, ledges4);
+		ledges1.addToConnectedClearings(ledges6, ledges4);
 		ledges2.addToConnectedClearings(evalley4, ledges5);
-		ledges3.addToConnectedClearings(ledges6, ledges1, cliff2);
-		ledges4.addToConnectedClearings(bland4, ledges1, ledges6);
+		ledges3.addToConnectedClearings(ledges6, cliff2);
+		ledges4.addToConnectedClearings(bland4, ledges1);
 		ledges5.addToConnectedClearings(ledges2, owoods2);
-		ledges6.addToConnectedClearings(ledges1, ledges3, ledges4);	
+		ledges6.addToConnectedClearings(ledges1, ledges3);	
 		
 		bland1.setLocation(285,570);
 		bland2.setLocation(385,470);
@@ -447,10 +450,10 @@ public class BoardView extends JPanel {
 		cavern5.setLocation(185,655);
 		cavern6.setLocation(210,768);
 		
-		cavern1.addToConnectedClearings(cavern3, cavern4, bvalley4);
+		cavern1.addToConnectedClearings(cavern3, bvalley4);
 		cavern2.addToConnectedClearings(cavern3, bland5);
 		cavern3.addToConnectedClearings(cavern1, cavern2, cavern5, cavern6);
-		cavern4.addToConnectedClearings(cavern1, cavern5, cavern6);
+		cavern4.addToConnectedClearings(cavern5, cavern6);
 		cavern5.addToConnectedClearings(cavern3, cavern4, hpass3);
 		cavern6.addToConnectedClearings(cavern3, cavern4);
 		
@@ -461,12 +464,12 @@ public class BoardView extends JPanel {
 		crag5.setLocation(748,464);
 		crag6.setLocation(816,382);
 
-		crag1.addToConnectedClearings(crag4, crag6);
-		crag2.addToConnectedClearings(crag5, crag3, dwoods1);
-		crag3.addToConnectedClearings(crag2, crag5, crag6);
+		crag1.addToConnectedClearings(crag4);
+		crag2.addToConnectedClearings(crag5, dwoods1);
+		crag3.addToConnectedClearings(crag5, crag6);
 		crag4.addToConnectedClearings(crag1, crag4);
 		crag5.addToConnectedClearings(crag3, crag2);
-		crag6.addToConnectedClearings(crag3, crag4, crag1);
+		crag6.addToConnectedClearings(crag3, crag4);
 	
 		owoods2.setLocation(561,565);
 		owoods4.setLocation(681,621);
@@ -484,7 +487,7 @@ public class BoardView extends JPanel {
 		bvalley1.addToConnectedClearings(bvalley4, owoods5);
 		bvalley2.addToConnectedClearings(bvalley5, caves2);
 		bvalley4.addToConnectedClearings(cavern1, mountain5);
-		bvalley5.addToConnectedClearings(bland1, bland2);
+		bvalley5.addToConnectedClearings(bland1);
 		
 		mountain1.setLocation(248, 999);
 		mountain2.setLocation(306, 1040);
@@ -496,9 +499,9 @@ public class BoardView extends JPanel {
 		mountain1.addConnectedClearing(mountain3);
 		mountain2.addToConnectedClearings(mountain4, mountain5, pwoods4);		
 		mountain3.addToConnectedClearings(mountain1, mountain6);
-		mountain4.addToConnectedClearings(mountain6, mountain2);
+		mountain4.addToConnectedClearings(mountain2);
 		mountain5.addToConnectedClearings(mountain6, mountain2, bvalley4);
-		mountain6.addToConnectedClearings(mountain4, mountain5, mountain3);
+		mountain6.addToConnectedClearings(mountain5, mountain3);
 		
 		dvalley1.setLocation(1037, 560);
 		dvalley2.setLocation(1091, 508);
@@ -516,12 +519,12 @@ public class BoardView extends JPanel {
 		dwoods5.setLocation(808,739);
 		dwoods6.setLocation(846,680);
 
-		dwoods1.addToConnectedClearings(owoods4, crag2, dwoods6, dwoods4);
+		dwoods1.addToConnectedClearings(owoods4, crag2, dwoods6);
 		dwoods2.addToConnectedClearings(dwoods3, cvalley2, dvalley5);
-		dwoods3.addToConnectedClearings(dwoods6, dwoods5, dwoods2);
-		dwoods4.addToConnectedClearings(dwoods1, dwoods5, dwoods6);
+		dwoods3.addToConnectedClearings(dwoods5, dwoods2);
+		dwoods4.addToConnectedClearings(dwoods5, dwoods6);
 		dwoods5.addToConnectedClearings(mwoods5, dwoods4, dwoods3);
-		dwoods6.addToConnectedClearings(dwoods1, dwoods4, dwoods3);
+		dwoods6.addToConnectedClearings(dwoods1, dwoods4);
 	
 		mwoods2.setLocation(730,887);
 		mwoods4.setLocation(634,898);
@@ -578,11 +581,11 @@ public class BoardView extends JPanel {
 		ruins5.setLocation(700,1000);
 		ruins6.setLocation(760,1120);
 		
-		ruins1.addToConnectedClearings(ruins5, nwoods4, ruins2, ruins4);
+		ruins1.addToConnectedClearings(nwoods4, ruins2, ruins4);
 		ruins2.addToConnectedClearings(ruins1, lwoods4, avalley1);
 		ruins3.addToConnectedClearings(ruins6, ruins5);
 		ruins4.addToConnectedClearings(ruins1, ruins6);
-		ruins5.addToConnectedClearings(ruins3, mwoods2, ruins1);
+		ruins5.addToConnectedClearings(ruins3, mwoods2);
 		ruins6.addToConnectedClearings(ruins3, ruins4);
 		
 		avalley1.setLocation(915,1112);
@@ -604,20 +607,38 @@ public class BoardView extends JPanel {
 		lwoods5.addConnectedClearing(avalley2);
 	}
 	
+	// Adds All Of The Hidden Clearings To The Proper Locations
+	private void initHiddenClearings () {
+		cavern4.addConnectedClearing(cavern1);
+		cliff3.addConnectedHiddenClearing(cliff4);
+		cliff2.addConnectedHiddenClearing(cliff5);
+		crag1.addConnectedHiddenClearing(crag6);
+		crag3.addConnectedHiddenClearing(crag2);
+		dwoods1.addConnectedHiddenClearing(dwoods4);
+		dwoods3.addConnectedHiddenClearing(dwoods6);
+		ledges1.addConnectedHiddenClearing(ledges3);
+		ledges6.addConnectedHiddenClearing(ledges4);
+		mountain4.addConnectedHiddenClearing(mountain6);
+		ruins1.addConnectedHiddenClearing(ruins6);
+		
+	}
+			
+	
 	//Adds a listener to the clearing that is passed to this function
 	private void addListener (final Clearing c) {
 		c.getButtonTiedToClearing().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	if(parent.getCurrentPlayer() == null){
+            	PlayerBase currPlayer = parent.getCurrentPlayer();
+            	if(currPlayer == null){
             		return;
             	}
-            	if (parent.getCurrentPlayer().isMoving() && parent.getCurrentPlayer().getCurrentClearing().isVaildMove(c)){
-            		parent.getCurrentPlayer().moveToClearing(c);
+            	if (currPlayer.isMoving() && currPlayer.getCurrentClearing().isVaildMove(c, currPlayer)){
+            		currPlayer.moveToClearing(c);
             		parent.sendMessage(c);
             		
             		// If Player Has No More Movements Then Stop Them
             		if (parent.getCurrentPlayer().getAvailableActions() > 0) {
-            			c.highlightConnectedClearings();
+            			c.highlightConnectedClearings(currPlayer);
             		} else {
             			parent.getCurrentPlayer().setMoving(false);
             		}

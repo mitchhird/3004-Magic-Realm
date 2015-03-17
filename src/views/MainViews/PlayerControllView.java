@@ -504,7 +504,7 @@ public class PlayerControllView extends javax.swing.JPanel {
     	
     	// If The Player Still Has Actions Available
     	if (currentPlayer.getAvailableActions() > 0) {
-    		currentPlayer.getCurrentClearing().highlightConnectedClearings();
+    		currentPlayer.getCurrentClearing().highlightConnectedClearings(currentPlayer);
     		currentPlayer.setMoving(true);
     	} else {
     		JOptionPane.showMessageDialog(this, "You Have No More Actions For This Turn");
