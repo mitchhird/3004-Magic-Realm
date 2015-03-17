@@ -171,6 +171,10 @@ public class BoardView extends JPanel {
 		init();
 		this.parent = parent;
 	}
+	@Override
+	public JFrame getParent(){
+		return parent;
+	}
 	
 	public void placeItemsOnBoard(){
 		try {

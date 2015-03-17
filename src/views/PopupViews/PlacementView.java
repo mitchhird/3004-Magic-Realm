@@ -1,16 +1,21 @@
 package views.PopupViews;
 
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 import views.MainViews.BoardView;
+import views.MainViews.GameView;
 import models.BoardModels.Clearing;
 
 @SuppressWarnings("rawtypes")
-public class PlacementView extends javax.swing.JFrame {
+public class PlacementView extends JDialog {
 	
 	private static final long serialVersionUID = 5579711826997490491L;
 	
@@ -25,6 +30,7 @@ public class PlacementView extends javax.swing.JFrame {
     
     @SuppressWarnings("unchecked")
 	public PlacementView(String[] theModel1, ArrayList<Clearing> newClearings, BoardView theParent) {
+    	super(theParent.getParent(),true);
         initComponents();
         itemList.setModel(new javax.swing.DefaultComboBoxModel(theModel1));
         locationList.setModel(new javax.swing.DefaultComboBoxModel(newClearings.toArray()));
@@ -55,8 +61,6 @@ public class PlacementView extends javax.swing.JFrame {
             }
         });
         
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jLabel1.setText("Item:");
 
         locationList.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
