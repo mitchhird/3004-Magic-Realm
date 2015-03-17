@@ -52,6 +52,7 @@ public class ClearingTests {
 
 	@Test
 	public void testIsVaildMove() {
+		PlayerBase tempDude = new PlayerBase("bob", CharacterClass.AMAZON);
 		Clearing connectedClearing = new Clearing ("test2");
 		Clearing unconnectedClearing = new Clearing ("test3");
 		
@@ -59,8 +60,8 @@ public class ClearingTests {
 		clearingUnderTest.addConnectedClearing(connectedClearing);
 		
 		// Should Only Be Able To Move To Connected Clearings
-		assertTrue(clearingUnderTest.isVaildMove(connectedClearing));
-		assertFalse(clearingUnderTest.isVaildMove(unconnectedClearing));
+		assertTrue(clearingUnderTest.isVaildMove(connectedClearing,tempDude));
+		assertFalse(clearingUnderTest.isVaildMove(unconnectedClearing,tempDude));
 	}
 
 	@Test

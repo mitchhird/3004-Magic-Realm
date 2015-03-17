@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import utils.GameUtils;
+import utils.Pair;
 import models.characterModels.PlayerBase;
 import models.otherEntities.EntityBase;
 import models.otherEntities.TreasureModel;
@@ -27,12 +28,15 @@ public class Clearing implements Serializable {
 	private boolean blocked;
 	private String clearingName;
 	private JButton buttonTiedToClearing;
-	private Set <Clearing> connectedClearings;
-	private Set <TreasureModel> treasuresInClearing;
-	private Set <PlayerBase> playersInClearing;
 	
+	private Set <Clearing> connectedClearings;
+	private Set <PlayerBase> playersInClearing;	
 	private transient Set <Image> imageEnitiesOnThis;
 	private transient Set <EntityBase> entitiesInClearing;
+	
+	// Lists For Clearings
+	private ArrayList <TreasureModel> treasuresInClearing;
+	private ArrayList <Pair<Clearing, ArrayList<PlayerBase>>> hiddenClearings;
 	private static final long serialVersionUID = -3697827851116659513L;
 	
 	// Initial Coordinates
@@ -47,9 +51,12 @@ public class Clearing implements Serializable {
 		
 		entitiesInClearing = new HashSet<>();
 		connectedClearings = new HashSet<>();
-		treasuresInClearing = new HashSet<>();
 		playersInClearing = new HashSet<>();
 		imageEnitiesOnThis = new HashSet<>();
+
+		// Clearing Lists
+		treasuresInClearing = new ArrayList<>();
+		hiddenClearings = new ArrayList<>();
 		
 		// Create The Button Tied To The Clearing
 		buttonTiedToClearing = new JButton("");
@@ -87,8 +94,19 @@ public class Clearing implements Serializable {
 	
 	
 	// Checks Player Movement Against The Adjancent Tiles
-	public boolean isVaildMove (Clearing c) {
-		return connectedClearings.contains(c);
+	public boolean isVaildMove (Clearing c, PlayerBase player) {
+		if (connectedClearings.contains(c)) {
+			return true;
+		}
+		
+		// Now For The Hidden Clearings
+		for (Pair<Clearing, ArrayList<PlayerBase>> hiddenClearing: hiddenClearings) {
+			if (hiddenClearing.getSecond().contains(player)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	/// Highlight The Clearing If There Isn't An Image For It
@@ -111,9 +129,16 @@ public class Clearing implements Serializable {
 	}
 	
 	// Highlight The Connected Clearings If They Don't Contain An Image
-	public void highlightConnectedClearings () {
+	public void highlightConnectedClearings (PlayerBase player) {
 		for (Clearing c: connectedClearings) {
 			c.highlightForMove();
+		} 
+		
+		// Also Do The Hidden Ones If The Player Has Found It
+		for (Pair<Clearing, ArrayList<PlayerBase>> hiddenClearing: hiddenClearings) {
+			if (hiddenClearing.getSecond().contains(player)) {
+				hiddenClearing.getFirst().highlightForMove();
+			}
 		}
 	}
 	
@@ -148,6 +173,11 @@ public class Clearing implements Serializable {
 				t.playerFound(p);
 				returnVal.add(t);
 			}
+			
+			// Add The Player To The Hidden Clearings
+			for (Pair<Clearing, ArrayList<PlayerBase>> pair: hiddenClearings) {
+				pair.getSecond().add(p);
+			}
 		}
 		
 		return returnVal;
@@ -156,9 +186,14 @@ public class Clearing implements Serializable {
 	// Loots The Clearing And Grabs All Treasure Out
 	public void playerLootClearing (PlayerBase p) {
 		ArrayList<TreasureModel> treasuresFound = getTreasuresPlayerFound(p);
-		for (TreasureModel t: treasuresFound) {
-			treasuresInClearing.remove(t);
-			p.addTreasure(t);
+		
+		// Roll The Random Die, And If The Player Scores A Value That Is In The Range Then Loot That
+		int lootTreasureAt = GameUtils.createRandomInt(0, treasuresFound.size());
+		
+		// If It Is A Valid Treasure, Then We Can Loot It
+		if (lootTreasureAt < treasuresInClearing.size() - 1) {
+			TreasureModel newTreasure = treasuresInClearing.remove(lootTreasureAt);
+			p.addTreasure(newTreasure);
 		}
 	}
 	
@@ -283,6 +318,14 @@ public class Clearing implements Serializable {
 	public void addConnectedClearing (Clearing newClearing) {
 		this.connectedClearings.add(newClearing);
 		newClearing.getConnectedClearings().add(this);
+	}
+	
+	// Adds A New Hidden Clearing When Called
+	public void addConnectedHiddenClearing (Clearing ... clearings) {
+		for (Clearing c: clearings) {
+			c.hiddenClearings.add(new Pair<Clearing, ArrayList<PlayerBase>>(this, new ArrayList<PlayerBase>()));
+			hiddenClearings.add(new Pair<Clearing, ArrayList<PlayerBase>>(c, new ArrayList<PlayerBase>()));
+		}
 	}
 	
 	// Multi Clearing Connection
