@@ -118,7 +118,7 @@ public class GameView extends FrameBase {
 
 		joinAction.setEnabled(false);
 		hostAction.setEnabled(false);
-		cheatAction.setEnabled(false);
+		cheatAction.setEnabled(true);
 		
         fileMenu.add(newAction);
         fileMenu.add(exitAction);
@@ -172,6 +172,10 @@ public class GameView extends FrameBase {
 		}else{
 			GameUtils.setCheatMode(true);
 		}
+	}
+	
+	public void setCheatMode(boolean b){
+		GameUtils.setCheatMode(b);
 	}
 
 	private void joinGame() {
@@ -258,6 +262,8 @@ public class GameView extends FrameBase {
 		if (networkedGame) {
 			sendMessage(MessageType.START_GAME);
 		}
+
+		cheatAction.setEnabled(true);	
 		
 		thePlayerButtons.updateButtonsForNetwork();
 	}
@@ -375,7 +381,6 @@ public class GameView extends FrameBase {
 	private void newGame(){
 		joinAction.setEnabled(true);
 		hostAction.setEnabled(true);
-		cheatAction.setEnabled(true);
 		newAction.setEnabled(false);
 		showGameButtons();
 		showBoard();
@@ -493,5 +498,9 @@ public class GameView extends FrameBase {
 		if (selectedOption == JOptionPane.YES_OPTION) {
 			return;
 		}
+	}
+
+	public void setcheatAction(boolean b) {
+			cheatAction.setEnabled(b);
 	}
 }

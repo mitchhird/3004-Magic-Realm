@@ -138,7 +138,9 @@ public class JoinView extends javax.swing.JFrame {
     	
     	parent.setClientThread(test);
     	parent.setClientReaderThread(reader);
-    	
+
+		parent.setcheatAction(false);	
+		parent.setCheatMode(false);
     	// Display A Message
     	JOptionPane.showMessageDialog(this, "Connected To Server At: " + ipAddressField.getText());
     }
