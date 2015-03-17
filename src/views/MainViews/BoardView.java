@@ -178,30 +178,6 @@ public class BoardView extends JPanel {
 			if(GameUtils.getCheatMode()){
 				PlacementView thePlacer = new PlacementView(new String[]{"Inn", "Chapel", "House", "Guard", "Ghost"}, clearings, this);
 				thePlacer.setVisible(true);
-				
-				currentClearing = cheatClearings.get(0);
-				inn = new Dwelling(currentClearing, currentImage);
-				inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
-				
-				currentImage = ImageIO.read(getClass().getResource("/dwellings_c/chapel.gif"));
-				currentClearing = cheatClearings.get(1);
-				Dwelling currentDwelling = new Dwelling(currentClearing, currentImage);
-				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
-				
-				currentImage = ImageIO.read(getClass().getResource("/dwellings_c/house.gif"));
-				currentClearing = cheatClearings.get(2);
-				currentDwelling = new Dwelling(currentClearing, currentImage);
-				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
-				
-				currentImage = ImageIO.read(getClass().getResource("/dwellings_c/guard.gif"));
-				currentClearing = cheatClearings.get(3);
-				currentDwelling = new Dwelling(currentClearing, currentImage);
-				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
-				
-				currentClearing = cheatClearings.get(4);
-				Ghost aGhost = new Ghost();
-				currentClearing.addImageToList(aGhost.getImage());
-				
 			}else{
 				currentClearing = bvalley5;
 				inn = new Dwelling(currentClearing, currentImage);
@@ -228,6 +204,37 @@ public class BoardView extends JPanel {
 				
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void setCheatLocations(){
+		
+		try {
+			Image currentImage = ImageIO.read(getClass().getResource("/dwellings_c/inn.gif"));
+			currentClearing = cheatClearings.get(0);
+			inn = new Dwelling(currentClearing, currentImage);
+			inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
+			
+			currentImage = ImageIO.read(getClass().getResource("/dwellings_c/chapel.gif"));
+			currentClearing = cheatClearings.get(1);
+			Dwelling currentDwelling = new Dwelling(currentClearing, currentImage);
+			currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
+			
+			currentImage = ImageIO.read(getClass().getResource("/dwellings_c/house.gif"));
+			currentClearing = cheatClearings.get(2);
+			currentDwelling = new Dwelling(currentClearing, currentImage);
+			currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
+			
+			currentImage = ImageIO.read(getClass().getResource("/dwellings_c/guard.gif"));
+			currentClearing = cheatClearings.get(3);
+			currentDwelling = new Dwelling(currentClearing, currentImage);
+			currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
+			
+			currentClearing = cheatClearings.get(4);
+			Ghost aGhost = new Ghost();
+			currentClearing.addImageToList(aGhost.getImage());
+		}catch(IOException e){
 			e.printStackTrace();
 		}
 	}
