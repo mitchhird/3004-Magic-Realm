@@ -29,6 +29,7 @@ public class ClientReadThread extends ReaderThreadBase {
 		
 		// Set The Thread Name So We Can See It
 		setName("Client Read Thead (" + connectedTo + ")");
+		parent.setClientReaderThread(this);
 	}
 	
 	// Close The Connection Up

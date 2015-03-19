@@ -14,6 +14,7 @@ import models.chitModels.ActionChit;
 import models.chitModels.ArmorChit;
 import models.chitModels.Chit;
 import models.chitModels.WeaponChit;
+import models.otherEntities.CombatDataContainer;
 import models.otherEntities.Denizen;
 import models.otherEntities.EntityBase;
 import models.otherEntities.TreasureModel;
@@ -92,6 +93,8 @@ public class PlayerBase extends EntityBase implements Serializable {
 	protected transient ArrayList<ActionChit> inActive;
 	protected transient ArrayList<ActionChit> wounded;
 	
+	// Things Relating To Combat
+	protected CombatDataContainer combatData;
 
 	// Serialization Flag
 	private static final long serialVersionUID = 1087220843681586963L;
@@ -535,5 +538,17 @@ public class PlayerBase extends EntityBase implements Serializable {
 	public void setHidden(boolean hidden) {
 		super.setHidden(hidden);
 		currentClearing.updateImage();
+	}
+
+	public CombatDataContainer getCombatData() {
+		return combatData;
+	}
+
+	public void setCombatData(CombatDataContainer combatData) {
+		this.combatData = combatData;
+	}
+	
+	public boolean isNetworkedPlayer () {
+		return networkedPlayer;
 	}
 }

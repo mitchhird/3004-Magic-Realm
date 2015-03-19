@@ -18,31 +18,41 @@ import views.PopupViews.CombatView;
 
 /**
  * Revised Combat System To Implement In Into The Game
+ * 
+ * Networking Notes:
+ * 		--- In order to network this I need a couple of things, and they will be here
+ * 		--- Whenever a change is made the view needs to be updated across the board
+ * 		--- CombatDataContainer needs to be migrated to the actual player for ease of access
+ * 		--- Push combatDataContainers across? Can set the player data out of it
  */
 public class CombatPVPHandler {
 
-	private Attacks currentAttack;
 	private PlayerBase currentAttacker;
 	private PlayerBase currentDefender;
 	private ArrayList<PlayerBase> combattingPlayers;
 	
 	private Set<Pair<PlayerBase, PlayerBase>> readyPlayers;
-	private Set<CombatDataContainer> combatData;
 	
 	private CombatView parentView;
-	private Defences currentDefence; 
 	
 	// Constructor For The Combat Handler
 	public CombatPVPHandler (ArrayList <PlayerBase> combattingPlayers, CombatView parentView) {
-		this.combattingPlayers = combattingPlayers;
-		currentAttacker = getFirstAttacker();
-				
-		currentAttack = null;
-		combatData = new HashSet<CombatDataContainer> ();
-		readyPlayers = new HashSet<>();
-		
 		this.parentView = parentView;
-		//setArmor();
+		readyPlayers = new HashSet<>();
+		this.combattingPlayers = combattingPlayers;
+		
+		// First Attacker That Is Available
+		currentAttacker = combattingPlayers.get(0);
+		moveToNextAvailable();
+		
+		initPlayerContainers();
+	}
+
+	// Initialize All Containers With Dummy Values 
+	private void initPlayerContainers() {
+		for (PlayerBase p: this.combattingPlayers) {
+			p.setCombatData(new CombatDataContainer(p, null, null));
+		}
 	}
 
 	private void setArmor() {
@@ -61,9 +71,9 @@ public class CombatPVPHandler {
 		parentView.setArmor(suit, breast, helmet);
 	}
 
-	// Gets The Next Attacker
+	// Gets The Next Attacker And Creates A New Combat Container For The Player
+	// Network: Container Can Be Deposited Into The Player, That Way It Can Manipulated By The Client
 	public void setNextAttacker () {
-		combatData.add(new CombatDataContainer(currentAttacker, currentAttack, currentDefence));
 		readyPlayers.add(new Pair<PlayerBase, PlayerBase>(currentAttacker, currentDefender));
 		
 		// If All The Players Have Submitted Then Start The Attack
@@ -71,8 +81,7 @@ public class CombatPVPHandler {
 			executeAttacks();
 		}
 		
-		int currentPlayerIndex = combattingPlayers.indexOf(currentAttacker);
-		currentAttacker = combattingPlayers.get((currentPlayerIndex + 1) % combattingPlayers.size());
+		moveToNextAvailable();
 	}
 	
 	// Executes The Combat When Everyone Is Done
@@ -85,8 +94,10 @@ public class CombatPVPHandler {
 		for (Pair<PlayerBase, PlayerBase> p: readyPlayers) {
 			PlayerBase attacker = p.getFirst();
 			PlayerBase defender = p.getSecond();
-			CombatDataContainer attackerData = findContainer(attacker);
-			CombatDataContainer defenderData = findContainer(defender);
+			
+			// TODO: Move Container Into The Players, Easy To Pull Out Then
+			CombatDataContainer attackerData = attacker.getCombatData();
+			CombatDataContainer defenderData = defender.getCombatData();
 			
 			// Gather The Armor That Might Have Been Hit On The Defender
 			ArmorChit armorHit = checkIfArmorProtects(defenderData.getThePlayer(), attackerData.getAttack());
@@ -148,12 +159,6 @@ public class CombatPVPHandler {
 			p.getArmorChits().remove(a);
 		}
 	}
-	
-	// Gathers The First Player For The Combat 
-	private PlayerBase getFirstAttacker () {
-		PlayerBase returnVal = combattingPlayers.get(0);
-		return returnVal;
-	}
 
 	// Alerts The Current Player Weapon
 	public void alertPlayerWeapon () {
@@ -207,23 +212,27 @@ public class CombatPVPHandler {
 		return null;
 	}
 	
-	// Find The Data Container Assoicated With The Player
-	private CombatDataContainer findContainer (PlayerBase p) {
-		for (CombatDataContainer c: combatData) {
-			if (c.getThePlayer() == p) {
-				return c;
-			}
+	/************************************ Networking Methods ******************************************/
+	// Sets The Next Available Player That We Are Going To Be Using
+	private void moveToNextAvailable() {
+		// Initial Cycle
+		int currentPlayerIndex = combattingPlayers.indexOf(currentAttacker);
+		currentAttacker = combattingPlayers.get((currentPlayerIndex + 1) % combattingPlayers.size());
+		
+		// Loop until there is a player that we can manipulate
+		while (currentAttacker.isNetworkedPlayer()) {
+			currentPlayerIndex = combattingPlayers.indexOf(currentAttacker);
+			currentAttacker = combattingPlayers.get((currentPlayerIndex + 1) % combattingPlayers.size());
 		}
-		return null;
 	}
 	
 	/*---------------------------- Getters And Setters ---------------------- */
 	public void setCurrentAttack (Attacks attack) {
-		currentAttack = attack;
+		currentAttacker.getCombatData().setAttack(attack);
 	}
 	
 	public Attacks getCurrentAttack () {
-		return currentAttack;
+		return currentAttacker.getCombatData().getAttack();
 	}
 
 	public PlayerBase getCurrentAttacker() {
@@ -247,9 +256,9 @@ public class CombatPVPHandler {
 	}
 
 	public void setCurrentDefence(Defences dodge) {
-		currentDefence = dodge;
+		currentAttacker.getCombatData().setDefense(dodge);
 	}
 	public Defences getCurrentDefence() {
-		return currentDefence;
+		return currentAttacker.getCombatData().getDefense();
 	}
 } 

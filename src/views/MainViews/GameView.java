@@ -287,7 +287,7 @@ public class GameView extends FrameBase {
     		// If There Is Multiple Players In The Clearing Then Start Combat
     		ArrayList<PlayerBase> playersInClearing = currentPlayer.getCurrentClearing().getPlayersInClearing();
     		if (playersInClearing.size() > 1) {
-    			new CombatView(playersInClearing);
+    			new CombatView(playersInClearing, this);
     		}
     		
     		thePlayerButtons.updateButtonsForNetwork();

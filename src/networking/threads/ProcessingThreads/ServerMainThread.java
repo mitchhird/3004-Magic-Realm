@@ -27,16 +27,14 @@ public class ServerMainThread extends ReaderThreadBase {
 	private String serverThreadName = "Server Main ";
 	private ArrayList <Pair<ServerReadThread, ServerWriteThread>> connectedClients;
 	
-	private GameView theGame;
-	
 	// Constructor For The Thread
 	public ServerMainThread(int port, GameView theGame) {
 		serverPort = port;
 		connectedClients = new ArrayList<>();
-		this.theGame = theGame;
+		this.mainGame = theGame;
 		
 		// Now Is A Networked Game, So Let The Game Know
-		this.theGame.setServerThread(this);
+		this.mainGame.setServerThread(this);
 	}
 	
 	// Sends An Object To All Other Threads Then The One That Called
@@ -71,7 +69,7 @@ public class ServerMainThread extends ReaderThreadBase {
 				
 				// Now Connect The Clients That Are Connected To The Server
 				ServerReadThread newClient = new ServerReadThread(newSocket, this);
-				ServerWriteThread clientWriter = new ServerWriteThread(newClient.getOutStream(), theGame, clientIp);
+				ServerWriteThread clientWriter = new ServerWriteThread(newClient.getOutStream(), mainGame, clientIp);
 				
 				// Start The Reader And Writers
 				newClient.start();

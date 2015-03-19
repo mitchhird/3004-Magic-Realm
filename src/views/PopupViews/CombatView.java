@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
 import views.FrameBase;
+import views.MainViews.GameView;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.Attacks;
 import models.characterModels.playerEnums.Defences;
@@ -58,8 +59,12 @@ public class CombatView extends FrameBase {
     private ArrayList<PlayerBase> targetPlayers;
     private Toolkit tk = Toolkit.getDefaultToolkit();
     
+    // Need The Parent So We Can Send Messages Back And Forth
+    private GameView ourParent;
+    
     // Constructor For This
-    public CombatView(ArrayList<PlayerBase> combatingPlayers) {
+    public CombatView(ArrayList<PlayerBase> combatingPlayers, GameView parent) {
+    	ourParent = parent;
     	this.combatingPlayers = combatingPlayers;
     	combatHandler = new CombatPVPHandler(combatingPlayers, this);
 
@@ -191,27 +196,21 @@ public class CombatView extends FrameBase {
 		thrustButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 combatHandler.setCurrentAttack(Attacks.THRUST);
-                dodgeButton.setEnabled(true);
-                duckButton.setEnabled(true);
-                chargeButton.setEnabled(true);
+                enableDefenses();
                 println("Setting Current Attack To " + Attacks.THRUST);
             }
         });
         swingButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 combatHandler.setCurrentAttack(Attacks.SWING);
-                dodgeButton.setEnabled(true);
-                duckButton.setEnabled(true);
-                chargeButton.setEnabled(true);
+                enableDefenses();
                 println("Setting Current Attack To " + Attacks.SWING);
             }
         });
         smashButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 combatHandler.setCurrentAttack(Attacks.SMASH);
-                dodgeButton.setEnabled(true);
-                duckButton.setEnabled(true);
-                chargeButton.setEnabled(true);
+                enableDefenses();
                 println("Setting Current Attack To " + Attacks.SMASH);
             }
         });
@@ -292,8 +291,15 @@ public class CombatView extends FrameBase {
             }
         });
 	}
+	
+	// Enables The Defense Buttons
+	private void enableDefenses() {
+		dodgeButton.setEnabled(true);
+        duckButton.setEnabled(true);
+        chargeButton.setEnabled(true);
+	}
     
-    // Updates This Window With Need Material
+    // Updates This Window With Needed Material
     private void update () {
     	// Get The Combobox ready
     	targetPlayers = getPlayersToAttack();
@@ -330,8 +336,13 @@ public class CombatView extends FrameBase {
     	helmet.setText(newHelmet);
     }
     
-    //used to print a line to the text area
+    // Used to print a line to the text area
     public void println(String theLine){
     	textArea.append(theLine + "\n");
+    }
+    
+    /******************************* Delgation Method ************************/
+    public void sendMessage (Object obj) {
+    	ourParent.sendMessage(obj);
     }
 }

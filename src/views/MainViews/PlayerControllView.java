@@ -513,7 +513,7 @@ public class PlayerControllView extends javax.swing.JPanel {
 
 	// Shows The Combat In It's Own View
 	public void startCombat(ArrayList <PlayerBase> combatingPlayers){
-		new CombatView(combatingPlayers);
+		new CombatView(combatingPlayers, parent);
 	}
 	
     /*----------------- Getters And Setters ------------------- */
