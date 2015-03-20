@@ -27,6 +27,7 @@ import javax.swing.event.ListSelectionListener;
 import utils.GameUtils;
 import views.FrameBase;
 import views.PopupViews.AddPlayerView;
+import views.PopupViews.CharacterPlacementView;
 import views.PopupViews.CombatView;
 import views.PopupViews.HostView;
 import views.PopupViews.JoinView;
@@ -272,17 +273,19 @@ public class GameView extends FrameBase {
 		
 		thePlayerButtons.updateButtonsForNetwork();
 		/*
-		if(theClient.getCurrentPlayer().getPlayerClass()==CharacterClass.CAPTAIN){
+		if(theClient.getCurrentPlayer().getPlayerClass().equals(CharacterClass.CAPTAIN)){
 			ArrayList<Clearing> startingClearings = new ArrayList<Clearing>();
 			startingClearings.add(theBoard.getDwellings().get(0).getClearingThisOn());
 			startingClearings.add(theBoard.getDwellings().get(2).getClearingThisOn());
 			startingClearings.add(theBoard.getDwellings().get(3).getClearingThisOn());
-			PlacementView startingLocation = new PlacementView(new String[]{"Captain"}, startingClearings, theBoard);
-		}else if(theClient.getCurrentPlayer().getPlayerClass()==CharacterClass.CAPTAIN){
+			CharacterPlacementView startingLocation = new CharacterPlacementView(new String[]{"Captain"}, startingClearings, this);
+			startingLocation.setVisible(true);
+		}else if(theClient.getCurrentPlayer().getPlayerClass().equals(CharacterClass.CAPTAIN)){
 			ArrayList<Clearing> startingClearings = new ArrayList<Clearing>();
 			startingClearings.add(theBoard.getDwellings().get(0).getClearingThisOn());
 			startingClearings.add(theBoard.getDwellings().get(3).getClearingThisOn());
-			PlacementView startingLocation = new PlacementView(new String[]{"Dwarf"}, startingClearings, theBoard);
+			CharacterPlacementView startingLocation = new CharacterPlacementView(new String[]{"Dwarf"}, startingClearings, this);
+			startingLocation.setVisible(true);
 		}
 		*/
 	}
@@ -530,5 +533,10 @@ public class GameView extends FrameBase {
 
 	public void setcheatAction(boolean b) {
 			cheatAction.setEnabled(b);
+	}
+
+	public void setCurrentPlayerLocation(Clearing clearing) {
+		theClient.getCurrentPlayer().setCurrentClearing(clearing);
+		theClient.getCurrentPlayer().setHomeClearing(clearing);
 	}
 }
