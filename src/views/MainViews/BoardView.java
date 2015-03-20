@@ -716,6 +716,7 @@ public class BoardView extends JPanel {
 		hoverFrame.setLocation(tk.getScreenSize().width/2 - 300, 300);
 		hoverFrame.setVisible(true);
 		hoverFrame.add(hoverPanel);
+		hoverFrame.setAlwaysOnTop(true);
 	}
 
 	//Overrides the paint component method of jPanel
