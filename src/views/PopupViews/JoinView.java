@@ -32,7 +32,7 @@ public class JoinView extends javax.swing.JFrame {
         try {
         	this.parent = parent;
 			hostAddress = InetAddress.getLocalHost().getHostAddress();
-			setName("Join Game");
+			setTitle("Join Game");
 			
 			// Initialize Everything
 			initComponents();
@@ -128,21 +128,23 @@ public class JoinView extends javax.swing.JFrame {
     // Handles The Connect Button
     private void handleConnectButton () {
     	System.out.println("Connect Button Has Been Pressed");
-    	int portNum = Integer.parseInt(portAddressField.getText());
+    	try {
+    		int portNum = Integer.parseInt(portAddressField.getText());
     	
-    	// Start The Client Thread Up
-    	ClientWriterThread test = new ClientWriterThread(ipAddressField.getText(), portNum, parent);
-    	ClientReadThread reader = new ClientReadThread(test.getInStream(), ipAddressField.getText(), parent);
-    	test.start();
-    	reader.start();
+    		// Start The Client Thread Up
+    		ClientWriterThread test = new ClientWriterThread(ipAddressField.getText(), portNum, parent);
+    		ClientReadThread reader = new ClientReadThread(test.getInStream(), ipAddressField.getText(), parent);
+    		test.start();
+    		reader.start();
     	
-    	parent.setClientThread(test);
-    	parent.setClientReaderThread(reader);
+    		parent.setClientThread(test);
+    		parent.setClientReaderThread(reader);
 
-		parent.setcheatAction(false);	
-		parent.setCheatMode(false);
-    	// Display A Message
-    	JOptionPane.showMessageDialog(this, "Connected To Server At: " + ipAddressField.getText());
+    		parent.setcheatAction(false);	
+    		parent.setCheatMode(false);
+    	} catch (Exception e) {
+    		JOptionPane.showMessageDialog(this, "Invalid Input. Please Enter A Number For The Port");
+    	}
     }
     
     private void handleCancelButton(){

@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import javax.swing.JOptionPane;
+
 public class TransmissionThreadBase extends Thread {
 
 	protected Socket transmissionSocket;
@@ -17,7 +19,7 @@ public class TransmissionThreadBase extends Thread {
 			transmissionSocket = new Socket (host, port);
 			initStreams();
 		} catch (IOException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Server Not Found");
 		}
 	}
 	
