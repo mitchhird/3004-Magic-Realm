@@ -45,13 +45,14 @@ public class CombatPVPHandler {
 		currentAttacker = combattingPlayers.get(0);
 		moveToNextAvailable();
 		
+		// Fully Set All Of The Containers Up For Combat
 		initPlayerContainers();
 	}
 
 	// Initialize All Containers With Dummy Values 
 	private void initPlayerContainers() {
 		for (PlayerBase p: this.combattingPlayers) {
-			p.setCombatData(new CombatDataContainer(p, null, null));
+			p.setCombatData(new CombatDataContainer(p, p, null, null));
 		}
 	}
 
@@ -75,12 +76,11 @@ public class CombatPVPHandler {
 	// Network: Container Can Be Deposited Into The Player, That Way It Can Manipulated By The Client
 	public void setNextAttacker () {
 		readyPlayers.add(new Pair<PlayerBase, PlayerBase>(currentAttacker, currentDefender));
-		
-		// If All The Players Have Submitted Then Start The Attack
-		if (readyPlayers.size() == combattingPlayers.size()) {
-			executeAttacks();
-		}
-		
+		moveToNextAvailable();
+	}
+	
+	public void addReadyPlayerSet (PlayerBase attacker, PlayerBase defender) {
+		readyPlayers.add(new Pair<PlayerBase, PlayerBase>(attacker, defender));
 		moveToNextAvailable();
 	}
 	

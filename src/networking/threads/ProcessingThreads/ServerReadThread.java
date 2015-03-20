@@ -10,6 +10,7 @@ import networking.threads.BaseThreads.TransmissionThreadBase;
 import sun.awt.windows.ThemeReader;
 import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
+import models.otherEntities.CombatDataContainer;
 
 /**
  * Client Thread That Will Communicate With The Server And Give The Server Updates
@@ -62,6 +63,9 @@ public class ServerReadThread extends TransmissionThreadBase {
 				} else if (incoming instanceof UpdateDataObject) {
 					UpdateDataObject incomingContainer = (UpdateDataObject) incoming;
 					parentThread.handleContainer(incomingContainer);
+				} else if (incoming instanceof CombatDataContainer) {
+					CombatDataContainer incomingContainer = (CombatDataContainer) incoming;
+					parentThread.handleCombatDataContainer(incomingContainer);
 				}
 				
 				// Broadcast The Message To The Others

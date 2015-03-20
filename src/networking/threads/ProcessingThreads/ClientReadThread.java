@@ -4,6 +4,7 @@ import java.io.ObjectInputStream;
 
 import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
+import models.otherEntities.CombatDataContainer;
 import networking.sendables.MessageType;
 import networking.sendables.UpdateDataObject;
 import networking.threads.BaseThreads.ReaderThreadBase;
@@ -58,6 +59,15 @@ public class ClientReadThread extends ReaderThreadBase {
 				} else if (incoming instanceof MessageType) {
 					MessageType incomingString = (MessageType) incoming;
 					handleMessage(incomingString);
+				} else if (incoming instanceof Clearing) {
+					Clearing incomingClearing = (Clearing) incoming;
+					handleUpdate(incomingClearing);
+				} else if (incoming instanceof UpdateDataObject) {
+					UpdateDataObject incomingContainer = (UpdateDataObject) incoming;
+					handleContainer(incomingContainer);
+				} else if (incoming instanceof CombatDataContainer) {
+					CombatDataContainer incomingContainer = (CombatDataContainer) incoming;
+					handleCombatDataContainer(incomingContainer);
 				}
 				
 			   processing = false;

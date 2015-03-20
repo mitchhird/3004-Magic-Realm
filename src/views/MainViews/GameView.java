@@ -80,6 +80,10 @@ public class GameView extends FrameBase {
 	private ClientReadThread clientReaderThread;
 	private ServerMainThread serverThread;
 	
+	// TODO: Only Way I Can Think About Doing This... Game View Will Have an instance of the combat that can have
+	//		 the networking threads accessing
+	private CombatView currentCombatWindow;
+	
 	//Constructor for gameView
 	public GameView(){
 		init();
@@ -439,6 +443,15 @@ public class GameView extends FrameBase {
 		return thePlayerList;
 	}
 	
+	
+	public CombatView getCurrentCombatWindow() {
+		return currentCombatWindow;
+	}
+
+	public void setCurrentCombatWindow(CombatView currentCombatWindow) {
+		this.currentCombatWindow = currentCombatWindow;
+	}
+
 	//checks if the game has started or not
 	public boolean hasGameStarted() {
 		return theClient.isGameStarted();

@@ -30,7 +30,7 @@ public class PlacementView extends JDialog {
     
     @SuppressWarnings("unchecked")
 	public PlacementView(String[] theModel1, ArrayList<Clearing> newClearings, BoardView theParent) {
-    	super(theParent.getParent(),true);
+    	super(theParent.getParentWindow(),true);
         initComponents();
         itemList.setModel(new javax.swing.DefaultComboBoxModel(theModel1));
         locationList.setModel(new javax.swing.DefaultComboBoxModel(newClearings.toArray()));

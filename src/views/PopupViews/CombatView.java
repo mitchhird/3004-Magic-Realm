@@ -3,6 +3,8 @@ package views.PopupViews;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -10,15 +12,17 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
+import networking.sendables.MessageType;
 import views.FrameBase;
 import views.MainViews.GameView;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.Attacks;
 import models.characterModels.playerEnums.Defences;
 import models.chitModels.WeaponChit;
+import models.otherEntities.CombatDataContainer;
 import controller.CombatPVPHandler;
 
-public class CombatView extends FrameBase {
+public class CombatView extends FrameBase implements WindowListener {
 
     /**
 	 * 
@@ -38,6 +42,7 @@ public class CombatView extends FrameBase {
     private javax.swing.JButton thrustButton;
     private javax.swing.JButton swingButton;
     private javax.swing.JButton smashButton;
+    private javax.swing.JButton beginCombatButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private JLabel targetPlayerLabel;
@@ -64,16 +69,20 @@ public class CombatView extends FrameBase {
     
     // Constructor For This
     public CombatView(ArrayList<PlayerBase> combatingPlayers, GameView parent) {
+    	// Variable Setting
     	ourParent = parent;
     	this.combatingPlayers = combatingPlayers;
     	combatHandler = new CombatPVPHandler(combatingPlayers, this);
 
+    	// Setup All The Components
     	initComponents();
         initWindow();
         addAllComponents();
         update();
         
-        setName("Combat PVP");
+        setTitle("Combat PVP");
+        addWindowListener(this);
+        ourParent.setCurrentCombatWindow(this);
     }
     
     // Initialize The Window
@@ -115,7 +124,8 @@ public class CombatView extends FrameBase {
     	addToFrame(this, playersCanAttack, layout, 6, 4, 3, 1);
     	
     	// More Buttons
-    	addToFrame (this, nextButton, layout, 5, 5, 2, 1);
+    	addToFrame (this, nextButton, layout, 5, 5, 1, 1);
+    	addToFrame(this, beginCombatButton, layout, 6, 5, 1, 1);
     	addToFrame (this, runButton, layout, 7, 5, 2, 1);
     }
                      
@@ -139,6 +149,7 @@ public class CombatView extends FrameBase {
         abandonButton = new javax.swing.JButton();
         nextButton = new javax.swing.JButton();
         endButton = new javax.swing.JButton();
+        beginCombatButton = new javax.swing.JButton("Start Combat");
         
         // Labels
         smashShield = new javax.swing.JLabel();
@@ -195,8 +206,9 @@ public class CombatView extends FrameBase {
 	private void setupListeners() {
 		thrustButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+            	enableDefenses();
                 combatHandler.setCurrentAttack(Attacks.THRUST);
-                enableDefenses();
+                ourParent.sendMessage(combatHandler.getCurrentAttacker().getCombatData());
                 println("Setting Current Attack To " + Attacks.THRUST);
             }
         });
@@ -250,14 +262,14 @@ public class CombatView extends FrameBase {
                 System.out.println("next pressed");
                 combatHandler.setCurrentDefender(targetPlayers.get(playersCanAttack.getSelectedIndex()));
                 
-                // Display For Display Purposes
-                println ("Attack Submitted:");
-                println ("  --- Attacker: " + combatHandler.getCurrentAttacker().getName());
-                println ("  --- Defender: " + combatHandler.getCurrentDefender().getName());
-                println ("");
-                
                 // Go To The Next Attack
                 combatHandler.setNextAttacker();
+                
+                // Set The Data The Combat Container, And Then Send It Across
+                CombatDataContainer combatData = combatHandler.getCurrentAttacker().getCombatData();
+				combatData.setTheDefender(combatHandler.getCurrentDefender());
+                ourParent.sendMessage(combatData);
+                
                 nextButton.setEnabled(false);
                 dodgeButton.setEnabled(false);
                 duckButton.setEnabled(false);
@@ -290,6 +302,21 @@ public class CombatView extends FrameBase {
                 System.out.println("reset pressed");
             }
         });
+        
+        beginCombatButton.addActionListener(new ActionListener() {		
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				println("Begin Combat Button Has Been Pressed");
+				startCombat();
+			}
+		});
+	}
+
+	// Start The Combat
+	public void startCombat() {
+		ourParent.sendMessage(MessageType.START_COMBAT);
+		combatHandler.executeAttacks();
+		update();
 	}
 	
 	// Enables The Defense Buttons
@@ -309,13 +336,15 @@ public class CombatView extends FrameBase {
         playersCanAttack.setModel(model);
         
         // Set The Next Player To Disabled
-        nextButton.setText((combatHandler.getReadyPlayerNum() == combatingPlayers.size() - 1) 
-        					? "Start Combat" : "Move To Next Attacker");
+        nextButton.setText("Move To Next Attacker");
         
         // Player Weapon Display
         WeaponChit equipWeapon = combatHandler.getCurrentAttacker().getWeapon();
         weaponLabel.setText("Equipped Weapon: " + equipWeapon.getWeaponName());
         weaponHarmLabel.setText("Harm Level: " + equipWeapon.getWeaponDamage());
+        
+        // If We Are Full On Combat Then, Enable The Button
+        beginCombatButton.setEnabled(combatHandler.getReadyPlayerNum() == combatingPlayers.size());
     }
     
     // Get All Of The Players To Attack
@@ -341,8 +370,65 @@ public class CombatView extends FrameBase {
     	textArea.append(theLine + "\n");
     }
     
+    // Sets up the window listener
+    public void windowClosed(WindowEvent e) {
+        System.out.println("WindowListener method called: windowClosed.");
+        ourParent.setCurrentCombatWindow(null);
+    }
+    
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+		System.out.println("WindowListener method called: windowClosing.");
+		ourParent.setCurrentCombatWindow(null);
+	}
+	
+	/******************************* Getters And Setters *********************/
+    public ArrayList<PlayerBase> getCombatingPlayers() {
+		return combatingPlayers;
+	}
+	
     /******************************* Delgation Method ************************/
     public void sendMessage (Object obj) {
     	ourParent.sendMessage(obj);
     }
+
+    public void addReadyPlayerPair (PlayerBase attacker, PlayerBase defender) {
+    	combatHandler.addReadyPlayerSet(attacker, defender);
+    	update();
+    	
+        // Display For Display Purposes
+        println ("Attack Submitted:");
+        println ("  --- Attacker: " + attacker.getName());
+        println ("  --- Defender: " + defender.getName());
+        println ("");
+    }
+    
+	/****************************** Interface Methods That Don't Need Implementation ***********************/
+    
+	@Override
+	public void windowActivated(WindowEvent arg0) {}
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }

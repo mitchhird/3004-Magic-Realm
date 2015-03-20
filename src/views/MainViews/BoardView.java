@@ -166,14 +166,12 @@ public class BoardView extends JPanel {
 
 	private Clearing currentClearing;
 	
+	private ActionListener test;
+	
 	//Constructor for the BoardView
 	public BoardView (GameView parent){
 		init();
 		this.parent = parent;
-	}
-	@Override
-	public JFrame getParent(){
-		return parent;
 	}
 	
 	public void placeItemsOnBoard(){
@@ -639,21 +637,8 @@ public class BoardView extends JPanel {
 	private void addListener (final Clearing c) {
 		c.getButtonTiedToClearing().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	PlayerBase currPlayer = parent.getCurrentPlayer();
-            	if(currPlayer == null){
-            		return;
-            	}
-            	if (currPlayer.isMoving() && currPlayer.getCurrentClearing().isVaildMove(c, currPlayer)){
-            		currPlayer.moveToClearing(c);
-            		parent.sendMessage(c);
-            		
-            		// If Player Has No More Movements Then Stop Them
-            		if (parent.getCurrentPlayer().getAvailableActions() > 0) {
-            			c.highlightConnectedClearings(currPlayer);
-            		} else {
-            			parent.getCurrentPlayer().setMoving(false);
-            		}
-            	}
+        		System.out.println("GOT HERE");
+            	handleClearingButton(c);
             }
         });
 		
@@ -666,6 +651,24 @@ public class BoardView extends JPanel {
 		});
 	}
 	
+	private void handleClearingButton(final Clearing c) {
+		System.out.println("BUTTON PRESSED");
+    	PlayerBase currPlayer = parent.getCurrentPlayer();
+    	if(currPlayer == null){
+    		return;
+    	}
+    	if (currPlayer.isMoving() && currPlayer.getCurrentClearing().isVaildMove(c, currPlayer)){
+    		currPlayer.moveToClearing(c);
+    		parent.sendMessage(c);
+    		
+    		// If Player Has No More Movements Then Stop Them
+    		if (parent.getCurrentPlayer().getAvailableActions() > 0) {
+    			c.highlightConnectedClearings(currPlayer);
+    		} else {
+    			parent.getCurrentPlayer().setMoving(false);
+    		}
+    	}
+	}
 	private void addZoomScroller() {
 		addMouseWheelListener(new MouseAdapter() {
 
@@ -676,6 +679,7 @@ public class BoardView extends JPanel {
                 scaleClearings();
                 revalidate();
                 repaint();
+                addClearingListeners();
             }
 
         });
@@ -706,7 +710,6 @@ public class BoardView extends JPanel {
 
 	//Overrides the paint component method of jPanel
 	@Override
-	
 	public void paintComponent(Graphics page)
 	{
 	    super.paintComponent(page);
@@ -754,5 +757,9 @@ public class BoardView extends JPanel {
 
 	public void addCheatClearing(Clearing clearing) {
 		cheatClearings.add(clearing);
+	}
+	
+	public GameView getParentWindow () {
+		return parent;
 	}
 }
