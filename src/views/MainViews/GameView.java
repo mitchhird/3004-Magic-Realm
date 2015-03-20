@@ -1,5 +1,6 @@
 package views.MainViews;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -251,11 +252,29 @@ public class GameView extends FrameBase {
 		});
 	}
 	
+	private void pickStartingLocations(){
+		if(theClient.getCurrentPlayer().getPlayerClass().equals(CharacterClass.CAPTAIN)){
+			ArrayList<Clearing> startingClearings = new ArrayList<Clearing>();
+			startingClearings.add(theBoard.getDwellings().get(0).getClearingThisOn());
+			startingClearings.add(theBoard.getDwellings().get(2).getClearingThisOn());
+			startingClearings.add(theBoard.getDwellings().get(3).getClearingThisOn());
+			CharacterPlacementView startingLocation = new CharacterPlacementView(new String[]{"Captain"}, startingClearings, this);
+			startingLocation.setVisible(true);
+		}else if(theClient.getCurrentPlayer().getPlayerClass().equals(CharacterClass.CAPTAIN)){
+			ArrayList<Clearing> startingClearings = new ArrayList<Clearing>();
+			startingClearings.add(theBoard.getDwellings().get(0).getClearingThisOn());
+			startingClearings.add(theBoard.getDwellings().get(3).getClearingThisOn());
+			CharacterPlacementView startingLocation = new CharacterPlacementView(new String[]{"Dwarf"}, startingClearings, this);
+			startingLocation.setVisible(true);
+		}
+	}
+	
 	//happens when you press the start game button, initlizes the game
 	public void handleStartGame () {
 		System.out.println("Start Game Pressed");
 		
 		theBoard.placeItemsOnBoard();
+		pickStartingLocations();
 		theClient.startGame();
 		thePlayerList.updateTable();
 		thePlayerButtons.massSetButtonState(true);
@@ -272,22 +291,6 @@ public class GameView extends FrameBase {
 		cheatAction.setEnabled(true);	
 		
 		thePlayerButtons.updateButtonsForNetwork();
-		/*
-		if(theClient.getCurrentPlayer().getPlayerClass().equals(CharacterClass.CAPTAIN)){
-			ArrayList<Clearing> startingClearings = new ArrayList<Clearing>();
-			startingClearings.add(theBoard.getDwellings().get(0).getClearingThisOn());
-			startingClearings.add(theBoard.getDwellings().get(2).getClearingThisOn());
-			startingClearings.add(theBoard.getDwellings().get(3).getClearingThisOn());
-			CharacterPlacementView startingLocation = new CharacterPlacementView(new String[]{"Captain"}, startingClearings, this);
-			startingLocation.setVisible(true);
-		}else if(theClient.getCurrentPlayer().getPlayerClass().equals(CharacterClass.CAPTAIN)){
-			ArrayList<Clearing> startingClearings = new ArrayList<Clearing>();
-			startingClearings.add(theBoard.getDwellings().get(0).getClearingThisOn());
-			startingClearings.add(theBoard.getDwellings().get(3).getClearingThisOn());
-			CharacterPlacementView startingLocation = new CharacterPlacementView(new String[]{"Dwarf"}, startingClearings, this);
-			startingLocation.setVisible(true);
-		}
-		*/
 	}
 
 	// Handles The Send Turn, By Calling The Control Vieww
@@ -366,6 +369,8 @@ public class GameView extends FrameBase {
 	private void showBoard(){
 		theBoard = new BoardView(this);
 		theBoardScroller = new JScrollPane(theBoard);
+		theBoard.setBackground(Color.WHITE);
+		theBoardScroller.setBackground(Color.WHITE);
 		theBoardScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		theBoardScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		theBoardScroller.getVerticalScrollBar().setUnitIncrement(20);
