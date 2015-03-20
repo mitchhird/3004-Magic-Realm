@@ -42,6 +42,8 @@ public class BoardView extends JPanel {
 
 	private ArrayList<Clearing> clearings = new ArrayList<Clearing>();
 	private ArrayList<Clearing> cheatClearings = new ArrayList<Clearing>();
+
+	private ArrayList<Dwelling> theDwellings = new ArrayList<Dwelling>();
 	
 	private Clearing cliff1 = new Clearing("cl1");
 	private Clearing cliff2 = new Clearing("cl2");
@@ -184,21 +186,25 @@ public class BoardView extends JPanel {
 				currentClearing = bvalley5;
 				inn = new Dwelling(currentClearing, currentImage);
 				inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
+				theDwellings.add(inn);
 				
 				currentImage = ImageIO.read(getClass().getResource("/dwellings_c/chapel.gif"));
 				currentClearing = avalley5;
 				Dwelling currentDwelling = new Dwelling(currentClearing, currentImage);
 				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
-
+				theDwellings.add(currentDwelling);
+				
 				currentImage = ImageIO.read(getClass().getResource("/dwellings_c/house.gif"));
 				currentClearing = cvalley5;
 				currentDwelling = new Dwelling(currentClearing, currentImage);
 				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
-
+				theDwellings.add(currentDwelling);
+				
 				currentImage = ImageIO.read(getClass().getResource("/dwellings_c/guard.gif"));
 				currentClearing = dvalley5;
 				currentDwelling = new Dwelling(currentClearing, currentImage);
 				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
+				theDwellings.add(currentDwelling);
 				
 				currentClearing = evalley5;
 				Ghost aGhost = new Ghost();
@@ -217,21 +223,25 @@ public class BoardView extends JPanel {
 			currentClearing = cheatClearings.get(0);
 			inn = new Dwelling(currentClearing, currentImage);
 			inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
+			theDwellings.add(inn);
 			
 			currentImage = ImageIO.read(getClass().getResource("/dwellings_c/chapel.gif"));
 			currentClearing = cheatClearings.get(1);
 			Dwelling currentDwelling = new Dwelling(currentClearing, currentImage);
 			currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
+			theDwellings.add(currentDwelling);
 			
 			currentImage = ImageIO.read(getClass().getResource("/dwellings_c/house.gif"));
 			currentClearing = cheatClearings.get(2);
 			currentDwelling = new Dwelling(currentClearing, currentImage);
 			currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
+			theDwellings.add(currentDwelling);
 			
 			currentImage = ImageIO.read(getClass().getResource("/dwellings_c/guard.gif"));
 			currentClearing = cheatClearings.get(3);
 			currentDwelling = new Dwelling(currentClearing, currentImage);
 			currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
+			theDwellings.add(currentDwelling);
 			
 			currentClearing = cheatClearings.get(4);
 			Ghost aGhost = new Ghost();
@@ -761,5 +771,9 @@ public class BoardView extends JPanel {
 	
 	public GameView getParentWindow () {
 		return parent;
+	}
+	
+	public ArrayList<Dwelling> getDwellings(){
+		return theDwellings;
 	}
 }

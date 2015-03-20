@@ -30,6 +30,7 @@ import views.PopupViews.AddPlayerView;
 import views.PopupViews.CombatView;
 import views.PopupViews.HostView;
 import views.PopupViews.JoinView;
+import views.PopupViews.PlacementView;
 import networking.sendables.MessageType;
 import networking.sendables.UpdateDataObject;
 import networking.threads.ProcessingThreads.ClientReadThread;
@@ -270,6 +271,20 @@ public class GameView extends FrameBase {
 		cheatAction.setEnabled(true);	
 		
 		thePlayerButtons.updateButtonsForNetwork();
+		/*
+		if(theClient.getCurrentPlayer().getPlayerClass()==CharacterClass.CAPTAIN){
+			ArrayList<Clearing> startingClearings = new ArrayList<Clearing>();
+			startingClearings.add(theBoard.getDwellings().get(0).getClearingThisOn());
+			startingClearings.add(theBoard.getDwellings().get(2).getClearingThisOn());
+			startingClearings.add(theBoard.getDwellings().get(3).getClearingThisOn());
+			PlacementView startingLocation = new PlacementView(new String[]{"Captain"}, startingClearings, theBoard);
+		}else if(theClient.getCurrentPlayer().getPlayerClass()==CharacterClass.CAPTAIN){
+			ArrayList<Clearing> startingClearings = new ArrayList<Clearing>();
+			startingClearings.add(theBoard.getDwellings().get(0).getClearingThisOn());
+			startingClearings.add(theBoard.getDwellings().get(3).getClearingThisOn());
+			PlacementView startingLocation = new PlacementView(new String[]{"Dwarf"}, startingClearings, theBoard);
+		}
+		*/
 	}
 
 	// Handles The Send Turn, By Calling The Control Vieww
