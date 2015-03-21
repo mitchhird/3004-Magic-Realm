@@ -776,7 +776,9 @@ public class BoardView extends JPanel {
 	}
 
 	public void placeChitsOnBoard() {
-		ChitPlacementView chitPlacer = new ChitPlacementView(new String[] { "SamepleChit1", "SampleChit2" },theTiles,this);
-		chitPlacer.setVisible(true);
+		if(GameUtils.getCheatMode()){
+			ChitPlacementView chitPlacer = new ChitPlacementView(new String[] { "SamepleChit1", "SampleChit2" },theTiles,this);
+			chitPlacer.setVisible(true);
+		}
 	}
 }
