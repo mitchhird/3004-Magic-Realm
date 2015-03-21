@@ -27,16 +27,16 @@ public class CharacterPlacementView extends JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;    
     private GameView ourParent;
-    private ArrayList<Dwelling> theClearings;
+    private ArrayList<Dwelling> theDwellings;
     
     @SuppressWarnings("unchecked")
-	public CharacterPlacementView(String[] theModel1, ArrayList<Dwelling> newClearings, GameView theParent) {
+	public CharacterPlacementView(String[] theModel1, ArrayList<Dwelling> newDwellings, GameView theParent) {
     	super(theParent,true);
         initComponents();
         itemList.setModel(new javax.swing.DefaultComboBoxModel(theModel1));
-        locationList.setModel(new javax.swing.DefaultComboBoxModel(newClearings.toArray()));
+        locationList.setModel(new javax.swing.DefaultComboBoxModel(newDwellings.toArray()));
         ourParent = theParent;
-        theClearings = newClearings;
+        theDwellings = newDwellings;
         itemList.setEnabled(false);
     }
                          
@@ -117,7 +117,7 @@ public class CharacterPlacementView extends JDialog {
     }                           
     
     private void placeItem() {
-		ourParent.setCurrentPlayerLocation(theClearings.get(locationList.getSelectedIndex()).getClearingThisOn());
+		ourParent.setCurrentPlayerLocation(theDwellings.get(locationList.getSelectedIndex()).getClearingThisOn());
 		dispose();
 	}
 
