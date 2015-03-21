@@ -6,6 +6,7 @@ import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
 import models.otherEntities.CombatDataContainer;
 import networking.sendables.MessageType;
+import networking.sendables.SyncDataObject;
 import networking.sendables.UpdateDataObject;
 import networking.threads.BaseThreads.ReaderThreadBase;
 import views.MainViews.GameView;
@@ -17,7 +18,6 @@ import views.MainViews.GameView;
  */
 public class ClientReadThread extends ReaderThreadBase {
 
-	private boolean processing;
 	private String connectedTo;
 	private ObjectInputStream readStream;
 	
@@ -68,10 +68,14 @@ public class ClientReadThread extends ReaderThreadBase {
 				} else if (incoming instanceof CombatDataContainer) {
 					CombatDataContainer incomingContainer = (CombatDataContainer) incoming;
 					handleCombatDataContainer(incomingContainer);
+				} else if (incoming instanceof SyncDataObject) {
+					SyncDataObject incomingContainer = (SyncDataObject) incoming;
+					handleSyncContainer(incomingContainer);
 				}
 				
 			   processing = false;
 			} catch (Exception e) {
+				e.printStackTrace();
 				closeConnection();
 				break;
 			}

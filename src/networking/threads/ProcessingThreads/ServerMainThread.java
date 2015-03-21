@@ -23,7 +23,6 @@ import views.MainViews.GameView;
 public class ServerMainThread extends ReaderThreadBase {
 	
 	private int serverPort;
-	private boolean processing = false;
 	private String serverThreadName = "Server Main ";
 	private ArrayList <Pair<ServerReadThread, ServerWriteThread>> connectedClients;
 	
@@ -32,7 +31,7 @@ public class ServerMainThread extends ReaderThreadBase {
 		serverPort = port;
 		connectedClients = new ArrayList<>();
 		this.mainGame = theGame;
-		
+		processing = false;
 		// Now Is A Networked Game, So Let The Game Know
 		this.mainGame.setServerThread(this);
 	}

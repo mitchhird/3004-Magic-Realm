@@ -1,25 +1,33 @@
 package models.BoardModels;
 
 import java.awt.Image;
-import java.util.ArrayList;
+import java.io.Serializable;
 
-import utils.GameUtils;
-import views.PopupViews.PlacementView;
+import javax.imageio.ImageIO;
 
 /**
  * The Dwelling Objects That A Clearing Can Have On It
  * @author Mitchell
  */
-public class Dwelling {
+public class Dwelling implements Serializable{
+
 	private String dwellingName;
+	private String resourceName;
 	private Clearing clearingThisOn;
-	private Image imageRepresentation;
+	private transient Image imageRepresentation;
+	private static final long serialVersionUID = 6274437669560190867L;
 	
 	// Constructor For The Clearing Object
-	public Dwelling (String dwellingName, Clearing theClearing, Image imageRep) {
+	public Dwelling (String dwellingName, String imageRep, Clearing theClearing) {
 		clearingThisOn = theClearing;
-		imageRepresentation = imageRep;
+		this.resourceName = imageRep;
 		this.dwellingName = dwellingName;
+		
+		try {
+			imageRepresentation = ImageIO.read(getClass().getResource(resourceName));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/*------------------ Getters And Setters ----------------*/
@@ -43,9 +51,16 @@ public class Dwelling {
 		this.clearingThisOn = newClearing;
 	}
 	
+	public String getDwellingName() {
+		return dwellingName;
+	}
+
 	@Override
 	public String toString() {
 		return dwellingName;
 	}
-	
+
+	public String getResourceName() {
+		return resourceName;
+	}
 }

@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 import views.MainViews.GameView;
 import models.BoardModels.Clearing;
+import models.BoardModels.Dwelling;
 import models.characterModels.PlayerBase;
 import models.otherEntities.CombatDataContainer;
 import networking.sendables.MessageType;
+import networking.sendables.SyncDataObject;
 import networking.sendables.UpdateDataObject;
 import networking.threads.ProcessingThreads.ServerReadThread;
 
@@ -18,6 +20,7 @@ import networking.threads.ProcessingThreads.ServerReadThread;
  */
 public class ReaderThreadBase extends Thread {
 	
+	protected boolean processing;
 	protected GameView mainGame;
 
 	public void handleIncomingPlayer(PlayerBase incoming, ServerReadThread caller) {
@@ -86,9 +89,42 @@ public class ReaderThreadBase extends Thread {
 		}
 	}
 
+	public void handleSyncContainer (SyncDataObject incoming) {
+		
+		// Add In The Dwellings From The Server
+		for (Dwelling d: incoming.getDwellings()) {
+			Clearing toAddTo = mainGame.getClearingByName(d.getClearingThisOn().getClearingName());
+			Dwelling dwellingToAdd = new Dwelling(d.getDwellingName(), d.getResourceName(), toAddTo);
+			mainGame.getDwellings().add(dwellingToAdd);
+			toAddTo.addImageToList(dwellingToAdd.getImageRepresentation());
+		}
+		
+		mainGame.handleClientStart();
+		
+		// Handle All The Players That Were Sent Over
+		for (String s: incoming.getPlayers().keySet()) {
+			PlayerBase incomingPlayer = mainGame.getPlayerByName(s);
+			Clearing moveTo = mainGame.getClearingByName(incoming.getPlayers().get(s));
+			incomingPlayer.setCurrentClearing(moveTo);
+			moveTo.playerMovedToThis(incomingPlayer);
+		}
+		
+		// Potentially Dangerous Operation... Drop The Processing State, And Send Out The Message To Update
+		processing = false;
+		for (PlayerBase p: mainGame.getPlayersInGame()) {
+			if (!p.isNetworkedPlayer()) {
+				mainGame.sendMessage(new UpdateDataObject(p, MessageType.MOVE_PLAYER));
+			}
+		}
+	}
+	
 	public void handleContainer(UpdateDataObject incoming) {
 		if (incoming.getUpdateType() == MessageType.UPDATE_PLAYER_HIDE) {
 			mainGame.getCurrentPlayer().setHidden(incoming.isHidden());
+		} else if (incoming.getUpdateType() == MessageType.MOVE_PLAYER) {
+			PlayerBase incomingPlayer = mainGame.getPlayerByName(incoming.getSentPlayer().getName());
+			Clearing moveTo = mainGame.getClearingByName(incoming.getClearingName());
+			moveTo.playerMovedToThis(incomingPlayer);
 		}
 	}
 }

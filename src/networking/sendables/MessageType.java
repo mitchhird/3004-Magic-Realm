@@ -1,6 +1,7 @@
 package networking.sendables;
 
 public enum MessageType {
+	MOVE_PLAYER,
 	REMOVE_PLAYER,
 	SEND_TURN,
 	START_GAME,

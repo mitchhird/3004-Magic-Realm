@@ -25,6 +25,15 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
+import models.BoardModels.Clearing;
+import models.BoardModels.Dwelling;
+import models.characterModels.PlayerBase;
+import models.characterModels.playerEnums.CharacterClass;
+import networking.sendables.MessageType;
+import networking.sendables.SyncDataObject;
+import networking.threads.ProcessingThreads.ClientReadThread;
+import networking.threads.ProcessingThreads.ClientWriterThread;
+import networking.threads.ProcessingThreads.ServerMainThread;
 import utils.GameUtils;
 import views.FrameBase;
 import views.PopupViews.AddPlayerView;
@@ -32,16 +41,6 @@ import views.PopupViews.CharacterPlacementView;
 import views.PopupViews.CombatView;
 import views.PopupViews.HostView;
 import views.PopupViews.JoinView;
-import views.PopupViews.PlacementView;
-import networking.sendables.MessageType;
-import networking.sendables.UpdateDataObject;
-import networking.threads.ProcessingThreads.ClientReadThread;
-import networking.threads.ProcessingThreads.ClientWriterThread;
-import networking.threads.ProcessingThreads.ServerMainThread;
-import models.BoardModels.Clearing;
-import models.BoardModels.Dwelling;
-import models.characterModels.PlayerBase;
-import models.characterModels.playerEnums.CharacterClass;
 import controller.clientController;
 
 public class GameView extends FrameBase {
@@ -254,7 +253,7 @@ public class GameView extends FrameBase {
 	}
 	
 	// Place The Character's Into The Desired Location
-	private void pickStartingLocations(){
+	public void pickStartingLocations(){
 		for (PlayerBase p: theClient.getPlayers()) {
 			// If The Player Is On This Local Machine
 			if (!p.isNetworkedPlayer()) {
@@ -263,14 +262,16 @@ public class GameView extends FrameBase {
 					startingDwellings.add(theBoard.getDwellings().get(0));
 					startingDwellings.add(theBoard.getDwellings().get(2));
 					startingDwellings.add(theBoard.getDwellings().get(3));
-					CharacterPlacementView startingLocation = new CharacterPlacementView(new String[] { "Captain" }, startingDwellings, this);
+					CharacterPlacementView startingLocation = new CharacterPlacementView(new String[] { "Captain" }, p, startingDwellings, this);
 					startingLocation.setVisible(true);
 				} else if (p.getPlayerClass().equals(CharacterClass.DWARF)) {
 					ArrayList<Dwelling> startingDwellings = new ArrayList<Dwelling>();
 					startingDwellings.add(theBoard.getDwellings().get(0));
 					startingDwellings.add(theBoard.getDwellings().get(3));
-					CharacterPlacementView startingLocation = new CharacterPlacementView(new String[] { "Dwarf" }, startingDwellings, this);
+					CharacterPlacementView startingLocation = new CharacterPlacementView(new String[] { "Dwarf" }, p, startingDwellings, this);
 					startingLocation.setVisible(true);
+				} else { 
+					p.setCurrentClearing(theBoard.getDefaultClearingForClass(p.getPlayerClass()));
 				}
 			}
 		}
@@ -281,22 +282,36 @@ public class GameView extends FrameBase {
 		System.out.println("Start Game Pressed");
 		
 		theBoard.placeItemsOnBoard();
+		
 		pickStartingLocations();
 		theClient.startGame();
 		thePlayerList.updateTable();
+		setStartGameButttons();	
+		
+		// If We Are Networked, Let Everyone Else Know Game Is Starting
+		if (networkedGame) {
+			sendMessage(new SyncDataObject(getDwellings(), getPlayersInGame()));
+		}
+
+	}
+	
+	// Handle The Client Starting There Game
+	public void handleClientStart () {
+		pickStartingLocations();
+		theClient.startGame();
+		thePlayerList.updateTable();
+		setStartGameButttons();	
+		JOptionPane.showMessageDialog(this, "The Game Has Started!");
+	}
+
+	// Set the Buttons For Start Of The Game
+	private void setStartGameButttons() {
 		thePlayerButtons.massSetButtonState(true);
 		thePlayerList.getjButton2().setEnabled(false);
 		thePlayerList.getAddPlayerButton().setEnabled(false);
 		thePlayerList.getStartGameButton().setEnabled(false);
-		
-		// If We Are Networked, Let Everyone Else Know Game Is Starting
-		if (networkedGame) {
-			sendMessage(MessageType.START_GAME);
-		}
-
-		cheatAction.setEnabled(true);	
+		cheatAction.setEnabled(true);
 		thePlayerButtons.updateButtonsForNetwork();
-		JOptionPane.showMessageDialog(this, "The Game Has Started!");
 	}
 
 	// Handles The Send Turn, By Calling The Control Vieww
@@ -456,6 +471,10 @@ public class GameView extends FrameBase {
 		return theBoard;
 	}
 	
+	public ArrayList<PlayerBase> getPlayersInGame () {
+		return theClient.getPlayers();
+	}
+	
 	public PlayerBase getCurrentPlayer () {
 		return theClient.getCurrentPlayer();
 	}
@@ -472,6 +491,9 @@ public class GameView extends FrameBase {
 		return thePlayerList;
 	}
 	
+	public ArrayList<Dwelling> getDwellings() {
+		return theBoard.getDwellings();
+	}
 	
 	public CombatView getCurrentCombatWindow() {
 		return currentCombatWindow;
@@ -550,5 +572,14 @@ public class GameView extends FrameBase {
 		theClient.getCurrentPlayer().setCurrentClearing(clearing);
 		theClient.getCurrentPlayer().setHomeClearing(clearing);
 		clearing.playerMovedToThis(theClient.getCurrentPlayer());
+	}
+	
+	public PlayerBase getPlayerByName (String name) {
+		for (PlayerBase p: theClient.getPlayers()) {
+			if (p.getName().equals(name)) {
+				return p;
+			}
+		}
+		return null;
 	}
 }

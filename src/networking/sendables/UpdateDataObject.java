@@ -10,6 +10,7 @@ import models.characterModels.PlayerBase;
  */
 public class UpdateDataObject implements Serializable {
 	
+	private String clearingName;
 	private boolean hidden;
 	private PlayerBase sentPlayer;
 	private MessageType updateType;	
@@ -19,6 +20,7 @@ public class UpdateDataObject implements Serializable {
 		this.sentPlayer = sentPlayer;
 		this.updateType = updateType;
 		this.hidden = sentPlayer.isHidden();
+		this.clearingName = sentPlayer.getCurrentClearing().getClearingName();
 	}
 
 	public PlayerBase getSentPlayer() {
@@ -40,4 +42,9 @@ public class UpdateDataObject implements Serializable {
 	public boolean isHidden() {
 		return hidden;
 	}
+
+	public String getClearingName() {
+		return clearingName;
+	}
+	
 }

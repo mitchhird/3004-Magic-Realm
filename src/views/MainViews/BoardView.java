@@ -3,7 +3,6 @@ package views.MainViews;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,17 +17,15 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.text.html.HTMLDocument.RunElement;
 
-import utils.GameUtils;
-import views.PopupViews.HoverView;
-import views.PopupViews.PlacementView;
 import models.BoardModels.Clearing;
 import models.BoardModels.Dwelling;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
 import models.otherEntities.monsterModels.Ghost;
-import models.otherEntities.monsterModels.Giant;
+import utils.GameUtils;
+import views.PopupViews.HoverView;
+import views.PopupViews.PlacementView;
 
 public class BoardView extends JPanel {
 
@@ -176,32 +173,28 @@ public class BoardView extends JPanel {
 	
 	public void placeItemsOnBoard(){
 		try {
-			Image currentImage = ImageIO.read(getClass().getResource("/dwellings_c/inn.gif"));
 			if(GameUtils.getCheatMode()){
 				PlacementView thePlacer = new PlacementView(new String[]{"Inn", "Chapel", "House", "Guard", "Ghost"}, clearings, this);
 				thePlacer.setVisible(true);
 			}else{
 				// Create Each Of The Dwellings
 				currentClearing = bvalley5;
-				inn = new Dwelling("Inn", currentClearing, currentImage);
+				inn = new Dwelling("Inn", "/dwellings_c/inn.gif", currentClearing);
 				inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
 				theDwellings.add(inn);
 				
-				currentImage = ImageIO.read(getClass().getResource("/dwellings_c/chapel.gif"));
 				currentClearing = avalley5;
-				Dwelling chapel = new Dwelling("Chapel", currentClearing, currentImage);
+				Dwelling chapel = new Dwelling("Chapel", "/dwellings_c/chapel.gif", currentClearing);
 				chapel.getClearingThisOn().addImageToList(chapel.getImageRepresentation());
 				theDwellings.add(chapel);
 				
 				currentClearing = cvalley5;
-				currentImage = ImageIO.read(getClass().getResource("/dwellings_c/house.gif"));
-				Dwelling house = new Dwelling("House", currentClearing, currentImage);
+				Dwelling house = new Dwelling("House", "/dwellings_c/house.gif", currentClearing);
 				house.getClearingThisOn().addImageToList(house.getImageRepresentation());
 				theDwellings.add(house);
 				
-				currentImage = ImageIO.read(getClass().getResource("/dwellings_c/guard.gif"));
 				currentClearing = dvalley5;
-				Dwelling guardHouse = new Dwelling("Guardhouse", currentClearing, currentImage);
+				Dwelling guardHouse = new Dwelling("Guardhouse", "/dwellings_c/guard.gif", currentClearing);
 				guardHouse.getClearingThisOn().addImageToList(guardHouse.getImageRepresentation());
 				theDwellings.add(guardHouse);
 				
@@ -215,40 +208,33 @@ public class BoardView extends JPanel {
 		}
 	}
 	
-	public void setCheatLocations(){
-		
-		try {
-			Image currentImage = ImageIO.read(getClass().getResource("/dwellings_c/inn.gif"));
-			currentClearing = cheatClearings.get(0);
-			inn = new Dwelling("Inn", currentClearing, currentImage);
-			inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
-			theDwellings.add(inn);
-			
-			currentImage = ImageIO.read(getClass().getResource("/dwellings_c/chapel.gif"));
-			currentClearing = cheatClearings.get(1);
-			Dwelling currentDwelling = new Dwelling("Chapel", currentClearing, currentImage);
-			currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
-			theDwellings.add(currentDwelling);
-			
-			currentImage = ImageIO.read(getClass().getResource("/dwellings_c/house.gif"));
-			currentClearing = cheatClearings.get(2);
-			currentDwelling = new Dwelling("House", currentClearing, currentImage);
-			currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
-			theDwellings.add(currentDwelling);
-			
-			currentClearing = cheatClearings.get(3);
-			currentImage = ImageIO.read(getClass().getResource("/dwellings_c/guard.gif"));
-			currentDwelling = new Dwelling("Guardhouse", currentClearing, currentImage);
-			currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
-			theDwellings.add(currentDwelling);
-			
-			currentClearing = cheatClearings.get(4);
-			Ghost aGhost = new Ghost();
-			currentClearing.addImageToList(aGhost.getImage());
-		}catch(IOException e){
-			e.printStackTrace();
-		}
+	public void setCheatLocations() {
+
+		currentClearing = cheatClearings.get(0);
+		inn = new Dwelling("Inn", "/dwellings_c/inn.gif", currentClearing);
+		inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
+		theDwellings.add(inn);
+
+		currentClearing = cheatClearings.get(1);
+		Dwelling currentDwelling = new Dwelling("Chapel", "/dwellings_c/chapel.gif", currentClearing);
+		currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
+		theDwellings.add(currentDwelling);
+
+		currentClearing = cheatClearings.get(2);
+		currentDwelling = new Dwelling("House", "/dwellings_c/house.gif", currentClearing);
+		currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
+		theDwellings.add(currentDwelling);
+
+		currentClearing = cheatClearings.get(3);
+		currentDwelling = new Dwelling("Guardhouse", "/dwellings_c/guard.gif", currentClearing);
+		currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
+		theDwellings.add(currentDwelling);
+
+		currentClearing = cheatClearings.get(4);
+		Ghost aGhost = new Ghost();
+		currentClearing.addImageToList(aGhost.getImage());
 	}
+	
 	//Initialization method, sets up the board
 	private void init(){
 		try {
@@ -742,6 +728,14 @@ public class BoardView extends JPanel {
 	
 	//returns the default clearing of a class (always the inn)
 	public Clearing getDefaultClearingForClass (CharacterClass c) {
+		
+		for (Dwelling d: theDwellings) {
+			if (d.getDwellingName().equals("Inn")) {
+				inn = d;
+				break;
+			}
+		}
+		
 		switch (c) {
 		case SWORDSMAN: return inn.getClearingThisOn();
 		case AMAZON: return inn.getClearingThisOn();

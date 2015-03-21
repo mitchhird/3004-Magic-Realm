@@ -10,10 +10,13 @@ import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
+import networking.sendables.MessageType;
+import networking.sendables.UpdateDataObject;
 import views.MainViews.BoardView;
 import views.MainViews.GameView;
 import models.BoardModels.Clearing;
 import models.BoardModels.Dwelling;
+import models.characterModels.PlayerBase;
 
 @SuppressWarnings("rawtypes")
 public class CharacterPlacementView extends JDialog {
@@ -29,8 +32,10 @@ public class CharacterPlacementView extends JDialog {
     private GameView ourParent;
     private ArrayList<Dwelling> theDwellings;
     
+    private PlayerBase playerToModify;
+    
     @SuppressWarnings("unchecked")
-	public CharacterPlacementView(String[] theModel1, ArrayList<Dwelling> newDwellings, GameView theParent) {
+	public CharacterPlacementView(String[] theModel1, PlayerBase p, ArrayList<Dwelling> newDwellings, GameView theParent) {
     	super(theParent,true);
         initComponents();
         itemList.setModel(new javax.swing.DefaultComboBoxModel(theModel1));
@@ -38,6 +43,7 @@ public class CharacterPlacementView extends JDialog {
         ourParent = theParent;
         theDwellings = newDwellings;
         itemList.setEnabled(false);
+        playerToModify = p;
     }
                          
     @SuppressWarnings("unchecked")
@@ -117,7 +123,8 @@ public class CharacterPlacementView extends JDialog {
     }                           
     
     private void placeItem() {
-		ourParent.setCurrentPlayerLocation(theDwellings.get(locationList.getSelectedIndex()).getClearingThisOn());
+    	playerToModify.setCurrentClearing(theDwellings.get(locationList.getSelectedIndex()).getClearingThisOn());
+    	theDwellings.get(locationList.getSelectedIndex()).getClearingThisOn().playerMovedToThis(playerToModify);
 		dispose();
 	}
 
