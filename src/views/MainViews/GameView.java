@@ -257,15 +257,15 @@ public class GameView extends FrameBase {
 	private void pickStartingLocations(){
 		for (PlayerBase p: theClient.getPlayers()) {
 			// If The Player Is On This Local Machine
-			if (!theClient.getCurrentPlayer().isNetworkedPlayer()) {
-				if (theClient.getCurrentPlayer().getPlayerClass().equals(CharacterClass.CAPTAIN)) {
+			if (!p.isNetworkedPlayer()) {
+				if (p.getPlayerClass().equals(CharacterClass.CAPTAIN)) {
 					ArrayList<Dwelling> startingDwellings = new ArrayList<>();
 					startingDwellings.add(theBoard.getDwellings().get(0));
 					startingDwellings.add(theBoard.getDwellings().get(2));
 					startingDwellings.add(theBoard.getDwellings().get(3));
 					CharacterPlacementView startingLocation = new CharacterPlacementView(new String[] { "Captain" }, startingDwellings, this);
 					startingLocation.setVisible(true);
-				} else if (theClient.getCurrentPlayer().getPlayerClass().equals(CharacterClass.DWARF)) {
+				} else if (p.getPlayerClass().equals(CharacterClass.DWARF)) {
 					ArrayList<Dwelling> startingDwellings = new ArrayList<Dwelling>();
 					startingDwellings.add(theBoard.getDwellings().get(0));
 					startingDwellings.add(theBoard.getDwellings().get(3));
