@@ -549,5 +549,6 @@ public class GameView extends FrameBase {
 	public void setCurrentPlayerLocation(Clearing clearing) {
 		theClient.getCurrentPlayer().setCurrentClearing(clearing);
 		theClient.getCurrentPlayer().setHomeClearing(clearing);
+		clearing.playerMovedToThis(theClient.getCurrentPlayer());
 	}
 }

@@ -94,10 +94,12 @@ public class clientController {
 	public void startGame () {
 		gameStarted = true;
 		for (PlayerBase p: thePlayers) {
-			Clearing playerStart = parent.getBoardView().getDefaultClearingForClass(p.getPlayerClass());
-			p.setCurrentClearing(playerStart);
-			p.setHomeClearing(playerStart);
-			playerStart.playerMovedToThis(p);
+			if(p.getPlayerClass()!=CharacterClass.CAPTAIN && p.getPlayerClass()!=CharacterClass.DWARF){
+				Clearing playerStart = parent.getBoardView().getDefaultClearingForClass(p.getPlayerClass());
+				p.setCurrentClearing(playerStart);
+				p.setHomeClearing(playerStart);
+				playerStart.playerMovedToThis(p);
+			}
 		}
 	}
 
