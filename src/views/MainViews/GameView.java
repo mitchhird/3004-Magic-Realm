@@ -39,6 +39,7 @@ import networking.threads.ProcessingThreads.ClientReadThread;
 import networking.threads.ProcessingThreads.ClientWriterThread;
 import networking.threads.ProcessingThreads.ServerMainThread;
 import models.BoardModels.Clearing;
+import models.BoardModels.Dwelling;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
 import controller.clientController;
@@ -252,20 +253,26 @@ public class GameView extends FrameBase {
 		});
 	}
 	
+	// Place The Character's Into The Desired Location
 	private void pickStartingLocations(){
-		if(theClient.getCurrentPlayer().getPlayerClass().equals(CharacterClass.CAPTAIN)){
-			ArrayList<Clearing> startingClearings = new ArrayList<Clearing>();
-			startingClearings.add(theBoard.getDwellings().get(0).getClearingThisOn());
-			startingClearings.add(theBoard.getDwellings().get(2).getClearingThisOn());
-			startingClearings.add(theBoard.getDwellings().get(3).getClearingThisOn());
-			CharacterPlacementView startingLocation = new CharacterPlacementView(new String[]{"Captain"}, startingClearings, this);
-			startingLocation.setVisible(true);
-		}else if(theClient.getCurrentPlayer().getPlayerClass().equals(CharacterClass.CAPTAIN)){
-			ArrayList<Clearing> startingClearings = new ArrayList<Clearing>();
-			startingClearings.add(theBoard.getDwellings().get(0).getClearingThisOn());
-			startingClearings.add(theBoard.getDwellings().get(3).getClearingThisOn());
-			CharacterPlacementView startingLocation = new CharacterPlacementView(new String[]{"Dwarf"}, startingClearings, this);
-			startingLocation.setVisible(true);
+		for (PlayerBase p: theClient.getPlayers()) {
+			// If The Player Is On This Local Machine
+			if (!theClient.getCurrentPlayer().isNetworkedPlayer()) {
+				if (theClient.getCurrentPlayer().getPlayerClass().equals(CharacterClass.CAPTAIN)) {
+					ArrayList<Dwelling> startingDwellings = new ArrayList<>();
+					startingDwellings.add(theBoard.getDwellings().get(0));
+					startingDwellings.add(theBoard.getDwellings().get(2));
+					startingDwellings.add(theBoard.getDwellings().get(3));
+					CharacterPlacementView startingLocation = new CharacterPlacementView(new String[] { "Captain" }, startingDwellings, this);
+					startingLocation.setVisible(true);
+				} else if (theClient.getCurrentPlayer().getPlayerClass().equals(CharacterClass.DWARF)) {
+					ArrayList<Dwelling> startingDwellings = new ArrayList<Dwelling>();
+					startingDwellings.add(theBoard.getDwellings().get(0));
+					startingDwellings.add(theBoard.getDwellings().get(3));
+					CharacterPlacementView startingLocation = new CharacterPlacementView(new String[] { "Dwarf" }, startingDwellings, this);
+					startingLocation.setVisible(true);
+				}
+			}
 		}
 	}
 	
@@ -281,7 +288,6 @@ public class GameView extends FrameBase {
 		thePlayerList.getjButton2().setEnabled(false);
 		thePlayerList.getAddPlayerButton().setEnabled(false);
 		thePlayerList.getStartGameButton().setEnabled(false);
-		JOptionPane.showMessageDialog(this, "The Game Has Started!");
 		
 		// If We Are Networked, Let Everyone Else Know Game Is Starting
 		if (networkedGame) {
@@ -289,8 +295,8 @@ public class GameView extends FrameBase {
 		}
 
 		cheatAction.setEnabled(true);	
-		
 		thePlayerButtons.updateButtonsForNetwork();
+		JOptionPane.showMessageDialog(this, "The Game Has Started!");
 	}
 
 	// Handles The Send Turn, By Calling The Control Vieww

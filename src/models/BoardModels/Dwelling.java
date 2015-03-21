@@ -11,13 +11,15 @@ import views.PopupViews.PlacementView;
  * @author Mitchell
  */
 public class Dwelling {
+	private String dwellingName;
 	private Clearing clearingThisOn;
 	private Image imageRepresentation;
 	
 	// Constructor For The Clearing Object
-	public Dwelling (Clearing theClearing, Image imageRep) {
+	public Dwelling (String dwellingName, Clearing theClearing, Image imageRep) {
 		clearingThisOn = theClearing;
 		imageRepresentation = imageRep;
+		this.dwellingName = dwellingName;
 	}
 
 	/*------------------ Getters And Setters ----------------*/
@@ -39,6 +41,11 @@ public class Dwelling {
 	
 	public void setClearing(Clearing newClearing){
 		this.clearingThisOn = newClearing;
+	}
+	
+	@Override
+	public String toString() {
+		return dwellingName;
 	}
 	
 }

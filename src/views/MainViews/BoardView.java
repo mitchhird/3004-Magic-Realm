@@ -168,8 +168,6 @@ public class BoardView extends JPanel {
 
 	private Clearing currentClearing;
 	
-	private ActionListener test;
-	
 	//Constructor for the BoardView
 	public BoardView (GameView parent){
 		init();
@@ -183,28 +181,29 @@ public class BoardView extends JPanel {
 				PlacementView thePlacer = new PlacementView(new String[]{"Inn", "Chapel", "House", "Guard", "Ghost"}, clearings, this);
 				thePlacer.setVisible(true);
 			}else{
+				// Create Each Of The Dwellings
 				currentClearing = bvalley5;
-				inn = new Dwelling(currentClearing, currentImage);
+				inn = new Dwelling("Inn", currentClearing, currentImage);
 				inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
 				theDwellings.add(inn);
 				
 				currentImage = ImageIO.read(getClass().getResource("/dwellings_c/chapel.gif"));
 				currentClearing = avalley5;
-				Dwelling currentDwelling = new Dwelling(currentClearing, currentImage);
-				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
-				theDwellings.add(currentDwelling);
+				Dwelling chapel = new Dwelling("Chapel", currentClearing, currentImage);
+				chapel.getClearingThisOn().addImageToList(chapel.getImageRepresentation());
+				theDwellings.add(chapel);
 				
-				currentImage = ImageIO.read(getClass().getResource("/dwellings_c/house.gif"));
 				currentClearing = cvalley5;
-				currentDwelling = new Dwelling(currentClearing, currentImage);
-				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
-				theDwellings.add(currentDwelling);
+				currentImage = ImageIO.read(getClass().getResource("/dwellings_c/house.gif"));
+				Dwelling house = new Dwelling("House", currentClearing, currentImage);
+				house.getClearingThisOn().addImageToList(house.getImageRepresentation());
+				theDwellings.add(house);
 				
 				currentImage = ImageIO.read(getClass().getResource("/dwellings_c/guard.gif"));
 				currentClearing = dvalley5;
-				currentDwelling = new Dwelling(currentClearing, currentImage);
-				currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
-				theDwellings.add(currentDwelling);
+				Dwelling guardHouse = new Dwelling("Guardhouse", currentClearing, currentImage);
+				guardHouse.getClearingThisOn().addImageToList(guardHouse.getImageRepresentation());
+				theDwellings.add(guardHouse);
 				
 				currentClearing = evalley5;
 				Ghost aGhost = new Ghost();
@@ -221,25 +220,25 @@ public class BoardView extends JPanel {
 		try {
 			Image currentImage = ImageIO.read(getClass().getResource("/dwellings_c/inn.gif"));
 			currentClearing = cheatClearings.get(0);
-			inn = new Dwelling(currentClearing, currentImage);
+			inn = new Dwelling("Inn", currentClearing, currentImage);
 			inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
 			theDwellings.add(inn);
 			
 			currentImage = ImageIO.read(getClass().getResource("/dwellings_c/chapel.gif"));
 			currentClearing = cheatClearings.get(1);
-			Dwelling currentDwelling = new Dwelling(currentClearing, currentImage);
+			Dwelling currentDwelling = new Dwelling("Chapel", currentClearing, currentImage);
 			currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
 			theDwellings.add(currentDwelling);
 			
 			currentImage = ImageIO.read(getClass().getResource("/dwellings_c/house.gif"));
 			currentClearing = cheatClearings.get(2);
-			currentDwelling = new Dwelling(currentClearing, currentImage);
+			currentDwelling = new Dwelling("House", currentClearing, currentImage);
 			currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
 			theDwellings.add(currentDwelling);
 			
-			currentImage = ImageIO.read(getClass().getResource("/dwellings_c/guard.gif"));
 			currentClearing = cheatClearings.get(3);
-			currentDwelling = new Dwelling(currentClearing, currentImage);
+			currentImage = ImageIO.read(getClass().getResource("/dwellings_c/guard.gif"));
+			currentDwelling = new Dwelling("Guardhouse", currentClearing, currentImage);
 			currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
 			theDwellings.add(currentDwelling);
 			

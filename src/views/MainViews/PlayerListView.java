@@ -130,7 +130,8 @@ import models.characterModels.playerEnums.CharacterClass;
    
 	    // Updates The Buttons Enability
 	    public void update (){
-	    	startGameButton.setEnabled(jTable2.getRowCount() > 0);
+	    	boolean isClient = parent.getClientReaderThread() != null;
+	    	startGameButton.setEnabled((jTable2.getRowCount() > 0) && !isClient);
 	    }
 	    
 	    

@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import views.MainViews.BoardView;
 import views.MainViews.GameView;
 import models.BoardModels.Clearing;
+import models.BoardModels.Dwelling;
 
 @SuppressWarnings("rawtypes")
 public class CharacterPlacementView extends JDialog {
@@ -26,10 +27,10 @@ public class CharacterPlacementView extends JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;    
     private GameView ourParent;
-    private ArrayList<Clearing> theClearings;
+    private ArrayList<Dwelling> theClearings;
     
     @SuppressWarnings("unchecked")
-	public CharacterPlacementView(String[] theModel1, ArrayList<Clearing> newClearings, GameView theParent) {
+	public CharacterPlacementView(String[] theModel1, ArrayList<Dwelling> newClearings, GameView theParent) {
     	super(theParent,true);
         initComponents();
         itemList.setModel(new javax.swing.DefaultComboBoxModel(theModel1));
@@ -116,7 +117,7 @@ public class CharacterPlacementView extends JDialog {
     }                           
     
     private void placeItem() {
-		ourParent.setCurrentPlayerLocation(theClearings.get(locationList.getSelectedIndex()));
+		ourParent.setCurrentPlayerLocation(theClearings.get(locationList.getSelectedIndex()).getClearingThisOn());
 		dispose();
 	}
 
