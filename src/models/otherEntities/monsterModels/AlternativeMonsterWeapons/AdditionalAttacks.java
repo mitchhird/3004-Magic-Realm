@@ -7,6 +7,9 @@ public class AdditionalAttacks {
 	protected Weights attack;
 	protected MonsterBase owner;
 	
+	public AdditionalAttacks () {
+		
+	}
 	public AdditionalAttacks(Weights attack, MonsterBase owner){
 		this.attack = attack;
 		this.owner = owner;
