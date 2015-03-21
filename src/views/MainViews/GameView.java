@@ -38,6 +38,7 @@ import utils.GameUtils;
 import views.FrameBase;
 import views.PopupViews.AddPlayerView;
 import views.PopupViews.CharacterPlacementView;
+import views.PopupViews.ChitPlacementView;
 import views.PopupViews.CombatView;
 import views.PopupViews.HostView;
 import views.PopupViews.JoinView;
@@ -282,7 +283,7 @@ public class GameView extends FrameBase {
 		System.out.println("Start Game Pressed");
 		
 		theBoard.placeItemsOnBoard();
-		
+		//theBoard.placeChitsOnBoard();
 		pickStartingLocations();
 		theClient.startGame();
 		thePlayerList.updateTable();
@@ -295,6 +296,8 @@ public class GameView extends FrameBase {
 
 	}
 	
+
+
 	// Handle The Client Starting There Game
 	public void handleClientStart () {
 		pickStartingLocations();

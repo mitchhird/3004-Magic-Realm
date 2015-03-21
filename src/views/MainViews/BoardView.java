@@ -20,10 +20,12 @@ import javax.swing.JPanel;
 
 import models.BoardModels.Clearing;
 import models.BoardModels.Dwelling;
+import models.BoardModels.Tile;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
 import models.otherEntities.monsterModels.Ghost;
 import utils.GameUtils;
+import views.PopupViews.ChitPlacementView;
 import views.PopupViews.HoverView;
 import views.PopupViews.PlacementView;
 
@@ -37,6 +39,8 @@ public class BoardView extends JPanel {
 	
 	private float scale = 1;
 
+	private ArrayList<Tile> theTiles = new ArrayList<Tile>();
+	
 	private ArrayList<Clearing> clearings = new ArrayList<Clearing>();
 	private ArrayList<Clearing> cheatClearings = new ArrayList<Clearing>();
 
@@ -769,5 +773,10 @@ public class BoardView extends JPanel {
 	
 	public ArrayList<Dwelling> getDwellings(){
 		return theDwellings;
+	}
+
+	public void placeChitsOnBoard() {
+		ChitPlacementView chitPlacer = new ChitPlacementView(new String[] { "SamepleChit1", "SampleChit2" },theTiles,this);
+		chitPlacer.setVisible(true);
 	}
 }
