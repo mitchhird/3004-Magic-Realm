@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import models.otherEntities.monsterModels.AlternativeMonsterWeapons.AdditionalAttacks;
+import models.otherEntities.monsterModels.AlternativeMonsterWeapons.OgreClub;
+
 public class Giant extends MonsterBase {
 	
 	public Giant(){
@@ -14,6 +17,9 @@ public class Giant extends MonsterBase {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		extraWeapon = true;
+		extraAttack = new OgreClub(this);
 	}
 
 }

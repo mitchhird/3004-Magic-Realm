@@ -5,6 +5,9 @@ import java.util.Collections;
 
 import models.chitModels.EnvironmentChit.EnvironmentChit;
 import models.chitModels.EnvironmentChit.SiteChit;
+import models.otherEntities.monsterModels.Ghost;
+import models.otherEntities.monsterModels.Giant;
+import models.otherEntities.monsterModels.MonsterBase;
 
 public class EntityHolder {
 
@@ -20,6 +23,10 @@ public class EntityHolder {
 	protected SiteChit shrine;
 	protected SiteChit statue;
 	protected SiteChit vault;
+	
+	protected ArrayList<MonsterBase> mediumMonsters;
+	protected ArrayList<MonsterBase> heavyMonsters;
+	protected ArrayList<MonsterBase> tMonsters;
 	
 	/*
 	 * group 1
@@ -91,15 +98,6 @@ public class EntityHolder {
 	 * 
 	 */
 	
-	/**
-	 * need to do something for the prowling here
-	 * as well as ghost
-	 * dwellings
-	 * natives
-	 * treasures
-	 * 
-	 */
-	
 	//add treasures later
 	public EntityHolder(){
 		lostCity = new ArrayList<EnvironmentChit>();
@@ -126,7 +124,7 @@ public class EntityHolder {
 		 * H Troll * 2
 		 * 
 		 * Medium
-		 * Ghosts * 2
+		 * Ghosts * 2---
 		 * Goblins with Axes * 6
 		 * Goblins with Great Swords * 6
 		 * Goblins with Spears * 6
@@ -136,6 +134,14 @@ public class EntityHolder {
 		 * Wolves L4,3/M4,4 * 3
 		 * Wolves M5,3/L3,4 * 3
 		 */
+		Ghost ghost1 = new Ghost();
+		mediumMonsters.add(ghost1);
+		Ghost ghost2 = new Ghost();
+		mediumMonsters.add(ghost2);
+		Giant giant1 = new Giant();
+		tMonsters.add(giant1);
+		Giant giant2 = new Giant();
+		tMonsters.add(giant2);
 	}
 	
 	public ArrayList<EnvironmentChit> setupChits(boolean random, ArrayList<EnvironmentChit> start){
