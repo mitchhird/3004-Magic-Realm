@@ -1,4 +1,4 @@
-package models.monsterModels;
+package models.otherEntities.monsterModels;
 
 import java.io.IOException;
 

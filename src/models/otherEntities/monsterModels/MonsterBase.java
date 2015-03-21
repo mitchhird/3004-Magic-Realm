@@ -1,8 +1,10 @@
-package models.monsterModels;
+package models.otherEntities.monsterModels;
 
 import java.awt.Image;
 
-public class MonsterBase {
+import models.otherEntities.EntityBase;
+
+public class MonsterBase extends EntityBase{
 	
 	protected String monsterType;
 	protected Image monsterImage;

@@ -27,8 +27,8 @@ import models.BoardModels.Clearing;
 import models.BoardModels.Dwelling;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
-import models.monsterModels.Ghost;
-import models.monsterModels.Giant;
+import models.otherEntities.monsterModels.Ghost;
+import models.otherEntities.monsterModels.Giant;
 
 public class BoardView extends JPanel {
 
