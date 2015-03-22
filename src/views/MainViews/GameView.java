@@ -126,7 +126,7 @@ public class GameView extends FrameBase {
 
 		joinAction.setEnabled(false);
 		hostAction.setEnabled(false);
-		cheatAction.setEnabled(true);
+		cheatAction.setEnabled(false);
 		
         fileMenu.add(newAction);
         fileMenu.add(exitAction);
@@ -431,6 +431,7 @@ public class GameView extends FrameBase {
 		joinAction.setEnabled(true);
 		hostAction.setEnabled(true);
 		newAction.setEnabled(false);
+		cheatAction.setEnabled(true);
 		showGameButtons();
 		showBoard();
 		update();
@@ -566,7 +567,7 @@ public class GameView extends FrameBase {
 	}
 
 	public void setcheatAction(boolean b) {
-			cheatAction.setEnabled(b);
+		cheatAction.setEnabled(b);
 	}
 
 	public void setCurrentPlayerLocation(Clearing clearing) {
