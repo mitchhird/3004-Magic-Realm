@@ -24,6 +24,7 @@ import models.BoardModels.Tile;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
 import models.otherEntities.monsterModels.Ghost;
+import models.otherEntities.nativeModels.Knight;
 import utils.GameUtils;
 import views.PopupViews.ChitPlacementView;
 import views.PopupViews.HoverView;
@@ -191,6 +192,9 @@ public class BoardView extends JPanel {
 				Dwelling chapel = new Dwelling("Chapel", "/dwellings_c/chapel.gif", currentClearing);
 				chapel.getClearingThisOn().addImageToList(chapel.getImageRepresentation());
 				theDwellings.add(chapel);
+				
+				Knight aKnight = new Knight();
+				currentClearing.addImageToList(aKnight.getImage());
 				
 				currentClearing = cvalley5;
 				Dwelling house = new Dwelling("House", "/dwellings_c/house.gif", currentClearing);
