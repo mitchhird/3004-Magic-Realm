@@ -179,7 +179,7 @@ public class BoardView extends JPanel {
 	public void placeItemsOnBoard(){
 		try {
 			if(GameUtils.getCheatMode()){
-				PlacementView thePlacer = new PlacementView(new String[]{"Inn", "Chapel", "House", "Guard", "Ghost"}, clearings, this);
+				PlacementView thePlacer = new PlacementView(new String[]{"Inn", "Chapel", "House", "Guard House", "Ghost"}, clearings, this);
 				thePlacer.setVisible(true);
 			}else{
 				// Create Each Of The Dwellings
@@ -227,6 +227,9 @@ public class BoardView extends JPanel {
 		Dwelling currentDwelling = new Dwelling("Chapel", "/dwellings_c/chapel.gif", currentClearing);
 		currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
 		theDwellings.add(currentDwelling);
+		
+		Knight aKnight = new Knight();
+		currentClearing.addImageToList(aKnight.getImage());
 
 		currentClearing = cheatClearings.get(2);
 		currentDwelling = new Dwelling("House", "/dwellings_c/house.gif", currentClearing);
@@ -241,6 +244,7 @@ public class BoardView extends JPanel {
 		currentClearing = cheatClearings.get(4);
 		Ghost aGhost = new Ghost();
 		currentClearing.addImageToList(aGhost.getImage());
+		
 	}
 	
 	//Initialization method, sets up the board
