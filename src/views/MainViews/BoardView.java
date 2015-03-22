@@ -195,6 +195,8 @@ public class BoardView extends JPanel {
 				
 				Knight aKnight = new Knight();
 				currentClearing.addImageToList(aKnight.getImage());
+				aKnight.setCurrentClearing(currentClearing);
+				aKnight.setHomeClearing(currentClearing);
 				
 				currentClearing = cvalley5;
 				Dwelling house = new Dwelling("House", "/dwellings_c/house.gif", currentClearing);
@@ -209,6 +211,8 @@ public class BoardView extends JPanel {
 				currentClearing = evalley5;
 				Ghost aGhost = new Ghost();
 				currentClearing.addImageToList(aGhost.getImage());
+				aGhost.setCurrentClearing(currentClearing);
+				aGhost.setHomeClearing(currentClearing);
 				
 			}
 		} catch (Exception e) {
@@ -230,6 +234,8 @@ public class BoardView extends JPanel {
 		
 		Knight aKnight = new Knight();
 		currentClearing.addImageToList(aKnight.getImage());
+		aKnight.setCurrentClearing(currentClearing);
+		aKnight.setHomeClearing(currentClearing);
 
 		currentClearing = cheatClearings.get(2);
 		currentDwelling = new Dwelling("House", "/dwellings_c/house.gif", currentClearing);
@@ -244,6 +250,8 @@ public class BoardView extends JPanel {
 		currentClearing = cheatClearings.get(4);
 		Ghost aGhost = new Ghost();
 		currentClearing.addImageToList(aGhost.getImage());
+		aGhost.setCurrentClearing(currentClearing);
+		aGhost.setHomeClearing(currentClearing);
 		
 	}
 	

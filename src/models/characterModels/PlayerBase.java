@@ -357,6 +357,9 @@ public class PlayerBase extends EntityBase implements Serializable {
 	public void setHomeClearing(Clearing homeClearing) {
 		this.homeClearing = homeClearing;
 	}
+	public void setCurrentClearing(Clearing currentClearing) {
+		this.currentClearing = currentClearing;
+	}
 	
 	public void setName(String newPlayerName){
 		playerName = newPlayerName;
@@ -366,10 +369,6 @@ public class PlayerBase extends EntityBase implements Serializable {
 		currentGold = Math.max(amount, 0);
 	}
 	
-	public void setCurrentClearing(Clearing currentClearing) {
-		this.currentClearing = currentClearing;
-	}
-
 	public void setMoving(boolean moving) {
 		this.moving = moving;
 	}

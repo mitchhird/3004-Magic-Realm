@@ -2,6 +2,7 @@ package models.otherEntities.nativeModels;
 
 import java.awt.Image;
 
+import models.BoardModels.Clearing;
 import models.otherEntities.EntityBase;
 
 public class NativeBase extends EntityBase{
@@ -10,5 +11,12 @@ public class NativeBase extends EntityBase{
 	
 	public Image getImage(){
 		return nativeImage;
+	}
+	
+	public void setHomeClearing(Clearing homeClearing) {
+		this.homeClearing = homeClearing;
+	}
+	public void setCurrentClearing(Clearing currentClearing) {
+		this.currentClearing = currentClearing;
 	}
 }
