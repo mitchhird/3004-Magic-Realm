@@ -283,7 +283,7 @@ public class GameView extends FrameBase {
 		System.out.println("Start Game Pressed");
 		
 		theBoard.placeItemsOnBoard();
-		//theBoard.placeChitsOnBoard();
+		theBoard.placeChitsOnBoard();
 		pickStartingLocations();
 		theClient.startGame();
 		thePlayerList.updateTable();

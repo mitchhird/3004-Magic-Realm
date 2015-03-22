@@ -29,7 +29,8 @@ public class ChitPlacementView extends JDialog {
     
     @SuppressWarnings("unchecked")
 	public ChitPlacementView(String[] theModel1, ArrayList<Tile> newTiles, BoardView theParent) {
-        initComponents();
+    	super(theParent.getParentWindow(),true);
+    	initComponents();
         itemList.setModel(new javax.swing.DefaultComboBoxModel(theModel1));
         locationList.setModel(new javax.swing.DefaultComboBoxModel(newTiles.toArray()));
         ourParent = theParent;
