@@ -45,7 +45,7 @@ public class ServerReadThread extends TransmissionThreadBase {
 	public void run() {
 		while (true) {
 			try {
-				Object incoming = inStream.readObject();
+				Object incoming = inStream.readUnshared();
 				System.out.println("Recieved From Client: " + incoming);
 				
 				parentThread.setProcessing(true);

@@ -21,7 +21,7 @@ public class ServerWriteThread extends Thread {
 		
 		// Send The Object Over To The Server
 		try {
-			writeStream.writeObject(o);
+			writeStream.writeUnshared(o);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

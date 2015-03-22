@@ -81,7 +81,7 @@ public class TransmissionThreadBase extends Thread {
 
 		// Send The Object Over To The Server
 		try {
-			outStream.writeObject(o);
+			outStream.writeUnshared(o);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

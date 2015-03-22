@@ -208,7 +208,6 @@ public class CombatView extends FrameBase implements WindowListener {
             public void actionPerformed(ActionEvent arg0) {
             	enableDefenses();
                 combatHandler.setCurrentAttack(Attacks.THRUST);
-                ourParent.sendMessage(combatHandler.getCurrentAttacker().getCombatData());
                 println("Setting Current Attack To " + Attacks.THRUST);
             }
         });
@@ -262,13 +261,13 @@ public class CombatView extends FrameBase implements WindowListener {
                 System.out.println("next pressed");
                 combatHandler.setCurrentDefender(targetPlayers.get(playersCanAttack.getSelectedIndex()));
                 
-                // Go To The Next Attack
-                combatHandler.setNextAttacker();
-                
                 // Set The Data The Combat Container, And Then Send It Across
                 CombatDataContainer combatData = combatHandler.getCurrentAttacker().getCombatData();
 				combatData.setTheDefender(combatHandler.getCurrentDefender());
-                ourParent.sendMessage(combatData);
+                ourParent.sendMessage(combatData);   
+                
+                // Go To The Next Attack
+                combatHandler.setNextAttacker();
                 
                 nextButton.setEnabled(false);
                 dodgeButton.setEnabled(false);

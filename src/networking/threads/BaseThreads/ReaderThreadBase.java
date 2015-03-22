@@ -6,6 +6,8 @@ import views.MainViews.GameView;
 import models.BoardModels.Clearing;
 import models.BoardModels.Dwelling;
 import models.characterModels.PlayerBase;
+import models.characterModels.playerEnums.Attacks;
+import models.characterModels.playerEnums.Defences;
 import models.otherEntities.CombatDataContainer;
 import networking.sendables.MessageType;
 import networking.sendables.SyncDataObject;

@@ -12,17 +12,17 @@ import models.characterModels.playerEnums.Defences;
  */
 public class CombatDataContainer implements Serializable {
 	
+	private static final long serialVersionUID = -1231513221625115158L;
 	private PlayerBase thePlayer;
 	private PlayerBase theDefender;
-	private Attacks attack;
-	private Defences defense;
-	private static final long serialVersionUID = 7918734058307032424L;
+	private String attack;
+	private String defense;
 	
 	public CombatDataContainer (PlayerBase p, PlayerBase d, Attacks attack, Defences currentDefence) {
 		thePlayer = p;
 		theDefender = d;
-		this.attack = attack;
-		this.defense = currentDefence;
+		this.attack = attack.name();
+		this.defense = currentDefence.name();
 	}
 
 	/*---------------------- Getters And Setters ---------------------------*/
@@ -35,19 +35,19 @@ public class CombatDataContainer implements Serializable {
 	}
 
 	public Attacks getAttack() {
-		return attack;
+		return Attacks.valueOf(attack);
 	}
 
 	public void setAttack(Attacks attack) {
-		this.attack = attack;
+		this.attack = new String(attack.name());
 	}
 
 	public Defences getDefense() {
-		return defense;
+		return Defences.valueOf(defense);
 	}
 
 	public void setDefense(Defences defense) {
-		this.defense = defense;
+		this.defense = new String(defense.name());
 	}
 
 	public PlayerBase getTheDefender() {

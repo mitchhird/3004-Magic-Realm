@@ -293,11 +293,9 @@ public class GameView extends FrameBase {
 		if (networkedGame) {
 			sendMessage(new SyncDataObject(getDwellings(), getPlayersInGame()));
 		}
-
+		JOptionPane.showMessageDialog(this, "The Game Has Started!");
 	}
 	
-
-
 	// Handle The Client Starting There Game
 	public void handleClientStart () {
 		pickStartingLocations();

@@ -27,19 +27,22 @@ import views.PopupViews.CombatView;
  */
 public class CombatPVPHandler {
 
+	private CombatView parentView;
 	private PlayerBase currentAttacker;
 	private PlayerBase currentDefender;
 	private ArrayList<PlayerBase> combattingPlayers;
-	
 	private Set<Pair<PlayerBase, PlayerBase>> readyPlayers;
 	
-	private CombatView parentView;
+	private int roundsGoneByWithoutHit;
+	private boolean hitSomeoneThisRound;
 	
 	// Constructor For The Combat Handler
 	public CombatPVPHandler (ArrayList <PlayerBase> combattingPlayers, CombatView parentView) {
 		this.parentView = parentView;
 		readyPlayers = new HashSet<>();
 		this.combattingPlayers = combattingPlayers;
+
+		resetNothingCheck();
 		
 		// First Attacker That Is Available
 		currentAttacker = combattingPlayers.get(0);
@@ -52,14 +55,14 @@ public class CombatPVPHandler {
 	// Initialize All Containers With Dummy Values 
 	private void initPlayerContainers() {
 		for (PlayerBase p: this.combattingPlayers) {
-			p.setCombatData(new CombatDataContainer(p, p, null, null));
+			p.setCombatData(new CombatDataContainer(p, p, Attacks.SMASH, Defences.CHARGE));
 		}
 	}
 
 	private void setArmor() {
-		String suit = null;
-		String breast = null;
-		String helmet = null;
+		String suit = "";
+		String breast = "";
+		String helmet = "";
 		for(int i = 0;i<currentDefender.getArmorChits().size();i++){
 			if(currentDefender.getArmorChits().get(i).getArmourType().equals(ArmorType.HELMET)){
 				helmet = currentDefender.getArmorChits().get(i).toString();
@@ -90,6 +93,8 @@ public class CombatPVPHandler {
 		parentView.println("");
 		parentView.println("Beginning Combat:");
 		
+		hitSomeoneThisRound = false;
+		
 		// Execute The Attacks For The Players
 		for (Pair<PlayerBase, PlayerBase> p: readyPlayers) {
 			PlayerBase attacker = p.getFirst();
@@ -99,36 +104,48 @@ public class CombatPVPHandler {
 			CombatDataContainer attackerData = attacker.getCombatData();
 			CombatDataContainer defenderData = defender.getCombatData();
 			
-			// Gather The Armor That Might Have Been Hit On The Defender
-			ArmorChit armorHit = checkIfArmorProtects(defenderData.getThePlayer(), attackerData.getAttack());
-			
-			// If The Player's Armor Doesn't Prevent Damage Then They Get Hit
-			if (armorHit == null){
-				boolean defenderDead = checkForPlayerDeath (attackerData, defender);
+			// See If We Hit Our Opponent Or Not, If We Did Run Through The Calculations
+			if (playerHitsOpponent(attackerData.getAttack(), defenderData.getDefense())) {
+				hitSomeoneThisRound = true;
 				
-				// If The Defender Died Let The Player Now
-				if (defenderDead) {
-					parentView.println("   --- Player " + defender.getName() + " Has Died");
-					JOptionPane.showMessageDialog(parentView, "Player " + defender.getName() + " Has Died");
-					combattingPlayers.remove(defender);
+				// Gather The Armor That Might Have Been Hit On The Defender
+				ArmorChit armorHit = checkIfArmorProtects(defenderData.getThePlayer(), attackerData.getAttack());
+			
+				// If The Player's Armor Doesn't Prevent Damage Then They Get Hit
+				if (armorHit == null){
+					boolean defenderDead = checkForPlayerDeath (attackerData, defender);
+				
+					// If The Defender Died Let The Player Now
+					if (defenderDead) {
+						parentView.println("   --- Player " + defender.getName() + " Has Died");
+						JOptionPane.showMessageDialog(parentView, "Player " + defender.getName() + " Has Died");
+						combattingPlayers.remove(defender);
 					
-					// If We have Only One Player Left Then Close This
-					if (combattingPlayers.size() < 2) {
-						parentView.dispose();
-						break;
+						// If We have Only One Player Left Then Close This
+						if (combattingPlayers.size() < 2) {
+							parentView.dispose();
+							break;
+						}
 					}
+				} else {
+					Weights weaponWeight = calculateWeaponHarm(attackerData, defender);
+					hitPlayersArmor(defender, armorHit, weaponWeight.prev());
+				
+					parentView.println("   --- Hit " + defender.getName() + "'s " + armorHit.getArmourType());
+					parentView.println("   --- Armour Status: " + armorHit.getArmorStatus());
 				}
 			} else {
-				Weights weaponWeight = calculateWeaponHarm(attackerData, defender);
-				hitPlayersArmor(defender, armorHit, weaponWeight.prev());
-				
-				parentView.println("   --- Hit " + defender.getName() + "'s " + armorHit.getArmourType());
-				parentView.println("   --- Armour Status: " + armorHit.getArmorStatus());
+				parentView.println("   --- " + attacker.getName() + " Missed");
 			}
 		}
 		
 		// Now Purge The List Of Ready Players And Get Ready For The Next Round
 		readyPlayers.clear();
+		
+		if (!hitSomeoneThisRound) {
+			roundsGoneByWithoutHit++;
+			checkIfCombatShouldEnd();
+		}
 	}
 	
 	// See If Player Dies, Do The According Stuff 
@@ -212,9 +229,24 @@ public class CombatPVPHandler {
 		return null;
 	}
 	
+	private void resetNothingCheck () {
+		roundsGoneByWithoutHit = 0;
+		hitSomeoneThisRound = false;
+	}
+	
+	private void checkIfCombatShouldEnd () {
+		if (roundsGoneByWithoutHit >= 2) {
+			JOptionPane.showMessageDialog(parentView, "No Progress Has Been Made For 2 Rounds. Combat Will Now End");
+			parentView.dispose();
+		}
+	}
+	
 	/************************************ Networking Methods ******************************************/
 	// Sets The Next Available Player That We Are Going To Be Using
 	private void moveToNextAvailable() {
+		
+		//setArmor();
+		
 		// Initial Cycle
 		int currentPlayerIndex = combattingPlayers.indexOf(currentAttacker);
 		currentAttacker = combattingPlayers.get((currentPlayerIndex + 1) % combattingPlayers.size());
@@ -260,5 +292,19 @@ public class CombatPVPHandler {
 	}
 	public Defences getCurrentDefence() {
 		return currentAttacker.getCombatData().getDefense();
+	}
+	
+	// Called To See If Hit Our Opponent In The First Place
+	public boolean playerHitsOpponent (Attacks incoming, Defences defense) {
+		switch (incoming) {
+		case SMASH:
+			return defense == Defences.DUCK;
+		case SWING:
+			return defense == Defences.DODGE;
+		case THRUST:
+			return defense == Defences.CHARGE;
+		default:
+			return false;
+		}
 	}
 } 
