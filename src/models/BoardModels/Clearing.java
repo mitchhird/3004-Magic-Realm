@@ -29,6 +29,8 @@ public class Clearing implements Serializable {
 	private String clearingName;
 	private JButton buttonTiedToClearing;
 	
+	private Tile tileThisOn;
+	
 	private Set <Clearing> connectedClearings;
 	private Set <PlayerBase> playersInClearing;	
 	private transient Set <Image> imageEnitiesOnThis;
@@ -45,10 +47,10 @@ public class Clearing implements Serializable {
 	private int startWidth = 0;
 	private int startHeight = 0;
 
-	public Clearing (String clearingName) {
+	public Clearing (String clearingName, Tile tileOn) {
 		blocked = false;
 		this.clearingName = clearingName;
-		
+		tileThisOn = tileOn;
 		entitiesInClearing = new HashSet<>();
 		connectedClearings = new HashSet<>();
 		playersInClearing = new HashSet<>();
@@ -126,6 +128,10 @@ public class Clearing implements Serializable {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public Tile getTileThisOn(){
+		return tileThisOn;
 	}
 	
 	// Highlight The Connected Clearings If They Don't Contain An Image

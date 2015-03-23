@@ -20,19 +20,21 @@ public class Tile {
 	private WarningChit warning;
 	private Set <Clearing> clearings;
 	private ArrayList<WarningChit> sounds;
+	private String theTileName;
 	
-	public Tile(){
+	public Tile(String tileName){
 		type = null;
 		clearings = new HashSet<Clearing>();
 		this.sounds = new ArrayList<WarningChit>();
+		theTileName = tileName;
 	}
 	
 	// These can be null if not there
-	public Tile(TileType tile, Clearing ... clearings){
+	public Tile(TileType tile, String tileName, Clearing ... clearings){
 		type = tile;
 		this.clearings = new HashSet<Clearing>();
 		this.sounds = new ArrayList<WarningChit>();
-		
+		theTileName = tileName;
 		// Add everything In
 		for (Clearing c: clearings) {
 			this.clearings.add(c);
@@ -41,6 +43,14 @@ public class Tile {
 	
 	public TileType getType(){
 		return type;
+	}
+
+	public void add(Clearing c) {
+		this.clearings.add(c);
+	}
+	
+	public String toString(){
+		return theTileName;
 	}
 	
 	
