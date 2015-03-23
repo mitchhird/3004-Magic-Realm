@@ -28,6 +28,7 @@ public class Clearing implements Serializable {
 	private boolean blocked;
 	private String clearingName;
 	private JButton buttonTiedToClearing;
+	private int clearingNumber;
 	
 	private Tile tileThisOn;
 	
@@ -47,10 +48,36 @@ public class Clearing implements Serializable {
 	private int startWidth = 0;
 	private int startHeight = 0;
 
-	public Clearing (String clearingName, Tile tileOn) {
+	public Clearing (String clearingName, Tile tileOn, int theNumber) {
 		blocked = false;
 		this.clearingName = clearingName;
 		tileThisOn = tileOn;
+		clearingNumber = theNumber;
+		entitiesInClearing = new HashSet<>();
+		connectedClearings = new HashSet<>();
+		playersInClearing = new HashSet<>();
+		imageEnitiesOnThis = new HashSet<>();
+
+		// Clearing Lists
+		treasuresInClearing = new ArrayList<>();
+		hiddenClearings = new ArrayList<>();
+		
+		// Create The Button Tied To The Clearing
+		buttonTiedToClearing = new JButton("");
+		buttonTiedToClearing.setSize(30, 30);
+		buttonTiedToClearing.setOpaque(false);
+		buttonTiedToClearing.setContentAreaFilled(false);
+		
+		startHeight = 30;
+		startWidth = 30;
+		
+		// Create Some Random Treasures For This
+		genRandomTreasures();
+	}
+	
+	public Clearing (String clearingName) {
+		blocked = false;
+		this.clearingName = clearingName;
 		entitiesInClearing = new HashSet<>();
 		connectedClearings = new HashSet<>();
 		playersInClearing = new HashSet<>();

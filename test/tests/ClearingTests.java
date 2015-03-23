@@ -18,7 +18,7 @@ public class ClearingTests {
 	
 	@Before
 	public void setUp() throws Exception {
-		clearingUnderTest = new Clearing("test", null);
+		clearingUnderTest = new Clearing("test");
 	}
 
 	@After
@@ -53,8 +53,8 @@ public class ClearingTests {
 	@Test
 	public void testIsVaildMove() {
 		PlayerBase tempDude = new PlayerBase("bob", CharacterClass.AMAZON);
-		Clearing connectedClearing = new Clearing ("test2",null);
-		Clearing unconnectedClearing = new Clearing ("test3",null);
+		Clearing connectedClearing = new Clearing ("test2");
+		Clearing unconnectedClearing = new Clearing ("test3");
 		
 		// Connect To The Test Clearing, While Leaving The Other 
 		clearingUnderTest.addConnectedClearing(connectedClearing);
@@ -66,8 +66,8 @@ public class ClearingTests {
 
 	@Test
 	public void testAddToConnectedClearings() {
-		Clearing connectedClearing = new Clearing ("test2",null);
-		Clearing unconnectedClearing = new Clearing ("test3",null);
+		Clearing connectedClearing = new Clearing ("test2");
+		Clearing unconnectedClearing = new Clearing ("test3");
 		
 		// Connect To The Test Clearing, While Leaving The Other 
 		clearingUnderTest.addConnectedClearing(connectedClearing);
