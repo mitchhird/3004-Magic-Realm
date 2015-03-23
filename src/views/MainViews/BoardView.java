@@ -34,19 +34,35 @@ public class BoardView extends JPanel {
 
 	private static final long serialVersionUID = -3255182183312639441L;
 	
-	//Field declarations
+	//!!FIELDS!!
 	private BufferedImage img;
 	private Toolkit tk = Toolkit.getDefaultToolkit();
-	
 	private float scale = 1;
-
-	private ArrayList<Tile> theTiles = new ArrayList<Tile>();
 	
+	//!!DWELLINGS!!
+	private Dwelling inn;
+	private Dwelling chapel;
+	private Dwelling house;
+	private Dwelling guardHouse;
+	
+	//!!NATIVES!!
+	private Knight aKnight;
+	
+	//!!MONSTERS!!
+	private Ghost aGhost;
+
+	//!!VIEWS!!
+	private GameView parent;
+	private JFrame hoverFrame = null;
+	private HoverView hoverPanel;
+
+	//!!COLLECTIONS!!
+	private ArrayList<Tile> theTiles = new ArrayList<Tile>();
 	private ArrayList<Clearing> clearings = new ArrayList<Clearing>();
 	private ArrayList<Clearing> cheatClearings = new ArrayList<Clearing>();
-
 	private ArrayList<Dwelling> theDwellings = new ArrayList<Dwelling>();
 	
+	//!!TILES!!
 	private Tile cliff = new Tile("cliff");
 	private Tile evalley = new Tile("evalley");
 	private Tile hpass = new Tile("hpass");
@@ -68,7 +84,7 @@ public class BoardView extends JPanel {
 	private Tile avalley = new Tile("avalley");
 	private Tile lwoods = new Tile("lwoods");
 	
-	
+	//!!CLEARINGS!!
 	private Clearing cliff1 = new Clearing("cliff1", cliff,1);
 	private Clearing cliff2 = new Clearing("cliff2", cliff,2);
 	private Clearing cliff3 = new Clearing("cliff3", cliff,3);
@@ -183,15 +199,7 @@ public class BoardView extends JPanel {
 	private Clearing lwoods2 = new Clearing("lwoods2",lwoods, 2);
 	private Clearing lwoods4 = new Clearing("lwoods4",lwoods, 4);
 	private Clearing lwoods5 = new Clearing("lwoods5",lwoods, 5);
-	
-	private Dwelling inn;
 
-	private GameView parent;
-	private JFrame hoverFrame = null;
-	private HoverView hoverPanel;
-
-	private Clearing currentClearing;
-	
 	//Constructor for the BoardView
 	public BoardView (GameView parent){
 		init();
@@ -214,67 +222,68 @@ public class BoardView extends JPanel {
 	}
 	
 	public void setDefaultLocations(){
+		Clearing currentClearing;
 		currentClearing = bvalley5;
 		inn = new Dwelling("Inn", "/dwellings_c/inn.gif", currentClearing);
 		inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
 		theDwellings.add(inn);
 		
 		currentClearing = avalley5;
-		Dwelling chapel = new Dwelling("Chapel", "/dwellings_c/chapel.gif", currentClearing);
+		chapel = new Dwelling("Chapel", "/dwellings_c/chapel.gif", currentClearing);
 		chapel.getClearingThisOn().addImageToList(chapel.getImageRepresentation());
 		theDwellings.add(chapel);
 		
-		Knight aKnight = new Knight();
+		aKnight = new Knight();
 		currentClearing.addImageToList(aKnight.getImage());
 		aKnight.setCurrentClearing(currentClearing);
 		aKnight.setHomeClearing(currentClearing);
 		
 		currentClearing = cvalley5;
-		Dwelling house = new Dwelling("House", "/dwellings_c/house.gif", currentClearing);
+		house = new Dwelling("House", "/dwellings_c/house.gif", currentClearing);
 		house.getClearingThisOn().addImageToList(house.getImageRepresentation());
 		theDwellings.add(house);
 		
 		currentClearing = dvalley5;
-		Dwelling guardHouse = new Dwelling("Guardhouse", "/dwellings_c/guard.gif", currentClearing);
+		guardHouse = new Dwelling("Guardhouse", "/dwellings_c/guard.gif", currentClearing);
 		guardHouse.getClearingThisOn().addImageToList(guardHouse.getImageRepresentation());
 		theDwellings.add(guardHouse);
 		
 		currentClearing = evalley5;
-		Ghost aGhost = new Ghost();
+		aGhost = new Ghost();
 		currentClearing.addImageToList(aGhost.getImage());
 		aGhost.setCurrentClearing(currentClearing);
 		aGhost.setHomeClearing(currentClearing);
 	}
 	
 	public void setCheatLocations() {
-
+		Clearing currentClearing;
 		currentClearing = cheatClearings.get(0);
 		inn = new Dwelling("Inn", "/dwellings_c/inn.gif", currentClearing);
 		inn.getClearingThisOn().addImageToList(inn.getImageRepresentation());
 		theDwellings.add(inn);
 
 		currentClearing = cheatClearings.get(1);
-		Dwelling currentDwelling = new Dwelling("Chapel", "/dwellings_c/chapel.gif", currentClearing);
-		currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
-		theDwellings.add(currentDwelling);
+		chapel = new Dwelling("Chapel", "/dwellings_c/chapel.gif", currentClearing);
+		chapel.getClearingThisOn().addImageToList(chapel.getImageRepresentation());
+		theDwellings.add(chapel);
 		
-		Knight aKnight = new Knight();
+		aKnight = new Knight();
 		currentClearing.addImageToList(aKnight.getImage());
 		aKnight.setCurrentClearing(currentClearing);
 		aKnight.setHomeClearing(currentClearing);
 
 		currentClearing = cheatClearings.get(2);
-		currentDwelling = new Dwelling("House", "/dwellings_c/house.gif", currentClearing);
-		currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
-		theDwellings.add(currentDwelling);
+		house = new Dwelling("House", "/dwellings_c/house.gif", currentClearing);
+		house.getClearingThisOn().addImageToList(house.getImageRepresentation());
+		theDwellings.add(house);
 
 		currentClearing = cheatClearings.get(3);
-		currentDwelling = new Dwelling("Guardhouse", "/dwellings_c/guard.gif", currentClearing);
-		currentDwelling.getClearingThisOn().addImageToList(currentDwelling.getImageRepresentation());
-		theDwellings.add(currentDwelling);
+		guardHouse = new Dwelling("Guardhouse", "/dwellings_c/guard.gif", currentClearing);
+		guardHouse.getClearingThisOn().addImageToList(guardHouse.getImageRepresentation());
+		theDwellings.add(guardHouse);
 
 		currentClearing = cheatClearings.get(4);
-		Ghost aGhost = new Ghost();
+		aGhost = new Ghost();
 		currentClearing.addImageToList(aGhost.getImage());
 		aGhost.setCurrentClearing(currentClearing);
 		aGhost.setHomeClearing(currentClearing);
