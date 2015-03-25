@@ -483,7 +483,7 @@ public class PlayerControllView extends javax.swing.JPanel {
     	currentPlayer.getCurrentClearing().updateConnectedTiles();
 
     	// If The Player Can Do The Action
-    	if (currentPlayer.getAvailableActions() > 0) {
+    	if (currentPlayer.getAvailableActions() > 0 || currentPlayer.getAmountOfExtraHidesLeft() > 0) {
     		currentPlayer.attemptHide();
     		UpdateDataObject data = new UpdateDataObject(currentPlayer, MessageType.UPDATE_PLAYER_HIDE);
     		parent.sendMessage(data);

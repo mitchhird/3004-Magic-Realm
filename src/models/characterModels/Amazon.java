@@ -1,12 +1,24 @@
 package models.characterModels;
 
 import models.characterModels.playerEnums.CharacterClass;
-import models.characterModels.playerEnums.Weights;
 
 public class Amazon extends PlayerBase {
 
-	public Amazon(){
-		vulnerability = Weights.MEDIUM;
-		setClass(CharacterClass.AMAZON);
+	private static final long serialVersionUID = -6169646850928944441L;
+
+	public Amazon(String name){
+		super (name, CharacterClass.AMAZON);
+	}
+	
+	public Amazon(String name, String ip) {
+		super (name, CharacterClass.AMAZON, ip);
+		amountOfExtraMovesLeft = 1;
+	}
+	
+	@Override
+	// Override This Player With Extra Move Amount
+	public void startPlayerTurn() {
+		super.startPlayerTurn();
+		amountOfExtraMovesLeft = 1;
 	}
 }

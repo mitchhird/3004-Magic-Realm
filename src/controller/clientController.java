@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import utils.GameUtils;
 import views.MainViews.GameView;
 import models.BoardModels.Clearing;
+import models.characterModels.Amazon;
+import models.characterModels.Elf;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
 
@@ -31,7 +33,21 @@ public class clientController {
 	// Adds The Player To The Game 
 	public void addPlayer (CharacterClass playerClass, String playerName, String ip) {
 		// Add The Player Into The List
-		PlayerBase aPlayer = new PlayerBase(playerName, playerClass, ip);
+		PlayerBase aPlayer;
+		
+		// Figure Out What Class To Make
+		switch (playerClass) {
+		case AMAZON:
+			aPlayer = new Amazon(playerName, ip);
+			break;
+		case ELF:
+			aPlayer = new Elf(playerName, ip);
+			break;
+		default:
+			aPlayer = new PlayerBase(playerName, playerClass, ip);
+			break;	
+		}
+		
 		addPlayer(aPlayer);
 		
 		// Boardcast The Message Back Out

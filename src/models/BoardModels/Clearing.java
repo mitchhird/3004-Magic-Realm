@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import utils.GameUtils;
 import utils.Pair;
 import models.characterModels.PlayerBase;
+import models.characterModels.playerEnums.TileType;
 import models.otherEntities.EntityBase;
 import models.otherEntities.TreasureModel;
 
@@ -164,7 +165,9 @@ public class Clearing implements Serializable {
 	// Highlight The Connected Clearings If They Don't Contain An Image
 	public void highlightConnectedClearings (PlayerBase player) {
 		for (Clearing c: connectedClearings) {
-			c.highlightForMove();
+			if (checkIfPlayerCanMoveTo(player, c)) {
+				c.highlightForMove();
+			}
 		} 
 		
 		// Also Do The Hidden Ones If The Player Has Found It
@@ -180,6 +183,25 @@ public class Clearing implements Serializable {
 		for (TreasureModel t: treasures) {
 			treasuresInClearing.add(t);
 		}
+	}
+	
+	// Check To See If We The Player Can Move To This Based On Movement Restrictions
+	private boolean checkIfPlayerCanMoveTo (PlayerBase player, Clearing c) {
+		
+		// If We Are Moving To A Tile Type We Are Already On Then Nothing Extra Needs To Be Done
+		TileType tileToHighlight = c.getTileThisOn().getType();
+		TileType playerTile = player.getCurrentClearing().getTileThisOn().getType();
+		
+		if (playerTile != tileToHighlight) {
+			return true;
+		} else {
+			// If The Player Has Two Available Movements Left The Don't Attempt To Highlight
+			if (player.getAvailableActions() < 2 && (tileToHighlight == TileType.CAVES || tileToHighlight == TileType.MOUNTAIN)) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 	
 	// Generate Some Random Treasure Because We Can

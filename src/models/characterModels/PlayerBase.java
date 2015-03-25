@@ -93,6 +93,10 @@ public class PlayerBase extends EntityBase implements Serializable {
 	protected transient ArrayList<ActionChit> inActive;
 	protected transient ArrayList<ActionChit> wounded;
 	
+	// Class Related Data
+	protected int amountOfExtraMovesLeft;
+	protected int amountOfExtraHidesLeft;
+	
 	// Things Relating To Combat
 	protected CombatDataContainer combatData;
 
@@ -135,6 +139,9 @@ public class PlayerBase extends EntityBase implements Serializable {
     	reqNotirity = 0;
     	reqGold = 0;
     	reqGreatTreasure = 0;
+    	
+    	amountOfExtraMovesLeft = 0;
+    	amountOfExtraHidesLeft = 0;
 		
         // Boolean Values
 		living = true;
@@ -174,6 +181,8 @@ public class PlayerBase extends EntityBase implements Serializable {
 
 		// Set The Available Actions To 0
 		availableActions = 5;
+		amountOfExtraHidesLeft = 0;
+		amountOfExtraMovesLeft = 0;
 	}
 	
 	// Do All The Things For Ending The Player's Turn
@@ -192,7 +201,10 @@ public class PlayerBase extends EntityBase implements Serializable {
 	// Turn Activity---
 	// Attempts To Hide The Player, Consult Die Table For Reasoning For Result
 	public boolean attemptHide () {
-		availableActions--;
+		
+		// If We Have An Available Extra Hide Then Use That
+		availableActions = (amountOfExtraHidesLeft > 0) ? availableActions : availableActions - 1;
+		amountOfExtraHidesLeft = (amountOfExtraMovesLeft > 0) ? amountOfExtraHidesLeft - 1: 0;
 		
 		int dieRoll = GameUtils.createRandomInt(1, 6);
 		setHidden((hidden) ? true : dieRoll < 6);		
@@ -204,7 +216,9 @@ public class PlayerBase extends EntityBase implements Serializable {
 	// Attempts To Move The Player To The Designated Clearing
 	public boolean moveToClearing (Clearing newClearing) {
 		// Log The Turn On The Player's Log And Subtract An Action
-		availableActions--;
+		availableActions = (amountOfExtraMovesLeft > 0) ? availableActions : availableActions - 1;
+		amountOfExtraMovesLeft = (amountOfExtraMovesLeft > 0) ? amountOfExtraMovesLeft - 1: 0;
+		
 		logAction("M-" + newClearing.getClearingName());
 
 		updateConnectedClearings();
@@ -212,6 +226,7 @@ public class PlayerBase extends EntityBase implements Serializable {
 		currentClearing.playerMovedOffOf(this);
 		currentClearing = newClearing;
 		currentClearing.playerMovedToThis(this);
+		
 		return true;
 	}
 	
@@ -549,5 +564,13 @@ public class PlayerBase extends EntityBase implements Serializable {
 	
 	public boolean isNetworkedPlayer () {
 		return networkedPlayer;
+	}
+
+	public int getAmountOfExtraMovesLeft() {
+		return amountOfExtraMovesLeft;
+	}
+
+	public int getAmountOfExtraHidesLeft() {
+		return amountOfExtraHidesLeft;
 	}
 }

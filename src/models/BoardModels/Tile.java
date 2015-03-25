@@ -23,7 +23,7 @@ public class Tile {
 	private String theTileName;
 	
 	public Tile(String tileName){
-		type = null;
+		type = TileType.FOREST;
 		clearings = new HashSet<Clearing>();
 		this.sounds = new ArrayList<WarningChit>();
 		theTileName = tileName;

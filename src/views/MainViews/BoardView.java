@@ -823,7 +823,6 @@ public class BoardView extends JPanel {
 	private void addListener (final Clearing c) {
 		c.getButtonTiedToClearing().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-        		System.out.println("GOT HERE");
             	handleClearingButton(c);
             }
         });
