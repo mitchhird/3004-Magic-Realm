@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import models.BoardModels.Clearing;
 import models.BoardModels.Dwelling;
 import models.characterModels.PlayerBase;
 import models.otherEntities.monsterModels.Ghost;
@@ -15,13 +16,14 @@ import models.otherEntities.monsterModels.Ghost;
  */
 public class SyncDataObject implements Serializable {
 	private ArrayList <Dwelling> dwellings;
-	private ArrayList <Ghost> ghosts;
+	private ArrayList <Clearing> clearings;
 	private HashMap <String, String> players;
 	private static final long serialVersionUID = -3211078016039324328L;
 	
-	public SyncDataObject (ArrayList<Dwelling> dwellings, ArrayList<PlayerBase> players) {
+	public SyncDataObject (ArrayList<Dwelling> dwellings, ArrayList<PlayerBase> players, ArrayList<Clearing> clearings) {
 		this.dwellings = dwellings;
 		this.players = new HashMap<>();
+		this.clearings = clearings;
 		
 		// Only Add The Local Players
 		for (PlayerBase p: players) {
@@ -42,4 +44,10 @@ public class SyncDataObject implements Serializable {
 	public HashMap<String, String> getPlayers() {
 		return players;
 	}
+
+	public ArrayList<Clearing> getClearings() {
+		return clearings;
+	}
+	
+	
 }

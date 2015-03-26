@@ -980,4 +980,9 @@ public class BoardView extends JPanel {
 			chitPlacer.setVisible(true);
 		}
 	}
+
+	public ArrayList<Clearing> getClearings() {
+		return clearings;
+	}
+	
 }

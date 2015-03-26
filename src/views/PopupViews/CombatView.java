@@ -8,6 +8,7 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -45,12 +46,15 @@ public class CombatView extends FrameBase implements WindowListener {
     private javax.swing.JButton beginCombatButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel movements;
     private JLabel targetPlayerLabel;
     private JLabel weaponLabel;
     private JLabel weaponHarmLabel;
-    private javax.swing.JLabel smashShield;
-    private javax.swing.JLabel swingShield;
-    private javax.swing.JLabel thrustShield;
+    private JLabel weaponStateLabel;
+    private JButton alertWeaponButton;
+    private javax.swing.JButton smashShield;
+    private javax.swing.JButton swingShield;
+    private javax.swing.JButton thrustShield;
     private javax.swing.JLabel suitOfArmor;
     private javax.swing.JLabel breastPlate;
     private javax.swing.JLabel helmet;
@@ -108,9 +112,11 @@ public class CombatView extends FrameBase implements WindowListener {
     	
     	//Add In All Of The Defence Buttons
     	addToFrame(this, jLabel1, layout, 5, 1, 1, 1);
-    	addToFrame(this, suitOfArmor, layout, 6, 1, 1, 1);
-    	addToFrame(this, helmet, layout, 7, 1, 1, 1);
-    	addToFrame(this, breastPlate, layout, 8, 1, 1, 1);
+    	addToFrame(this, smashShield, layout, 6, 1, 1, 1);
+    	addToFrame(this, thrustShield, layout, 7, 1, 1, 1);
+    	addToFrame(this, swingShield, layout, 8, 1, 1, 1);
+    	
+    	addToFrame(this, movements, layout, 5, 2, 1, 1);
     	addToFrame(this, dodgeButton, layout, 6, 2, 1, 1);
     	addToFrame(this, duckButton, layout, 7, 2, 1, 1);
     	addToFrame(this, chargeButton, layout, 8, 2, 1, 1);
@@ -118,6 +124,8 @@ public class CombatView extends FrameBase implements WindowListener {
     	// Weapon Information
     	addToFrame(this, weaponLabel, layout, 5, 3, 1, 1);
     	addToFrame(this, weaponHarmLabel, layout, 6, 3, 1, 1);
+    	addToFrame(this, weaponStateLabel, layout, 7, 3, 1, 1);
+    	addToFrame(this, alertWeaponButton, layout, 8, 3, 1, 1);
     	
     	// Attackable Players Window
     	addToFrame(this, targetPlayerLabel, layout, 5, 4, 1, 1);
@@ -149,12 +157,15 @@ public class CombatView extends FrameBase implements WindowListener {
         abandonButton = new javax.swing.JButton();
         nextButton = new javax.swing.JButton();
         endButton = new javax.swing.JButton();
+        alertWeaponButton = new JButton("Alert Weapon");
         beginCombatButton = new javax.swing.JButton("Start Combat");
+        smashShield = new javax.swing.JButton("Smash");
+        swingShield = new javax.swing.JButton("Swing");
+        thrustShield = new javax.swing.JButton("Thrust");
         
         // Labels
-        smashShield = new javax.swing.JLabel();
-        swingShield = new javax.swing.JLabel();
-        thrustShield = new javax.swing.JLabel();
+        weaponStateLabel = new JLabel("Weapon State:");
+        movements = new JLabel("Movements:");
         suitOfArmor = new javax.swing.JLabel();
         breastPlate = new javax.swing.JLabel();
         helmet = new javax.swing.JLabel();
@@ -168,7 +179,7 @@ public class CombatView extends FrameBase implements WindowListener {
         setupListeners();
         
         // Setup The Scroll Pane For The Text Field
-        textArea.setColumns(20);
+        textArea.setColumns(30);
         textArea.setRows(5);
         textContainer.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         textContainer.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -200,6 +211,9 @@ public class CombatView extends FrameBase implements WindowListener {
         dodgeButton.setEnabled(false);
         duckButton.setEnabled(false);
         chargeButton.setEnabled(false);
+        smashShield.setEnabled(false);
+        swingShield.setEnabled(false);
+        thrustShield.setEnabled(false);
     }
 
     // Set up all the action listeners
@@ -281,9 +295,10 @@ public class CombatView extends FrameBase implements WindowListener {
                 System.out.println("end pressed");
             }
         });
-        alertButton.addActionListener(new ActionListener() {
+        alertWeaponButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                System.out.println("alert pressed");
+                System.out.println("Alert weapon pressed");
+                println("TODO: Alert Weapon");
             }
         });
         activateButton.addActionListener(new ActionListener() {

@@ -291,7 +291,7 @@ public class GameView extends FrameBase {
 		
 		// If We Are Networked, Let Everyone Else Know Game Is Starting
 		if (networkedGame) {
-			sendMessage(new SyncDataObject(getDwellings(), getPlayersInGame()));
+			sendMessage(new SyncDataObject(getDwellings(), getPlayersInGame(), theBoard.getClearings()));
 		}
 		JOptionPane.showMessageDialog(this, "The Game Has Started!");
 	}

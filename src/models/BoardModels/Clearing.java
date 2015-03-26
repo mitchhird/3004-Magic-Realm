@@ -32,10 +32,10 @@ public class Clearing implements Serializable {
 	private JButton buttonTiedToClearing;
 	private int clearingNumber;
 	
-	private Tile tileThisOn;
 	
 	private Set <Clearing> connectedClearings;
 	private Set <PlayerBase> playersInClearing;	
+	private transient Tile tileThisOn;
 	private transient Set <Image> imageEnitiesOnThis;
 	private transient Set <EntityBase> entitiesInClearing;
 	
@@ -435,6 +435,10 @@ public class Clearing implements Serializable {
 		this.playersInClearing = playersInClearing;
 	}
 	
+	public ArrayList<TreasureModel> getTreasuresInClearing() {
+		return treasuresInClearing;
+	}
+
 	@Override
 	public String toString(){
 		return clearingName;

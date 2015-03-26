@@ -9,6 +9,8 @@ import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.Attacks;
 import models.characterModels.playerEnums.Defences;
 import models.otherEntities.CombatDataContainer;
+import models.otherEntities.SpecificTreasure;
+import models.otherEntities.TreasureModel;
 import networking.sendables.MessageType;
 import networking.sendables.SyncDataObject;
 import networking.sendables.UpdateDataObject;
@@ -99,6 +101,19 @@ public class ReaderThreadBase extends Thread {
 			Dwelling dwellingToAdd = new Dwelling(d.getDwellingName(), d.getResourceName(), toAddTo);
 			mainGame.getDwellings().add(dwellingToAdd);
 			toAddTo.addImageToList(dwellingToAdd.getImageRepresentation());
+		}
+		
+		// Now All Of The Treasures
+		for (Clearing c: incoming.getClearings()) {
+			Clearing clearingToAddTreasureTo = mainGame.getClearingByName(c.getClearingName());
+			if (clearingToAddTreasureTo != null){
+				clearingToAddTreasureTo.getTreasuresInClearing().clear();
+				
+				// Add In All Of The Treasures 
+				for (TreasureModel t: c.getTreasuresInClearing()) {
+					clearingToAddTreasureTo.addTreasures(t.clone());
+				}
+			}
 		}
 		
 		mainGame.handleClientStart();

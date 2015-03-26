@@ -13,16 +13,16 @@ import models.characterModels.PlayerBase;
  */
 public class TreasureModel implements Serializable {
 
-	private int treasureGoldValue;
-	private boolean greatTreasure;
-	private ArrayList<PlayerBase> playersFoundThis;
+	protected int treasureGoldValue;
+	protected boolean greatTreasure;
+	protected ArrayList<PlayerBase> playersFoundThis;
 	
 	// Static Array of Values For The Treasure Amounts
-	private int fameAmount;
-	private int notorietyAmount;
-	private int[] goldAmounts = {10, 20, 30, 40, 50};
+	protected int fameAmount;
+	protected int notorietyAmount;
+	protected int[] goldAmounts = {10, 20, 30, 40, 50};
 	
-	private static final long serialVersionUID = 4563361734587526172L;
+	protected static final long serialVersionUID = 4563361734587526172L;
 
 	public TreasureModel (boolean greatTreasure) {
 		playersFoundThis = new ArrayList<PlayerBase>();
@@ -34,6 +34,16 @@ public class TreasureModel implements Serializable {
 		fameAmount = GameUtils.createRandomInt(1, 20);
 		notorietyAmount = GameUtils.createRandomInt(-5, 30);
 		treasureGoldValue = goldAmounts[GameUtils.createRandomInt(startRange, endRange)];
+	}
+	
+	// Copy Constructor For Treasures
+	public TreasureModel clone () {
+		TreasureModel returnVal = new TreasureModel (greatTreasure);
+		returnVal.playersFoundThis = new ArrayList<PlayerBase>();
+		returnVal.fameAmount = getFameAmount();
+		returnVal.notorietyAmount = getNotorietyAmount();
+		returnVal.treasureGoldValue = getTreasureGoldValue();
+		return returnVal;
 	}
 	
 	// Adds The Player To The Found Array
