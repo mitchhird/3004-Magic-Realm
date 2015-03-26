@@ -33,6 +33,7 @@ public class Clearing implements Serializable {
 	private JButton buttonTiedToClearing;
 	private int clearingNumber;
 	private SoundChit soundChit;
+	private String clearingType;
 	
 	
 	private Set <Clearing> connectedClearings;
@@ -52,7 +53,7 @@ public class Clearing implements Serializable {
 	private int startWidth = 0;
 	private int startHeight = 0;
 
-	public Clearing (String clearingName, Tile tileOn, int theNumber) {
+	public Clearing (String clearingName, Tile tileOn, int theNumber, String clearingType) {
 		blocked = false;
 		this.clearingName = clearingName;
 		tileThisOn = tileOn;
@@ -61,6 +62,7 @@ public class Clearing implements Serializable {
 		connectedClearings = new HashSet<>();
 		playersInClearing = new HashSet<>();
 		imageEnitiesOnThis = new HashSet<>();
+		this.clearingType = clearingType;
 
 		// Clearing Lists
 		treasuresInClearing = new ArrayList<>();
@@ -448,5 +450,13 @@ public class Clearing implements Serializable {
 	
 	public void setSoundChit(SoundChit newSound){
 		soundChit = newSound;
+	}
+	
+	public SoundChit getSoundChit(){
+		return soundChit;
+	}
+	
+	public String getClearingType(){
+		return clearingType;
 	}
 }
