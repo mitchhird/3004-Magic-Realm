@@ -11,28 +11,70 @@ import models.chitModels.EnvironmentChit.WarningChit;
 import models.chitModels.SpecialActionChits.DuckChit;
 
 public class ChitFactory {
-	
-	//Action Chits
-	//(fight/move),weight,speed,stars
-	public static ActionChit MoveL = new ActionChit(Weights.LIGHT, /*speed*/4, /*stars*/2, false);
-	
-	//move
-	public static ActionChit ML22 = new ActionChit(Weights.LIGHT, 2, 2, false);
-	public static ActionChit ML21 = new ActionChit(Weights.LIGHT, 2, 1, false);
-	public static ActionChit ML31 = new ActionChit(Weights.LIGHT, 3, 1, false);
-	public static ActionChit ML40 = new ActionChit(Weights.LIGHT, 4, 0, false);
-	public static ActionChit MM31 = new ActionChit(Weights.MEDIUM, 3, 1, false);
-	public static ActionChit MM32 = new ActionChit(Weights.MEDIUM, 3, 2, false);
-	public static ActionChit MM40 = new ActionChit(Weights.MEDIUM, 4, 0, false);
-	public static ActionChit MM41 = new ActionChit(Weights.MEDIUM, 4, 1, false);
-	public static ActionChit MM50 = new ActionChit(Weights.MEDIUM, 5, 0, false);
-	public static ActionChit MH42 = new ActionChit(Weights.HEAVY, 4, 2, false);
-	public static ActionChit MH51 = new ActionChit(Weights.HEAVY, 5, 1, false);
-	public static ActionChit MH60 = new ActionChit(Weights.HEAVY, 6, 0, false);
-	public static ActionChit MT52 = new ActionChit(Weights.TREMENDOUS, 5, 2, false);
-	public static ActionChit MT61 = new ActionChit(Weights.TREMENDOUS, 6, 1, false);
-	
-	//fight
+
+	// Action Chits
+	// (fight/move),weight,speed,stars
+	public static ActionChit MoveL = new ActionChit(Weights.LIGHT, /* speed */
+			4, /* stars */2, false);
+
+	// move
+	public static ActionChit getMoveML2() {
+		return new ActionChit(Weights.LIGHT, 2, 2, false);
+	}
+
+	public static ActionChit getMoveML21() {
+		return new ActionChit(Weights.LIGHT, 2, 1, false);
+	}
+
+	public static ActionChit getMoveML31() {
+		return new ActionChit(Weights.LIGHT, 3, 1, false);
+	}
+
+	public static ActionChit getMoveML40() {
+		return new ActionChit(Weights.LIGHT, 4, 0, false);
+	}
+
+	public static ActionChit getMoveMM31() {
+		return new ActionChit(Weights.MEDIUM, 3, 1, false);
+	}
+
+	public static ActionChit getMoveMM32() {
+		return new ActionChit(Weights.MEDIUM, 3, 2, false);
+	}
+
+	public static ActionChit getMoveMM40() {
+		return new ActionChit(Weights.MEDIUM, 4, 0, false);
+	}
+
+	public static ActionChit getMoveMM41() {
+		return new ActionChit(Weights.MEDIUM, 4, 1, false);
+	}
+
+	public static ActionChit getMoveMM50() {
+		return new ActionChit(Weights.MEDIUM, 5, 0, false);
+	}
+
+	public static ActionChit getMoveMH42() {
+		return new ActionChit(Weights.HEAVY, 4, 2, false);
+	}
+
+	public static ActionChit getMoveMH51() {
+		return new ActionChit(Weights.HEAVY, 5, 1, false);
+	}
+
+	public static ActionChit getMoveMH60() {
+		return new ActionChit(Weights.HEAVY, 6, 0, false);
+	}
+
+	public static ActionChit getMoveMT52() {
+		return new ActionChit(Weights.TREMENDOUS, 5, 2, false);
+	}
+
+	public static ActionChit getMoveMT61() {
+		return new ActionChit(Weights.TREMENDOUS, 6, 1, false);
+	}
+
+	// fight
 	public static ActionChit FL22 = new ActionChit(Weights.LIGHT, 2, 2, true);
 	public static ActionChit FL31 = new ActionChit(Weights.LIGHT, 3, 1, true);
 	public static ActionChit FL40 = new ActionChit(Weights.LIGHT, 4, 0, true);
@@ -44,34 +86,40 @@ public class ChitFactory {
 	public static ActionChit FH42 = new ActionChit(Weights.HEAVY, 4, 2, true);
 	public static ActionChit FH51 = new ActionChit(Weights.HEAVY, 5, 1, true);
 	public static ActionChit FH60 = new ActionChit(Weights.HEAVY, 6, 0, true);
-	public static ActionChit FT52 = new ActionChit(Weights.TREMENDOUS, 5, 2, true);
-	public static ActionChit FT61 = new ActionChit(Weights.TREMENDOUS, 6, 1, true);
-	
-	//special
+	public static ActionChit FT52 = new ActionChit(Weights.TREMENDOUS, 5, 2,
+			true);
+	public static ActionChit FT61 = new ActionChit(Weights.TREMENDOUS, 6, 1,
+			true);
+
+	// special
 	public static DuckChit DT31 = new DuckChit(Weights.TREMENDOUS, 3, 1);
-	
+
 	// Weapon Chits
 	public static WeaponChit AXE = new WeaponChit("Axe", 2, 1, Weights.MEDIUM);
-	public static WeaponChit SPEAR = new WeaponChit("Spear", 10, 1, Weights.MEDIUM);
-	public static WeaponChit LIGHT_BOW = new WeaponChit("Light Bow", 14, 2, Weights.LIGHT);
-	public static WeaponChit THRUSTING_SWORD = new WeaponChit("Thrusting Sword", 4, 1, Weights.LIGHT);
-	
+	public static WeaponChit SPEAR = new WeaponChit("Spear", 10, 1,
+			Weights.MEDIUM);
+	public static WeaponChit LIGHT_BOW = new WeaponChit("Light Bow", 14, 2,
+			Weights.LIGHT);
+	public static WeaponChit THRUSTING_SWORD = new WeaponChit(
+			"Thrusting Sword", 4, 1, Weights.LIGHT);
+
 	/* ----------------------------- Armor Chits ----------------------------- */
-	public static ArmorChit getHelmet () {
+	public static ArmorChit getHelmet() {
 		return new ArmorChit(ArmorType.HELMET, Weights.MEDIUM);
 	}
-	
-	public static ArmorChit getBreastPlate () {
+
+	public static ArmorChit getBreastPlate() {
 		return new ArmorChit(ArmorType.BREASTPLATE, Weights.MEDIUM);
 	}
-	
-	public static ArmorChit getShield () {
+
+	public static ArmorChit getShield() {
 		return new ArmorChit(ArmorType.SHIELD, Weights.MEDIUM);
 	}
-	
-	public static ArmorChit getArmor () {
+
+	public static ArmorChit getArmor() {
 		return new ArmorChit(ArmorType.ARMOUR, Weights.MEDIUM);
 	}
+
 	// Environment Chits
 	// Site
 	public static SiteChit alter = new SiteChit(0, "Altar");
@@ -116,8 +164,8 @@ public class ChitFactory {
 	public static WarningChit stinkM = new WarningChit(0, "StinkM");
 	public static WarningChit stinkV = new WarningChit(0, "StinkV");
 	public static WarningChit stinkW = new WarningChit(0, "StinkW");
-	
-	public ArrayList<EnvironmentChit> getWarning(){
+
+	public ArrayList<EnvironmentChit> getWarning() {
 		ArrayList<EnvironmentChit> rlist = new ArrayList<EnvironmentChit>();
 		rlist.add(bonesC);
 		rlist.add(bonesM);
@@ -141,8 +189,8 @@ public class ChitFactory {
 		rlist.add(stinkW);
 		return rlist;
 	}
-	
-	public ArrayList<EnvironmentChit> getMap(){
+
+	public ArrayList<EnvironmentChit> getMap() {
 		ArrayList<EnvironmentChit> rlist = new ArrayList<EnvironmentChit>();
 		// Site
 		rlist.add(alter);
@@ -166,8 +214,9 @@ public class ChitFactory {
 		rlist.add(slither6);
 		return rlist;
 	}
-	
-	public ArrayList<EnvironmentChit> addCityCastle(ArrayList<EnvironmentChit> start){
+
+	public ArrayList<EnvironmentChit> addCityCastle(
+			ArrayList<EnvironmentChit> start) {
 		start.add(LostCity);
 		start.add(LostCastle);
 		return start;

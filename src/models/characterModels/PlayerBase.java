@@ -70,6 +70,7 @@ public class PlayerBase extends EntityBase implements Serializable {
 	protected ArrayList<WeaponChit> weaponChit;
 	protected ArrayList<TreasureModel> accquiredTreasures;
 	protected ArrayList<PlayerBase> listAttacks;
+	protected ArrayList<ActionChit> movementChits;
 	protected WeaponChit activeWeapon;
 	protected EntityBase chargeTarget;
 	
@@ -163,6 +164,7 @@ public class PlayerBase extends EntityBase implements Serializable {
 		active = new ArrayList<>();
 		turnLog = new ArrayList<>();
 		accquiredTreasures = new ArrayList<>();
+		movementChits = new ArrayList<ActionChit>();
 	}
 
 	// Initializes Player Transient Objects
@@ -370,6 +372,7 @@ public class PlayerBase extends EntityBase implements Serializable {
 		
 		// Action Chit For Player
 		active.addAll(newPlayerClass.getStartingChit());
+		movementChits.addAll(newPlayerClass.getMovementChits());
 		
 		// Weapon For This Player
 		weaponChit = new ArrayList<>();
@@ -597,5 +600,7 @@ public class PlayerBase extends EntityBase implements Serializable {
 		return amountOfExtraSearchesLeft;
 	}
 	
-	
+	public ArrayList<ActionChit> getMovementChits() {
+		return movementChits;
+	}
 }
