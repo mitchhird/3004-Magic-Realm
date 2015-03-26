@@ -137,7 +137,7 @@ public class PlayerControllView extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Turn", "Mon", "Day", "Color", "Phases", "Action", "Kills"
+                "Turn", "Mon", "Day", "Action", "Kills"
             }
         ) {
             /**
@@ -145,7 +145,7 @@ public class PlayerControllView extends javax.swing.JPanel {
 			 */
 			private static final long serialVersionUID = 7653752904224053856L;
 			boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -417,10 +417,8 @@ public class PlayerControllView extends javax.swing.JPanel {
     		data[i][0] = "" + i;
     		data[i][1] = "";
     		data[i][2] = "";
-    		data[i][3] = "";
-    		data[i][4] = "";
-    		data[i][5] = playerLog.get(i);
-    		data[i][6] = "" + p.getKillCount();
+    		data[i][3] = playerLog.get(i);
+    		data[i][4] = "" + p.getKillCount();
     	}
     	
     	// Get The Table Model Ready
@@ -568,8 +566,8 @@ public class PlayerControllView extends javax.swing.JPanel {
 		((DefaultTableModel) getjTable3().getModel()).removeRow(getjTable3().getSelectedRow());
 	}
 	
-	public void addToRecord(String theTurn, String theMon, String theDay, String theColor, String thePhases, String theAction, String theKills){
-		((DefaultTableModel) getjTable1().getModel()).addRow(new Object[]{theTurn,theMon,theDay,theColor,thePhases,theAction,theKills});
+	public void addToRecord(String theTurn, String theMon, String theDay, String theAction, String theKills){
+		((DefaultTableModel) getjTable1().getModel()).addRow(new Object[]{theTurn,theMon,theDay,theAction,theKills});
 	}
 	
 	private JTable getjTable1() {
