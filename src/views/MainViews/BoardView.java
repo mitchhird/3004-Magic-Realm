@@ -333,7 +333,7 @@ public class BoardView extends JPanel {
 		aDragon = new FlyingDragon();
 		currentClearing.addImageToList(aDragon.getImage());
 		try {
-			currentClearing.addImageToList(ImageIO.read(getClass().getResource("/chits/flutter.gif")));
+			currentClearing.addImageToList(ImageIO.read(getClass().getResource("/chits/flutter.jpg")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
