@@ -59,22 +59,6 @@ public class CombatPVPHandler {
 		}
 	}
 
-	private void setArmor() {
-		String suit = "";
-		String breast = "";
-		String helmet = "";
-		for(int i = 0;i<currentDefender.getArmorChits().size();i++){
-			if(currentDefender.getArmorChits().get(i).getArmourType().equals(ArmorType.HELMET)){
-				helmet = currentDefender.getArmorChits().get(i).toString();
-			}else if(currentDefender.getArmorChits().get(i).getArmourType().equals(ArmorType.BREASTPLATE)){
-				breast = currentDefender.getArmorChits().get(i).toString();
-			}else if(currentDefender.getArmorChits().get(i).getArmourType().equals(ArmorType.ARMOUR)){
-				suit = currentDefender.getArmorChits().get(i).toString();
-			}
-		}
-		parentView.setArmor(suit, breast, helmet);
-	}
-
 	// Gets The Next Attacker And Creates A New Combat Container For The Player
 	// Network: Container Can Be Deposited Into The Player, That Way It Can Manipulated By The Client
 	public void setNextAttacker () {
@@ -189,14 +173,16 @@ public class CombatPVPHandler {
 		Weights harm = theAttacker.getWeapon().getWeaponDamage();
 		
 		// Find The Stars Amount For The Player's Attack
-		if (theAttacker.getWeapon().getSharpnessStars() > 0) {
+		if (theAttacker.getWeapon().getSharpnessStars() > 0 && theAttacker.getWeapon().isAlerted()) {
 			addStars = theAttacker.getWeapon().getSharpnessStars();
 
-			// If We Hit Armor, Then Sharpness Goes Down One Star
-			if (checkIfArmorProtects(defender, attacker.getAttack()) != null) {
-				addStars = Math.max(0, theAttacker.getWeapon().getSharpnessStars());
-			}
 		}
+			
+		// If We Hit Armor, Then Sharpness Goes Down One Star
+		if (checkIfArmorProtects(defender, attacker.getAttack()) != null) {
+			addStars = Math.max(0, theAttacker.getWeapon().getSharpnessStars());
+		}
+		
 		
 		// If The Attacker's Strength Is Higher, Increment Harm level
 		if (theAttacker.getStrength() > defender.getStrength()){

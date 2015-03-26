@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import models.BoardModels.Clearing;
+import models.characterModels.playerEnums.ArmorType;
 import models.characterModels.playerEnums.Attacks;
 import models.characterModels.playerEnums.CharacterClass;
 import models.characterModels.playerEnums.Weights;
@@ -20,6 +21,7 @@ import models.otherEntities.EntityBase;
 import models.otherEntities.SpecificTreasure;
 import models.otherEntities.TreasureModel;
 import utils.GameUtils;
+import utils.Pair;
 
 /*
  * will have the initial information about the player
@@ -73,6 +75,10 @@ public class PlayerBase extends EntityBase implements Serializable {
 	protected ArrayList<ActionChit> movementChits;
 	protected WeaponChit activeWeapon;
 	protected EntityBase chargeTarget;
+	
+	// Shield Booleans
+	protected boolean shieldReady;
+	protected Pair<ArmorChit, Attacks> shield;
 	
 	// Log Recording
 	protected String currentTurn;
@@ -382,6 +388,14 @@ public class PlayerBase extends EntityBase implements Serializable {
 		// Armor Chits
 		armorChits = new ArrayList<>();
 		armorChits.addAll(newPlayerClass.getArmour());
+		
+		// Set The Shield If We Have One
+		for (ArmorChit a: armorChits) {
+			if (a.getArmourType() == ArmorType.SHIELD) {
+				shield = new Pair<ArmorChit, Attacks>(a, Attacks.SMASH);
+			}
+		}
+		
 		System.out.println();
 	}
 	
@@ -602,5 +616,22 @@ public class PlayerBase extends EntityBase implements Serializable {
 	
 	public ArrayList<ActionChit> getMovementChits() {
 		return movementChits;
+	}
+
+	public Pair<ArmorChit, Attacks> getShield() {
+		return shield;
+	}
+
+	public void setShield(Pair<ArmorChit, Attacks> shield) {
+		shieldReady = false;
+		this.shield = shield;
+	}
+
+	public boolean isShieldReady() {
+		return shieldReady;
+	}
+	
+	public void setShieldReady (boolean ready) {
+		shieldReady = ready;
 	}
 }

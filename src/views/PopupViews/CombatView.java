@@ -164,7 +164,7 @@ public class CombatView extends FrameBase implements WindowListener {
         thrustShield = new javax.swing.JButton("Thrust");
         
         // Labels
-        weaponStateLabel = new JLabel("Weapon State:");
+        weaponStateLabel = new JLabel();
         movements = new JLabel("Movements:");
         suitOfArmor = new javax.swing.JLabel();
         breastPlate = new javax.swing.JLabel();
@@ -211,9 +211,6 @@ public class CombatView extends FrameBase implements WindowListener {
         dodgeButton.setEnabled(false);
         duckButton.setEnabled(false);
         chargeButton.setEnabled(false);
-        smashShield.setEnabled(false);
-        swingShield.setEnabled(false);
-        thrustShield.setEnabled(false);
     }
 
     // Set up all the action listeners
@@ -294,6 +291,34 @@ public class CombatView extends FrameBase implements WindowListener {
                 update();
             }
         });
+        
+        smashShield.addActionListener(new ActionListener() {
+		@Override
+			public void actionPerformed(ActionEvent e) {
+				combatHandler.getCurrentAttacker().getShield().setSecond(Attacks.SMASH);
+				combatHandler.getCurrentAttacker().setShieldReady(true);
+				println ("Setting Shield To SMASH");
+			}
+		});
+        
+        thrustShield.addActionListener(new ActionListener() {
+		@Override
+			public void actionPerformed(ActionEvent e) {
+				combatHandler.getCurrentAttacker().getShield().setSecond(Attacks.THRUST);
+				combatHandler.getCurrentAttacker().setShieldReady(true);
+				println ("Setting Shield To THRUST");
+			}
+		});
+        
+        swingShield.addActionListener(new ActionListener() {
+		@Override
+			public void actionPerformed(ActionEvent e) {
+				combatHandler.getCurrentAttacker().getShield().setSecond(Attacks.SWING);
+				combatHandler.getCurrentAttacker().setShieldReady(true);
+				println ("Setting Shield To SWING");
+			}
+		});
+        
         endButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 System.out.println("end pressed");
@@ -302,7 +327,8 @@ public class CombatView extends FrameBase implements WindowListener {
         alertWeaponButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
                 System.out.println("Alert weapon pressed");
-                println("TODO: Alert Weapon");
+                combatHandler.getCurrentAttacker().getWeapon().setAlerted(true);
+                update();
             }
         });
         activateButton.addActionListener(new ActionListener() {
@@ -360,6 +386,12 @@ public class CombatView extends FrameBase implements WindowListener {
         WeaponChit equipWeapon = combatHandler.getCurrentAttacker().getWeapon();
         weaponLabel.setText("Equipped Weapon: " + equipWeapon.getWeaponName());
         weaponHarmLabel.setText("Harm Level: " + equipWeapon.getWeaponDamage());
+        weaponStateLabel.setText((combatHandler.getCurrentAttacker().getWeapon().isAlerted()) ? "Alerted" : "Not Alerted"); 
+        
+        // Player Shield Display
+        smashShield.setEnabled(combatHandler.getCurrentAttacker().getShield() != null);
+        swingShield.setEnabled(combatHandler.getCurrentAttacker().getShield() != null);
+        thrustShield.setEnabled(combatHandler.getCurrentAttacker().getShield() != null);
         
         // If We Are Full On Combat Then, Enable The Button
         beginCombatButton.setEnabled(combatHandler.getReadyPlayerNum() == combatingPlayers.size());
