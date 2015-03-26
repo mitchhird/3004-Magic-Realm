@@ -241,9 +241,13 @@ public class CombatView extends FrameBase implements WindowListener {
         });
         dodgeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+            	
             	combatHandler.setCurrentDefence(Defences.DODGE);
+            	
+            	// Display Things For Displaying
                 println("Setting Current Defence To " + Defences.DODGE);
                 nextButton.setEnabled(true);
+                
                 System.out.println("dodge pressed");
             }
         });

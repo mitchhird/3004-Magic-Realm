@@ -383,6 +383,10 @@ public class GameView extends FrameBase {
 		String playerToRemoveName = (String) thePlayerList.getjTable2().getModel().getValueAt(thePlayerList.getjTable2().getSelectedRow(),1);
 
 		thePlayerList.removePlayer();
+		removePlayerByName(playerToRemoveName);
+	}
+	
+	public void removePlayerByName(String playerToRemoveName) {
 		theClient.removePlayer(playerToRemoveName);
 		thePlayerList.update();
 	}
