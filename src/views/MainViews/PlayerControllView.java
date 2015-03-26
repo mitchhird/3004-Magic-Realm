@@ -409,7 +409,7 @@ public class PlayerControllView extends javax.swing.JPanel {
     private void displayRecord (PlayerBase p) { 
     	// Initialize The Data
     	ArrayList<String> playerLog = p.getRecordLog();
-        String[] headers = {"Turn", "Mon", "Day", "Color", "Phases", "Action", "Kills"};
+        String[] headers = {"Turn", "Mon", "Day", "Action", "Kills"};
     	String[][] data = new String[playerLog.size()][headers.length];
     	
     	// Loop Over The Data
