@@ -17,6 +17,7 @@ import utils.GameUtils;
 import utils.Pair;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.TileType;
+import models.chitModels.EnvironmentChit.SoundChit;
 import models.otherEntities.EntityBase;
 import models.otherEntities.SpecificTreasure;
 import models.otherEntities.TreasureModel;
@@ -31,6 +32,7 @@ public class Clearing implements Serializable {
 	private String clearingName;
 	private JButton buttonTiedToClearing;
 	private int clearingNumber;
+	private SoundChit soundChit;
 	
 	
 	private Set <Clearing> connectedClearings;
@@ -442,5 +444,9 @@ public class Clearing implements Serializable {
 	@Override
 	public String toString(){
 		return clearingName;
+	}
+	
+	public void setSoundChit(SoundChit newSound){
+		soundChit = newSound;
 	}
 }

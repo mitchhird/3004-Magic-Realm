@@ -25,7 +25,10 @@ import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
 import models.chitModels.ChitFactory;
 import models.otherEntities.SpecificTreasure;
+import models.otherEntities.monsterModels.FlyingDragon;
 import models.otherEntities.monsterModels.Ghost;
+import models.otherEntities.monsterModels.Giant;
+import models.otherEntities.monsterModels.MonsterBase;
 import models.otherEntities.nativeModels.Knight;
 import utils.GameUtils;
 import views.PopupViews.ChitPlacementView;
@@ -52,6 +55,9 @@ public class BoardView extends JPanel {
 	
 	//!!MONSTERS!!
 	private Ghost aGhost;
+	private Giant aGiant;
+	private FlyingDragon aDragon;
+
 
 	//!!VIEWS!!
 	private GameView parent;
@@ -63,6 +69,7 @@ public class BoardView extends JPanel {
 	private ArrayList<Clearing> clearings = new ArrayList<Clearing>();
 	private ArrayList<Clearing> cheatClearings = new ArrayList<Clearing>();
 	private ArrayList<Dwelling> theDwellings = new ArrayList<Dwelling>();
+	private ArrayList<MonsterBase> theMonsters = new ArrayList<MonsterBase>();
 	
 	//!!TILES!!
 	private Tile cliff = new Tile("cliff");
@@ -256,11 +263,22 @@ public class BoardView extends JPanel {
 		currentClearing.addImageToList(aGhost.getImage());
 		aGhost.setCurrentClearing(currentClearing);
 		aGhost.setHomeClearing(currentClearing);
+		theMonsters.add(aGhost);
 
 		dwoods.setWarningChit(ChitFactory.bonesW);
-		//giant (medium) woods
+		aGiant = new Giant();
+		dwoods5.addImageToList(aGiant.getImage());
+		aGiant.setCurrentClearing(dwoods5);
+		aGiant.setHomeClearing(dwoods5);
+		theMonsters.add(aGiant);
+		
 		cliff.addSoundChit(ChitFactory.flutter2);
-		//flying dragon (heavy) cliff 6 (mountain or cave only)
+		cliff6.setSoundChit(ChitFactory.flutter2);
+		aDragon = new FlyingDragon();
+		cliff6.addImageToList(aDragon.getImage());
+		aDragon.setCurrentClearing(cliff6);
+		aDragon.setHomeClearing(cliff6);
+		theMonsters.add(aDragon);
 	}
 	
 	public void setCheatLocations() {
@@ -990,6 +1008,10 @@ public class BoardView extends JPanel {
 
 	public ArrayList<Clearing> getClearings() {
 		return clearings;
+	}
+	
+	public ArrayList<MonsterBase> getMonsters(){
+		return theMonsters;
 	}
 	
 }
