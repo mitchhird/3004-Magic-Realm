@@ -7,7 +7,8 @@ public class ActionChit {
 	protected int speed;
 	protected Weights capacity;
 	protected boolean fight;
-	
+	protected boolean fatigued;
+	protected boolean wounded;
 	protected int magic;//add this with magic
 	
 	public ActionChit(Weights cap, int speed, int stars, boolean fight){
@@ -35,5 +36,21 @@ public class ActionChit {
 	
 	private int getMagicVal(){
 		return magic;
+	}
+
+	public boolean isFatigued() {
+		return fatigued;
+	}
+
+	public void setFatigued(boolean fatigued) {
+		this.fatigued = fatigued;
+	}
+
+	public boolean isWounded() {
+		return wounded;
+	}
+
+	public void setWounded(boolean wounded) {
+		this.wounded = wounded;
 	}
 }
