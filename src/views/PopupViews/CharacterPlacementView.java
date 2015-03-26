@@ -44,6 +44,8 @@ public class CharacterPlacementView extends JDialog {
         theDwellings = newDwellings;
         itemList.setEnabled(false);
         playerToModify = p;
+        
+        setTitle ("Place Character");
     }
                          
     @SuppressWarnings("unchecked")

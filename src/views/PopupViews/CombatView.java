@@ -91,10 +91,10 @@ public class CombatView extends FrameBase implements WindowListener {
     
     // Initialize The Window
     public void initWindow () {
-		setSize(760,300);
+		setSize(900,350);
 		setLocation(((int)tk.getScreenSize().getWidth()/2) - 300, ((int)tk.getScreenSize().getHeight()/2) - 300);
 		setLayout(layout);
-		setName ("Combat Screen");
+		setTitle("Combat Screen");
 		setVisible(true);
     }
     

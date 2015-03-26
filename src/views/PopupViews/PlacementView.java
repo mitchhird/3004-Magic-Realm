@@ -37,6 +37,8 @@ public class PlacementView extends JDialog {
         ourParent = theParent;
         theClearings = newClearings;
         itemList.setEnabled(false);
+        
+        setTitle("Placement");
     }
                          
     @SuppressWarnings("unchecked")

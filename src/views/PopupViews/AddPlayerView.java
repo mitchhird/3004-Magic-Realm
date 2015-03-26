@@ -48,6 +48,7 @@ public class AddPlayerView extends FrameBase {
 		setLocation(((int)tk.getScreenSize().getWidth()/2) - 150, ((int)tk.getScreenSize().getHeight()/2) - 75);
 		setVisible(true);
 		setLayout(layout);
+		setTitle ("Add Player");
 	}
 	
 	// Init All The Components
