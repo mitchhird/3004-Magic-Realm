@@ -18,6 +18,7 @@ import utils.Pair;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.TileType;
 import models.otherEntities.EntityBase;
+import models.otherEntities.SpecificTreasure;
 import models.otherEntities.TreasureModel;
 
 /*
@@ -243,12 +244,18 @@ public class Clearing implements Serializable {
 		ArrayList<TreasureModel> treasuresFound = getTreasuresPlayerFound(p);
 		
 		// Roll The Random Die, And If The Player Scores A Value That Is In The Range Then Loot That
-		int lootTreasureAt = GameUtils.createRandomInt(0, treasuresFound.size());
+		int lootTreasureAt = GameUtils.createRandomInt(0, treasuresFound.size() - 1);
 		
 		// If It Is A Valid Treasure, Then We Can Loot It
-		if (lootTreasureAt < treasuresInClearing.size() - 1) {
+		if (lootTreasureAt <= treasuresInClearing.size() - 1) {
 			TreasureModel newTreasure = treasuresInClearing.remove(lootTreasureAt);
-			p.addTreasure(newTreasure);
+			
+			// If It's A Specific Treasure Loot It That Way
+			if (newTreasure instanceof SpecificTreasure) {
+				p.addSpecficTreasure((SpecificTreasure)newTreasure);
+			} else {
+				p.addTreasure(newTreasure);
+			}
 		}
 	}
 	

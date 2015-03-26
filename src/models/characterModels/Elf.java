@@ -1,7 +1,6 @@
 package models.characterModels;
 
 import models.characterModels.playerEnums.CharacterClass;
-import models.characterModels.playerEnums.Weights;
 
 public class Elf extends PlayerBase {
 	
@@ -13,13 +12,13 @@ public class Elf extends PlayerBase {
 	
 	public Elf (String name, String ip) {
 		super(name, CharacterClass.ELF, ip);
-		amountOfExtraHidesLeft = 1;
+		amountOfExtraHidesLeft = amountOfExtraHides = 1;
 	}
 	
 	@Override
 	// Override This Player With Extra Move Amount
 	public void startPlayerTurn() {
 		super.startPlayerTurn();
-		amountOfExtraHidesLeft = 1;
+		amountOfExtraHidesLeft = amountOfExtraHides;
 	}
 }

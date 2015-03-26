@@ -464,7 +464,7 @@ public class PlayerControllView extends javax.swing.JPanel {
 		PlayerBase currentPlayer = parent.getCurrentPlayer();
 		currentPlayer.getCurrentClearing().updateConnectedTiles();
 		
-		if (currentPlayer.getAvailableActions() > 0) {
+		if (currentPlayer.getAvailableActions() > 0 || currentPlayer.getAmountOfExtraSearchesLeft() > 0) {
 			search();
 		} else {
     		JOptionPane.showMessageDialog(this, "You Have No More Actions For This Turn");

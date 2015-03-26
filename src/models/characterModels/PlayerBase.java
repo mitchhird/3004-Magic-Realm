@@ -17,6 +17,7 @@ import models.chitModels.WeaponChit;
 import models.otherEntities.CombatDataContainer;
 import models.otherEntities.Denizen;
 import models.otherEntities.EntityBase;
+import models.otherEntities.SpecificTreasure;
 import models.otherEntities.TreasureModel;
 import utils.GameUtils;
 
@@ -96,6 +97,10 @@ public class PlayerBase extends EntityBase implements Serializable {
 	// Class Related Data
 	protected int amountOfExtraMovesLeft;
 	protected int amountOfExtraHidesLeft;
+	protected int amountOfExtraSearchesLeft;
+	protected int amountOfExtraMoves;
+	protected int amountOfExtraHides;
+	protected int amountOfExtraSearchs;
 	
 	// Things Relating To Combat
 	protected CombatDataContainer combatData;
@@ -140,9 +145,10 @@ public class PlayerBase extends EntityBase implements Serializable {
     	reqGold = 0;
     	reqGreatTreasure = 0;
     	
-    	amountOfExtraMovesLeft = 0;
-    	amountOfExtraHidesLeft = 0;
-		
+    	amountOfExtraMovesLeft = amountOfExtraMoves = 0;
+    	amountOfExtraHidesLeft = amountOfExtraHides = 0;
+    	amountOfExtraSearchesLeft = amountOfExtraSearchs = 0;
+    
         // Boolean Values
 		living = true;
 		hidden = false;
@@ -183,6 +189,7 @@ public class PlayerBase extends EntityBase implements Serializable {
 		availableActions = 5;
 		amountOfExtraHidesLeft = 0;
 		amountOfExtraMovesLeft = 0;
+		amountOfExtraSearchesLeft = 0;
 	}
 	
 	// Do All The Things For Ending The Player's Turn
@@ -237,6 +244,16 @@ public class PlayerBase extends EntityBase implements Serializable {
 	
 	// Treasure Functions
 	public void addTreasure (TreasureModel t) {
+		addSpecficTreasureBase(t);
+	}
+	
+	public void addSpecficTreasure (SpecificTreasure t) {
+		addSpecficTreasureBase(t);
+		amountOfExtraSearchs += t.getSearchIncrease();
+		amountOfExtraHides += t.getHideIncrease();
+	}
+
+	private void addSpecficTreasureBase(TreasureModel t) {
 		accquiredTreasures.add(t);
 		currentGold += t.getTreasureGoldValue();
 		currentFame += t.getFameAmount();
@@ -245,7 +262,9 @@ public class PlayerBase extends EntityBase implements Serializable {
 	
 	public ArrayList<TreasureModel> searchCurrentClearing () {
 		logAction("S-" + currentClearing.getClearingName());
-		availableActions--;
+		availableActions = (amountOfExtraSearchesLeft > 0) ? availableActions : availableActions - 1;
+		amountOfExtraSearchesLeft = (amountOfExtraSearchesLeft > 0) ? amountOfExtraSearchesLeft - 1: 0;
+		
 		return currentClearing.searchClearing(this);
 	}
 	
@@ -573,4 +592,10 @@ public class PlayerBase extends EntityBase implements Serializable {
 	public int getAmountOfExtraHidesLeft() {
 		return amountOfExtraHidesLeft;
 	}
+
+	public int getAmountOfExtraSearchesLeft() {
+		return amountOfExtraSearchesLeft;
+	}
+	
+	
 }

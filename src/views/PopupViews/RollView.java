@@ -7,10 +7,11 @@ import java.awt.event.WindowEvent;
 import java.util.Random;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 
 import utils.GameUtils;
 
-public class RollView extends javax.swing.JFrame {
+public class RollView extends javax.swing.JDialog {
 
 	private static final long serialVersionUID = 6220875929681965271L;
 	private javax.swing.JButton setButton;
@@ -23,6 +24,7 @@ public class RollView extends javax.swing.JFrame {
     private int maxRollValue;
     
     public RollView(int maxRoll) {
+    	super(new JFrame(), "Roll View", true);
         maxRollValue = maxRoll;
     	initComponents();
     	addListeners();

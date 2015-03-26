@@ -102,10 +102,8 @@ public class TreasureViewDialog extends JDialog{
 	
     // Handles The Searching
 	private void handleSearchButton() {
-		System.out.println("Find test");
-
 		// If There Is Available Actions
-		if (thePlayer.getAvailableActions() > 0) {
+		if (thePlayer.getAvailableActions() > 0 || thePlayer.getAmountOfExtraSearchesLeft() > 0) {
 			ArrayList<TreasureModel> foundTreasures = thePlayer.searchCurrentClearing();
 			if (foundTreasures.size() == 0) {
 				JOptionPane.showMessageDialog(this, "You Didn't Find Anything In Your Search");

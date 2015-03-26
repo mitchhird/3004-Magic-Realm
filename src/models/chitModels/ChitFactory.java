@@ -31,6 +31,7 @@ public class ChitFactory {
 	public static ActionChit MH60 = new ActionChit(Weights.HEAVY, 6, 0, false);
 	public static ActionChit MT52 = new ActionChit(Weights.TREMENDOUS, 5, 2, false);
 	public static ActionChit MT61 = new ActionChit(Weights.TREMENDOUS, 6, 1, false);
+	
 	//fight
 	public static ActionChit FL22 = new ActionChit(Weights.LIGHT, 2, 2, true);
 	public static ActionChit FL31 = new ActionChit(Weights.LIGHT, 3, 1, true);
@@ -45,6 +46,7 @@ public class ChitFactory {
 	public static ActionChit FH60 = new ActionChit(Weights.HEAVY, 6, 0, true);
 	public static ActionChit FT52 = new ActionChit(Weights.TREMENDOUS, 5, 2, true);
 	public static ActionChit FT61 = new ActionChit(Weights.TREMENDOUS, 6, 1, true);
+	
 	//special
 	public static DuckChit DT31 = new DuckChit(Weights.TREMENDOUS, 3, 1);
 	

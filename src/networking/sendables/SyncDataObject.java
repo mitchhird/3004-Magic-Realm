@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import models.BoardModels.Dwelling;
 import models.characterModels.PlayerBase;
+import models.otherEntities.monsterModels.Ghost;
 
 /**
  * Data Container For Synching The Client With The Server
@@ -14,6 +15,7 @@ import models.characterModels.PlayerBase;
  */
 public class SyncDataObject implements Serializable {
 	private ArrayList <Dwelling> dwellings;
+	private ArrayList <Ghost> ghosts;
 	private HashMap <String, String> players;
 	private static final long serialVersionUID = -3211078016039324328L;
 	

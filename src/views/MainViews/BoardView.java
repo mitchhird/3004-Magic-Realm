@@ -23,6 +23,7 @@ import models.BoardModels.Dwelling;
 import models.BoardModels.Tile;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
+import models.otherEntities.SpecificTreasure;
 import models.otherEntities.monsterModels.Ghost;
 import models.otherEntities.nativeModels.Knight;
 import utils.GameUtils;
@@ -561,6 +562,7 @@ public class BoardView extends JPanel {
 		initHiddenClearings();
 		addClearingListeners();	
 		addZoomScroller();
+		addSpecficTreasures();
 	}
 
 	// Adds All Of The Clearing Listeners
@@ -935,6 +937,17 @@ public class BoardView extends JPanel {
 		case ELF: return inn.getClearingThisOn();
 		default: return avalley2;
 		}
+	}
+	
+	// Add In The Specific Treasures
+	private void addSpecficTreasures () {
+		SpecificTreasure cloakOfMists = new SpecificTreasure (true, "Cloak Of Mists");
+		cloakOfMists.setHideIncrease(1);
+		bvalley2.addTreasures(cloakOfMists);
+		
+		SpecificTreasure magicSpecticals = new SpecificTreasure (true, "Magic Specticals");
+		magicSpecticals.setSearchIncrease(1);
+		bland1.addTreasures(magicSpecticals);
 	}
 	
 	/************************** Getters And Setters **********************/

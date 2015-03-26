@@ -12,13 +12,13 @@ public class Amazon extends PlayerBase {
 	
 	public Amazon(String name, String ip) {
 		super (name, CharacterClass.AMAZON, ip);
-		amountOfExtraMovesLeft = 1;
+		amountOfExtraMovesLeft = amountOfExtraMoves = 1;
 	}
 	
 	@Override
 	// Override This Player With Extra Move Amount
 	public void startPlayerTurn() {
 		super.startPlayerTurn();
-		amountOfExtraMovesLeft = 1;
+		amountOfExtraMovesLeft = amountOfExtraMoves;
 	}
 }
