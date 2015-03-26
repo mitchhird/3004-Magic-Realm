@@ -34,8 +34,8 @@ public class Clearing implements Serializable {
 	private int clearingNumber;
 	private SoundChit soundChit;
 	private String clearingType;
-	
-	
+
+	private ArrayList<Dwelling> dwellingsOnThis;
 	private Set <Clearing> connectedClearings;
 	private Set <PlayerBase> playersInClearing;	
 	private transient Tile tileThisOn;
@@ -448,6 +448,10 @@ public class Clearing implements Serializable {
 		return clearingName;
 	}
 	
+	public void addEntityToClearing(EntityBase newEntity){
+		entitiesInClearing.add(newEntity);
+	}
+	
 	public void setSoundChit(SoundChit newSound){
 		soundChit = newSound;
 	}
@@ -458,5 +462,13 @@ public class Clearing implements Serializable {
 	
 	public String getClearingType(){
 		return clearingType;
+	}
+
+	public ArrayList<Dwelling> getDwellingsOnThis() {
+		return dwellingsOnThis;
+	}
+
+	public void addDwellingsOnThis(Dwelling newDwelling) {
+		dwellingsOnThis.add(newDwelling);
 	}
 }

@@ -261,6 +261,7 @@ public class BoardView extends JPanel {
 		currentClearing = evalley5;
 		aGhost = new Ghost();
 		currentClearing.addImageToList(aGhost.getImage());
+		currentClearing.addEntityToClearing(aGhost);
 		aGhost.setCurrentClearing(currentClearing);
 		aGhost.setHomeClearing(currentClearing);
 		theMonsters.add(aGhost);
@@ -268,6 +269,7 @@ public class BoardView extends JPanel {
 		dwoods.setWarningChit(ChitFactory.bonesW);
 		aGiant = new Giant();
 		dwoods5.addImageToList(aGiant.getImage());
+		dwoods5.addEntityToClearing(aGiant);
 		aGiant.setCurrentClearing(dwoods5);
 		aGiant.setHomeClearing(dwoods5);
 		theMonsters.add(aGiant);
@@ -276,6 +278,7 @@ public class BoardView extends JPanel {
 		cliff6.setSoundChit(ChitFactory.flutter2);
 		aDragon = new FlyingDragon();
 		cliff6.addImageToList(aDragon.getImage());
+		cliff6.addEntityToClearing(aDragon);
 		aDragon.setCurrentClearing(cliff6);
 		aDragon.setHomeClearing(cliff6);
 		theMonsters.add(aDragon);
@@ -312,6 +315,7 @@ public class BoardView extends JPanel {
 		currentClearing = evalley5;
 		aGhost = new Ghost();
 		currentClearing.addImageToList(aGhost.getImage());
+		currentClearing.addEntityToClearing(aGhost);
 		aGhost.setCurrentClearing(currentClearing);
 		aGhost.setHomeClearing(currentClearing);
 		theMonsters.add(aGhost);
@@ -319,6 +323,7 @@ public class BoardView extends JPanel {
 		dwoods.setWarningChit(ChitFactory.bonesW);
 		aGiant = new Giant();
 		dwoods5.addImageToList(aGiant.getImage());
+		dwoods5.addEntityToClearing(aGiant);
 		aGiant.setCurrentClearing(dwoods5);
 		aGiant.setHomeClearing(dwoods5);
 		theMonsters.add(aGiant);
@@ -327,6 +332,7 @@ public class BoardView extends JPanel {
 		cliff6.setSoundChit(ChitFactory.flutter2);
 		aDragon = new FlyingDragon();
 		cliff6.addImageToList(aDragon.getImage());
+		cliff6.addEntityToClearing(aDragon);
 		aDragon.setCurrentClearing(cliff6);
 		aDragon.setHomeClearing(cliff6);
 		theMonsters.add(aDragon);

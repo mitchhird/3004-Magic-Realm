@@ -22,6 +22,7 @@ public class Dwelling implements Serializable{
 		clearingThisOn = theClearing;
 		this.resourceName = imageRep;
 		this.dwellingName = dwellingName;
+		theClearing.addDwellingsOnThis(this);
 		
 		try {
 			imageRepresentation = ImageIO.read(getClass().getResource(resourceName));
