@@ -257,7 +257,10 @@ public class BoardView extends JPanel {
 		aGhost.setCurrentClearing(currentClearing);
 		aGhost.setHomeClearing(currentClearing);
 
-		hpass.addSoundChit(ChitFactory.howl4);
+		dwoods.setWarningChit(ChitFactory.bonesW);
+		//giant (medium) woods
+		cliff.addSoundChit(ChitFactory.flutter2);
+		//flying dragon (heavy) cliff 6 (mountain or cave only)
 	}
 	
 	public void setCheatLocations() {
