@@ -1,8 +1,12 @@
 package models.BoardModels;
 
+import java.awt.Image;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.imageio.ImageIO;
 
 import models.characterModels.playerEnums.TileType;
 import models.chitModels.EnvironmentChit.SoundChit;
@@ -21,6 +25,7 @@ public class Tile {
 	private Set <Clearing> clearings;
 	private ArrayList<SoundChit> sounds;
 	private String theTileName;
+	private Image warningImage;
 	
 	public Tile(String tileName){
 		type = TileType.FOREST;
@@ -55,6 +60,10 @@ public class Tile {
 	
 	public void setWarningChit(WarningChit newWarning){
 		warning = newWarning;
+	}
+	
+	public void setWarningImage(Image theImage){
+		warningImage = theImage;
 	}
 	
 	public void addSoundChit(SoundChit newSound){

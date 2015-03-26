@@ -259,6 +259,11 @@ public class BoardView extends JPanel {
 		theDwellings.add(guardHouse);
 		
 		evalley.setWarningChit(ChitFactory.bonesV);
+		try {
+			evalley.setWarningImage(ImageIO.read(getClass().getResource("/chits/bonesV.jpg")));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		currentClearing = evalley5;
 		aGhost = new Ghost();
 		currentClearing.addImageToList(aGhost.getImage());
@@ -268,6 +273,11 @@ public class BoardView extends JPanel {
 		theMonsters.add(aGhost);
 
 		dwoods.setWarningChit(ChitFactory.bonesW);
+		try {
+			dwoods.setWarningImage(ImageIO.read(getClass().getResource("/chits/bonesW.jpg")));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		aGiant = new Giant();
 		dwoods5.addImageToList(aGiant.getImage());
 		dwoods5.addEntityToClearing(aGiant);
@@ -333,6 +343,11 @@ public class BoardView extends JPanel {
 		theMonsters.add(aDragon);
 		
 		cheatTiles.get(0).setWarningChit(ChitFactory.bonesV);
+		try {
+			cheatTiles.get(0).setWarningImage(ImageIO.read(getClass().getResource("/chits/bonesV.jpg")));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		currentClearing = cheatTiles.get(0).getHighestClearing();
 		aGhost = new Ghost();
 		currentClearing.addImageToList(aGhost.getImage());
@@ -342,6 +357,11 @@ public class BoardView extends JPanel {
 		theMonsters.add(aGhost);
 
 		cheatTiles.get(1).setWarningChit(ChitFactory.bonesW);
+		try {
+			cheatTiles.get(1).setWarningImage(ImageIO.read(getClass().getResource("/chits/bonesW.jpg")));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		currentClearing = cheatTiles.get(1).getHighestClearing();
 		aGiant = new Giant();
 		currentClearing.addImageToList(aGiant.getImage());
