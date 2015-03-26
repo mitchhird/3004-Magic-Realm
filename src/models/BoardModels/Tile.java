@@ -25,7 +25,6 @@ public class Tile {
 	private Set <Clearing> clearings;
 	private ArrayList<SoundChit> sounds;
 	private String theTileName;
-	private Image warningImage;
 	
 	public Tile(String tileName){
 		type = TileType.FOREST;
@@ -63,7 +62,9 @@ public class Tile {
 	}
 	
 	public void setWarningImage(Image theImage){
-		warningImage = theImage;
+		for (Clearing c: clearings) {
+			c.addImageToList(theImage);
+		}
 	}
 	
 	public void addSoundChit(SoundChit newSound){
