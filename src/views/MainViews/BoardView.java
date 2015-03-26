@@ -279,6 +279,11 @@ public class BoardView extends JPanel {
 		cliff6.setSoundChit(ChitFactory.flutter2);
 		aDragon = new FlyingDragon();
 		cliff6.addImageToList(aDragon.getImage());
+		try {
+			cliff6.addImageToList(ImageIO.read(getClass().getResource("/chits/flutter.jpg")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		cliff6.addEntityToClearing(aDragon);
 		aDragon.setCurrentClearing(cliff6);
 		aDragon.setHomeClearing(cliff6);
@@ -317,6 +322,11 @@ public class BoardView extends JPanel {
 		currentClearing.getTileThisOn().addSoundChit(ChitFactory.flutter2);
 		aDragon = new FlyingDragon();
 		currentClearing.addImageToList(aDragon.getImage());
+		try {
+			currentClearing.addImageToList(ImageIO.read(getClass().getResource("/chits/flutter.gif")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		currentClearing.addEntityToClearing(aDragon);
 		aDragon.setCurrentClearing(currentClearing);
 		aDragon.setHomeClearing(currentClearing);
