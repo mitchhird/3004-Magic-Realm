@@ -60,4 +60,8 @@ public class Tile {
 	public void addSoundChit(SoundChit newSound){
 		sounds.add(newSound);
 	}
+
+	public Clearing getHighestClearing() {
+		return (Clearing) clearings.toArray()[clearings.size()-1];
+	}
 }

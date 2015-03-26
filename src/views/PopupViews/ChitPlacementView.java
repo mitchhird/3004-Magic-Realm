@@ -115,8 +115,12 @@ public class ChitPlacementView extends JDialog {
     }                           
     
     private void placeItem() {
-    	//ToDo: place chits on tiles
-		dispose();
+    	ourParent.addCheatTile(theTiles.get(locationList.getSelectedIndex()));
+		itemList.removeItemAt(itemList.getSelectedIndex());
+		if(itemList.getItemCount()==0){
+			ourParent.setCheatLocations();
+			dispose();
+		}
 	}
 
 	@SuppressWarnings("unchecked")

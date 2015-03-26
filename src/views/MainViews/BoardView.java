@@ -66,6 +66,7 @@ public class BoardView extends JPanel {
 
 	//!!COLLECTIONS!!
 	private ArrayList<Tile> theTiles = new ArrayList<Tile>();
+	private ArrayList<Tile> cheatTiles = new ArrayList<Tile>();
 	private ArrayList<Clearing> clearings = new ArrayList<Clearing>();
 	private ArrayList<Clearing> cheatClearings = new ArrayList<Clearing>();
 	private ArrayList<Dwelling> theDwellings = new ArrayList<Dwelling>();
@@ -218,7 +219,7 @@ public class BoardView extends JPanel {
 	public void placeItemsOnBoard(){
 		try {
 			if(GameUtils.getCheatMode()){
-				PlacementView thePlacer = new PlacementView(new String[]{"Inn", "Chapel", "House", "Guard House", "Ghost"}, clearings, this);
+				PlacementView thePlacer = new PlacementView(new String[]{"Inn", "Chapel", "House", "Guard House", "Flutter2"}, clearings, this);
 				thePlacer.setVisible(true);
 			}else{
 				// Create Each Of The Dwellings
@@ -310,9 +311,19 @@ public class BoardView extends JPanel {
 		guardHouse = new Dwelling("Guardhouse", "/dwellings_c/guard.gif", currentClearing);
 		guardHouse.getClearingThisOn().addImageToList(guardHouse.getImageRepresentation());
 		theDwellings.add(guardHouse);
-
-		evalley.setWarningChit(ChitFactory.bonesV);
-		currentClearing = evalley5;
+		
+		currentClearing = cheatClearings.get(4);
+		currentClearing.setSoundChit(ChitFactory.flutter2);
+		currentClearing.getTileThisOn().addSoundChit(ChitFactory.flutter2);
+		aDragon = new FlyingDragon();
+		currentClearing.addImageToList(aDragon.getImage());
+		currentClearing.addEntityToClearing(aDragon);
+		aDragon.setCurrentClearing(currentClearing);
+		aDragon.setHomeClearing(currentClearing);
+		theMonsters.add(aDragon);
+		
+		cheatTiles.get(0).setWarningChit(ChitFactory.bonesV);
+		currentClearing = cheatTiles.get(0).getHighestClearing();
 		aGhost = new Ghost();
 		currentClearing.addImageToList(aGhost.getImage());
 		currentClearing.addEntityToClearing(aGhost);
@@ -320,22 +331,14 @@ public class BoardView extends JPanel {
 		aGhost.setHomeClearing(currentClearing);
 		theMonsters.add(aGhost);
 
-		dwoods.setWarningChit(ChitFactory.bonesW);
+		cheatTiles.get(1).setWarningChit(ChitFactory.bonesW);
+		currentClearing = cheatTiles.get(1).getHighestClearing();
 		aGiant = new Giant();
-		dwoods5.addImageToList(aGiant.getImage());
-		dwoods5.addEntityToClearing(aGiant);
-		aGiant.setCurrentClearing(dwoods5);
-		aGiant.setHomeClearing(dwoods5);
+		currentClearing.addImageToList(aGiant.getImage());
+		currentClearing.addEntityToClearing(aGiant);
+		aGiant.setCurrentClearing(currentClearing);
+		aGiant.setHomeClearing(currentClearing);
 		theMonsters.add(aGiant);
-		
-		cliff.addSoundChit(ChitFactory.flutter2);
-		cliff6.setSoundChit(ChitFactory.flutter2);
-		aDragon = new FlyingDragon();
-		cliff6.addImageToList(aDragon.getImage());
-		cliff6.addEntityToClearing(aDragon);
-		aDragon.setCurrentClearing(cliff6);
-		aDragon.setHomeClearing(cliff6);
-		theMonsters.add(aDragon);
 	}
 	
 	//Initialization method, sets up the board
@@ -1013,6 +1016,10 @@ public class BoardView extends JPanel {
 		cheatClearings.add(clearing);
 	}
 	
+	public void addCheatTile(Tile tile) {
+		cheatTiles.add(tile);
+	}
+	
 	public GameView getParentWindow () {
 		return parent;
 	}
@@ -1023,7 +1030,7 @@ public class BoardView extends JPanel {
 
 	public void placeChitsOnBoard() {
 		if(GameUtils.getCheatMode()){
-			ChitPlacementView chitPlacer = new ChitPlacementView(new String[] { "EnviroChit1", "EnviroChit2" },theTiles,this);
+			ChitPlacementView chitPlacer = new ChitPlacementView(new String[] { "BonesV", "BonesW" },theTiles,this);
 			chitPlacer.setVisible(true);
 		}
 	}

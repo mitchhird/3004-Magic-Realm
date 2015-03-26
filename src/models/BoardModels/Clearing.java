@@ -63,6 +63,7 @@ public class Clearing implements Serializable {
 		playersInClearing = new HashSet<>();
 		imageEnitiesOnThis = new HashSet<>();
 		this.clearingType = clearingType;
+		dwellingsOnThis = new ArrayList<Dwelling>();
 
 		// Clearing Lists
 		treasuresInClearing = new ArrayList<>();
