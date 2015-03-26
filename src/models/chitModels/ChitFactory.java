@@ -130,13 +130,13 @@ public class ChitFactory {
 	public static SiteChit shrine = new SiteChit(0, "Shrine");
 	public static SiteChit statue = new SiteChit(0, "Statue");
 	public static SiteChit vault = new SiteChit(0, "Vault");
+	public static SiteChit LostCity = new SiteChit(0, "Lost Castle");
+	public static SiteChit LostCastle = new SiteChit(0, "Lost City");
 	// Sound
 	public static SoundChit flutter1 = new SoundChit(1, "Flutter1");
 	public static SoundChit flutter2 = new SoundChit(2, "Flutter2");
 	public static SoundChit howl4 = new SoundChit(4, "Howl4");
 	public static SoundChit howl5 = new SoundChit(5, "Howl5");
-	public static SoundChit LostCity = new SoundChit(0, "Lost Castle");
-	public static SoundChit LostCastle = new SoundChit(0, "Lost City");
 	public static SoundChit patter2 = new SoundChit(2, "Patter2");
 	public static SoundChit patter5 = new SoundChit(5, "Patter5");
 	public static SoundChit roar4 = new SoundChit(4, "Roar4");

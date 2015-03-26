@@ -23,6 +23,7 @@ import models.BoardModels.Dwelling;
 import models.BoardModels.Tile;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
+import models.chitModels.ChitFactory;
 import models.otherEntities.SpecificTreasure;
 import models.otherEntities.monsterModels.Ghost;
 import models.otherEntities.nativeModels.Knight;
@@ -249,11 +250,14 @@ public class BoardView extends JPanel {
 		guardHouse.getClearingThisOn().addImageToList(guardHouse.getImageRepresentation());
 		theDwellings.add(guardHouse);
 		
+		evalley.setWarningChit(ChitFactory.bonesV);
 		currentClearing = evalley5;
 		aGhost = new Ghost();
 		currentClearing.addImageToList(aGhost.getImage());
 		aGhost.setCurrentClearing(currentClearing);
 		aGhost.setHomeClearing(currentClearing);
+
+		hpass.addSoundChit(ChitFactory.howl4);
 	}
 	
 	public void setCheatLocations() {

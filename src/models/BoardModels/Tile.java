@@ -19,13 +19,13 @@ public class Tile {
 	private TileType type;
 	private WarningChit warning;
 	private Set <Clearing> clearings;
-	private ArrayList<WarningChit> sounds;
+	private ArrayList<SoundChit> sounds;
 	private String theTileName;
 	
 	public Tile(String tileName){
 		type = TileType.FOREST;
 		clearings = new HashSet<Clearing>();
-		this.sounds = new ArrayList<WarningChit>();
+		this.sounds = new ArrayList<SoundChit>();
 		theTileName = tileName;
 	}
 	
@@ -33,7 +33,7 @@ public class Tile {
 	public Tile(TileType tile, String tileName, Clearing ... clearings){
 		type = tile;
 		this.clearings = new HashSet<Clearing>();
-		this.sounds = new ArrayList<WarningChit>();
+		this.sounds = new ArrayList<SoundChit>();
 		theTileName = tileName;
 		// Add everything In
 		for (Clearing c: clearings) {
@@ -53,5 +53,11 @@ public class Tile {
 		return theTileName;
 	}
 	
+	public void setWarningChit(WarningChit newWarning){
+		warning = newWarning;
+	}
 	
+	public void addSoundChit(SoundChit newSound){
+		sounds.add(newSound);
+	}
 }
