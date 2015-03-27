@@ -17,6 +17,7 @@ import utils.GameUtils;
 import utils.Pair;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.TileType;
+import models.chitModels.EnvironmentChit.SiteChit;
 import models.chitModels.EnvironmentChit.SoundChit;
 import models.otherEntities.EntityBase;
 import models.otherEntities.SpecificTreasure;
@@ -34,6 +35,7 @@ public class Clearing implements Serializable {
 	private int clearingNumber;
 	private SoundChit soundChit;
 	private String clearingType;
+	private SiteChit siteChit;
 
 	private ArrayList<Dwelling> dwellingsOnThis;
 	private Set <Clearing> connectedClearings;
@@ -471,5 +473,13 @@ public class Clearing implements Serializable {
 
 	public void addDwellingsOnThis(Dwelling newDwelling) {
 		dwellingsOnThis.add(newDwelling);
+	}
+
+	public SiteChit getSiteChit() {
+		return siteChit;
+	}
+
+	public void setSiteChit(SiteChit siteChit) {
+		this.siteChit = siteChit;
 	}
 }

@@ -219,7 +219,7 @@ public class BoardView extends JPanel {
 	public void placeItemsOnBoard(){
 		try {
 			if(GameUtils.getCheatMode()){
-				PlacementView thePlacer = new PlacementView(new String[]{"Inn", "Chapel", "House", "Guard House", "Flutter2"}, clearings, this);
+				PlacementView thePlacer = new PlacementView(new String[]{"Inn", "Chapel", "House", "Guard House", "Flutter2", "Lost City", "Lost Castle"}, clearings, this);
 				thePlacer.setVisible(true);
 			}else{
 				// Create Each Of The Dwellings
@@ -298,6 +298,19 @@ public class BoardView extends JPanel {
 		aDragon.setCurrentClearing(cliff6);
 		aDragon.setHomeClearing(cliff6);
 		theMonsters.add(aDragon);
+		
+		caves4.setSiteChit(ChitFactory.LostCity);
+		try {
+			caves4.addImageToList(ImageIO.read(getClass().getResource("/chits/lostcity.jpg")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		ruins6.setSiteChit(ChitFactory.LostCastle);
+		try {
+			ruins6.addImageToList(ImageIO.read(getClass().getResource("/chits/lostcastle.jpg")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void setCheatLocations() {
@@ -369,6 +382,22 @@ public class BoardView extends JPanel {
 		aGiant.setCurrentClearing(currentClearing);
 		aGiant.setHomeClearing(currentClearing);
 		theMonsters.add(aGiant);
+		
+		currentClearing = cheatClearings.get(5);
+		currentClearing.setSiteChit(ChitFactory.LostCity);
+		try {
+			currentClearing.addImageToList(ImageIO.read(getClass().getResource("/chits/lostcity.jpg")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		currentClearing = cheatClearings.get(6);
+		currentClearing.setSiteChit(ChitFactory.LostCastle);
+		try {
+			currentClearing.addImageToList(ImageIO.read(getClass().getResource("/chits/lostcastle.jpg")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//Initialization method, sets up the board
