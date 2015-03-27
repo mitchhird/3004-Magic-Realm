@@ -2,6 +2,7 @@ package networking.threads.BaseThreads;
 
 import java.util.ArrayList;
 
+import sun.security.krb5.internal.crypto.CksumType;
 import views.MainViews.GameView;
 import models.BoardModels.Clearing;
 import models.BoardModels.Dwelling;
@@ -60,6 +61,12 @@ public class ReaderThreadBase extends Thread {
 				if (p.getName().equals(incoming.getThePlayer().getName())) {
 					p.getCombatData().setAttack(incoming.getAttack());
 					p.getCombatData().setDefense(incoming.getDefense());
+					
+					p.setShieldReady(incoming.isShieldReady());
+					
+					if (p.getShield() != null && incoming.getThePlayer().getShield() != null) {
+						p.getShield().setSecond(incoming.getThePlayer().getShield().getSecond());
+					}
 					attacker = p;
 					break;
 				}
@@ -108,6 +115,11 @@ public class ReaderThreadBase extends Thread {
 			Clearing clearingToAddTreasureTo = mainGame.getClearingByName(c.getClearingName());
 			if (clearingToAddTreasureTo != null){
 				clearingToAddTreasureTo.getTreasuresInClearing().clear();
+				
+				// TODO: Sound Chits
+				if (c.getSoundChit() != null) {
+					clearingToAddTreasureTo.setSoundChit(c.getSoundChit().clone());
+				}
 				
 				// Add In All Of The Treasures 
 				for (TreasureModel t: c.getTreasuresInClearing()) {

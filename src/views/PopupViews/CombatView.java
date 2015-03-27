@@ -278,6 +278,7 @@ public class CombatView extends FrameBase implements WindowListener {
                 
                 // Set The Data The Combat Container, And Then Send It Across
                 CombatDataContainer combatData = combatHandler.getCurrentAttacker().getCombatData();
+                combatData.setThePlayer(combatHandler.getCurrentAttacker());
 				combatData.setTheDefender(combatHandler.getCurrentDefender());
                 ourParent.sendMessage(combatData);   
                 

@@ -72,7 +72,6 @@ public class PlayerBase extends EntityBase implements Serializable {
 	protected ArrayList<WeaponChit> weaponChit;
 	protected ArrayList<TreasureModel> accquiredTreasures;
 	protected ArrayList<PlayerBase> listAttacks;
-	protected ArrayList<ActionChit> movementChits;
 	protected WeaponChit activeWeapon;
 	protected EntityBase chargeTarget;
 	
@@ -100,6 +99,7 @@ public class PlayerBase extends EntityBase implements Serializable {
 	protected transient ArrayList<ActionChit> active;
 	protected transient ArrayList<ActionChit> inActive;
 	protected transient ArrayList<ActionChit> wounded;
+	protected transient ArrayList<ActionChit> movementChits;
 	
 	// Class Related Data
 	protected int amountOfExtraMovesLeft;
@@ -392,7 +392,7 @@ public class PlayerBase extends EntityBase implements Serializable {
 		// Set The Shield If We Have One
 		for (ArmorChit a: armorChits) {
 			if (a.getArmourType() == ArmorType.SHIELD) {
-				shield = new Pair<ArmorChit, Attacks>(a, Attacks.SMASH);
+				setShield(new Pair<ArmorChit, Attacks>(a, Attacks.SMASH));
 			}
 		}
 		

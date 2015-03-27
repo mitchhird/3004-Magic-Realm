@@ -17,12 +17,14 @@ public class CombatDataContainer implements Serializable {
 	private PlayerBase theDefender;
 	private String attack;
 	private String defense;
+	private boolean shieldReady;
 	
 	public CombatDataContainer (PlayerBase p, PlayerBase d, Attacks attack, Defences currentDefence) {
 		thePlayer = p;
 		theDefender = d;
 		this.attack = attack.name();
 		this.defense = currentDefence.name();
+		shieldReady = p.isShieldReady();
 	}
 
 	/*---------------------- Getters And Setters ---------------------------*/
@@ -32,6 +34,7 @@ public class CombatDataContainer implements Serializable {
 
 	public void setThePlayer(PlayerBase thePlayer) {
 		this.thePlayer = thePlayer;
+		shieldReady = thePlayer.isShieldReady();
 	}
 
 	public Attacks getAttack() {
@@ -56,5 +59,13 @@ public class CombatDataContainer implements Serializable {
 
 	public void setTheDefender(PlayerBase theDefender) {
 		this.theDefender = theDefender;
+	}
+
+	public boolean isShieldReady() {
+		return shieldReady;
+	}
+
+	public void setShieldReady(boolean shieldReady) {
+		this.shieldReady = shieldReady;
 	}
 }
