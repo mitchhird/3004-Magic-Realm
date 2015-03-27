@@ -1,17 +1,20 @@
 package models.otherEntities.monsterModels;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-
 public class FlyingDragon extends MonsterBase {
-	public FlyingDragon(){
-		super();
+	
+	private static final long serialVersionUID = 1236103107833384753L;
+
+	public FlyingDragon(String clearingName){
+		super(clearingName);
 		monsterType = "FlyingDragon";
-		try {
-			monsterImage = ImageIO.read(getClass().getResource("/monsters_c/dragon_flying.gif"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		monsterImage = "/monsters_c/dragon_flying.gif";
+	}
+
+	@Override
+	public MonsterBase clone() {
+		FlyingDragon returnVal = new FlyingDragon(this.clearningThisOn);
+		returnVal.monsterType = this.monsterType;
+		returnVal.monsterImage = this.monsterImage;
+		return null;
 	}
 }

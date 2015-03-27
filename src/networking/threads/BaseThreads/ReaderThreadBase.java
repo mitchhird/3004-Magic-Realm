@@ -12,6 +12,7 @@ import models.characterModels.playerEnums.Defences;
 import models.otherEntities.CombatDataContainer;
 import models.otherEntities.SpecificTreasure;
 import models.otherEntities.TreasureModel;
+import models.otherEntities.monsterModels.MonsterBase;
 import networking.sendables.MessageType;
 import networking.sendables.SyncDataObject;
 import networking.sendables.UpdateDataObject;
@@ -125,6 +126,18 @@ public class ReaderThreadBase extends Thread {
 				for (TreasureModel t: c.getTreasuresInClearing()) {
 					clearingToAddTreasureTo.addTreasures(t.clone());
 				}
+			}
+		}
+		
+		// Add The Monsters
+		for (MonsterBase m: incoming.getMonsters()) {
+			Clearing addToClearing = mainGame.getClearingByName(m.getClearningThisOn());
+			
+			// If We Found A Valid Clearing Then Add It In
+			if (addToClearing != null) {
+				MonsterBase newMonster = m.clone();
+				addToClearing.addImageToList(m.getImage());
+				mainGame.getMonsters().add(newMonster);
 			}
 		}
 		

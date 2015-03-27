@@ -134,14 +134,6 @@ public class EntityHolder {
 		 * Wolves L4,3/M4,4 * 3
 		 * Wolves M5,3/L3,4 * 3
 		 */
-		Ghost ghost1 = new Ghost();
-		mediumMonsters.add(ghost1);
-		Ghost ghost2 = new Ghost();
-		mediumMonsters.add(ghost2);
-		Giant giant1 = new Giant();
-		tMonsters.add(giant1);
-		Giant giant2 = new Giant();
-		tMonsters.add(giant2);
 	}
 	
 	public ArrayList<EnvironmentChit> setupChits(boolean random, ArrayList<EnvironmentChit> start){

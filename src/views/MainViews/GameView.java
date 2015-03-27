@@ -29,6 +29,7 @@ import models.BoardModels.Clearing;
 import models.BoardModels.Dwelling;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
+import models.otherEntities.monsterModels.MonsterBase;
 import networking.sendables.MessageType;
 import networking.sendables.SyncDataObject;
 import networking.threads.ProcessingThreads.ClientReadThread;
@@ -291,7 +292,7 @@ public class GameView extends FrameBase {
 		
 		// If We Are Networked, Let Everyone Else Know Game Is Starting
 		if (networkedGame) {
-			sendMessage(new SyncDataObject(getDwellings(), getPlayersInGame(), theBoard.getClearings()));
+			sendMessage(new SyncDataObject(getDwellings(), getPlayersInGame(), theBoard.getClearings(), theBoard.getMonsters()));
 		}
 		JOptionPane.showMessageDialog(this, "The Game Has Started!");
 	}
@@ -587,5 +588,9 @@ public class GameView extends FrameBase {
 			}
 		}
 		return null;
+	}
+	
+	public ArrayList<MonsterBase> getMonsters() {
+		return theBoard.getMonsters();
 	}
 }
