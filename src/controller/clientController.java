@@ -155,11 +155,6 @@ public class clientController {
 				p.setHomeClearing(playerStart);
 				playerStart.playerMovedToThis(p);
 			}
-			
-			// If We Have A Swordsmen Let Him Pick His Turn
-			if (p.getPlayerClass() == CharacterClass.SWORDSMAN) {
-				spawnSwordsmanSelectionDialog(p);
-			}
 		}
 	}
 
