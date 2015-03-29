@@ -1,7 +1,12 @@
 package views.PopupViews;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JDialog;
+
 @SuppressWarnings("rawtypes")
-public class VPSelecterView extends javax.swing.JFrame {
+public class VPSelecterView extends JDialog {
 
   
     /**
@@ -24,8 +29,6 @@ public class VPSelecterView extends javax.swing.JFrame {
         jComboBox3 = new javax.swing.JComboBox();
         jComboBox4 = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -61,6 +64,12 @@ public class VPSelecterView extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox4ActionPerformed(evt);
             }
+        });
+        
+        jButton1.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent e){
+        		setVPs();
+        	}
         });
 
         jButton1.setText("Set VPs");
@@ -123,7 +132,11 @@ public class VPSelecterView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>                        
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    protected void setVPs() {
+    	dispose();
+	}
+
+	private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
     }                                          
 
