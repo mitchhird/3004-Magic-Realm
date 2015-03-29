@@ -31,7 +31,7 @@ import utils.Pair;
  * testing
  */
 
-public class PlayerBase extends EntityBase implements Serializable {
+public class PlayerBase extends EntityBase implements Serializable, Comparable<PlayerBase> {
 	
 	//fame/not can be negative and are public to others, gold can't be neg
 	protected int currentFame;
@@ -109,6 +109,10 @@ public class PlayerBase extends EntityBase implements Serializable {
 	protected int amountOfExtraHides;
 	protected int amountOfExtraSearchs;
 	
+	// Swordsmen Stuff
+	protected static int currentPlayerPriority = 0;
+	protected int playerPriority;
+	
 	// Things Relating To Combat
 	protected CombatDataContainer combatData;
 
@@ -171,6 +175,8 @@ public class PlayerBase extends EntityBase implements Serializable {
 		turnLog = new ArrayList<>();
 		accquiredTreasures = new ArrayList<>();
 		movementChits = new ArrayList<ActionChit>();
+		
+		playerPriority = currentPlayerPriority++;
 	}
 
 	// Initializes Player Transient Objects
@@ -358,6 +364,8 @@ public class PlayerBase extends EntityBase implements Serializable {
 	public void checkIfDamaged(Weights harm) {
 		// TODO Auto-generated method stub
 	}
+	
+	
 	
 	/*--------------------------------- Getters And Setters ---------------------------- */
 	public ArrayList<String> getRecordLog () {
@@ -633,5 +641,22 @@ public class PlayerBase extends EntityBase implements Serializable {
 	
 	public void setShieldReady (boolean ready) {
 		shieldReady = ready;
+	}
+
+	@Override
+	public int compareTo(PlayerBase o) {
+		if (getPlayerClass() == CharacterClass.SWORDSMAN) {
+			return (this.playerPriority - 1) - o.playerPriority;
+		}
+		
+		return this.playerPriority - o.playerPriority;
+	}
+
+	public void setPlayerPriority(int playerPriority) {
+		this.playerPriority = playerPriority;
+	}
+	
+	public int getPlayerPriority () {
+		return playerPriority;
 	}
 }

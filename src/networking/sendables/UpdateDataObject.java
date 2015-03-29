@@ -3,6 +3,7 @@ package networking.sendables;
 import java.io.Serializable;
 
 import models.characterModels.PlayerBase;
+import models.characterModels.playerEnums.CharacterClass;
 
 /**
  * Update Object That Will Contain The Player Sending, And The Type Of Update
@@ -13,7 +14,7 @@ public class UpdateDataObject implements Serializable {
 	private String clearingName;
 	private boolean hidden;
 	private PlayerBase sentPlayer;
-	private MessageType updateType;	
+	private MessageType updateType;
 	private static final long serialVersionUID = -6607394420041280613L;
 	
 	public UpdateDataObject (PlayerBase sentPlayer, MessageType updateType) {
@@ -23,6 +24,13 @@ public class UpdateDataObject implements Serializable {
 		this.clearingName = sentPlayer.getCurrentClearing().getClearingName();
 	}
 
+	// Varient that doesn't need to initialize player objects
+	public UpdateDataObject (String playerName, MessageType updateType) {
+		this.sentPlayer = new PlayerBase(playerName, CharacterClass.AMAZON);
+		this.updateType = updateType;
+		this.hidden = sentPlayer.isHidden();
+	}
+	
 	public PlayerBase getSentPlayer() {
 		return sentPlayer;
 	}

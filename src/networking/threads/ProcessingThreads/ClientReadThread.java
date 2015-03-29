@@ -6,6 +6,7 @@ import models.BoardModels.Clearing;
 import models.characterModels.PlayerBase;
 import models.otherEntities.CombatDataContainer;
 import networking.sendables.MessageType;
+import networking.sendables.PlayerListUpdate;
 import networking.sendables.SyncDataObject;
 import networking.sendables.UpdateDataObject;
 import networking.threads.BaseThreads.ReaderThreadBase;
@@ -71,6 +72,9 @@ public class ClientReadThread extends ReaderThreadBase {
 				} else if (incoming instanceof SyncDataObject) {
 					SyncDataObject incomingContainer = (SyncDataObject) incoming;
 					handleSyncContainer(incomingContainer);
+				} else if (incoming instanceof PlayerListUpdate) {
+					PlayerListUpdate incomingContainer = (PlayerListUpdate) incoming;
+					handlePlayerListUpdate(incomingContainer);
 				}
 				
 			   processing = false;

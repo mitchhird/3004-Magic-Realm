@@ -14,6 +14,7 @@ import models.otherEntities.SpecificTreasure;
 import models.otherEntities.TreasureModel;
 import models.otherEntities.monsterModels.MonsterBase;
 import networking.sendables.MessageType;
+import networking.sendables.PlayerListUpdate;
 import networking.sendables.SyncDataObject;
 import networking.sendables.UpdateDataObject;
 import networking.threads.ProcessingThreads.ServerReadThread;
@@ -87,6 +88,15 @@ public class ReaderThreadBase extends Thread {
 		System.out.println("Handling Player Update");
 		Clearing moveTo = mainGame.getClearingByName(incoming.getClearingName());
 		mainGame.getCurrentPlayer().moveToClearing(moveTo);
+	}
+	
+	public void handlePlayerListUpdate(PlayerListUpdate incoming) {
+		for (PlayerBase p: incoming.getThePlayers()) {
+			if (mainGame.getPlayerByName(p.getName()) != null) {
+				mainGame.getPlayerByName(p.getName()).setPlayerPriority(p.getPlayerPriority());
+			}
+		}
+		mainGame.sortPlayers();
 	}
 
 	public void handleMessage(MessageType incoming) {
@@ -167,6 +177,8 @@ public class ReaderThreadBase extends Thread {
 			PlayerBase incomingPlayer = mainGame.getPlayerByName(incoming.getSentPlayer().getName());
 			Clearing moveTo = mainGame.getClearingByName(incoming.getClearingName());
 			moveTo.playerMovedToThis(incomingPlayer);
+		} else if (incoming.getUpdateType() == MessageType.REMOVE_PLAYER) {
+			mainGame.removePlayerByName(incoming.getSentPlayer().getName());
 		}
 	}
 }

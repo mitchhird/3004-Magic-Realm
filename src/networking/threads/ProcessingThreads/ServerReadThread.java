@@ -5,6 +5,7 @@ import java.net.Socket;
 import javax.print.attribute.standard.Severity;
 
 import networking.sendables.MessageType;
+import networking.sendables.PlayerListUpdate;
 import networking.sendables.UpdateDataObject;
 import networking.threads.BaseThreads.TransmissionThreadBase;
 import sun.awt.windows.ThemeReader;
@@ -66,6 +67,9 @@ public class ServerReadThread extends TransmissionThreadBase {
 				} else if (incoming instanceof CombatDataContainer) {
 					CombatDataContainer incomingContainer = (CombatDataContainer) incoming;
 					parentThread.handleCombatDataContainer(incomingContainer);
+				} else if (incoming instanceof PlayerListUpdate) {
+					PlayerListUpdate incomingContainer = (PlayerListUpdate) incoming;
+					parentThread.handlePlayerListUpdate(incomingContainer);
 				}
 				
 				// Broadcast The Message To The Others

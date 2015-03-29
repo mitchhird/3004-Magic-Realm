@@ -174,6 +174,15 @@ import models.characterModels.playerEnums.CharacterClass;
 			((DefaultTableModel) getjTable2().getModel()).removeRow(getjTable2().getSelectedRow());
 		}
 
+		public void removePlayer (String playerName) {
+			DefaultTableModel tableModel = (DefaultTableModel) getjTable2().getModel();
+			for (int i = 0; i < tableModel.getRowCount(); i++) {
+				if (tableModel.getValueAt(i, 1).equals(playerName)) {
+					tableModel.removeRow(i);
+				}
+			}
+		}
+		
 		public javax.swing.JTable getjTable2() {
 			return jTable2;
 		}
