@@ -31,7 +31,7 @@ import utils.Pair;
  * testing
  */
 
-public class PlayerBase extends EntityBase implements Serializable {
+public class PlayerBase extends EntityBase implements Serializable, Comparable<PlayerBase> {
 	
 	//fame/not can be negative and are public to others, gold can't be neg
 	protected int currentFame;
@@ -72,7 +72,6 @@ public class PlayerBase extends EntityBase implements Serializable {
 	protected ArrayList<WeaponChit> weaponChit;
 	protected ArrayList<TreasureModel> accquiredTreasures;
 	protected ArrayList<PlayerBase> listAttacks;
-	protected ArrayList<ActionChit> movementChits;
 	protected WeaponChit activeWeapon;
 	protected EntityBase chargeTarget;
 	
@@ -100,6 +99,7 @@ public class PlayerBase extends EntityBase implements Serializable {
 	protected transient ArrayList<ActionChit> active;
 	protected transient ArrayList<ActionChit> inActive;
 	protected transient ArrayList<ActionChit> wounded;
+	protected transient ArrayList<ActionChit> movementChits;
 	
 	// Class Related Data
 	protected int amountOfExtraMovesLeft;
@@ -108,6 +108,10 @@ public class PlayerBase extends EntityBase implements Serializable {
 	protected int amountOfExtraMoves;
 	protected int amountOfExtraHides;
 	protected int amountOfExtraSearchs;
+	
+	// Swordsmen Stuff
+	protected static int currentPlayerPriority = 0;
+	protected int playerPriority;
 	
 	// Things Relating To Combat
 	protected CombatDataContainer combatData;
@@ -171,6 +175,8 @@ public class PlayerBase extends EntityBase implements Serializable {
 		turnLog = new ArrayList<>();
 		accquiredTreasures = new ArrayList<>();
 		movementChits = new ArrayList<ActionChit>();
+		
+		playerPriority = currentPlayerPriority++;
 	}
 
 	// Initializes Player Transient Objects
@@ -359,6 +365,8 @@ public class PlayerBase extends EntityBase implements Serializable {
 		// TODO Auto-generated method stub
 	}
 	
+	
+	
 	/*--------------------------------- Getters And Setters ---------------------------- */
 	public ArrayList<String> getRecordLog () {
 		return turnLog;
@@ -392,7 +400,7 @@ public class PlayerBase extends EntityBase implements Serializable {
 		// Set The Shield If We Have One
 		for (ArmorChit a: armorChits) {
 			if (a.getArmourType() == ArmorType.SHIELD) {
-				shield = new Pair<ArmorChit, Attacks>(a, Attacks.SMASH);
+				setShield(new Pair<ArmorChit, Attacks>(a, Attacks.SMASH));
 			}
 		}
 		
@@ -633,5 +641,22 @@ public class PlayerBase extends EntityBase implements Serializable {
 	
 	public void setShieldReady (boolean ready) {
 		shieldReady = ready;
+	}
+
+	@Override
+	public int compareTo(PlayerBase o) {
+		if (getPlayerClass() == CharacterClass.SWORDSMAN) {
+			return (this.playerPriority - 1) - o.playerPriority;
+		}
+		
+		return this.playerPriority - o.playerPriority;
+	}
+
+	public void setPlayerPriority(int playerPriority) {
+		this.playerPriority = playerPriority;
+	}
+	
+	public int getPlayerPriority () {
+		return playerPriority;
 	}
 }

@@ -1,17 +1,21 @@
 package models.otherEntities.monsterModels;
 
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 public class Ghost extends MonsterBase {
-	public Ghost(){
-		super();
+
+	private static final long serialVersionUID = 8076776123094247202L;
+
+	public Ghost(String clearingOn){
+		super(clearingOn);
 		monsterType = "Giant";
-		try {
-			monsterImage = ImageIO.read(getClass().getResource("/monsters_c/ghost.gif"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		monsterImage = "/monsters_c/ghost.gif";
+	}
+
+	@Override
+	public MonsterBase clone() {
+		Ghost newGhost = new Ghost(this.clearningThisOn);
+		newGhost.monsterType = this.monsterType;
+		newGhost.monsterImage = this.monsterImage;
+		return newGhost;
 	}
 }

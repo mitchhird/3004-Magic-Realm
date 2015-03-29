@@ -62,6 +62,8 @@ public class CombatPVPHandler {
 	// Gets The Next Attacker And Creates A New Combat Container For The Player
 	// Network: Container Can Be Deposited Into The Player, That Way It Can Manipulated By The Client
 	public void setNextAttacker () {
+		currentAttacker.getCombatData().setThePlayer(currentAttacker);
+		currentAttacker.getCombatData().setTheDefender(currentDefender);
 		readyPlayers.add(new Pair<PlayerBase, PlayerBase>(currentAttacker, currentDefender));
 		moveToNextAvailable();
 	}
@@ -92,8 +94,18 @@ public class CombatPVPHandler {
 			if (playerHitsOpponent(attackerData.getAttack(), defenderData.getDefense())) {
 				hitSomeoneThisRound = true;
 				
-				// Gather The Armor That Might Have Been Hit On The Defender
-				ArmorChit armorHit = checkIfArmorProtects(defenderData.getThePlayer(), attackerData.getAttack());
+				ArmorChit armorHit = null;
+				Pair<ArmorChit, Attacks> defenderShield = defenderData.getThePlayer().getShield();
+				
+				// Check To See If We Have A Shield
+				if (defenderShield != null && defender.isShieldReady()) {
+					// If We Are Successfully Blocking With Our Shield
+					if (defenderShield.getSecond() == attackerData.getAttack()) {
+						armorHit = defenderShield.getFirst();
+					}
+				} else {
+					armorHit = checkIfArmorProtects(defenderData.getThePlayer(), attackerData.getAttack());
+				}
 			
 				// If The Player's Armor Doesn't Prevent Damage Then They Get Hit
 				if (armorHit == null){
@@ -123,6 +135,11 @@ public class CombatPVPHandler {
 			}
 		}
 		
+		// Set Everyone's Shield Back To Not Blocking
+		for (PlayerBase p: combattingPlayers) {
+			p.setShieldReady(false);
+		}
+		
 		// Now Purge The List Of Ready Players And Get Ready For The Next Round
 		readyPlayers.clear();
 		
@@ -136,13 +153,16 @@ public class CombatPVPHandler {
 	private boolean checkForPlayerDeath (CombatDataContainer attackingData, PlayerBase defendingPlayer){
 		Weights weaponWeight = calculateWeaponHarm (attackingData, defendingPlayer);
 		
+		attackingData.getThePlayer().killPlayer(defendingPlayer);
+		
 		// If Harm Is Higher Then Or Equal To Vulernability Then The Player Is Dead
+		// TODO: Get This Working Properly
 		if (weaponWeight.getWeightValue() >= defendingPlayer.getVulnerability().getWeightValue()) {
-			attackingData.getThePlayer().killPlayer(defendingPlayer);
 			return true;
 		} else {
-			return false;
+			return true;
 		}
+		
 	}
 	
 	// Hit This Armor So Register The Hit
@@ -158,6 +178,11 @@ public class CombatPVPHandler {
 		// If The Armor Is Destoryed Then Remove It
 		if (a.isDestoryed()) {
 			p.getArmorChits().remove(a);
+			
+			// If It Was A Shield Then Remove The Shield
+			if (a.getArmourType() == ArmorType.SHIELD) {
+			   p.setShield(null);
+			}
 		}
 	}
 

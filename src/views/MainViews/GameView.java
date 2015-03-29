@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComponent;
@@ -29,8 +30,10 @@ import models.BoardModels.Clearing;
 import models.BoardModels.Dwelling;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
+import models.otherEntities.monsterModels.MonsterBase;
 import networking.sendables.MessageType;
 import networking.sendables.SyncDataObject;
+import networking.sendables.UpdateDataObject;
 import networking.threads.ProcessingThreads.ClientReadThread;
 import networking.threads.ProcessingThreads.ClientWriterThread;
 import networking.threads.ProcessingThreads.ServerMainThread;
@@ -291,7 +294,7 @@ public class GameView extends FrameBase {
 		
 		// If We Are Networked, Let Everyone Else Know Game Is Starting
 		if (networkedGame) {
-			sendMessage(new SyncDataObject(getDwellings(), getPlayersInGame(), theBoard.getClearings()));
+			sendMessage(new SyncDataObject(getDwellings(), getPlayersInGame(), theBoard.getClearings(), theBoard.getMonsters()));
 		}
 		JOptionPane.showMessageDialog(this, "The Game Has Started!");
 	}
@@ -381,14 +384,16 @@ public class GameView extends FrameBase {
 		}
 	
 		String playerToRemoveName = (String) thePlayerList.getjTable2().getModel().getValueAt(thePlayerList.getjTable2().getSelectedRow(),1);
-
-		thePlayerList.removePlayer();
 		removePlayerByName(playerToRemoveName);
 	}
 	
+	// Remove The Player By Name And Tell The Client To As Well
 	public void removePlayerByName(String playerToRemoveName) {
+		thePlayerList.removePlayer(playerToRemoveName);
 		theClient.removePlayer(playerToRemoveName);
 		thePlayerList.update();
+		
+		sendMessage(new UpdateDataObject(playerToRemoveName, MessageType.REMOVE_PLAYER));
 	}
 
 	//Displays and initializes the board in the game view
@@ -587,5 +592,13 @@ public class GameView extends FrameBase {
 			}
 		}
 		return null;
+	}
+	
+	public ArrayList<MonsterBase> getMonsters() {
+		return theBoard.getMonsters();
+	}
+	
+	public void sortPlayers() {
+		Collections.sort(theClient.getPlayers());
 	}
 }

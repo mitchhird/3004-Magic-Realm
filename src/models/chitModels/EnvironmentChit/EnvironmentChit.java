@@ -1,10 +1,11 @@
 package models.chitModels.EnvironmentChit;
 
+import java.io.Serializable;
+
 import models.BoardModels.Tile;
 
-public class EnvironmentChit {
+public class EnvironmentChit implements Serializable {
 
-	
 	/*
 	 * have to get either random or not random and then from there
 	 * send the list to the entity holder for setup and
@@ -19,6 +20,7 @@ public class EnvironmentChit {
 	protected Tile tilePlacement;
 	protected int clearingNum;
 	protected String description;
+	private static final long serialVersionUID = -5815201812959893662L;
 	
 	public EnvironmentChit(int num, String description){
 		this.description = description;

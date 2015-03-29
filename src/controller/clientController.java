@@ -2,6 +2,17 @@ package controller;
 
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
+
+import networking.sendables.PlayerListUpdate;
+
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
+
 import utils.GameUtils;
 import views.MainViews.GameView;
 import models.BoardModels.Clearing;
@@ -76,9 +87,15 @@ public class clientController {
 	// Moves To Next Player's Turn, Using Modulo Math
 	public void moveToNextPlayer () {
 		currentPlayerIndex++;
+		
+		// If We Are Completing A Cycle
 		if(currentPlayerIndex % thePlayers.size() == 0){
 			for(int i = 0; i < thePlayers.size(); i++){
 				thePlayers.get(i).newDay();
+				
+				if (thePlayers.get(i).getPlayerClass() == CharacterClass.SWORDSMAN) {
+					spawnSwordsmanSelectionDialog(thePlayers.get(i));
+				}
 			}
 		}
 		currentPlayer = thePlayers.get(currentPlayerIndex % thePlayers.size());
@@ -91,6 +108,28 @@ public class clientController {
 		
 		// TODO: Add The Proper Object For Board Interaction
 		parent.sendMessage("Switching To Next Player");
+	}
+	
+	// Spawns The Swordsman Selection
+	private void spawnSwordsmanSelectionDialog (PlayerBase thePlayer) {
+		if (!thePlayer.isNetworkedPlayer()) {
+			JPanel panel = new JPanel();
+			JLabel label = new JLabel("Please Select When You Would Like Your Turn:");
+			SpinnerNumberModel playerTurnTicker = new SpinnerNumberModel(1, 1, thePlayers.size(), 1);
+			JSpinner spinnerDisplay = new JSpinner(playerTurnTicker);
+		
+			panel.add(label);
+			panel.add(spinnerDisplay);
+		
+			String[] options = new String[]{"OK", "Cancel"};
+			JOptionPane.showOptionDialog(null, panel, "Swordsmen Turn Selection (" + thePlayer.getName() + ")", JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
+			thePlayer.setPlayerPriority(((int) spinnerDisplay.getValue()) - 1);
+		
+			// Sort The Array For Turn, Now That The Swordsmen Is done
+			java.util.Collections.sort(thePlayers);
+		
+			parent.sendMessage(new PlayerListUpdate(thePlayers));
+		}
 	}
 	
 	private String getWinner() {		
@@ -115,6 +154,11 @@ public class clientController {
 				p.setCurrentClearing(playerStart);
 				p.setHomeClearing(playerStart);
 				playerStart.playerMovedToThis(p);
+			}
+			
+			// If We Have A Swordsmen Let Him Pick His Turn
+			if (p.getPlayerClass() == CharacterClass.SWORDSMAN) {
+				spawnSwordsmanSelectionDialog(p);
 			}
 		}
 	}

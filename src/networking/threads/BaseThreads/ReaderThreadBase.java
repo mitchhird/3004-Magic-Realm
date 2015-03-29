@@ -2,6 +2,7 @@ package networking.threads.BaseThreads;
 
 import java.util.ArrayList;
 
+import sun.security.krb5.internal.crypto.CksumType;
 import views.MainViews.GameView;
 import models.BoardModels.Clearing;
 import models.BoardModels.Dwelling;
@@ -11,7 +12,9 @@ import models.characterModels.playerEnums.Defences;
 import models.otherEntities.CombatDataContainer;
 import models.otherEntities.SpecificTreasure;
 import models.otherEntities.TreasureModel;
+import models.otherEntities.monsterModels.MonsterBase;
 import networking.sendables.MessageType;
+import networking.sendables.PlayerListUpdate;
 import networking.sendables.SyncDataObject;
 import networking.sendables.UpdateDataObject;
 import networking.threads.ProcessingThreads.ServerReadThread;
@@ -60,6 +63,12 @@ public class ReaderThreadBase extends Thread {
 				if (p.getName().equals(incoming.getThePlayer().getName())) {
 					p.getCombatData().setAttack(incoming.getAttack());
 					p.getCombatData().setDefense(incoming.getDefense());
+					
+					p.setShieldReady(incoming.isShieldReady());
+					
+					if (p.getShield() != null && incoming.getThePlayer().getShield() != null) {
+						p.getShield().setSecond(incoming.getThePlayer().getShield().getSecond());
+					}
 					attacker = p;
 					break;
 				}
@@ -79,6 +88,15 @@ public class ReaderThreadBase extends Thread {
 		System.out.println("Handling Player Update");
 		Clearing moveTo = mainGame.getClearingByName(incoming.getClearingName());
 		mainGame.getCurrentPlayer().moveToClearing(moveTo);
+	}
+	
+	public void handlePlayerListUpdate(PlayerListUpdate incoming) {
+		for (PlayerBase p: incoming.getThePlayers()) {
+			if (mainGame.getPlayerByName(p.getName()) != null) {
+				mainGame.getPlayerByName(p.getName()).setPlayerPriority(p.getPlayerPriority());
+			}
+		}
+		mainGame.sortPlayers();
 	}
 
 	public void handleMessage(MessageType incoming) {
@@ -109,10 +127,27 @@ public class ReaderThreadBase extends Thread {
 			if (clearingToAddTreasureTo != null){
 				clearingToAddTreasureTo.getTreasuresInClearing().clear();
 				
+				// TODO: Sound Chits
+				if (c.getSoundChit() != null) {
+					clearingToAddTreasureTo.setSoundChit(c.getSoundChit().clone());
+				}
+				
 				// Add In All Of The Treasures 
 				for (TreasureModel t: c.getTreasuresInClearing()) {
 					clearingToAddTreasureTo.addTreasures(t.clone());
 				}
+			}
+		}
+		
+		// Add The Monsters
+		for (MonsterBase m: incoming.getMonsters()) {
+			Clearing addToClearing = mainGame.getClearingByName(m.getClearningThisOn());
+			
+			// If We Found A Valid Clearing Then Add It In
+			if (addToClearing != null) {
+				MonsterBase newMonster = m.clone();
+				addToClearing.addImageToList(m.getImage());
+				mainGame.getMonsters().add(newMonster);
 			}
 		}
 		
@@ -142,6 +177,8 @@ public class ReaderThreadBase extends Thread {
 			PlayerBase incomingPlayer = mainGame.getPlayerByName(incoming.getSentPlayer().getName());
 			Clearing moveTo = mainGame.getClearingByName(incoming.getClearingName());
 			moveTo.playerMovedToThis(incomingPlayer);
+		} else if (incoming.getUpdateType() == MessageType.REMOVE_PLAYER) {
+			mainGame.removePlayerByName(incoming.getSentPlayer().getName());
 		}
 	}
 }

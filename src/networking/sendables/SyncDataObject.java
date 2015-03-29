@@ -8,6 +8,7 @@ import models.BoardModels.Clearing;
 import models.BoardModels.Dwelling;
 import models.characterModels.PlayerBase;
 import models.otherEntities.monsterModels.Ghost;
+import models.otherEntities.monsterModels.MonsterBase;
 
 /**
  * Data Container For Synching The Client With The Server
@@ -17,13 +18,16 @@ import models.otherEntities.monsterModels.Ghost;
 public class SyncDataObject implements Serializable {
 	private ArrayList <Dwelling> dwellings;
 	private ArrayList <Clearing> clearings;
+	private ArrayList <MonsterBase> monsters;
 	private HashMap <String, String> players;
 	private static final long serialVersionUID = -3211078016039324328L;
 	
-	public SyncDataObject (ArrayList<Dwelling> dwellings, ArrayList<PlayerBase> players, ArrayList<Clearing> clearings) {
+	public SyncDataObject (ArrayList<Dwelling> dwellings, ArrayList<PlayerBase> players, 
+						   ArrayList<Clearing> clearings, ArrayList<MonsterBase> monsters) {
 		this.dwellings = dwellings;
 		this.players = new HashMap<>();
 		this.clearings = clearings;
+		this.monsters = monsters;
 		
 		// Only Add The Local Players
 		for (PlayerBase p: players) {
@@ -48,6 +52,8 @@ public class SyncDataObject implements Serializable {
 	public ArrayList<Clearing> getClearings() {
 		return clearings;
 	}
-	
-	
+
+	public ArrayList<MonsterBase> getMonsters() {
+		return monsters;
+	}
 }

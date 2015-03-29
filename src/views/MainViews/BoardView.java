@@ -265,7 +265,7 @@ public class BoardView extends JPanel {
 			e1.printStackTrace();
 		}
 		currentClearing = evalley5;
-		aGhost = new Ghost();
+		aGhost = new Ghost(evalley5.getClearingName());
 		currentClearing.addImageToList(aGhost.getImage());
 		currentClearing.addEntityToClearing(aGhost);
 		aGhost.setCurrentClearing(currentClearing);
@@ -278,7 +278,7 @@ public class BoardView extends JPanel {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		aGiant = new Giant();
+		aGiant = new Giant(dwoods5.getClearingName());
 		dwoods5.addImageToList(aGiant.getImage());
 		dwoods5.addEntityToClearing(aGiant);
 		aGiant.setCurrentClearing(dwoods5);
@@ -287,7 +287,7 @@ public class BoardView extends JPanel {
 		
 		cliff.addSoundChit(ChitFactory.flutter2);
 		cliff6.setSoundChit(ChitFactory.flutter2);
-		aDragon = new FlyingDragon();
+		aDragon = new FlyingDragon(cliff6.getClearingName());
 		cliff6.addImageToList(aDragon.getImage());
 		try {
 			cliff6.addImageToList(ImageIO.read(getClass().getResource("/chits/flutter.jpg")));
@@ -343,7 +343,7 @@ public class BoardView extends JPanel {
 		currentClearing = cheatClearings.get(4);
 		currentClearing.setSoundChit(ChitFactory.flutter2);
 		currentClearing.getTileThisOn().addSoundChit(ChitFactory.flutter2);
-		aDragon = new FlyingDragon();
+		aDragon = new FlyingDragon(currentClearing.getClearingName());
 		currentClearing.addImageToList(aDragon.getImage());
 		try {
 			currentClearing.addImageToList(ImageIO.read(getClass().getResource("/chits/flutter.jpg")));
@@ -362,7 +362,7 @@ public class BoardView extends JPanel {
 			e1.printStackTrace();
 		}
 		currentClearing = cheatTiles.get(0).getHighestClearing();
-		aGhost = new Ghost();
+		aGhost = new Ghost(currentClearing.getClearingName());
 		currentClearing.addImageToList(aGhost.getImage());
 		currentClearing.addEntityToClearing(aGhost);
 		aGhost.setCurrentClearing(currentClearing);
@@ -376,7 +376,7 @@ public class BoardView extends JPanel {
 			e1.printStackTrace();
 		}
 		currentClearing = cheatTiles.get(1).getHighestClearing();
-		aGiant = new Giant();
+		aGiant = new Giant(currentClearing.getClearingName());
 		currentClearing.addImageToList(aGiant.getImage());
 		currentClearing.addEntityToClearing(aGiant);
 		aGiant.setCurrentClearing(currentClearing);
