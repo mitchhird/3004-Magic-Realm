@@ -35,14 +35,10 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 	
 	//fame/not can be negative and are public to others, gold can't be neg
 	protected int currentFame;
-	protected int currentNotirity;
+	protected int currentNotoriety;
 	protected int currentGold;
 	protected int currentDay;
-	
-	protected int reqFame;
-	protected int reqNotirity;
-	protected int reqGold;
-	protected int reqGreatTreasure;
+	protected int currentTreasures;
 	
 	//weapons/armor/horses/treasure cards
 	//reading runes at treasure sites
@@ -155,16 +151,11 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 	// Initialize The Player Stats
 	public void initPlayerStats () {
 		currentFame = 0;
-		currentNotirity = 0;
+		currentNotoriety = 0;
 		currentGold = 10;
 		killCount = 0;
 		currentDay = 0;
         availableActions = 5;
-        
-        reqFame = 0;
-    	reqNotirity = 0;
-    	reqGold = 0;
-    	reqGreatTreasure = 0;
     	
     	amountOfExtraMovesLeft = amountOfExtraMoves = 0;
     	amountOfExtraHidesLeft = amountOfExtraHides = 0;
@@ -281,7 +272,7 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 		accquiredTreasures.add(t);
 		currentGold += t.getTreasureGoldValue();
 		currentFame += t.getFameAmount();
-		currentNotirity += t.getNotorietyAmount();
+		currentNotoriety += t.getNotorietyAmount();
 	}
 	
 	public ArrayList<TreasureModel> searchCurrentClearing () {
@@ -315,7 +306,7 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 	public void killPlayer (PlayerBase oppoent) {
 		this.currentFame += oppoent.currentFame;
 		this.currentGold += oppoent.currentGold;
-		this.currentNotirity += oppoent.currentNotirity;
+		this.currentNotoriety += oppoent.currentNotoriety;
 		killCount++;
 		oppoent.moveToHome();
 	}
@@ -471,7 +462,7 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 	}
 
 	public int getCurrentNotirity() {
-		return currentNotirity;
+		return currentNotoriety;
 	}
 
 	public int getCurrentGold() {
@@ -668,5 +659,12 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 	
 	public int getPlayerPriority () {
 		return playerPriority;
+	}
+	
+	public boolean hasWon(){
+		if(currentGold >= vpoints.get(0) && currentFame >= vpoints.get(1) && currentNotoriety >= vpoints.get(2) && currentTreasures >= vpoints.get(3)){
+			return true;
+		}
+		return false;
 	}
 }

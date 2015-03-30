@@ -101,8 +101,8 @@ public class clientController {
 		currentPlayer = thePlayers.get(currentPlayerIndex % thePlayers.size());
 		currentPlayer.startPlayerTurn();
 
-		if(currentPlayer.getDay()==28){
-			parent.displayWinner(getWinner());
+		if(currentPlayer.hasWon()){
+			parent.displayWinner(currentPlayer.getName());
 			parent.dispose();
 		}
 		
