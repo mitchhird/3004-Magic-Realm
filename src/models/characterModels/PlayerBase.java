@@ -591,7 +591,6 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 	public void newDay() {
 		currentDay++;
 	}
-
 	
 	@Override
 	public void setHidden(boolean hidden) {
@@ -662,7 +661,7 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 	}
 	
 	public boolean hasWon(){
-		if(currentGold%30 >= vpoints.get(0) && currentFame%10 >= vpoints.get(1) && currentNotoriety%20 >= vpoints.get(2) && currentTreasures >= vpoints.get(3)){
+		if(currentGold >= vpoints.get(0)*30 && currentFame >= vpoints.get(1)*10 && currentNotoriety >= vpoints.get(2)*20 && currentTreasures >= vpoints.get(3)){
 			return true;
 		}
 		return false;
