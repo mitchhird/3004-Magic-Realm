@@ -259,6 +259,9 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 	
 	// Treasure Functions
 	public void addTreasure (TreasureModel t) {
+		if(t.isGreat()){
+			currentTreasures++;
+		}
 		addSpecficTreasureBase(t);
 	}
 	

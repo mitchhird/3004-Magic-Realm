@@ -67,6 +67,10 @@ public class TreasureModel implements Serializable {
 	public int getNotorietyAmount() {
 		return notorietyAmount;
 	}
+	
+	public boolean isGreat(){
+		return greatTreasure;
+	}
 
 	@Override
 	public String toString() {
