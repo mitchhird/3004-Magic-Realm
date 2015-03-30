@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JDialog;
 
@@ -51,6 +52,12 @@ public class ChitPlacementView extends JDialog {
         placeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
             	placeItem();
+            }
+        });	
+        
+        randomizeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+            	randomPlaceItem();
             }
         });	
         
@@ -114,7 +121,17 @@ public class ChitPlacementView extends JDialog {
         pack();
     }                           
     
-    private void placeItem() {
+    private void randomPlaceItem() {
+    	Random r = new Random();
+    	ourParent.addCheatTile(theTiles.get(r.nextInt(20)));
+		itemList.removeItemAt(itemList.getSelectedIndex());
+		if(itemList.getItemCount()==0){
+			ourParent.setCheatLocations();
+			dispose();
+		}
+	}
+
+	private void placeItem() {
     	ourParent.addCheatTile(theTiles.get(locationList.getSelectedIndex()));
 		itemList.removeItemAt(itemList.getSelectedIndex());
 		if(itemList.getItemCount()==0){
