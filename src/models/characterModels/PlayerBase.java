@@ -662,7 +662,7 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 	}
 	
 	public boolean hasWon(){
-		if(currentGold >= vpoints.get(0) && currentFame >= vpoints.get(1) && currentNotoriety >= vpoints.get(2) && currentTreasures >= vpoints.get(3)){
+		if(currentGold%30 >= vpoints.get(0) && currentFame%10 >= vpoints.get(1) && currentNotoriety%20 >= vpoints.get(2) && currentTreasures >= vpoints.get(3)){
 			return true;
 		}
 		return false;
