@@ -1,6 +1,7 @@
 package networking.sendables;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
@@ -25,8 +26,8 @@ public class UpdateDataObject implements Serializable {
 	}
 
 	// Varient that doesn't need to initialize player objects
-	public UpdateDataObject (String playerName, MessageType updateType) {
-		this.sentPlayer = new PlayerBase(playerName, CharacterClass.AMAZON);
+	public UpdateDataObject (String playerName, MessageType updateType, ArrayList<Integer>points) {
+		this.sentPlayer = new PlayerBase(playerName, CharacterClass.AMAZON,points);
 		this.updateType = updateType;
 		this.hidden = sentPlayer.isHidden();
 	}

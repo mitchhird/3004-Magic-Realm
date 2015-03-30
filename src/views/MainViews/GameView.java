@@ -394,7 +394,7 @@ public class GameView extends FrameBase {
 		theClient.removePlayer(playerToRemoveName);
 		thePlayerList.update();
 		
-		sendMessage(new UpdateDataObject(playerToRemoveName, MessageType.REMOVE_PLAYER));
+		sendMessage(new UpdateDataObject(playerToRemoveName, MessageType.REMOVE_PLAYER, new ArrayList<Integer>()));
 	}
 
 	//Displays and initializes the board in the game view
@@ -420,8 +420,8 @@ public class GameView extends FrameBase {
 	}
 	
 	//Adds the new palyer to the controller and the UI list
-	public void addPlayer(String playerName, CharacterClass playerClass){
-		theClient.addPlayer(playerClass, playerName);
+	public void addPlayer(String playerName, CharacterClass playerClass, ArrayList<Integer> points){
+		theClient.addPlayer(playerClass, playerName,points);
 		thePlayerList.addPlayer(theClient.getLastPlayer());
 		setPlayerInterface(thePlayerList.getjTable2().getRowCount()-1);
 	}

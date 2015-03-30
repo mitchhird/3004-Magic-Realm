@@ -37,25 +37,25 @@ public class clientController {
 	}
 	
 	// Adds The Player to The Game
-	public void addPlayer(CharacterClass playerClass, String playerName){
-		addPlayer(playerClass, playerName, "localhost");
+	public void addPlayer(CharacterClass playerClass, String playerName, ArrayList<Integer> points){
+		addPlayer(playerClass, playerName, "localhost",points);
 	}
 	
 	// Adds The Player To The Game 
-	public void addPlayer (CharacterClass playerClass, String playerName, String ip) {
+	public void addPlayer (CharacterClass playerClass, String playerName, String ip,ArrayList<Integer> points){
 		// Add The Player Into The List
 		PlayerBase aPlayer;
 		
 		// Figure Out What Class To Make
 		switch (playerClass) {
 		case AMAZON:
-			aPlayer = new Amazon(playerName, ip);
+			aPlayer = new Amazon(playerName, ip,points);
 			break;
 		case ELF:
-			aPlayer = new Elf(playerName, ip);
+			aPlayer = new Elf(playerName, ip,points);
 			break;
 		default:
-			aPlayer = new PlayerBase(playerName, playerClass, ip);
+			aPlayer = new PlayerBase(playerName, playerClass, ip,points);
 			break;	
 		}
 		

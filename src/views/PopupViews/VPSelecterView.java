@@ -2,6 +2,7 @@ package views.PopupViews;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JDialog;
 
@@ -20,6 +21,16 @@ public class VPSelecterView extends JDialog {
 	GameView parent;
 	String name;
 	CharacterClass theClass;
+                   
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox jComboBox1;
+	private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JComboBox jComboBox3;
+    private javax.swing.JComboBox jComboBox4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
 	
 	public VPSelecterView(GameView gameView, String string, CharacterClass characterClass) {
 		parent = gameView;
@@ -125,9 +136,16 @@ public class VPSelecterView extends JDialog {
     	setVisible(true);
     }                     
 
-    protected void setVPs() {
-    	parent.addPlayer(name,theClass);
-    	dispose();
+    private void setVPs() {
+    	if(Integer.parseInt((String) jComboBox1.getSelectedItem())+Integer.parseInt((String) jComboBox2.getSelectedItem())+Integer.parseInt((String) jComboBox3.getSelectedItem())+Integer.parseInt((String) jComboBox4.getSelectedItem())==5){
+    		ArrayList<Integer> points = new ArrayList<Integer>();
+    		points.add(Integer.parseInt((String) jComboBox1.getSelectedItem()));
+	    	points.add(Integer.parseInt((String) jComboBox2.getSelectedItem()));
+	    	points.add(Integer.parseInt((String) jComboBox3.getSelectedItem()));
+	    	points.add(Integer.parseInt((String) jComboBox4.getSelectedItem()));
+    		parent.addPlayer(name,theClass,points);
+	    	dispose();
+    	}
 	}                                      
 
     /**
@@ -152,17 +170,5 @@ public class VPSelecterView extends JDialog {
             java.util.logging.Logger.getLogger(VPSelecterView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
-    }
-
-    // Variables declaration - do not modify                     
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
-	private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JComboBox jComboBox4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    // End of variables declaration                   
+    }                 
 }

@@ -115,6 +115,7 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 	
 	// Things Relating To Combat
 	protected CombatDataContainer combatData;
+	protected ArrayList<Integer> vpoints;
 
 	// Serialization Flag
 	private static final long serialVersionUID = 1087220843681586963L;
@@ -126,22 +127,31 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 	}
 	
 	// Constructor When Multiple Instances For The Player Are Known
-	public PlayerBase (String playerName, CharacterClass c) {
+	public PlayerBase (String playerName, CharacterClass c, ArrayList<Integer> points) {
 		setName(playerName);
 		initPlayerStats();
 		setClass(c);
 		initializePlayerImage();
+		vpoints = points;
 	}
 	
 	// Constructor When Making A Network Based Model
-	public PlayerBase (String playerName, CharacterClass c, String playerIP) {
+	public PlayerBase (String playerName, CharacterClass c, String playerIP, ArrayList<Integer> points) {
 		setName(playerName);
 		initPlayerStats();
 		setClass(c);
 		initializePlayerImage();
 		this.playerIP = playerIP;
+		vpoints = points;
 	}
 	
+	public PlayerBase(String string, CharacterClass c) {
+		setName(playerName);
+		initPlayerStats();
+		setClass(c);
+		initializePlayerImage();
+	}
+
 	// Initialize The Player Stats
 	public void initPlayerStats () {
 		currentFame = 0;

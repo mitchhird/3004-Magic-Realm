@@ -1,17 +1,19 @@
 package models.characterModels;
 
+import java.util.ArrayList;
+
 import models.characterModels.playerEnums.CharacterClass;
 
 public class Elf extends PlayerBase {
 	
 	private static final long serialVersionUID = -8064874737098635104L;
 
-	public Elf(String name){
-		super(name, CharacterClass.ELF);
+	public Elf(String name, ArrayList<Integer> points){
+		super(name, CharacterClass.ELF,points);
 	}
 	
-	public Elf (String name, String ip) {
-		super(name, CharacterClass.ELF, ip);
+	public Elf (String name, String ip, ArrayList<Integer> points) {
+		super(name, CharacterClass.ELF, ip,points);
 		amountOfExtraHidesLeft = amountOfExtraHides = 1;
 	}
 	
