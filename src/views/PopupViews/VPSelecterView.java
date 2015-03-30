@@ -52,21 +52,21 @@ public class VPSelecterView extends JDialog {
         jComboBox4 = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0","1", "2", "3", "4", "5" }));
 
         jLabel1.setText("Gold:");
 
         jLabel2.setText("Fame:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0","1", "2", "3", "4", "5" }));
         
         jLabel3.setText("Notoriety:");
 
         jLabel4.setText("Treasures:");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0","1", "2", "3", "4", "5" }));
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5" }));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0","1", "2", "3", "4", "5" }));
         
         jButton1.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e){
