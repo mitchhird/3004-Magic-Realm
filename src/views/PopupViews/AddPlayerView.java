@@ -82,13 +82,16 @@ public class AddPlayerView extends FrameBase {
         
         startButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	new VPSelecterView();
-            	parent.addPlayer(nameField.getText(), classSelecter.getItemAt(classSelecter.getSelectedIndex()));
-                closeWindow();
+            	start();
             }
         });
 	}
 	
+	private void start() {
+    	parent.setVPs(nameField.getText(), classSelecter.getItemAt(classSelecter.getSelectedIndex()));
+        closeWindow();
+	}
+
 	// Closes The Window When Called
 	public void closeWindow () {
 		dispose();

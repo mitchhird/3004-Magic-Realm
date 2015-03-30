@@ -45,6 +45,7 @@ import views.PopupViews.ChitPlacementView;
 import views.PopupViews.CombatView;
 import views.PopupViews.HostView;
 import views.PopupViews.JoinView;
+import views.PopupViews.VPSelecterView;
 import controller.clientController;
 
 public class GameView extends FrameBase {
@@ -412,6 +413,10 @@ public class GameView extends FrameBase {
 	//opens the addplayer menu that letss the user select their name and class
 	private void addPlayerMenu(){
 		new AddPlayerView(this);
+	}
+	
+	public void setVPs(String string, CharacterClass characterClass){
+		new VPSelecterView(this,string, characterClass);
 	}
 	
 	//Adds the new palyer to the controller and the UI list
