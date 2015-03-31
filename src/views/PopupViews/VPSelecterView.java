@@ -33,6 +33,7 @@ public class VPSelecterView extends JDialog {
     private javax.swing.JLabel jLabel4;
 	
 	public VPSelecterView(GameView gameView, String string, CharacterClass characterClass) {
+		super(gameView,true);
 		parent = gameView;
 		name = string;
 		theClass = characterClass;
