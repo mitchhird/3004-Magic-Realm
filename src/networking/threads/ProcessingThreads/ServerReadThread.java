@@ -6,6 +6,7 @@ import javax.print.attribute.standard.Severity;
 
 import networking.sendables.MessageType;
 import networking.sendables.PlayerListUpdate;
+import networking.sendables.TreasureUpdateModel;
 import networking.sendables.UpdateDataObject;
 import networking.threads.BaseThreads.TransmissionThreadBase;
 import sun.awt.windows.ThemeReader;
@@ -71,6 +72,9 @@ public class ServerReadThread extends TransmissionThreadBase {
 					parentThread.setProcessing(false);
 					PlayerListUpdate incomingContainer = (PlayerListUpdate) incoming;
 					parentThread.handlePlayerListUpdate(incomingContainer);
+				} else if (incoming instanceof TreasureUpdateModel) {
+					TreasureUpdateModel incomingContainter = (TreasureUpdateModel) incoming;
+					parentThread.handleTreasureUpdate(incomingContainter);
 				}
 				
 				// Broadcast The Message To The Others

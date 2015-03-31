@@ -15,6 +15,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
+import views.MainViews.GameView;
 import models.characterModels.PlayerBase;
 import models.otherEntities.TreasureModel;
 
@@ -33,13 +34,16 @@ public class TreasureViewDialog extends JDialog{
 	protected GridBagLayout layout = new GridBagLayout();
 	protected GridBagConstraints layoutConstraints = new GridBagConstraints(); 
 	
+	protected GameView parent;
+	
 	private static final long serialVersionUID = -7494254554569510620L;
 		
 	// Dialog That The Player Will See When Looting
-	public TreasureViewDialog (JFrame owner, String title, boolean modal, ArrayList<TreasureModel> treasures, PlayerBase player) {
+	public TreasureViewDialog (GameView owner, String title, boolean modal, ArrayList<TreasureModel> treasures, PlayerBase player) {
 		super(owner, title, modal);
 		this.treasures = treasures;
 		this.thePlayer = player;
+		this.parent = owner;
 		initWindow();
 		addListeners();
 	}
@@ -93,7 +97,7 @@ public class TreasureViewDialog extends JDialog{
 	// Handles The Looting
 	private void handleLootButton () {
 		if (thePlayer.getAvailableActions() > 0) {
-			thePlayer.getCurrentClearing().playerLootClearing(thePlayer);		
+			thePlayer.getCurrentClearing().playerLootClearing(thePlayer, parent);		
 			refreshTreasureList();
 		} else {
     		JOptionPane.showMessageDialog(this, "You Have No More Actions For This Turn");
