@@ -482,6 +482,15 @@ public class GameView extends FrameBase {
 		}
 	}
 	
+	// This Will Force Any Message Out, Be Extremely Cautious
+	public void forceMessageSend (Object obj) {
+		if (networkedGame && serverThread != null) {
+			serverThread.boardcastToAll(obj);
+		} else if (networkedGame && clientThread != null) {
+			clientThread.writeMsg(obj);
+		}
+	}
+	
 	/*------------------------------- Getters And Setters ---------------------------*/
 	public BoardView getBoardView () {
 		return theBoard;

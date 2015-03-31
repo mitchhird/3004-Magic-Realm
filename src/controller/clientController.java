@@ -136,6 +136,10 @@ public class clientController {
 			String[] options = new String[]{"OK", "Cancel"};
 			JOptionPane.showOptionDialog(null, panel, "Swordsmen Turn Selection (" + thePlayer.getName() + ")", JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
 			thePlayer.setPlayerPriority(((int) spinnerDisplay.getValue()) - 1);
+			
+			
+			// Attempt Fix For The Deadlock Issue
+			parent.forceMessageSend(new PlayerListUpdate(thePlayer));
 		}
 	}
 	
@@ -239,9 +243,6 @@ public class clientController {
 			} catch (Exception e) {
 				thePlayers.add(0, p);
 			}
-			
-			if (sendMessage)
-				parent.sendMessage(new PlayerListUpdate(p));
 		}
 	} 
 	
