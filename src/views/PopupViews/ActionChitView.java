@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 
+import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
 import models.chitModels.ActionChit;
 import views.MainViews.GameView;
@@ -22,7 +23,7 @@ public class ActionChitView extends JDialog {
 	
 	GameView parent;
 	String name;
-	CharacterClass theClass;
+	PlayerBase theClass;
                    
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
@@ -83,10 +84,10 @@ public class ActionChitView extends JDialog {
 	}
      */
 	
-	public ActionChitView(GameView gameView, String string, CharacterClass characterClass, int amount) {
+	public ActionChitView(GameView gameView, String string, PlayerBase player, int amount) {
 		parent = gameView;
 		name = string;
-		theClass = characterClass;
+		theClass = player;
 		starAmountLabel = new javax.swing.JLabel();
 		starAmountLabel.setText("Amount needed " + amount);
         initComponents();
@@ -263,7 +264,7 @@ public class ActionChitView extends JDialog {
 	    	points.add(Integer.parseInt((String) jComboBox2.getSelectedItem()));
 	    	points.add(Integer.parseInt((String) jComboBox3.getSelectedItem()));
 	    	points.add(Integer.parseInt((String) jComboBox4.getSelectedItem()));
-    		parent.addPlayer(name,theClass,points);
+//    		parent.addPlayer(name,theClass,points);
 	    	dispose();
     	}
 	}                                      
