@@ -18,6 +18,7 @@ import utils.GameUtils;
 import views.MainViews.GameView;
 import models.BoardModels.Clearing;
 import models.characterModels.Amazon;
+import models.characterModels.Dwarf;
 import models.characterModels.Elf;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
@@ -54,6 +55,9 @@ public class clientController {
 			break;
 		case ELF:
 			aPlayer = new Elf(playerName, ip,points);
+			break;
+		case DWARF:
+			aPlayer = new Dwarf(playerName, ip, points);
 			break;
 		default:
 			aPlayer = new PlayerBase(playerName, playerClass, ip,points);
