@@ -96,6 +96,7 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 	protected transient ArrayList<ActionChit> inActive;
 	protected transient ArrayList<ActionChit> wounded;
 	protected transient ArrayList<ActionChit> movementChits;
+	protected transient ArrayList<ActionChit> usedThisRound;
 	
 	// Class Related Data
 	protected int amountOfExtraMovesLeft;
@@ -176,6 +177,7 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 		turnLog = new ArrayList<>();
 		accquiredTreasures = new ArrayList<>();
 		movementChits = new ArrayList<ActionChit>();
+		usedThisRound = new ArrayList<ActionChit>();
 		
 		playerPriority = currentPlayerPriority++;
 	}
@@ -369,7 +371,16 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 		// TODO Auto-generated method stub
 	}
 	
+	public void usedRoundChit(ActionChit usedChit){
+		if(active.contains(usedChit)){
+			usedThisRound.add(usedChit);
+			active.remove(usedChit);
+		}
+	}
 	
+	public void resetRound(){
+		active.addAll(usedThisRound);
+	}
 	
 	/*--------------------------------- Getters And Setters ---------------------------- */
 	public ArrayList<String> getRecordLog () {
@@ -548,6 +559,49 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 		return chargeTarget;
 	}
 
+	public ArrayList<ActionChit> getAllActive(){
+		ArrayList<ActionChit> rList = new ArrayList<ActionChit>();
+		rList.addAll(active);
+		rList.addAll(usedThisRound);
+		return rList;
+	}
+	
+	public ArrayList<ActionChit> getActiveThisRound(){
+		ArrayList<ActionChit> rList = new ArrayList<ActionChit>();
+		rList.addAll(active);
+		return rList;
+	}
+	
+	public ArrayList<ActionChit> getUsedThisRound(){
+		ArrayList<ActionChit> rList = new ArrayList<ActionChit>();
+		rList.addAll(usedThisRound);
+		return rList;
+	}
+	
+	public ArrayList<ActionChit> getInactive(){
+		ArrayList<ActionChit> rList = new ArrayList<ActionChit>();
+		rList.addAll(inActive);
+		return rList;
+	}
+	
+	public ArrayList<ActionChit> getWounded(){
+		ArrayList<ActionChit> rList = new ArrayList<ActionChit>();
+		rList.addAll(wounded);
+		return rList;
+	}
+	
+	public void setActive(ArrayList<ActionChit> update){
+		active = update;
+	}
+	
+	public void setInactive(ArrayList<ActionChit> update){
+		inActive = update;
+	}
+	
+	public void setWounded(ArrayList<ActionChit> update){
+		wounded = update;
+	}
+	
 	public void setWounds(int wounds) {
 		// TODO Auto-generated method stub
 		if(wounds == 1){
