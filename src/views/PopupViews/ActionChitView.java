@@ -23,41 +23,8 @@ public class ActionChitView extends JDialog {
 	
 	GameView parent;
 	String name;
-	PlayerBase theClass;
-                   
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
-	private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JComboBox jComboBox4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    
-    private javax.swing.JLabel activeLabel;
-    private javax.swing.JLabel inActiveLabel;
-    private javax.swing.JLabel woundedLabel;
-    
-    private javax.swing.JList<ActionChit> activeList;//characterclass.getactiveChits
-    private javax.swing.JList<ActionChit> inactiveList; //characterClass.getInactiveChits
-    private javax.swing.JList<ActionChit> woundedList; //characterClass.getWoundedChits()
-    
-    private javax.swing.JButton activeToInactiveButton;// -1
-    private javax.swing.JButton inactiveToActiveButton;// +1
-    private javax.swing.JButton inactiveToWoundedButton;// -1
-    private javax.swing.JButton woundedToInactiveButton;// +1
-    
-    //an uneditable textfeild that will have the current amount of fatigue stars moved
-    //- being fatigued stars and + being rested stars
-    private javax.swing.JLabel starAmountLabel; // will be the amount of stars needed to reach
-    private javax.swing.JTextField starCounterTextField;
-    
-    //these will set the chits still in the jlists to an arraylist and then go
-    //and apply them to the character and then close the program
-    private javax.swing.JButton okButton;
-    private javax.swing.JButton cancelButton;
-    
+	PlayerBase thePlayer;
+
     /*
      * public ArrayList<ActionChit> getAllActive(){
 	}
@@ -84,118 +51,76 @@ public class ActionChitView extends JDialog {
 	}
      */
 	
-	public ActionChitView(GameView gameView, String string, PlayerBase player, int amount) {
+	public ActionChitView(GameView gameView,PlayerBase player, int amount) {
+		super(gameView,true);
 		parent = gameView;
-		name = string;
-		theClass = player;
-		starAmountLabel = new javax.swing.JLabel();
-		starAmountLabel.setText("Amount needed " + amount);
+		thePlayer = player;
         initComponents();
+        setVisible(true);
     }
     
     @SuppressWarnings({ "unchecked"})
-	private void initComponents() {
+    private void initComponents() {
 
-    	activeLabel = new javax.swing.JLabel();
-    	inActiveLabel = new javax.swing.JLabel();
-    	woundedLabel = new javax.swing.JLabel();
-    	starCounterTextField = new javax.swing.JTextField();
-    	activeToInactiveButton = new javax.swing.JButton();
-    	inactiveToActiveButton = new javax.swing.JButton();
-    	woundedToInactiveButton = new javax.swing.JButton();
-    	inactiveToWoundedButton = new javax.swing.JButton();
-    	okButton = new javax.swing.JButton();
-    	cancelButton = new javax.swing.JButton();
-    	activeList = new javax.swing.JList<ActionChit>();
-    	inactiveList = new javax.swing.JList<ActionChit>();
-    	woundedList = new javax.swing.JList<ActionChit>();
-    	
-
-    	activeToInactiveButton.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e){
-        		//selected in active to inactive list
-        	}
-        });
-    	inactiveToActiveButton.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e){
-        		//selected in inactive to active list
-        	}
-        });
-    	woundedToInactiveButton.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e){
-        		//selected wounded to inactive list
-        	}
-        });
-    	inactiveToWoundedButton.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e){
-        		//selected inactive to wounded list
-        	}
-        });
-    	okButton.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e){
-//        		need to setup the characterclass arraylists
-//        		follow up with the close window function
-        		
-//        		theClass.setActive(activeList);
-//        		theClass.setInactive(inactiveList);
-//        		theClass.setWounded(woundedList);
-        		dispose();
-        	}
-        });
-    	cancelButton.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e){
-//        		just close the window function
-        		dispose();
-        	}
-        });
-    	
-    	activeLabel.setText("Active");
-    	inActiveLabel.setText("Inactive");
-    	woundedLabel.setText("Wounded");
-    	starCounterTextField.setText("0");
-    	okButton.setText("OK");
-    	cancelButton.setText("Cancel");
-//    	actionList = theClass.getAllActive();
-//    	inactiveList = theClass.getInActive();
-//    	woundedList = theClass.getWounded();
-    	
-    	
-    	
-//    	--------
-    	
-        jComboBox1 = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList3 = new javax.swing.JList();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox();
-        jComboBox4 = new javax.swing.JComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0","1", "2", "3", "4", "5" }));
+        jLabel1.setText("Active");
 
-        jLabel1.setText("Gold:");
-
-        jLabel2.setText("Fame:");
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0","1", "2", "3", "4", "5" }));
-        
-        jLabel3.setText("Notoriety:");
-
-        jLabel4.setText("Treasures:");
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0","1", "2", "3", "4", "5" }));
-
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0","1", "2", "3", "4", "5" }));
-        
-        jButton1.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e){
-        		setVPs();
-        	}
+        jList1.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
         });
+        jScrollPane1.setViewportView(jList1);
 
-        jButton1.setText("Set VPs");
+        jButton2.setText("Move Left");
+
+        jButton3.setText("Move Right");
+
+        jList2.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList2);
+
+        jButton4.setText("Move Left");
+        jButton5.setText("Move Right");
+
+        jList3.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(jList3);
+
+        jLabel2.setText("Inactive");
+
+        jLabel3.setText("Wounded");
+
+        jLabel4.setText("Stars Needed:");
+
+        jLabel5.setText("0");
+
+        jButton6.setText("Confirm");
+
+        jButton1.setText("Cancel");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -205,28 +130,39 @@ public class ActionChitView extends JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jButton1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(jLabel2))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap())))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -234,62 +170,52 @@ public class ActionChitView extends JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton6)
+                    .addComponent(jButton1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
+    }                        
 
-    	setVisible(true);
-    }                     
-
-    private void setVPs() {
-    	if(Integer.parseInt((String) jComboBox1.getSelectedItem())+Integer.parseInt((String) jComboBox2.getSelectedItem())+Integer.parseInt((String) jComboBox3.getSelectedItem())+Integer.parseInt((String) jComboBox4.getSelectedItem())==5){
-    		ArrayList<Integer> points = new ArrayList<Integer>();
-    		points.add(Integer.parseInt((String) jComboBox1.getSelectedItem()));
-	    	points.add(Integer.parseInt((String) jComboBox2.getSelectedItem()));
-	    	points.add(Integer.parseInt((String) jComboBox3.getSelectedItem()));
-	    	points.add(Integer.parseInt((String) jComboBox4.getSelectedItem()));
-//    		parent.addPlayer(name,theClass,points);
-	    	dispose();
-    	}
-	}                                      
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VPSelecterView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VPSelecterView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VPSelecterView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VPSelecterView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-    }                 
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JList jList1;
+    private javax.swing.JList jList2;
+    private javax.swing.JList jList3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    // End of variables declaration                   
 }

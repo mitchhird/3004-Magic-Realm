@@ -11,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import views.PopupViews.ActionChitView;
 import views.PopupViews.CombatView;
 import views.PopupViews.TradeView;
 import views.PopupViews.TreasureViewDialog;
@@ -256,6 +257,7 @@ public class PlayerControllView extends javax.swing.JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				 System.out.println("Rest Button Has Been Pressed");
 				 parent.getCurrentPlayer().getCurrentClearing().updateConnectedTiles();
+				 ActionChitView chitView = new ActionChitView(parent, parent.getCurrentPlayer(),1);
 			}
 		});
 
