@@ -73,6 +73,7 @@ public class ClientReadThread extends ReaderThreadBase {
 					SyncDataObject incomingContainer = (SyncDataObject) incoming;
 					handleSyncContainer(incomingContainer);
 				} else if (incoming instanceof PlayerListUpdate) {
+					setProcessing(false);
 					PlayerListUpdate incomingContainer = (PlayerListUpdate) incoming;
 					handlePlayerListUpdate(incomingContainer);
 				}

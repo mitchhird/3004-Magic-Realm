@@ -604,6 +604,6 @@ public class GameView extends FrameBase {
 	}
 	
 	public void sortPlayers() {
-		Collections.sort(theClient.getPlayers());
+		theClient.setSwordsmenTurns(false);
 	}
 }

@@ -11,6 +11,7 @@ import javax.swing.SpinnerNumberModel;
 
 import networking.sendables.PlayerListUpdate;
 
+import com.sun.org.apache.bcel.internal.generic.CPInstruction;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import utils.GameUtils;
@@ -87,6 +88,7 @@ public class clientController {
 	// Moves To Next Player's Turn, Using Modulo Math
 	public void moveToNextPlayer () {
 		currentPlayerIndex++;
+		boolean needToSort = false;
 		
 		// If We Are Completing A Cycle
 		if(currentPlayerIndex % thePlayers.size() == 0){
@@ -95,16 +97,22 @@ public class clientController {
 				
 				if (thePlayers.get(i).getPlayerClass() == CharacterClass.SWORDSMAN) {
 					spawnSwordsmanSelectionDialog(thePlayers.get(i));
+					needToSort = true;
 				}
 			}
 		}
-		currentPlayer = thePlayers.get(currentPlayerIndex % thePlayers.size());
-		currentPlayer.startPlayerTurn();
 
 		if(currentPlayer.hasWon()){
 			parent.displayWinner(currentPlayer.getName());
 			parent.dispose();
 		}
+		
+		if (needToSort) {
+			setSwordsmenTurns(true);
+		}
+		
+		currentPlayer = thePlayers.get(currentPlayerIndex % thePlayers.size());
+		currentPlayer.startPlayerTurn();
 		
 		// TODO: Add The Proper Object For Board Interaction
 		parent.sendMessage("Switching To Next Player");
@@ -124,11 +132,6 @@ public class clientController {
 			String[] options = new String[]{"OK", "Cancel"};
 			JOptionPane.showOptionDialog(null, panel, "Swordsmen Turn Selection (" + thePlayer.getName() + ")", JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
 			thePlayer.setPlayerPriority(((int) spinnerDisplay.getValue()) - 1);
-		
-			// Sort The Array For Turn, Now That The Swordsmen Is done
-			java.util.Collections.sort(thePlayers);
-		
-			parent.sendMessage(new PlayerListUpdate(thePlayers));
 		}
 	}
 	
@@ -208,4 +211,34 @@ public class clientController {
 			currentPlayer = aPlayer;
 		}
 	}
+
+	public void setCurrentPlayerIndex(int currentPlayerIndex) {
+		this.currentPlayerIndex = currentPlayerIndex;
+	}
+	
+	public void setSwordsmenTurns(boolean sendMessage) {
+		ArrayList<PlayerBase> swordsmens = new ArrayList<PlayerBase>();
+		
+		// Collect All The Swordsmen
+		for (PlayerBase p: thePlayers) {
+			if (p.getPlayerClass() == CharacterClass.SWORDSMAN) {
+				swordsmens.add(p);
+			}
+		}
+		
+		// Now For All The Swordsmen Remove Them And Put Them In Their Proper Locations
+		for (PlayerBase p: swordsmens) {
+			thePlayers.remove(p);
+			
+			try {
+				thePlayers.add(p.getPlayerPriority(), p);
+			} catch (Exception e) {
+				thePlayers.add(0, p);
+			}
+			
+			if (sendMessage)
+				parent.sendMessage(new PlayerListUpdate(p));
+		}
+	} 
+	
 }

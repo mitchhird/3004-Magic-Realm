@@ -68,6 +68,7 @@ public class ServerReadThread extends TransmissionThreadBase {
 					CombatDataContainer incomingContainer = (CombatDataContainer) incoming;
 					parentThread.handleCombatDataContainer(incomingContainer);
 				} else if (incoming instanceof PlayerListUpdate) {
+					parentThread.setProcessing(false);
 					PlayerListUpdate incomingContainer = (PlayerListUpdate) incoming;
 					parentThread.handlePlayerListUpdate(incomingContainer);
 				}

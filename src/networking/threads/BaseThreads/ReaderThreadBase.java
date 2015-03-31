@@ -91,11 +91,11 @@ public class ReaderThreadBase extends Thread {
 	}
 	
 	public void handlePlayerListUpdate(PlayerListUpdate incoming) {
-		for (PlayerBase p: incoming.getThePlayers()) {
-			if (mainGame.getPlayerByName(p.getName()) != null) {
-				mainGame.getPlayerByName(p.getName()).setPlayerPriority(p.getPlayerPriority());
-			}
+
+		if (mainGame.getPlayerByName(incoming.getThePlayers().getName()) != null) {
+			mainGame.getPlayerByName(incoming.getThePlayers().getName()).setPlayerPriority(incoming.getPlayerPriority());
 		}
+		
 		mainGame.sortPlayers();
 	}
 
