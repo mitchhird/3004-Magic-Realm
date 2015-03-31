@@ -238,7 +238,7 @@ public class CombatView extends FrameBase implements WindowListener {
         });
         dodgeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	
+            	ChitSelectionView chitView = new ChitSelectionView(ourParent);
             	combatHandler.setCurrentDefence(Defences.DODGE);
             	
             	// Display Things For Displaying
@@ -250,6 +250,7 @@ public class CombatView extends FrameBase implements WindowListener {
         });
         duckButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+            	ChitSelectionView chitView = new ChitSelectionView(ourParent);
             	combatHandler.setCurrentDefence(Defences.DUCK);
                 println("Setting Current Defence To " + Defences.DUCK);
                 nextButton.setEnabled(true);
@@ -258,6 +259,7 @@ public class CombatView extends FrameBase implements WindowListener {
         });
         chargeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
+            	ChitSelectionView chitView = new ChitSelectionView(ourParent);
             	combatHandler.setCurrentDefence(Defences.CHARGE);
                 println("Setting Current Defence To " + Defences.CHARGE);
                 nextButton.setEnabled(true);
