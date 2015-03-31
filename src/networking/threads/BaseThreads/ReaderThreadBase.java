@@ -16,6 +16,7 @@ import models.otherEntities.monsterModels.MonsterBase;
 import networking.sendables.MessageType;
 import networking.sendables.PlayerListUpdate;
 import networking.sendables.SyncDataObject;
+import networking.sendables.TreasureUpdateModel;
 import networking.sendables.UpdateDataObject;
 import networking.threads.ProcessingThreads.ServerReadThread;
 
@@ -180,5 +181,11 @@ public class ReaderThreadBase extends Thread {
 		} else if (incoming.getUpdateType() == MessageType.REMOVE_PLAYER) {
 			mainGame.removePlayerByName(incoming.getSentPlayer().getName());
 		}
+	}
+	
+	public void handleTreasureUpdate (TreasureUpdateModel incoming) {
+		PlayerBase playerToModify = mainGame.getPlayerByName(incoming.getPlayerToAddTreasureTo().getName());
+		Clearing clearToPullTreasure = playerToModify.getCurrentClearing();
+		clearToPullTreasure.removeTreasureAt(playerToModify, incoming.getIndexOfTreasureToRemove());
 	}
 }

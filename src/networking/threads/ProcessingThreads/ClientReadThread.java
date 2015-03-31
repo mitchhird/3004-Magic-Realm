@@ -8,6 +8,7 @@ import models.otherEntities.CombatDataContainer;
 import networking.sendables.MessageType;
 import networking.sendables.PlayerListUpdate;
 import networking.sendables.SyncDataObject;
+import networking.sendables.TreasureUpdateModel;
 import networking.sendables.UpdateDataObject;
 import networking.threads.BaseThreads.ReaderThreadBase;
 import views.MainViews.GameView;
@@ -76,6 +77,9 @@ public class ClientReadThread extends ReaderThreadBase {
 					setProcessing(false);
 					PlayerListUpdate incomingContainer = (PlayerListUpdate) incoming;
 					handlePlayerListUpdate(incomingContainer);
+				} else if (incoming instanceof TreasureUpdateModel) {
+					TreasureUpdateModel incomingContainer = (TreasureUpdateModel) incoming;
+					handleTreasureUpdate(incomingContainer);
 				}
 				
 			   processing = false;

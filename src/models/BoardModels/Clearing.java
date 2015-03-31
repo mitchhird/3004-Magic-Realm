@@ -13,8 +13,10 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import networking.sendables.TreasureUpdateModel;
 import utils.GameUtils;
 import utils.Pair;
+import views.MainViews.GameView;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.TileType;
 import models.chitModels.EnvironmentChit.SiteChit;
@@ -247,7 +249,7 @@ public class Clearing implements Serializable {
 	}
 	
 	// Loots The Clearing And Grabs All Treasure Out
-	public void playerLootClearing (PlayerBase p) {
+	public void playerLootClearing (PlayerBase p, GameView writer) {
 		ArrayList<TreasureModel> treasuresFound = getTreasuresPlayerFound(p);
 		
 		// Roll The Random Die, And If The Player Scores A Value That Is In The Range Then Loot That
@@ -255,17 +257,24 @@ public class Clearing implements Serializable {
 		
 		// If It Is A Valid Treasure, Then We Can Loot It
 		if (lootTreasureAt <= treasuresInClearing.size() - 1) {
+			removeTreasureAt(p, lootTreasureAt);
+			writer.sendMessage(new TreasureUpdateModel(p, lootTreasureAt));
+		}
+	}
+
+	public void removeTreasureAt(PlayerBase p, int lootTreasureAt) {
+		if (lootTreasureAt <= treasuresInClearing.size() - 1) {
 			TreasureModel newTreasure = treasuresInClearing.remove(lootTreasureAt);
-			
+
 			// If It's A Specific Treasure Loot It That Way
 			if (newTreasure instanceof SpecificTreasure) {
-				p.addSpecficTreasure((SpecificTreasure)newTreasure);
+				p.addSpecficTreasure((SpecificTreasure) newTreasure);
 			} else {
 				p.addTreasure(newTreasure);
 			}
 		}
 	}
-	
+
 	// Get The Treasure In The Clearing The PLayer Knows About
 	public ArrayList<TreasureModel> getTreasuresPlayerFound(PlayerBase p) {
 		ArrayList<TreasureModel> treasures = new ArrayList<>();
@@ -321,6 +330,13 @@ public class Clearing implements Serializable {
 	public void updateConnectedTiles () {
 		for (Clearing c: connectedClearings) {
 			c.updateImage();
+		}
+	}
+	
+	// Removes The Treasure At This Index
+	public void removeTreasureAt (int size) {
+		if (size < treasuresInClearing.size()) {
+			treasuresInClearing.remove(size);
 		}
 	}
 	
