@@ -18,6 +18,7 @@ public class TransmissionThreadBase extends Thread {
 		try {
 			transmissionSocket = new Socket (host, port);
 			initStreams();
+			JOptionPane.showMessageDialog(null, "Connected To: " + host);
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(null, "Server Not Found");
 		}

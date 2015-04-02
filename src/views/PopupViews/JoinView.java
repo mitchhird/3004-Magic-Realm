@@ -143,9 +143,6 @@ public class JoinView extends javax.swing.JFrame {
     		parent.setcheatAction(false);	
     		parent.setCheatMode(false);
     		
-    		// We Have Successfully Connected ^_^
-    		JOptionPane.showMessageDialog(this, "Connected To Server At " + ipAddressField.getText());
-    		
     	} catch (Exception e) {
     		JOptionPane.showMessageDialog(this, "Invalid Input. Please Enter A Number For The Port");
     	}
