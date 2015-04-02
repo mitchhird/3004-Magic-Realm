@@ -21,6 +21,7 @@ import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.TileType;
 import models.chitModels.EnvironmentChit.SiteChit;
 import models.chitModels.EnvironmentChit.SoundChit;
+import models.chitModels.EnvironmentChit.WarningChit;
 import models.otherEntities.EntityBase;
 import models.otherEntities.SpecificTreasure;
 import models.otherEntities.TreasureModel;
@@ -35,8 +36,10 @@ public class Clearing implements Serializable {
 	private String clearingName;
 	private JButton buttonTiedToClearing;
 	private int clearingNumber;
-	private SoundChit soundChit;
 	private String clearingType;
+	
+	private WarningChit warningChit;
+	private SoundChit soundChit;
 	private SiteChit siteChit;
 
 	private ArrayList<Dwelling> dwellingsOnThis;
@@ -473,6 +476,7 @@ public class Clearing implements Serializable {
 	
 	public void setSoundChit(SoundChit newSound){
 		soundChit = newSound;
+		addImageToList(newSound.getChitImage());
 	}
 	
 	public SoundChit getSoundChit(){
@@ -497,5 +501,16 @@ public class Clearing implements Serializable {
 
 	public void setSiteChit(SiteChit siteChit) {
 		this.siteChit = siteChit;
+		addImageToList(siteChit.getChitImage());
 	}
+
+	public WarningChit getWarningChit() {
+		return warningChit;
+	}
+
+	public void setWarningChit(WarningChit warningChit) {
+		this.warningChit = warningChit;
+		addImageToList(warningChit.getChitImage());
+	}
+	
 }

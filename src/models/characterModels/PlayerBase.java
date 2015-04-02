@@ -418,8 +418,6 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 				setShield(new Pair<ArmorChit, Attacks>(a, Attacks.SMASH));
 			}
 		}
-		
-		System.out.println();
 	}
 	
 	

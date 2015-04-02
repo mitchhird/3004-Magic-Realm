@@ -5,17 +5,19 @@ import models.characterModels.playerEnums.Weights;
 public class ActionChit {
 	protected int stars;
 	protected int speed;
+	protected int magic;//add this with magic
 	protected Weights capacity;
 	protected boolean fight;
 	protected boolean fatigued;
 	protected boolean wounded;
-	protected int magic;//add this with magic
+	protected String displayName;
 	
-	public ActionChit(Weights cap, int speed, int stars, boolean fight){
+	public ActionChit(String displayName, Weights cap, int speed, int stars, boolean fight){
 		capacity = cap;
 		this.speed = speed;
 		this.stars = stars;
 		this.fight = fight;
+		this.displayName = displayName;
 	}
 	
 	public boolean isFight(){
@@ -33,10 +35,6 @@ public class ActionChit {
 	public int getStars(){
 		return stars;
 	}
-	
-	private int getMagicVal(){
-		return magic;
-	}
 
 	public boolean isFatigued() {
 		return fatigued;
@@ -52,5 +50,27 @@ public class ActionChit {
 
 	public void setWounded(boolean wounded) {
 		this.wounded = wounded;
+	}
+	
+	// Wounds The Chit When Called
+	public void woundChit () {
+		wounded = fatigued;
+		fatigued = true;
+	}
+	
+	// Rests The Chit When Called
+	public void restChit () {
+		if (wounded) {
+			wounded = false;
+			fatigued = true;
+		} else if (fatigued) {
+			fatigued = false;
+		}
+	}
+	
+	@Override
+	public String toString() {
+		String statusString = (wounded) ? "Wounded" : (fatigued) ? "Fatigued" : "Active";
+		return displayName + ": " + statusString;
 	}
 }

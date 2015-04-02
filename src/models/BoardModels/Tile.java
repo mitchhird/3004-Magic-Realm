@@ -39,6 +39,7 @@ public class Tile {
 		this.clearings = new HashSet<Clearing>();
 		this.sounds = new ArrayList<SoundChit>();
 		theTileName = tileName;
+		
 		// Add everything In
 		for (Clearing c: clearings) {
 			this.clearings.add(c);
@@ -59,11 +60,12 @@ public class Tile {
 	
 	public void setWarningChit(WarningChit newWarning){
 		warning = newWarning;
+		setWarningImage(newWarning);
 	}
 	
-	public void setWarningImage(Image theImage){
+	public void setWarningImage(WarningChit chit) {
 		for (Clearing c: clearings) {
-			c.addImageToList(theImage);
+			c.setWarningChit(chit);
 		}
 	}
 	

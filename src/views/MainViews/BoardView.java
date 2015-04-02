@@ -259,11 +259,7 @@ public class BoardView extends JPanel {
 		theDwellings.add(guardHouse);
 		
 		evalley.setWarningChit(ChitFactory.bonesV);
-		try {
-			evalley.setWarningImage(ImageIO.read(getClass().getResource("/chits/bonesV.jpg")));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+
 		currentClearing = evalley5;
 		aGhost = new Ghost(evalley5.getClearingName());
 		currentClearing.addImageToList(aGhost.getImage());
@@ -273,11 +269,7 @@ public class BoardView extends JPanel {
 		theMonsters.add(aGhost);
 
 		dwoods.setWarningChit(ChitFactory.bonesW);
-		try {
-			dwoods.setWarningImage(ImageIO.read(getClass().getResource("/chits/bonesW.jpg")));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+
 		aGiant = new Giant(dwoods5.getClearingName());
 		dwoods5.addImageToList(aGiant.getImage());
 		dwoods5.addEntityToClearing(aGiant);
@@ -289,28 +281,14 @@ public class BoardView extends JPanel {
 		cliff6.setSoundChit(ChitFactory.flutter2);
 		aDragon = new FlyingDragon(cliff6.getClearingName());
 		cliff6.addImageToList(aDragon.getImage());
-		try {
-			cliff6.addImageToList(ImageIO.read(getClass().getResource("/chits/flutter.jpg")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
 		cliff6.addEntityToClearing(aDragon);
 		aDragon.setCurrentClearing(cliff6);
 		aDragon.setHomeClearing(cliff6);
 		theMonsters.add(aDragon);
 		
 		caves4.setSiteChit(ChitFactory.LostCity);
-		try {
-			caves4.addImageToList(ImageIO.read(getClass().getResource("/chits/lostcity.jpg")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		ruins6.setSiteChit(ChitFactory.LostCastle);
-		try {
-			ruins6.addImageToList(ImageIO.read(getClass().getResource("/chits/lostcastle.jpg")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public void setCheatLocations() {
@@ -345,22 +323,14 @@ public class BoardView extends JPanel {
 		currentClearing.getTileThisOn().addSoundChit(ChitFactory.flutter2);
 		aDragon = new FlyingDragon(currentClearing.getClearingName());
 		currentClearing.addImageToList(aDragon.getImage());
-		try {
-			currentClearing.addImageToList(ImageIO.read(getClass().getResource("/chits/flutter.jpg")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
 		currentClearing.addEntityToClearing(aDragon);
 		aDragon.setCurrentClearing(currentClearing);
 		aDragon.setHomeClearing(currentClearing);
 		theMonsters.add(aDragon);
 		
 		cheatTiles.get(0).setWarningChit(ChitFactory.bonesV);
-		try {
-			cheatTiles.get(0).setWarningImage(ImageIO.read(getClass().getResource("/chits/bonesV.jpg")));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+
 		currentClearing = cheatTiles.get(0).getHighestClearing();
 		aGhost = new Ghost(currentClearing.getClearingName());
 		currentClearing.addImageToList(aGhost.getImage());
@@ -370,11 +340,7 @@ public class BoardView extends JPanel {
 		theMonsters.add(aGhost);
 
 		cheatTiles.get(1).setWarningChit(ChitFactory.bonesW);
-		try {
-			cheatTiles.get(1).setWarningImage(ImageIO.read(getClass().getResource("/chits/bonesW.jpg")));
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+
 		currentClearing = cheatTiles.get(1).getHighestClearing();
 		aGiant = new Giant(currentClearing.getClearingName());
 		currentClearing.addImageToList(aGiant.getImage());
@@ -385,19 +351,9 @@ public class BoardView extends JPanel {
 		
 		currentClearing = cheatClearings.get(5);
 		currentClearing.setSiteChit(ChitFactory.LostCity);
-		try {
-			currentClearing.addImageToList(ImageIO.read(getClass().getResource("/chits/lostcity.jpg")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		
 		currentClearing = cheatClearings.get(6);
 		currentClearing.setSiteChit(ChitFactory.LostCastle);
-		try {
-			currentClearing.addImageToList(ImageIO.read(getClass().getResource("/chits/lostcastle.jpg")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	//Initialization method, sets up the board
@@ -975,7 +931,6 @@ public class BoardView extends JPanel {
                 scaleClearings();
                 revalidate();
                 repaint();
-                addClearingListeners();
             }
 
         });

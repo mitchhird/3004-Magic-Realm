@@ -122,20 +122,28 @@ public class ReaderThreadBase extends Thread {
 			toAddTo.addImageToList(dwellingToAdd.getImageRepresentation());
 		}
 		
-		// Now All Of The Treasures
+		// Now All Of The Clearings
 		for (Clearing c: incoming.getClearings()) {
-			Clearing clearingToAddTreasureTo = mainGame.getClearingByName(c.getClearingName());
-			if (clearingToAddTreasureTo != null){
-				clearingToAddTreasureTo.getTreasuresInClearing().clear();
+			Clearing clearingFound = mainGame.getClearingByName(c.getClearingName());
+			if (clearingFound != null){
+				clearingFound.getTreasuresInClearing().clear();
 				
-				// TODO: Sound Chits
+				// Chits That Are Present On The This Tile
 				if (c.getSoundChit() != null) {
-					clearingToAddTreasureTo.setSoundChit(c.getSoundChit().clone());
+					clearingFound.setSoundChit(c.getSoundChit().clone());
+				}
+				
+				if (c.getSiteChit() != null) {
+					clearingFound.setSiteChit(c.getSiteChit().clone());
+				}
+				
+				if (c.getWarningChit() != null) {
+					clearingFound.setWarningChit(c.getWarningChit().clone());
 				}
 				
 				// Add In All Of The Treasures 
 				for (TreasureModel t: c.getTreasuresInClearing()) {
-					clearingToAddTreasureTo.addTreasures(t.clone());
+					clearingFound.addTreasures(t.clone());
 				}
 			}
 		}

@@ -5,8 +5,8 @@ import models.chitModels.ActionChit;
 
 public class DuckChit extends ActionChit {
 
-	public DuckChit(Weights cap, int speed, int stars) {
-		super(cap, speed, stars, false);
+	public DuckChit(String displayName, Weights cap, int speed, int stars) {
+		super(displayName, cap, speed, stars, false);
 		// TODO Auto-generated constructor stub
 	}
 

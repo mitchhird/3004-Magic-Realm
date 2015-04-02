@@ -1,6 +1,10 @@
 package models.chitModels.EnvironmentChit;
 
+import java.awt.Image;
+import java.io.IOException;
 import java.io.Serializable;
+
+import javax.imageio.ImageIO;
 
 import models.BoardModels.Tile;
 
@@ -20,11 +24,22 @@ public class EnvironmentChit implements Serializable {
 	protected Tile tilePlacement;
 	protected int clearingNum;
 	protected String description;
+	protected String imageToLoad;
+	protected transient Image chitImage;
 	private static final long serialVersionUID = -5815201812959893662L;
 	
-	public EnvironmentChit(int num, String description){
-		this.description = description;
+	public EnvironmentChit(int num, String description, String imageToLoad){
 		clearingNum = num;
+		this.description = description;
+		this.imageToLoad = imageToLoad;
+		
+		// Load In The Image 
+		try {
+			chitImage = ImageIO.read(getClass().getResource(imageToLoad));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public int getClearing(){
@@ -42,4 +57,22 @@ public class EnvironmentChit implements Serializable {
 	public Tile getTile(){
 		return tilePlacement;
 	}
+
+	public String getImageToLoad() {
+		return imageToLoad;
+	}
+
+	public void setImageToLoad(String imageToLoad) {
+		this.imageToLoad = imageToLoad;
+	}
+
+	public Image getChitImage() {
+		return chitImage;
+	}
+
+	public void setChitImage(Image chitImage) {
+		this.chitImage = chitImage;
+	}
+	
+	
 }
