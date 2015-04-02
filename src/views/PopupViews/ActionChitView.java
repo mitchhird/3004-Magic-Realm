@@ -5,10 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JDialog;
-import javax.swing.JTextField;
 
 import models.characterModels.PlayerBase;
-import models.characterModels.playerEnums.CharacterClass;
 import models.chitModels.ActionChit;
 import views.MainViews.GameView;
 
@@ -24,6 +22,8 @@ public class ActionChitView extends JDialog {
 	GameView parent;
 	String name;
 	PlayerBase thePlayer;
+	int amountNeeded, initAmount;
+	ArrayList<ActionChit> aList, iList, wList;
 
     /*
      * public ArrayList<ActionChit> getAllActive(){
@@ -55,72 +55,97 @@ public class ActionChitView extends JDialog {
 		super(gameView,true);
 		parent = gameView;
 		thePlayer = player;
+		System.out.println("have added player");
+		System.out.println("have active: " + thePlayer.getAllActive().size());
+		amountNeeded = amount;
+		initAmount = 0;
+		aList = new ArrayList<ActionChit>();
+		if(thePlayer.getInactive().size() != 0)
+			aList.addAll(thePlayer.getActiveThisRound());
+		iList = new ArrayList<ActionChit>();
+		if(thePlayer.getInactive().size() != 0)
+			iList.addAll(thePlayer.getInactive());
+		wList = new ArrayList<ActionChit>();
+		if(thePlayer.getInactive().size() != 0)
+			wList.addAll(thePlayer.getWounded());
         initComponents();
         setVisible(true);
+    }
+	
+	private String[] makeArrayAction(ArrayList f){
+    	String[] rStrings = new String[f.size()];
+    	for(int i = 0; i < f.size(); ++i)
+    		rStrings[i] = "" + f.get(i);
+    	return rStrings;
     }
     
     @SuppressWarnings({ "unchecked"})
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList3 = new javax.swing.JList();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        activeLabel = new javax.swing.JLabel();
+        activeScrollPane = new javax.swing.JScrollPane();
+        activeList = new javax.swing.JList();
+        inactiveActive = new javax.swing.JButton();
+        activeInactive = new javax.swing.JButton();
+        inactiveScrollPane = new javax.swing.JScrollPane();
+        inactiveList = new javax.swing.JList();
+        woundedInactive = new javax.swing.JButton();
+        inactiveWounded = new javax.swing.JButton();
+        woundedScrollPane = new javax.swing.JScrollPane();
+        woundedList = new javax.swing.JList();
+        inactiveLabel = new javax.swing.JLabel();
+        woundedLabel = new javax.swing.JLabel();
+        neededLabel = new javax.swing.JLabel();
+        currStarsLabel = new javax.swing.JLabel();
+        confirmButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
 
-        jLabel1.setText("Active");
+        activeLabel.setText("Active");
+        
+        activeList.setModel(new javax.swing.AbstractListModel() {
+        	//have to some how put aList into a string or have the objects do something
+        	//so that they can be added to the scroll pane
+        	//maybe a toString() for the chits
+            String[] strings = makeArrayAction(aList);
+            public int getSize() { return strings.length ; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        activeScrollPane.setViewportView(activeList);
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        inactiveActive.setText("Move Left");
+
+        activeInactive.setText("Move Right");
+
+        inactiveList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Inactive" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        inactiveScrollPane.setViewportView(inactiveList);
 
-        jButton2.setText("Move Left");
+        woundedInactive.setText("Move Left");
+        inactiveWounded.setText("Move Right");
 
-        jButton3.setText("Move Right");
-
-        jList2.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        woundedList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Wounded" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList2);
+        woundedScrollPane.setViewportView(woundedList);
 
-        jButton4.setText("Move Left");
-        jButton5.setText("Move Right");
+        inactiveLabel.setText("Inactive");
 
-        jList3.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jList3);
+        woundedLabel.setText("Wounded");
+        
+        String amountS = Integer.toString(amountNeeded);
 
-        jLabel2.setText("Inactive");
+        neededLabel.setText("Stars Needed " + amountS + ":");
 
-        jLabel3.setText("Wounded");
+        currStarsLabel.setText("0");
 
-        jLabel4.setText("Stars Needed:");
+        confirmButton.setText("Confirm");
 
-        jLabel5.setText("0");
-
-        jButton6.setText("Confirm");
-
-        jButton1.setText("Cancel");
+        cancelButton.setText("Cancel");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -134,34 +159,34 @@ public class ActionChitView extends JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(activeScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addComponent(jLabel1))
+                                            .addComponent(activeInactive, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(inactiveActive, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(activeLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(inactiveScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .addComponent(jLabel2))
+                                            .addComponent(inactiveWounded, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(woundedInactive, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(inactiveLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(woundedLabel)
+                                    .addComponent(woundedScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
+                                .addComponent(neededLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(currStarsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton6)
+                        .addComponent(confirmButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(cancelButton)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -169,30 +194,30 @@ public class ActionChitView extends JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
+                    .addComponent(activeLabel)
+                    .addComponent(inactiveLabel)
+                    .addComponent(woundedLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(activeScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(inactiveActive)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(activeInactive))
+                    .addComponent(inactiveScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton4)
+                        .addComponent(woundedInactive)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(inactiveWounded))
+                    .addComponent(woundedScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
+                    .addComponent(neededLabel)
+                    .addComponent(currStarsLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
-                    .addComponent(jButton1))
+                    .addComponent(confirmButton)
+                    .addComponent(cancelButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -200,22 +225,22 @@ public class ActionChitView extends JDialog {
     }                        
 
     // Variables declaration - do not modify                     
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JList jList1;
-    private javax.swing.JList jList2;
-    private javax.swing.JList jList3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JButton inactiveActive;
+    private javax.swing.JButton activeInactive;
+    private javax.swing.JButton woundedInactive;
+    private javax.swing.JButton inactiveWounded;
+    private javax.swing.JButton confirmButton;
+    private javax.swing.JLabel activeLabel;
+    private javax.swing.JLabel inactiveLabel;
+    private javax.swing.JLabel woundedLabel;
+    private javax.swing.JLabel neededLabel;
+    private javax.swing.JLabel currStarsLabel;
+    private javax.swing.JList activeList;
+    private javax.swing.JList inactiveList;
+    private javax.swing.JList woundedList;
+    private javax.swing.JScrollPane activeScrollPane;
+    private javax.swing.JScrollPane inactiveScrollPane;
+    private javax.swing.JScrollPane woundedScrollPane;
     // End of variables declaration                   
 }
