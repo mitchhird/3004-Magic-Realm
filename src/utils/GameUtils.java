@@ -20,7 +20,7 @@ public class GameUtils {
 	// Returns A Random Value Between Ranges
 	public static int createRandomInt (int beginRange, int endRange) {
 		if(cheatMode){
-			theRoller = new RollView(endRange);
+			theRoller = new RollView(beginRange, endRange);
 			theRoller.setVisible(true);
 			return cheatRoll;
 		}else{

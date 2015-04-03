@@ -22,10 +22,12 @@ public class RollView extends javax.swing.JDialog {
     private javax.swing.JTextField desiredRollField;    
     
     private int maxRollValue;
+	private int minRollValue;
     
-    public RollView(int maxRoll) {
+    public RollView(int minRoll,int maxRoll) {
     	super(new JFrame(), "Roll View", true);
         maxRollValue = maxRoll;
+        minRollValue = minRoll;
     	initComponents();
     	addListeners();
     }
@@ -129,7 +131,7 @@ public class RollView extends javax.swing.JDialog {
 
 	private void handleRandomizeButton() {
 		Random rand = new Random();
-		int randomNum = rand.nextInt((maxRollValue-1) + 1) + 1;
+		int randomNum = rand.nextInt((maxRollValue - minRollValue) + 1) + minRollValue;
 		desiredRollField.setText(Integer.toString(randomNum));
 	}
 }
