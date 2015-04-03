@@ -18,61 +18,20 @@ public class ChitFactory {
 			4, /* stars */2, false);
 
 	// move
-	public static ActionChit getMoveML2() {
-		return new ActionChit("ML2", Weights.LIGHT, 2, 2, false);
-	}
-
-	public static ActionChit getMoveML21() {
-		return new ActionChit("ML21", Weights.LIGHT, 2, 1, false);
-	}
-
-	public static ActionChit getMoveML31() {
-		return new ActionChit("ML31", Weights.LIGHT, 3, 1, false);
-	}
-
-	public static ActionChit getMoveML40() {
-		return new ActionChit("ML40", Weights.LIGHT, 4, 0, false);
-	}
-
-	public static ActionChit getMoveMM31() {
-		return new ActionChit("MM31", Weights.MEDIUM, 3, 1, false);
-	}
-
-	public static ActionChit getMoveMM32() {
-		return new ActionChit("MM32", Weights.MEDIUM, 3, 2, false);
-	}
-
-	public static ActionChit getMoveMM40() {
-		return new ActionChit("MM40", Weights.MEDIUM, 4, 0, false);
-	}
-
-	public static ActionChit getMoveMM41() {
-		return new ActionChit("MM41", Weights.MEDIUM, 4, 1, false);
-	}
-
-	public static ActionChit getMoveMM50() {
-		return new ActionChit("MM50", Weights.MEDIUM, 5, 0, false);
-	}
-
-	public static ActionChit getMoveMH42() {
-		return new ActionChit("MH42", Weights.HEAVY, 4, 2, false);
-	}
-
-	public static ActionChit getMoveMH51() {
-		return new ActionChit("MH51", Weights.HEAVY, 5, 1, false);
-	}
-
-	public static ActionChit getMoveMH60() {
-		return new ActionChit("MH60", Weights.HEAVY, 6, 0, false);
-	}
-
-	public static ActionChit getMoveMT52() {
-		return new ActionChit("MT52", Weights.TREMENDOUS, 5, 2, false);
-	}
-
-	public static ActionChit getMoveMT61() {
-		return new ActionChit("MT61",Weights.TREMENDOUS, 6, 1, false);
-	}
+	public static ActionChit ML22 = new ActionChit("ML22", Weights.LIGHT, 2, 2, false);
+	public static ActionChit ML21 = new ActionChit("ML21", Weights.LIGHT, 2, 1, false);
+	public static ActionChit ML31 = new ActionChit("ML31", Weights.LIGHT, 3, 1, false);
+	public static ActionChit ML40 = new ActionChit("ML40", Weights.LIGHT, 4, 0, false);
+	public static ActionChit MM31 = new ActionChit("MM31", Weights.MEDIUM, 3, 1, false);
+	public static ActionChit MM32 = new ActionChit("MM32", Weights.MEDIUM, 3, 2, false);
+	public static ActionChit MM40 = new ActionChit("MM40", Weights.MEDIUM, 4, 0, false);
+	public static ActionChit MM41 = new ActionChit("MM41", Weights.MEDIUM, 4, 1, false);
+	public static ActionChit MM50 = new ActionChit("MM50", Weights.MEDIUM, 5, 0, false);
+	public static ActionChit MH42 = new ActionChit("MH42", Weights.HEAVY, 4, 2, false);
+	public static ActionChit MH51 = new ActionChit("MH51", Weights.HEAVY, 5, 1, false);
+	public static ActionChit MH60 = new ActionChit("MH60", Weights.HEAVY, 6, 0, false);
+	public static ActionChit MT52 = new ActionChit("MT52", Weights.TREMENDOUS, 5, 2, false);
+	public static ActionChit MT61 = new ActionChit("MT61", Weights.TREMENDOUS, 6, 1, false);
 
 	// fight
 	public static ActionChit FL22 = new ActionChit("FL22", Weights.LIGHT, 2, 2, true);

@@ -59,23 +59,20 @@ public class ActionChitView extends JDialog {
 		System.out.println("have active: " + thePlayer.getAllActive().size());
 		amountNeeded = amount;
 		initAmount = 0;
-		aList = new ArrayList<ActionChit>();
-		if(thePlayer.getInactive().size() != 0)
-			aList.addAll(thePlayer.getActiveThisRound());
-		iList = new ArrayList<ActionChit>();
-		if(thePlayer.getInactive().size() != 0)
-			iList.addAll(thePlayer.getInactive());
-		wList = new ArrayList<ActionChit>();
-		if(thePlayer.getInactive().size() != 0)
-			wList.addAll(thePlayer.getWounded());
+		aList = thePlayer.getActiveThisRound();
+		iList = thePlayer.getInactive();
+		wList = thePlayer.getWounded();
         initComponents();
         setVisible(true);
     }
 	
-	private String[] makeArrayAction(ArrayList f){
+	private String[] makeArrayAction(ArrayList<ActionChit> f){
     	String[] rStrings = new String[f.size()];
+    	System.out.println(f.size());
     	for(int i = 0; i < f.size(); ++i)
-    		rStrings[i] = "" + f.get(i);
+    		rStrings[i] = f.get(i).toString();
+    	for(int i = 0; i < f.size(); ++i)
+    		System.out.println(rStrings[i]);
     	return rStrings;
     }
     
@@ -117,7 +114,7 @@ public class ActionChitView extends JDialog {
         activeInactive.setText("Move Right");
 
         inactiveList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Inactive" };
+            String[] strings = makeArrayAction(iList);
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -127,7 +124,7 @@ public class ActionChitView extends JDialog {
         inactiveWounded.setText("Move Right");
 
         woundedList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Wounded" };
+            String[] strings = makeArrayAction(wList);
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -146,6 +143,8 @@ public class ActionChitView extends JDialog {
         confirmButton.setText("Confirm");
 
         cancelButton.setText("Cancel");
+        
+        addListeners();
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -222,7 +221,79 @@ public class ActionChitView extends JDialog {
         );
 
         pack();
-    }                        
+    }
+    
+    // Add In The Listeners To This View
+    private void addListeners() {
+    	confirmButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//set the lists
+				return;
+//				dispose();
+			}
+		});
+    	cancelButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+    	inactiveActive.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("inactive->active");
+				if(iList.size() == 0)
+					return;
+				
+				int selected = inactiveList.getSelectedIndex();
+				aList.add(iList.remove(selected));
+				revalidate();
+				repaint();
+			}
+		});
+    	activeInactive.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("active->inactive");
+				if(aList.size() == 0)
+					return;
+				
+				int selected = activeList.getSelectedIndex();
+				System.out.println("selected index: "+ selected + " string name: " + aList.get(selected).toString());
+				iList.add(aList.remove(selected));
+				System.out.println("after " + aList.get(selected).toString());
+				revalidate();
+				repaint();
+			}
+		});
+    	woundedInactive.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("wounded->inactive");
+				if(wList.size() == 0)
+					return;
+				
+				int selected = woundedList.getSelectedIndex();
+				iList.add(wList.remove(selected));
+				revalidate();
+				repaint();
+			}
+		});
+    	inactiveWounded.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("inactive->wounded");
+				if(iList.size() == 0)
+					return;
+				
+				int selected = inactiveList.getSelectedIndex();
+				wList.add(iList.remove(selected));
+				revalidate();
+				repaint();
+			}
+		});
+    }
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton cancelButton;

@@ -95,7 +95,6 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 	protected transient ArrayList<ActionChit> active;
 	protected transient ArrayList<ActionChit> inActive;
 	protected transient ArrayList<ActionChit> wounded;
-	protected transient ArrayList<ActionChit> movementChits;
 	protected transient ArrayList<ActionChit> usedThisRound;
 	
 	// Class Related Data
@@ -173,10 +172,11 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 		playerIP = "localhost";
 		
 		// Setup the lists
-		active = new ArrayList<>();
+		active = new ArrayList<ActionChit>();
+		inActive = new ArrayList<ActionChit>();
+		wounded = new ArrayList<ActionChit>();
 		turnLog = new ArrayList<>();
 		accquiredTreasures = new ArrayList<>();
-		movementChits = new ArrayList<ActionChit>();
 		usedThisRound = new ArrayList<ActionChit>();
 		
 		playerPriority = currentPlayerPriority++;
@@ -401,7 +401,6 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 		
 		// Action Chit For Player
 		active.addAll(newPlayerClass.getStartingChit());
-		movementChits.addAll(newPlayerClass.getMovementChits());
 		
 		// Weapon For This Player
 		weaponChit = new ArrayList<>();
@@ -675,10 +674,6 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 
 	public int getAmountOfExtraSearchesLeft() {
 		return amountOfExtraSearchesLeft;
-	}
-	
-	public ArrayList<ActionChit> getMovementChits() {
-		return movementChits;
 	}
 
 	public Pair<ArmorChit, Attacks> getShield() {

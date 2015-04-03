@@ -169,62 +169,16 @@ public enum CharacterClass {
 		return returnVal;
 	}
 	
-	// Starting Movement Chits Per Class
-	public ArrayList<ActionChit> getMovementChits () {
-		ArrayList<ActionChit> rList = new ArrayList<ActionChit>();
-		
-		switch (this) {
-		case AMAZON:
-			rList.add(ChitFactory.getMoveMM40());
-			rList.add(ChitFactory.getMoveMM31());
-			rList.add(ChitFactory.getMoveMM40());
-			rList.add(ChitFactory.getMoveMM31());
-			rList.add(ChitFactory.getMoveMM31());
-			break;
-		case BLACKNIGHT:
-			rList.add(ChitFactory.getMoveMM50());
-			rList.add(ChitFactory.getMoveMH51());
-			rList.add(ChitFactory.getMoveMH60());
-			rList.add(ChitFactory.getMoveMM41());
-			rList.add(ChitFactory.getMoveMH42());
-			break;
-		case CAPTAIN:
-			rList.add(ChitFactory.getMoveMM41());
-			rList.add(ChitFactory.getMoveMM50());
-			rList.add(ChitFactory.getMoveMM32());
-			rList.add(ChitFactory.getMoveMM41());
-			rList.add(ChitFactory.getMoveMM41());
-			break;
-		case DWARF:
-			rList.add(ChitFactory.getMoveMT52());
-			rList.add(ChitFactory.getMoveMH60());
-			rList.add(ChitFactory.getMoveMT61());
-			rList.add(ChitFactory.getMoveMH51());
-			break;
-		case ELF:
-			rList.add(ChitFactory.getMoveML31());
-			rList.add(ChitFactory.getMoveML21());
-			rList.add(ChitFactory.getMoveMM40());
-			break;
-		case SWORDSMAN:
-			rList.add(ChitFactory.getMoveML40());
-			rList.add(ChitFactory.getMoveML31());
-			rList.add(ChitFactory.getMoveMM41());
-			rList.add(ChitFactory.getMoveML31());
-			rList.add(ChitFactory.getMoveML2());
-			break;
-		default:
-			break;
-		}
-		
-		return rList;
-	}
-
 	// Starting Action Chits
 	public ArrayList<ActionChit> getStartingChit() {
 		ArrayList<ActionChit> rList = new ArrayList<>();
 		switch (this) {
 		case AMAZON:
+			rList.add(ChitFactory.MM40);
+			rList.add(ChitFactory.MM31);
+			rList.add(ChitFactory.MM40);
+			rList.add(ChitFactory.MM31);
+			rList.add(ChitFactory.MM31);
 			rList.add(ChitFactory.FL40);
 			rList.add(ChitFactory.FM50);
 			rList.add(ChitFactory.FM41);
@@ -234,6 +188,11 @@ public enum CharacterClass {
 			rList.add(ChitFactory.FM32);
 			break;
 		case BLACKNIGHT:
+			rList.add(ChitFactory.MM50);
+			rList.add(ChitFactory.MH51);
+			rList.add(ChitFactory.MH60);
+			rList.add(ChitFactory.MM41);
+			rList.add(ChitFactory.MH42);
 			rList.add(ChitFactory.FH51);
 			rList.add(ChitFactory.FH60);
 			rList.add(ChitFactory.FM41);
@@ -243,6 +202,11 @@ public enum CharacterClass {
 			rList.add(ChitFactory.FM32);
 			break;
 		case CAPTAIN:
+			rList.add(ChitFactory.MM41);
+			rList.add(ChitFactory.MM50);
+			rList.add(ChitFactory.MM32);
+			rList.add(ChitFactory.MM41);
+			rList.add(ChitFactory.MM41);
 			rList.add(ChitFactory.FH51);
 			rList.add(ChitFactory.FM50);
 			rList.add(ChitFactory.FM32);
@@ -252,6 +216,10 @@ public enum CharacterClass {
 			rList.add(ChitFactory.FM41);
 			break;
 		case DWARF:
+			rList.add(ChitFactory.MT52);
+			rList.add(ChitFactory.MH60);
+			rList.add(ChitFactory.MT61);
+			rList.add(ChitFactory.MH51);
 			rList.add(ChitFactory.DT31);
 			rList.add(ChitFactory.FH51);
 			rList.add(ChitFactory.FH60);
@@ -268,11 +236,19 @@ public enum CharacterClass {
 //			rList.add(ChitFactory.MM40);
 //			rList.add(ChitFactory.FM50);
 //			rList.add(ChitFactory.FM41);
+			rList.add(ChitFactory.ML31);
+			rList.add(ChitFactory.ML21);
+			rList.add(ChitFactory.MM40);
 			rList.add(ChitFactory.FL31);
 			rList.add(ChitFactory.FM31);
 			rList.add(ChitFactory.FM40);
 			break;
 		case SWORDSMAN:
+			rList.add(ChitFactory.ML40);
+			rList.add(ChitFactory.ML31);
+			rList.add(ChitFactory.MM41);
+			rList.add(ChitFactory.ML31);
+			rList.add(ChitFactory.ML22);
 			rList.add(ChitFactory.FL31);
 			rList.add(ChitFactory.FL22);
 			rList.add(ChitFactory.FM41);

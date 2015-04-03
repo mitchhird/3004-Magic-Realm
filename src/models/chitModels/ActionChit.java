@@ -70,7 +70,6 @@ public class ActionChit {
 	
 	@Override
 	public String toString() {
-		String statusString = (wounded) ? "Wounded" : (fatigued) ? "Fatigued" : "Active";
-		return displayName + ": " + statusString;
+		return displayName;
 	}
 }
