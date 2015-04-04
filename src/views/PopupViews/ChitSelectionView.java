@@ -1,16 +1,41 @@
 package views.PopupViews;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import javax.swing.JDialog;
 
+import models.characterModels.PlayerBase;
+import models.chitModels.ActionChit;
 import views.MainViews.GameView;
 
 public class ChitSelectionView extends JDialog {
 
+	private PlayerBase thePlayer;
+	private ArrayList<ActionChit> aList;
 	private static final long serialVersionUID = 1459520823075758208L;
-	public ChitSelectionView(GameView theParent) {
+	public ChitSelectionView(GameView theParent, PlayerBase p) {
     	super(theParent,true);
+    	thePlayer = p;
+    	aList = thePlayer.getActiveThisRound();
 		initComponents();
 		setVisible(true);
+    }
+	
+	private String[] makeArrayAction(ArrayList<ActionChit> f){
+    	String[] rStrings = new String[f.size()];
+    	System.out.println(f.size());
+    	int k = 0;
+    	for(int i = 0; i < f.size(); ++i){
+    		if(f.get(i).isFight())
+    			continue;
+    		rStrings[k] = f.get(i).toString();
+    		++k;
+    	}
+    	for(int i = 0; i < f.size(); ++i)
+    		System.out.println(rStrings[i]);
+    	return rStrings;
     }
                         
     private void initComponents() {
@@ -18,9 +43,11 @@ public class ChitSelectionView extends JDialog {
         jComboBox1 = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(makeArrayAction(thePlayer.getActiveThisRound())));
 
         jButton1.setText("Select");
+        
+        addListeners();
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -37,9 +64,22 @@ public class ChitSelectionView extends JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
+        
         pack();
     }
+    
+
+    private void addListeners() {
+    	jButton1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				//set the lists
+				thePlayer.usedRoundChit(aList.get(jComboBox1.getSelectedIndex()));
+				dispose();
+			}
+		});
+    }
+
     
     // Variables declaration - do not modify                     
     private javax.swing.JButton jButton1;

@@ -67,7 +67,9 @@ public class ActionChitView extends JDialog {
     }
 	
 	private String[] makeArrayAction(ArrayList<ActionChit> f){
-    	String[] rStrings = new String[f.size()];
+    	String[] rStrings = new String[thePlayer.getAllActive().size() + 
+    	                               thePlayer.getWounded().size() +
+    	                               thePlayer.getInactive().size()];
     	System.out.println(f.size());
     	for(int i = 0; i < f.size(); ++i)
     		rStrings[i] = f.get(i).toString();
@@ -248,14 +250,19 @@ public class ActionChitView extends JDialog {
 				
 				int selected = inactiveList.getSelectedIndex();
 				aList.add(iList.remove(selected));
-				revalidate();
-				repaint();
+				activeList.remove(selected);
+				activeList.revalidate();
+				inactiveList.revalidate();
+				activeList.repaint();
+				inactiveList.repaint();
 			}
 		});
     	activeInactive.addActionListener(new ActionListener() {
 			@Override
+			//working on
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("active->inactive");
+				System.out.println(aList.size());
 				if(aList.size() == 0)
 					return;
 				
@@ -263,8 +270,8 @@ public class ActionChitView extends JDialog {
 				System.out.println("selected index: "+ selected + " string name: " + aList.get(selected).toString());
 				iList.add(aList.remove(selected));
 				System.out.println("after " + aList.get(selected).toString());
-				revalidate();
-				repaint();
+				activeList.repaint();
+				inactiveList.repaint();
 			}
 		});
     	woundedInactive.addActionListener(new ActionListener() {
@@ -276,8 +283,8 @@ public class ActionChitView extends JDialog {
 				
 				int selected = woundedList.getSelectedIndex();
 				iList.add(wList.remove(selected));
-				revalidate();
-				repaint();
+				inactiveList.repaint();
+				woundedList.repaint();
 			}
 		});
     	inactiveWounded.addActionListener(new ActionListener() {
@@ -289,8 +296,8 @@ public class ActionChitView extends JDialog {
 				
 				int selected = inactiveList.getSelectedIndex();
 				wList.add(iList.remove(selected));
-				revalidate();
-				repaint();
+				inactiveList.repaint();
+				woundedList.repaint();
 			}
 		});
     }

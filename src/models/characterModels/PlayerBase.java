@@ -373,6 +373,7 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 	
 	public void usedRoundChit(ActionChit usedChit){
 		if(active.contains(usedChit)){
+			System.out.println("Is using " + usedChit.toString());
 			usedThisRound.add(usedChit);
 			active.remove(usedChit);
 		}
