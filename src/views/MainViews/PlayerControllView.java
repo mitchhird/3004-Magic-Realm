@@ -11,14 +11,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import views.CombatViews.CombatMonsterView;
+import views.CombatViews.CombatView;
 import views.PopupViews.ActionChitView;
-import views.PopupViews.CombatView;
 import views.PopupViews.TradeView;
 import views.PopupViews.TreasureViewDialog;
 import networking.sendables.MessageType;
 import networking.sendables.UpdateDataObject;
 import models.characterModels.PlayerBase;
 import models.otherEntities.TreasureModel;
+import models.otherEntities.monsterModels.FlyingDragon;
+import models.otherEntities.monsterModels.MonsterBase;
 
 public class PlayerControllView extends javax.swing.JPanel {
 	// Variables declaration                   
@@ -267,7 +270,7 @@ public class PlayerControllView extends javax.swing.JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				 System.out.println("Trade Button Has Been Pressed");
 				 parent.getCurrentPlayer().getCurrentClearing().updateConnectedTiles();
-				 startTrading();
+				 startTrading();	
 			}
 		});
 

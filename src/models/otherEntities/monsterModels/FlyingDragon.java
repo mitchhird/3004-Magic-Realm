@@ -5,9 +5,13 @@ public class FlyingDragon extends MonsterBase {
 	private static final long serialVersionUID = 1236103107833384753L;
 
 	public FlyingDragon(String clearingName){
-		super(clearingName);
+		super(clearingName, "/monsters_c/dragon_flying.gif");
 		monsterType = "FlyingDragon";
-		monsterImage = "/monsters_c/dragon_flying.gif";
+	}
+	
+	@Override
+	public String toString() {
+		return "Flying Dragon, Attacking: " + combatDirection;
 	}
 
 	@Override

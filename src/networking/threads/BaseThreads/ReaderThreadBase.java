@@ -155,7 +155,7 @@ public class ReaderThreadBase extends Thread {
 			// If We Found A Valid Clearing Then Add It In
 			if (addToClearing != null) {
 				MonsterBase newMonster = m.clone();
-				addToClearing.addImageToList(m.getImage());
+				addToClearing.addToMonsterList(newMonster);
 				mainGame.getMonsters().add(newMonster);
 			}
 		}
@@ -188,6 +188,9 @@ public class ReaderThreadBase extends Thread {
 			moveTo.playerMovedToThis(incomingPlayer);
 		} else if (incoming.getUpdateType() == MessageType.REMOVE_PLAYER) {
 			mainGame.removePlayerByName(incoming.getSentPlayer().getName());
+		} else if (incoming.getUpdateType() == MessageType.KILL_MONSTER) {
+			Clearing removeFrom = mainGame.getClearingByName(incoming.getClearingName());
+			removeFrom.removeMonsterAtIndex(incoming.getMonsterRemovalIndex());
 		}
 	}
 	

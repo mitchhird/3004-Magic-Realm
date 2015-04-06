@@ -12,11 +12,14 @@ import models.characterModels.playerEnums.CharacterClass;
  */
 public class UpdateDataObject implements Serializable {
 	
-	private String clearingName;
 	private boolean hidden;
+	private String clearingName;
 	private PlayerBase sentPlayer;
 	private MessageType updateType;
 	private static final long serialVersionUID = -6607394420041280613L;
+
+	// Used For Monster Updating
+	private int monsterRemovalIndex;
 	
 	public UpdateDataObject (PlayerBase sentPlayer, MessageType updateType) {
 		this.sentPlayer = sentPlayer;
@@ -55,5 +58,12 @@ public class UpdateDataObject implements Serializable {
 	public String getClearingName() {
 		return clearingName;
 	}
-	
+
+	public int getMonsterRemovalIndex() {
+		return monsterRemovalIndex;
+	}
+
+	public void setMonsterRemovalIndex(int monsterRemovalIndex) {
+		this.monsterRemovalIndex = monsterRemovalIndex;
+	}
 }

@@ -14,7 +14,7 @@ import models.characterModels.playerEnums.Weights;
 import models.chitModels.ArmorChit;
 import models.otherEntities.CombatDataContainer;
 import utils.Pair;
-import views.PopupViews.CombatView;
+import views.CombatViews.CombatView;
 
 /**
  * Revised Combat System To Implement In Into The Game

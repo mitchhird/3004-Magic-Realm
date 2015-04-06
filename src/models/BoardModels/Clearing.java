@@ -12,6 +12,8 @@ import java.util.TreeSet;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 import networking.sendables.TreasureUpdateModel;
 import utils.GameUtils;
@@ -25,6 +27,7 @@ import models.chitModels.EnvironmentChit.WarningChit;
 import models.otherEntities.EntityBase;
 import models.otherEntities.SpecificTreasure;
 import models.otherEntities.TreasureModel;
+import models.otherEntities.monsterModels.MonsterBase;
 
 /*
  * Object that represents the logic behind the clearing objects
@@ -43,6 +46,7 @@ public class Clearing implements Serializable {
 	private SiteChit siteChit;
 
 	private ArrayList<Dwelling> dwellingsOnThis;
+	private ArrayList<MonsterBase> monstersOnThis;
 	private Set <Clearing> connectedClearings;
 	private Set <PlayerBase> playersInClearing;	
 	private transient Tile tileThisOn;
@@ -75,6 +79,7 @@ public class Clearing implements Serializable {
 		// Clearing Lists
 		treasuresInClearing = new ArrayList<>();
 		hiddenClearings = new ArrayList<>();
+		monstersOnThis = new ArrayList<MonsterBase>();
 		
 		// Create The Button Tied To The Clearing
 		buttonTiedToClearing = new JButton("");
@@ -234,19 +239,30 @@ public class Clearing implements Serializable {
 	public ArrayList<TreasureModel> searchClearing(PlayerBase p) {
 		int dieRoll = GameUtils.createRandomInt(1, 6);
 		ArrayList <TreasureModel> returnVal = new ArrayList<>();
+		String message = "You Didn't Find Anything In Your Search";
 		
 		// Temp Holder For Treasure
-		if (dieRoll < 4) {
+		if (dieRoll <= 2) {
 			for (TreasureModel t : treasuresInClearing) {
 				t.playerFound(p);
 				returnVal.add(t);
 			}
 			
+			if (treasuresInClearing.size() != 0)
+				message = "You Found Some Treasure In The Clearing. You Can Now Loot It";
+		} else if (dieRoll <= 4){
 			// Add The Player To The Hidden Clearings
 			for (Pair<Clearing, ArrayList<PlayerBase>> pair: hiddenClearings) {
+				// TODO: Fix bug where hidden paths aren't 2 way
 				pair.getSecond().add(p);
 			}
-		}
+			
+			if (hiddenClearings.size() != 0)
+				message = "You Found Some Hidden Paths, They Are Now Available To You";
+			
+		} 
+
+		JOptionPane.showMessageDialog(new JTextField(), message);
 		
 		return returnVal;
 	}
@@ -292,6 +308,29 @@ public class Clearing implements Serializable {
 	public void addImageToList (Image i) {
 		imageEnitiesOnThis.add(i);
 		updateImage();
+	}
+	
+	// Adds The Monster Into The Current List
+	public void addToMonsterList (MonsterBase b) {
+		monstersOnThis.add(b);
+		b.setActualClearingThisOn(this);
+		imageEnitiesOnThis.add(b.getImage());
+		updateImage();
+	}
+	
+	// Removes The New Monster From The List
+	public void removeMonsterFromlist (MonsterBase b) {
+		monstersOnThis.remove(b);
+		imageEnitiesOnThis.remove(b.getImage());
+		updateImage();
+	}
+	
+	// Removes A Monster A Particular Index
+	public void removeMonsterAtIndex (int index) {
+		// Sanity Check
+		if (index < monstersOnThis.size()) {
+			removeMonsterFromlist(monstersOnThis.get(index));
+		}
 	}
 	
 	// When Remove An Image Then Update As Well 
@@ -511,6 +550,10 @@ public class Clearing implements Serializable {
 	public void setWarningChit(WarningChit warningChit) {
 		this.warningChit = warningChit;
 		addImageToList(warningChit.getChitImage());
+	}
+
+	public ArrayList<MonsterBase> getMonstersOnThis() {
+		return monstersOnThis;
 	}
 	
 }

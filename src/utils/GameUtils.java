@@ -29,6 +29,11 @@ public class GameUtils {
 		}
 	}
 	
+	public static int createRandomIntNoCheat (int beginRange, int endRange) {
+		Random randomizer = new Random();
+		return (randomizer.nextInt((endRange - beginRange) + 1) + beginRange);
+	}
+	
 	public static boolean getCheatMode(){
 		return cheatMode;
 	}

@@ -108,13 +108,8 @@ public class TreasureViewDialog extends JDialog{
 	private void handleSearchButton() {
 		// If There Is Available Actions
 		if (thePlayer.getAvailableActions() > 0 || thePlayer.getAmountOfExtraSearchesLeft() > 0) {
-			ArrayList<TreasureModel> foundTreasures = thePlayer.searchCurrentClearing();
-			if (foundTreasures.size() == 0) {
-				JOptionPane.showMessageDialog(this, "You Didn't Find Anything In Your Search");
-			} else {
-				refreshTreasureList();
-				JOptionPane.showMessageDialog(this, "You Found Some Treasure In The Clearing. You Can Now Loot It");
-			}
+			thePlayer.searchCurrentClearing();
+			refreshTreasureList();
 		} else {
     		JOptionPane.showMessageDialog(this, "You Have No More Actions For This Turn");
     	}

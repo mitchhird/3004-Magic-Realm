@@ -262,8 +262,7 @@ public class BoardView extends JPanel {
 
 		currentClearing = evalley5;
 		aGhost = new Ghost(evalley5.getClearingName());
-		currentClearing.addImageToList(aGhost.getImage());
-		currentClearing.addEntityToClearing(aGhost);
+		currentClearing.addToMonsterList(aGhost);
 		aGhost.setCurrentClearing(currentClearing);
 		aGhost.setHomeClearing(currentClearing);
 		theMonsters.add(aGhost);
@@ -271,8 +270,7 @@ public class BoardView extends JPanel {
 		dwoods.setWarningChit(ChitFactory.bonesW);
 
 		aGiant = new Giant(dwoods5.getClearingName());
-		dwoods5.addImageToList(aGiant.getImage());
-		dwoods5.addEntityToClearing(aGiant);
+		dwoods5.addToMonsterList(aGiant);
 		aGiant.setCurrentClearing(dwoods5);
 		aGiant.setHomeClearing(dwoods5);
 		theMonsters.add(aGiant);
@@ -280,7 +278,7 @@ public class BoardView extends JPanel {
 		cliff.addSoundChit(ChitFactory.flutter2);
 		cliff6.setSoundChit(ChitFactory.flutter2);
 		aDragon = new FlyingDragon(cliff6.getClearingName());
-		cliff6.addImageToList(aDragon.getImage());
+		cliff6.addToMonsterList(aDragon);
 
 		cliff6.addEntityToClearing(aDragon);
 		aDragon.setCurrentClearing(cliff6);
@@ -321,10 +319,9 @@ public class BoardView extends JPanel {
 		currentClearing = cheatClearings.get(4);
 		currentClearing.setSoundChit(ChitFactory.flutter2);
 		currentClearing.getTileThisOn().addSoundChit(ChitFactory.flutter2);
+		
 		aDragon = new FlyingDragon(currentClearing.getClearingName());
-		currentClearing.addImageToList(aDragon.getImage());
-
-		currentClearing.addEntityToClearing(aDragon);
+		currentClearing.addToMonsterList(aDragon);
 		aDragon.setCurrentClearing(currentClearing);
 		aDragon.setHomeClearing(currentClearing);
 		theMonsters.add(aDragon);
@@ -333,8 +330,7 @@ public class BoardView extends JPanel {
 
 		currentClearing = cheatTiles.get(0).getHighestClearing();
 		aGhost = new Ghost(currentClearing.getClearingName());
-		currentClearing.addImageToList(aGhost.getImage());
-		currentClearing.addEntityToClearing(aGhost);
+		currentClearing.addToMonsterList(aGhost);
 		aGhost.setCurrentClearing(currentClearing);
 		aGhost.setHomeClearing(currentClearing);
 		theMonsters.add(aGhost);
@@ -343,8 +339,7 @@ public class BoardView extends JPanel {
 
 		currentClearing = cheatTiles.get(1).getHighestClearing();
 		aGiant = new Giant(currentClearing.getClearingName());
-		currentClearing.addImageToList(aGiant.getImage());
-		currentClearing.addEntityToClearing(aGiant);
+		currentClearing.addToMonsterList(aGiant);
 		aGiant.setCurrentClearing(currentClearing);
 		aGiant.setHomeClearing(currentClearing);
 		theMonsters.add(aGiant);

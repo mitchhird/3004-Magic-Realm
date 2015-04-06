@@ -39,10 +39,11 @@ import networking.threads.ProcessingThreads.ClientWriterThread;
 import networking.threads.ProcessingThreads.ServerMainThread;
 import utils.GameUtils;
 import views.FrameBase;
+import views.CombatViews.CombatMonsterView;
+import views.CombatViews.CombatView;
 import views.PopupViews.AddPlayerView;
 import views.PopupViews.CharacterPlacementView;
 import views.PopupViews.ChitPlacementView;
-import views.PopupViews.CombatView;
 import views.PopupViews.HostView;
 import views.PopupViews.JoinView;
 import views.PopupViews.VPSelecterView;
@@ -337,8 +338,14 @@ public class GameView extends FrameBase {
     	
     		// If There Is Multiple Players In The Clearing Then Start Combat
     		ArrayList<PlayerBase> playersInClearing = currentPlayer.getCurrentClearing().getPlayersInClearing();
-    		if (playersInClearing.size() > 1) {
-    			new CombatView(playersInClearing, this);
+    		ArrayList<MonsterBase> monstersInClearing = currentPlayer.getCurrentClearing().getMonstersOnThis();
+    		
+    		// If We Have Monsters Then Fight Them, Else Fight Players If Condition Is Meant
+    		if (monstersInClearing.size() > 0) {
+    			new CombatMonsterView(this, currentPlayer, currentPlayer.getCurrentClearing().getMonstersOnThis()).setVisible(true);;
+    		}
+    		else if (playersInClearing.size() > 1) {
+    			new CombatView(playersInClearing, this).setVisible(true);
     		}
     		
     		thePlayerButtons.updateButtonsForNetwork();
