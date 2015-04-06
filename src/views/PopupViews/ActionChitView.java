@@ -225,6 +225,35 @@ public class ActionChitView extends JDialog {
         pack();
     }
     
+    private void update(){
+        woundedList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = makeArrayAction(wList);
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        inactiveList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = makeArrayAction(iList);
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        activeList.setModel(new javax.swing.AbstractListModel() {
+        	//have to some how put aList into a string or have the objects do something
+        	//so that they can be added to the scroll pane
+        	//maybe a toString() for the chits
+            String[] strings = makeArrayAction(aList);
+            public int getSize() { return strings.length ; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+		activeList.revalidate();
+		inactiveList.revalidate();
+		woundedList.revalidate();
+		woundedList.repaint();
+		activeList.repaint();
+		inactiveList.repaint();
+		repaint();
+		super.repaint();
+    }
+    
     // Add In The Listeners To This View
     private void addListeners() {
     	confirmButton.addActionListener(new ActionListener() {
@@ -251,10 +280,7 @@ public class ActionChitView extends JDialog {
 				int selected = inactiveList.getSelectedIndex();
 				aList.add(iList.remove(selected));
 				activeList.remove(selected);
-				activeList.revalidate();
-				inactiveList.revalidate();
-				activeList.repaint();
-				inactiveList.repaint();
+				update();
 			}
 		});
     	activeInactive.addActionListener(new ActionListener() {
@@ -270,8 +296,7 @@ public class ActionChitView extends JDialog {
 				System.out.println("selected index: "+ selected + " string name: " + aList.get(selected).toString());
 				iList.add(aList.remove(selected));
 				System.out.println("after " + aList.get(selected).toString());
-				activeList.repaint();
-				inactiveList.repaint();
+				update();
 			}
 		});
     	woundedInactive.addActionListener(new ActionListener() {
@@ -283,8 +308,7 @@ public class ActionChitView extends JDialog {
 				
 				int selected = woundedList.getSelectedIndex();
 				iList.add(wList.remove(selected));
-				inactiveList.repaint();
-				woundedList.repaint();
+				update();
 			}
 		});
     	inactiveWounded.addActionListener(new ActionListener() {
@@ -296,8 +320,7 @@ public class ActionChitView extends JDialog {
 				
 				int selected = inactiveList.getSelectedIndex();
 				wList.add(iList.remove(selected));
-				inactiveList.repaint();
-				woundedList.repaint();
+				update();
 			}
 		});
     }
