@@ -3,6 +3,7 @@ package controller;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 import networking.sendables.MessageType;
 import networking.sendables.UpdateDataObject;
@@ -67,6 +68,11 @@ public class CombatPvMHandler extends CombatHandler {
 				// Check To See If We Actually Have Valid Armor
 				if (armorHit == null) {
 					parent.println("   --- Monster Hit Our Fleshy Bits");
+					JOptionPane.showMessageDialog(new JTextArea(), "Monster Has Killed You, You Will Spawn At Home Location");
+					attacker.moveToHome();
+					
+					// Move The Player Back Home When They Die
+					parent.sendMessage(new UpdateDataObject(attacker, MessageType.MOVE_PLAYER));
 				} else {
 					// Register The Hit
 					hitPlayersArmor(attacker, armorHit, m.getMonsterDamage());
@@ -79,6 +85,10 @@ public class CombatPvMHandler extends CombatHandler {
 				parent.println("   --- Monster Missed You");
 			}
 		}
+		
+		// Combat Is Done So Set The Player Data Back To Normal
+		attacker.setCurrentFightChit(null);
+		attacker.setCurrentMovementChit(null);
 	}
 
 	// Executes The Player Attack Against The Monster

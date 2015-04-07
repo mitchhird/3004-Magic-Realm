@@ -56,6 +56,8 @@ public class CombatPVPHandler {
 	private void initPlayerContainers() {
 		for (PlayerBase p: this.combattingPlayers) {
 			p.setCombatData(new CombatDataContainer(p, p, Attacks.SMASH, Defences.CHARGE));
+			p.setCurrentMovementChit(null);
+			p.setCurrentFightChit(null);
 		}
 	}
 
