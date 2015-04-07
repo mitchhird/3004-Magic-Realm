@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JDialog;
 
@@ -12,8 +13,26 @@ import models.chitModels.ActionChit;
 import views.MainViews.GameView;
 
 @SuppressWarnings("rawtypes")
-public class ActionChitView extends JDialog {
-
+public class RestView extends JDialog {
+	
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton cancelButton;
+    private javax.swing.JButton inactiveActive;
+    private javax.swing.JButton activeInactive;
+    private javax.swing.JButton woundedInactive;
+    private javax.swing.JButton inactiveWounded;
+    private javax.swing.JButton confirmButton;
+    private javax.swing.JLabel activeLabel;
+    private javax.swing.JLabel inactiveLabel;
+    private javax.swing.JLabel woundedLabel;
+    private javax.swing.JLabel neededLabel;
+    private javax.swing.JLabel currStarsLabel;
+    private javax.swing.JList activeList;
+    private javax.swing.JList inactiveList;
+    private javax.swing.JList woundedList;
+    private javax.swing.JScrollPane activeScrollPane;
+    private javax.swing.JScrollPane inactiveScrollPane;
+    private javax.swing.JScrollPane woundedScrollPane;
   
     /**
 	 * 
@@ -26,31 +45,22 @@ public class ActionChitView extends JDialog {
 	int amountNeeded, initAmount;
 	ArrayList<ActionChit> aList, iList, wList;
 	
-	public ActionChitView(GameView gameView,PlayerBase player, int amount) {
+	public RestView(GameView gameView,PlayerBase player, int amount) {
 		super(gameView,true);
 		parent = gameView;
 		thePlayer = player;
 		System.out.println("have added player");
 		System.out.println("have active: " + thePlayer.getAllActive().size());
 		amountNeeded = amount;
-		initAmount = 0;
-		aList = thePlayer.getActiveThisRound();
+		initAmount = 2;
+		aList = thePlayer.getActive();
 		iList = thePlayer.getInactive();
 		wList = thePlayer.getWounded();
+		
         initComponents();
+        update();
+        setName("Rest Window");
         setVisible(true);
-    }
-	
-	private String[] makeArrayAction(ArrayList<ActionChit> f){
-    	String[] rStrings = new String[thePlayer.getAllActive().size() + 
-    	                               thePlayer.getWounded().size() +
-    	                               thePlayer.getInactive().size()];
-    	System.out.println(f.size());
-    	for(int i = 0; i < f.size(); ++i)
-    		rStrings[i] = f.get(i).toString();
-    	for(int i = 0; i < f.size(); ++i)
-    		System.out.println(rStrings[i]);
-    	return rStrings;
     }
     
     @SuppressWarnings({ "unchecked"})
@@ -76,48 +86,30 @@ public class ActionChitView extends JDialog {
 
         activeLabel.setText("Active");
         
-        activeList.setModel(new javax.swing.AbstractListModel() {
-        	//have to some how put aList into a string or have the objects do something
-        	//so that they can be added to the scroll pane
-        	//maybe a toString() for the chits
-            String[] strings = makeArrayAction(aList);
-            public int getSize() { return strings.length ; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+    
         activeScrollPane.setViewportView(activeList);
 
         inactiveActive.setText("Move Left");
 
         activeInactive.setText("Move Right");
 
-        inactiveList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = makeArrayAction(iList);
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         inactiveScrollPane.setViewportView(inactiveList);
 
         woundedInactive.setText("Move Left");
         inactiveWounded.setText("Move Right");
 
-        woundedList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = makeArrayAction(wList);
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        
         woundedScrollPane.setViewportView(woundedList);
         
         
-        inactiveLabel.setText("Inactive");
+        inactiveLabel.setText("Fatigued");
 
         woundedLabel.setText("Wounded");
         
         String amountS = Integer.toString(amountNeeded);
 
-        neededLabel.setText("Stars Needed " + amountS + ":");
+        neededLabel.setText("Remaing Rests Left: ");
 
-        currStarsLabel.setText("0");
+        currStarsLabel.setText("" + initAmount);
 
         confirmButton.setText("Confirm");
 
@@ -202,33 +194,24 @@ public class ActionChitView extends JDialog {
         pack();
     }
     
+    // Update The Lists Will The Needed Possibles
     private void update(){
-        woundedList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = makeArrayAction(wList);
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        inactiveList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = makeArrayAction(iList);
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        activeList.setModel(new javax.swing.AbstractListModel() {
-        	//have to some how put aList into a string or have the objects do something
-        	//so that they can be added to the scroll pane
-        	//maybe a toString() for the chits
-            String[] strings = makeArrayAction(aList);
-            public int getSize() { return strings.length ; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-		activeList.revalidate();
-		inactiveList.revalidate();
-		woundedList.revalidate();
-		woundedList.repaint();
-		activeList.repaint();
-		inactiveList.repaint();
-		repaint();
-		super.repaint();
+        neededLabel.setText("Remaing Rests Left: ");
+        currStarsLabel.setText("" + initAmount);
+        
+        // Populate The List
+        aList = thePlayer.getActive();
+		iList = thePlayer.getInactive();
+		wList = thePlayer.getWounded();
+        activeList.setListData(convertListToVector(thePlayer.getActive()));
+        inactiveList.setListData(convertListToVector(thePlayer.getInactive()));
+        woundedList.setListData(convertListToVector(thePlayer.getWounded()));
+    }
+    
+    private Vector<ActionChit> convertListToVector (ArrayList <ActionChit> a) {
+    	Vector<ActionChit> returnVal = new Vector<>();
+    	returnVal.addAll(a);
+    	return returnVal;
     }
     
     // Add In The Listeners To This View
@@ -251,33 +234,36 @@ public class ActionChitView extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("inactive->active");
-				if(iList.size() == 0)
-					return;
 				
-				int selected = inactiveList.getSelectedIndex();
-				if(selected == -1){
-					return;
+				// If We Still Have Movments Available
+				if (initAmount > 0) {
+					if (iList.size() == 0)
+						return;
+
+					int selected = inactiveList.getSelectedIndex();
+					if (selected == -1) {
+						return;
+					}
+					iList.get(selected).restChit();
+					initAmount--;
+					update();
 				}
-				aList.add(iList.remove(selected));
-				activeList.remove(selected);
-				update();
 			}
 		});
     	activeInactive.addActionListener(new ActionListener() {
 			@Override
 			//working on
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("active->inactive");
-				System.out.println(aList.size());
+				System.out.println("active-->inactive");
 				if(aList.size() == 0)
 					return;
 				int selected = activeList.getSelectedIndex();
 				if(selected == -1){
 					return;
 				}
-				System.out.println("selected index: "+ selected + " string name: " + aList.get(selected).toString());
-				iList.add(aList.remove(selected));
-				System.out.println("after " + aList.get(selected).toString());
+			
+				aList.get(selected).woundChit();
+				initAmount++;
 				update();
 			}
 		});
@@ -285,15 +271,18 @@ public class ActionChitView extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("wounded->inactive");
-				if(wList.size() == 0)
-					return;
-				
-				int selected = woundedList.getSelectedIndex();
-				if(selected == -1){
-					return;
+				if (initAmount > 0) {
+					if (wList.size() == 0)
+						return;
+
+					int selected = woundedList.getSelectedIndex();
+					if (selected == -1) {
+						return;
+					}
+					wList.get(selected).restChit();
+					initAmount--;
+					update();
 				}
-				iList.add(wList.remove(selected));
-				update();
 			}
 		});
     	inactiveWounded.addActionListener(new ActionListener() {
@@ -307,29 +296,12 @@ public class ActionChitView extends JDialog {
 				if(selected == -1){
 					return;
 				}
-				wList.add(iList.remove(selected));
+				iList.get(selected).woundChit();
+				initAmount++;
 				update();
 			}
 		});
     }
 
-    // Variables declaration - do not modify                     
-    private javax.swing.JButton cancelButton;
-    private javax.swing.JButton inactiveActive;
-    private javax.swing.JButton activeInactive;
-    private javax.swing.JButton woundedInactive;
-    private javax.swing.JButton inactiveWounded;
-    private javax.swing.JButton confirmButton;
-    private javax.swing.JLabel activeLabel;
-    private javax.swing.JLabel inactiveLabel;
-    private javax.swing.JLabel woundedLabel;
-    private javax.swing.JLabel neededLabel;
-    private javax.swing.JLabel currStarsLabel;
-    private javax.swing.JList activeList;
-    private javax.swing.JList inactiveList;
-    private javax.swing.JList woundedList;
-    private javax.swing.JScrollPane activeScrollPane;
-    private javax.swing.JScrollPane inactiveScrollPane;
-    private javax.swing.JScrollPane woundedScrollPane;
     // End of variables declaration                   
 }

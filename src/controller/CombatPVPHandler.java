@@ -129,6 +129,12 @@ public class CombatPVPHandler {
 				
 					parentView.println("   --- Hit " + defender.getName() + "'s " + armorHit.getArmourType());
 					parentView.println("   --- Armour Status: " + armorHit.getArmorStatus());
+					
+					// Wound The Chit If We Have One
+					if (attacker.getCurrentMovementChit() != null) {
+						attacker.getCurrentMovementChit().woundChit();
+						parentView.println("   --- Chit Wounded: " + attacker.getCurrentMovementChit().getChitStatus());
+					}
 				}
 			} else {
 				parentView.println("   --- " + attacker.getName() + " Missed");
@@ -138,6 +144,8 @@ public class CombatPVPHandler {
 		// Set Everyone's Shield Back To Not Blocking
 		for (PlayerBase p: combattingPlayers) {
 			p.setShieldReady(false);
+			p.setCurrentMovementChit(null);
+			p.setCurrentFightChit(null);
 		}
 		
 		// Now Purge The List Of Ready Players And Get Ready For The Next Round

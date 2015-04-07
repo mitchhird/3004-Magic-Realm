@@ -3,47 +3,55 @@ package views.PopupViews;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JDialog;
 
 import models.characterModels.PlayerBase;
 import models.chitModels.ActionChit;
+import models.chitModels.ChitType;
 import views.MainViews.GameView;
 
 public class ChitSelectionView extends JDialog {
 
+	private ChitType displayTable;
 	private PlayerBase thePlayer;
-	private ArrayList<ActionChit> aList;
+	private Vector<ActionChit> aList;
 	private static final long serialVersionUID = 1459520823075758208L;
-	public ChitSelectionView(GameView theParent, PlayerBase p) {
+	
+	public ChitSelectionView(GameView theParent, PlayerBase p, ChitType c) {
     	super(theParent,true);
     	thePlayer = p;
-    	aList = thePlayer.getActiveThisRound();
+    	displayTable = c;
+    	aList = getDisplayChits();
+
+		// Initialize All Components And Place The Dialog In The Window
 		initComponents();
+		setLocationRelativeTo(null);
 		setVisible(true);
-    }
+	}
 	
-	private String[] makeArrayAction(ArrayList<ActionChit> f){
-    	String[] rStrings = new String[f.size()];
-    	System.out.println(f.size());
-    	int k = 0;
-    	for(int i = 0; i < f.size(); ++i){
-    		if(f.get(i).isFight())
-    			continue;
-    		rStrings[k] = f.get(i).toString();
-    		++k;
-    	}
-    	for(int i = 0; i < f.size(); ++i)
-    		System.out.println(rStrings[i]);
-    	return rStrings;
-    }
+	private Vector<ActionChit> getDisplayChits () {
+		Vector<ActionChit> returnVal = new Vector<>();
+		switch (displayTable) {
+		case FIGHT_CHIT:
+			returnVal.addAll(thePlayer.getFightChits());
+			break;
+		case MOVE_CHIT:
+			returnVal.addAll(thePlayer.getMovementChits());
+			break;
+		default:
+			break;
+		}
+		return returnVal;
+	}
                         
     private void initComponents() {
 
         jComboBox1 = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(makeArrayAction(thePlayer.getActiveThisRound())));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(aList));
 
         jButton1.setText("Select");
         
@@ -74,13 +82,15 @@ public class ChitSelectionView extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				//set the lists
-				thePlayer.usedRoundChit(aList.get(jComboBox1.getSelectedIndex()));
+				if (displayTable == ChitType.MOVE_CHIT) {
+					thePlayer.setCurrentMovementChit(aList.get(jComboBox1.getSelectedIndex()));
+				} else {
+					thePlayer.setCurrentFightChit(aList.get(jComboBox1.getSelectedIndex()));
+				}
 				dispose();
 			}
 		});
     }
-
-    
     // Variables declaration - do not modify                     
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;

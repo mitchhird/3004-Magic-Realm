@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.Attacks;
 import models.characterModels.playerEnums.Defences;
+import models.chitModels.ChitType;
 import models.chitModels.WeaponChit;
 import models.otherEntities.CombatDataContainer;
 import networking.sendables.MessageType;
@@ -114,7 +115,7 @@ public class CombatView extends CombatViewBase implements WindowListener {
         });
         dodgeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	ChitSelectionView chitView = new ChitSelectionView(ourParent, combatHandler.getCurrentDefender());
+            	ChitSelectionView chitView = new ChitSelectionView(ourParent, combatHandler.getCurrentAttacker(), ChitType.MOVE_CHIT);
             	combatHandler.setCurrentDefence(Defences.DODGE);
             	
             	// Display Things For Displaying
@@ -126,7 +127,7 @@ public class CombatView extends CombatViewBase implements WindowListener {
         });
         duckButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	ChitSelectionView chitView = new ChitSelectionView(ourParent ,combatHandler.getCurrentDefender());
+            	ChitSelectionView chitView = new ChitSelectionView(ourParent ,combatHandler.getCurrentAttacker(), ChitType.MOVE_CHIT);
             	combatHandler.setCurrentDefence(Defences.DUCK);
                 println("Setting Current Defence To " + Defences.DUCK);
                 nextButton.setEnabled(true);
@@ -135,7 +136,7 @@ public class CombatView extends CombatViewBase implements WindowListener {
         });
         chargeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	ChitSelectionView chitView = new ChitSelectionView(ourParent, combatHandler.getCurrentDefender());
+            	ChitSelectionView chitView = new ChitSelectionView(ourParent, combatHandler.getCurrentAttacker(), ChitType.MOVE_CHIT);
             	combatHandler.setCurrentDefence(Defences.CHARGE);
                 println("Setting Current Defence To " + Defences.CHARGE);
                 nextButton.setEnabled(true);

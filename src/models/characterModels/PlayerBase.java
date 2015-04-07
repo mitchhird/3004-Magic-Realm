@@ -93,9 +93,11 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 	protected transient Image unhiddenImage;
 	protected transient ArrayList<Denizen> hired;	
 	protected transient ArrayList<ActionChit> active;
-	protected transient ArrayList<ActionChit> inActive;
-	protected transient ArrayList<ActionChit> wounded;
 	protected transient ArrayList<ActionChit> usedThisRound;
+	
+	// Chits For Combat
+	protected transient ActionChit currentMovementChit;
+	protected transient ActionChit currentFightChit;
 	
 	// Class Related Data
 	protected int amountOfExtraMovesLeft;
@@ -173,8 +175,6 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 		
 		// Setup the lists
 		active = new ArrayList<ActionChit>();
-		inActive = new ArrayList<ActionChit>();
-		wounded = new ArrayList<ActionChit>();
 		turnLog = new ArrayList<>();
 		accquiredTreasures = new ArrayList<>();
 		usedThisRound = new ArrayList<ActionChit>();
@@ -564,11 +564,6 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 		return rList;
 	}
 	
-	public ArrayList<ActionChit> getActiveThisRound(){
-		ArrayList<ActionChit> rList = new ArrayList<ActionChit>();
-		rList.addAll(active);
-		return rList;
-	}
 	
 	public ArrayList<ActionChit> getUsedThisRound(){
 		ArrayList<ActionChit> rList = new ArrayList<ActionChit>();
@@ -576,28 +571,58 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 		return rList;
 	}
 	
+	public ArrayList<ActionChit> getActive(){
+		ArrayList<ActionChit> rList = new ArrayList<ActionChit>();
+		
+		for (ActionChit a: active) {
+			if (!a.isFatigued() && !a.isWounded())
+				rList.add(a);
+		}
+		
+		return rList;
+	}
+	
 	public ArrayList<ActionChit> getInactive(){
 		ArrayList<ActionChit> rList = new ArrayList<ActionChit>();
-		rList.addAll(inActive);
+		
+		// If The Chit Fatigued, Then Move It Over
+		for (ActionChit a: active) {
+			if (a.isFatigued())
+				rList.add(a);
+		}
+		
 		return rList;
 	}
 	
 	public ArrayList<ActionChit> getWounded(){
 		ArrayList<ActionChit> rList = new ArrayList<ActionChit>();
-		rList.addAll(wounded);
+		for (ActionChit a: active) {
+			if (a.isWounded())
+				rList.add(a);
+		}
 		return rList;
 	}
 	
+	public ArrayList<ActionChit> getMovementChits(){
+		ArrayList<ActionChit> rList = new ArrayList<ActionChit>();
+		for (ActionChit a: active) {
+			if (!a.isFight())
+				rList.add(a);
+		}
+		return rList;
+	} 
+	
+	public ArrayList<ActionChit> getFightChits(){
+		ArrayList<ActionChit> rList = new ArrayList<ActionChit>();
+		for (ActionChit a: active) {
+			if (a.isFight())
+				rList.add(a);
+		}
+		return rList;
+	} 
+	
 	public void setActive(ArrayList<ActionChit> update){
 		active = update;
-	}
-	
-	public void setInactive(ArrayList<ActionChit> update){
-		inActive = update;
-	}
-	
-	public void setWounded(ArrayList<ActionChit> update){
-		wounded = update;
 	}
 	
 	public void setWounds(int wounds) {
@@ -716,5 +741,21 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 			return true;
 		}
 		return false;
+	}
+
+	public ActionChit getCurrentMovementChit() {
+		return currentMovementChit;
+	}
+
+	public void setCurrentMovementChit(ActionChit currentMovementChit) {
+		this.currentMovementChit = currentMovementChit;
+	}
+
+	public ActionChit getCurrentFightChit() {
+		return currentFightChit;
+	}
+
+	public void setCurrentFightChit(ActionChit currentFightChit) {
+		this.currentFightChit = currentFightChit;
 	}
 }

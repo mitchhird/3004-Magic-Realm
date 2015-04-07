@@ -37,7 +37,7 @@ public class ActionChit {
 	}
 
 	public boolean isFatigued() {
-		return fatigued;
+		return fatigued && !wounded;
 	}
 
 	public void setFatigued(boolean fatigued) {
@@ -50,6 +50,10 @@ public class ActionChit {
 
 	public void setWounded(boolean wounded) {
 		this.wounded = wounded;
+	}
+	
+	public String getChitStatus () {
+		return (wounded) ? "Wounded" : (fatigued) ? "Fatigued" : "Active";
 	}
 	
 	// Wounds The Chit When Called

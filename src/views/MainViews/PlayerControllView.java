@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableModel;
 
 import views.CombatViews.CombatMonsterView;
 import views.CombatViews.CombatView;
-import views.PopupViews.ActionChitView;
+import views.PopupViews.RestView;
 import views.PopupViews.TradeView;
 import views.PopupViews.TreasureViewDialog;
 import networking.sendables.MessageType;
@@ -260,7 +260,7 @@ public class PlayerControllView extends javax.swing.JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 				 System.out.println("Rest Button Has Been Pressed");
 				 parent.getCurrentPlayer().getCurrentClearing().updateConnectedTiles();
-				 ActionChitView chitView = new ActionChitView(parent, parent.getCurrentPlayer(),1);
+				 RestView chitView = new RestView(parent, parent.getCurrentPlayer(),1);
 			}
 		});
 
