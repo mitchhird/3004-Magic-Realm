@@ -6,21 +6,29 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 import models.characterModels.PlayerBase;
 import models.chitModels.ActionChit;
 import models.chitModels.ChitType;
+import views.CombatViews.CombatView;
 import views.MainViews.GameView;
 
 public class ChitSelectionView extends JDialog {
 
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox jComboBox1;
+    
 	private ChitType displayTable;
 	private PlayerBase thePlayer;
 	private Vector<ActionChit> aList;
 	private static final long serialVersionUID = 1459520823075758208L;
 	
-	public ChitSelectionView(GameView theParent, PlayerBase p, ChitType c) {
-    	super(theParent,true);
+	public ChitSelectionView(PlayerBase p, ChitType c) {
+    	super(new JFrame(), true);
     	thePlayer = p;
     	displayTable = c;
     	aList = getDisplayChits();
@@ -28,6 +36,7 @@ public class ChitSelectionView extends JDialog {
 		// Initialize All Components And Place The Dialog In The Window
 		initComponents();
 		setLocationRelativeTo(null);
+		setTitle("Select A Chit");
 		setVisible(true);
 	}
 	
@@ -77,23 +86,34 @@ public class ChitSelectionView extends JDialog {
     }
     
 
+    // Add In The Listeners That We Need For This Window
     private void addListeners() {
     	jButton1.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				//set the lists
-				if (displayTable == ChitType.MOVE_CHIT) {
-					thePlayer.setCurrentMovementChit(aList.get(jComboBox1.getSelectedIndex()));
+				// If We Pass The 2 Star Check, Then Continue Going
+				if (aList.get(jComboBox1.getSelectedIndex()).getStars() + thePlayer.getCurrentStarAmount() <= 2) {
+					// Set The Data That We Need As We Have Passed The Check
+					if (displayTable == ChitType.MOVE_CHIT) {
+						
+						// If We Can use This Chit In Combat Then Set It, Else Let Them Know
+						if (aList.get(jComboBox1.getSelectedIndex()).getCapacity().getWeightValue() 
+									  >= thePlayer.getWeapon().getWeaponDamage().getWeightValue()) {
+							thePlayer.setCurrentMovementChit(aList.get(jComboBox1.getSelectedIndex()));
+							dispose();
+						} else {
+							JOptionPane.showMessageDialog(new JTextArea(), "Fight Chit Weight Is Less Then Weapon Weight, Please Select Another");
+						}
+					} else {
+						thePlayer.setCurrentFightChit(aList.get(jComboBox1.getSelectedIndex()));
+						dispose();
+					}
 				} else {
-					thePlayer.setCurrentFightChit(aList.get(jComboBox1.getSelectedIndex()));
+					JOptionPane.showMessageDialog(new JTextArea(), "Chit Exceeds 2* Limit, Please Select Another");
 				}
-				dispose();
 			}
 		});
     }
-    // Variables declaration - do not modify                     
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
-    // End of variables declaration                   
+	                
 }
 

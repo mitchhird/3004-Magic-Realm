@@ -292,8 +292,11 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 		currentTurn += (currentTurn.equals("")) ? logMessage : "," + logMessage;
 	}
 	
-	// Moves The Player Straight To Home When Called
+	// Moves The Player Straight To Home When Called (Only Called On Player Death)
 	public void moveToHome() {
+		currentFame = 0;
+		currentNotoriety = 0;
+		currentGold = 10;
 		forceMove(homeClearing);
 	}
 
@@ -757,5 +760,12 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 
 	public void setCurrentFightChit(ActionChit currentFightChit) {
 		this.currentFightChit = currentFightChit;
+	}
+	
+	public int getCurrentStarAmount () {
+		int returnVal = 0;
+		returnVal += (currentMovementChit != null) ? currentMovementChit.getStars() : 0;
+		returnVal += (currentFightChit != null) ? currentFightChit.getStars() : 0;
+		return returnVal;
 	}
 }
