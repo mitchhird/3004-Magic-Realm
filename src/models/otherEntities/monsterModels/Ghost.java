@@ -9,6 +9,11 @@ public class Ghost extends MonsterBase {
 		super(clearingOn, "/monsters_c/ghost.gif");
 		monsterType = "Giant";
 	}
+	
+	@Override
+	public String toString() {
+		return "Ghost, Attacking: " + combatDirection;
+	}
 
 	@Override
 	public MonsterBase clone() {

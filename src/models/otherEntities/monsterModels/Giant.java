@@ -12,6 +12,11 @@ public class Giant extends MonsterBase {
 		extraWeapon = true;
 		extraAttack = new OgreClub(this);
 	}
+	
+	@Override
+	public String toString() {
+		return "Giant, Attacking: " + combatDirection;
+	}
 
 	@Override
 	public MonsterBase clone() {
