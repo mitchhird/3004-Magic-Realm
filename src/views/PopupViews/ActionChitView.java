@@ -1,5 +1,6 @@
 package views.PopupViews;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -24,32 +25,6 @@ public class ActionChitView extends JDialog {
 	PlayerBase thePlayer;
 	int amountNeeded, initAmount;
 	ArrayList<ActionChit> aList, iList, wList;
-
-    /*
-     * public ArrayList<ActionChit> getAllActive(){
-	}
-	
-	public ArrayList<ActionChit> getActiveThisRound(){
-	}
-	
-	public ArrayList<ActionChit> getUsedThisRound(){
-	}
-	
-	public ArrayList<ActionChit> getInactive(){
-	}
-	
-	public ArrayList<ActionChit> getWounded(){
-	}
-	
-	public void setActive(ArrayList<ActionChit> update){
-	}
-	
-	public void setInactive(ArrayList<ActionChit> update){
-	}
-	
-	public void setWounded(ArrayList<ActionChit> update){
-	}
-     */
 	
 	public ActionChitView(GameView gameView,PlayerBase player, int amount) {
 		super(gameView,true);
@@ -130,8 +105,10 @@ public class ActionChitView extends JDialog {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        
         woundedScrollPane.setViewportView(woundedList);
-
+        
+        
         inactiveLabel.setText("Inactive");
 
         woundedLabel.setText("Wounded");
@@ -278,6 +255,9 @@ public class ActionChitView extends JDialog {
 					return;
 				
 				int selected = inactiveList.getSelectedIndex();
+				if(selected == -1){
+					return;
+				}
 				aList.add(iList.remove(selected));
 				activeList.remove(selected);
 				update();
@@ -291,8 +271,10 @@ public class ActionChitView extends JDialog {
 				System.out.println(aList.size());
 				if(aList.size() == 0)
 					return;
-				
 				int selected = activeList.getSelectedIndex();
+				if(selected == -1){
+					return;
+				}
 				System.out.println("selected index: "+ selected + " string name: " + aList.get(selected).toString());
 				iList.add(aList.remove(selected));
 				System.out.println("after " + aList.get(selected).toString());
@@ -307,6 +289,9 @@ public class ActionChitView extends JDialog {
 					return;
 				
 				int selected = woundedList.getSelectedIndex();
+				if(selected == -1){
+					return;
+				}
 				iList.add(wList.remove(selected));
 				update();
 			}
@@ -319,6 +304,9 @@ public class ActionChitView extends JDialog {
 					return;
 				
 				int selected = inactiveList.getSelectedIndex();
+				if(selected == -1){
+					return;
+				}
 				wList.add(iList.remove(selected));
 				update();
 			}
