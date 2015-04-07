@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import networking.sendables.MessageType;
 import networking.sendables.TreasureUpdateModel;
 import utils.GameUtils;
 import utils.Pair;
@@ -27,6 +28,7 @@ import models.chitModels.EnvironmentChit.WarningChit;
 import models.otherEntities.EntityBase;
 import models.otherEntities.SpecificTreasure;
 import models.otherEntities.TreasureModel;
+import models.otherEntities.TreasurePile;
 import models.otherEntities.monsterModels.MonsterBase;
 
 /*
@@ -54,6 +56,7 @@ public class Clearing implements Serializable {
 	private transient Set <EntityBase> entitiesInClearing;
 	
 	// Lists For Clearings
+	private ArrayList <TreasurePile> pilesInClearing;
 	private ArrayList <TreasureModel> treasuresInClearing;
 	private ArrayList <Pair<Clearing, ArrayList<PlayerBase>>> hiddenClearings;
 	private static final long serialVersionUID = -3697827851116659513L;
@@ -80,6 +83,7 @@ public class Clearing implements Serializable {
 		treasuresInClearing = new ArrayList<>();
 		hiddenClearings = new ArrayList<>();
 		monstersOnThis = new ArrayList<MonsterBase>();
+		pilesInClearing = new ArrayList<TreasurePile>();
 		
 		// Create The Button Tied To The Clearing
 		buttonTiedToClearing = new JButton("");
@@ -105,6 +109,7 @@ public class Clearing implements Serializable {
 		// Clearing Lists
 		treasuresInClearing = new ArrayList<>();
 		hiddenClearings = new ArrayList<>();
+		pilesInClearing = new ArrayList<TreasurePile>();
 		
 		// Create The Button Tied To The Clearing
 		buttonTiedToClearing = new JButton("");
@@ -248,6 +253,11 @@ public class Clearing implements Serializable {
 				returnVal.add(t);
 			}
 			
+			// Find All Treasure Piles
+			for (TreasurePile pile: pilesInClearing) {
+				pile.playerFound(p);
+			}
+			
 			if (treasuresInClearing.size() != 0)
 				message = "You Found Some Treasure In The Clearing. You Can Now Loot It";
 		} else if (dieRoll <= 4){
@@ -272,24 +282,35 @@ public class Clearing implements Serializable {
 		ArrayList<TreasureModel> treasuresFound = getTreasuresPlayerFound(p);
 		
 		// Roll The Random Die, And If The Player Scores A Value That Is In The Range Then Loot That
-		int lootTreasureAt = GameUtils.createRandomInt(0, treasuresFound.size() - 1);
+		int lootTreasureAt = GameUtils.createRandomInt(0, treasuresFound.size() + pilesInClearing.size()- 1);
 		
 		// If It Is A Valid Treasure, Then We Can Loot It
-		if (lootTreasureAt <= treasuresInClearing.size() - 1) {
+		if (lootTreasureAt <= treasuresFound.size() + pilesInClearing.size()- 1) {
 			removeTreasureAt(p, lootTreasureAt);
 			writer.sendMessage(new TreasureUpdateModel(p, lootTreasureAt));
 		}
 	}
 
 	public void removeTreasureAt(PlayerBase p, int lootTreasureAt) {
+		// We Are Removing From The Treasures So Loot
 		if (lootTreasureAt <= treasuresInClearing.size() - 1) {
 			TreasureModel newTreasure = treasuresInClearing.remove(lootTreasureAt);
 
-			// If It's A Specific Treasure Loot It That Way
-			if (newTreasure instanceof SpecificTreasure) {
+		    if (newTreasure instanceof SpecificTreasure) {
 				p.addSpecficTreasure((SpecificTreasure) newTreasure);
 			} else {
 				p.addTreasure(newTreasure);
+			}
+		} else {
+			TreasurePile newPile = pilesInClearing.remove(lootTreasureAt - treasuresInClearing.size() -1);
+			
+			// For Each Treasure In The Pile
+			for (TreasureModel newTreasure: newPile.getTreasureListing()) {
+			    if (newTreasure instanceof SpecificTreasure) {
+					p.addSpecficTreasure((SpecificTreasure) newTreasure);
+				} else {
+					p.addTreasure(newTreasure);
+				}
 			}
 		}
 	}
@@ -298,6 +319,11 @@ public class Clearing implements Serializable {
 	public ArrayList<TreasureModel> getTreasuresPlayerFound(PlayerBase p) {
 		ArrayList<TreasureModel> treasures = new ArrayList<>();
 		for (TreasureModel t: treasuresInClearing) {
+			if (t.hasPlayerFound(p))
+				treasures.add(t);
+		}
+		
+		for (TreasureModel t: pilesInClearing) {
 			if (t.hasPlayerFound(p))
 				treasures.add(t);
 		}
@@ -501,6 +527,15 @@ public class Clearing implements Serializable {
 	}
 	
 	public ArrayList<TreasureModel> getTreasuresInClearing() {
+		ArrayList<TreasureModel> returnVal = new ArrayList<TreasureModel>();
+		for (TreasureModel t: treasuresInClearing) {
+			returnVal.add(t);
+		}
+		
+		for (TreasurePile t: pilesInClearing) {
+			returnVal.add(t);
+		}
+		
 		return treasuresInClearing;
 	}
 
@@ -554,6 +589,10 @@ public class Clearing implements Serializable {
 
 	public ArrayList<MonsterBase> getMonstersOnThis() {
 		return monstersOnThis;
+	}
+	
+	public void addTreasurePile (TreasurePile p) {
+		pilesInClearing.add(p);
 	}
 	
 }

@@ -25,6 +25,7 @@ import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.CharacterClass;
 import models.chitModels.ChitFactory;
 import models.otherEntities.SpecificTreasure;
+import models.otherEntities.TreasurePile;
 import models.otherEntities.monsterModels.FlyingDragon;
 import models.otherEntities.monsterModels.Ghost;
 import models.otherEntities.monsterModels.Giant;
