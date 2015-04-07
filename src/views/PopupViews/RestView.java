@@ -52,7 +52,7 @@ public class RestView extends JDialog {
 		System.out.println("have added player");
 		System.out.println("have active: " + thePlayer.getAllActive().size());
 		amountNeeded = amount;
-		initAmount = 2;
+		initAmount = 1;
 		aList = thePlayer.getActive();
 		iList = thePlayer.getInactive();
 		wList = thePlayer.getWounded();
@@ -245,7 +245,8 @@ public class RestView extends JDialog {
 						return;
 					}
 					iList.get(selected).restChit();
-					initAmount--;
+					initAmount -= Math.max(1, iList.get(selected).getStars());
+					initAmount = Math.max(0, initAmount);
 					update();
 				}
 			}
@@ -280,7 +281,8 @@ public class RestView extends JDialog {
 						return;
 					}
 					wList.get(selected).restChit();
-					initAmount--;
+					initAmount -= Math.max(1, wList.get(selected).getStars());
+					initAmount = Math.max(0, initAmount);
 					update();
 				}
 			}
@@ -299,6 +301,14 @@ public class RestView extends JDialog {
 				iList.get(selected).woundChit();
 				initAmount++;
 				update();
+			}
+		});
+    	
+    	confirmButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
 			}
 		});
     }
