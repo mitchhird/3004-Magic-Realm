@@ -247,7 +247,23 @@ public class Clearing implements Serializable {
 		String message = "You Didn't Find Anything In Your Search";
 		
 		// Temp Holder For Treasure
-		if (dieRoll <= 2) {
+		if (dieRoll <= 1) {
+			boolean foundHidden = false;
+			
+			for (PlayerBase player: playersInClearing) {
+				if (!p.equals(player)) {
+					if (player.isHidden()){
+						player.unHide();
+						foundHidden = true;
+					}
+				}
+			}
+			// If We Found A Hidden Player
+			if (foundHidden) {
+				message = "Found Hidden Players, They Are Unhidden";
+			} 
+		}
+		else if (dieRoll <= 3) {
 			for (TreasureModel t : treasuresInClearing) {
 				t.playerFound(p);
 				returnVal.add(t);
@@ -260,7 +276,7 @@ public class Clearing implements Serializable {
 			
 			if (treasuresInClearing.size() != 0)
 				message = "You Found Some Treasure In The Clearing. You Can Now Loot It";
-		} else if (dieRoll <= 4){
+		} else if (dieRoll <= 5){
 			// Add The Player To The Hidden Clearings
 			for (Pair<Clearing, ArrayList<PlayerBase>> pair: hiddenClearings) {
 				// TODO: Fix bug where hidden paths aren't 2 way
