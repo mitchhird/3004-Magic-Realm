@@ -1,6 +1,5 @@
 package views.CombatViews;
 
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -8,10 +7,8 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JScrollPane;
 
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.Attacks;
@@ -94,53 +91,38 @@ public class CombatView extends CombatViewBase implements WindowListener {
 	private void setupListeners() {
 		thrustButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	enableDefenses();
-                combatHandler.setCurrentAttack(Attacks.THRUST);
-                println("Setting Current Attack To " + Attacks.THRUST);
+            	ChitSelectionView chitView = new ChitSelectionView(combatHandler.getCurrentAttacker(), ChitType.FIGHT_CHIT);
+            	setFightData(Attacks.THRUST);
             }
         });
         swingButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                combatHandler.setCurrentAttack(Attacks.SWING);
-                enableDefenses();
-                println("Setting Current Attack To " + Attacks.SWING);
+            	ChitSelectionView chitView = new ChitSelectionView(combatHandler.getCurrentAttacker(), ChitType.FIGHT_CHIT);
+            	setFightData(Attacks.SWING);
             }
         });
         smashButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                combatHandler.setCurrentAttack(Attacks.SMASH);
-                enableDefenses();
-                println("Setting Current Attack To " + Attacks.SMASH);
+            	ChitSelectionView chitView = new ChitSelectionView(combatHandler.getCurrentAttacker(), ChitType.FIGHT_CHIT);
+                setFightData(Attacks.SMASH);
             }
         });
         dodgeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	ChitSelectionView chitView = new ChitSelectionView(ourParent, combatHandler.getCurrentAttacker(), ChitType.MOVE_CHIT);
-            	combatHandler.setCurrentDefence(Defences.DODGE);
-            	
-            	// Display Things For Displaying
-                println("Setting Current Defence To " + Defences.DODGE);
-                nextButton.setEnabled(true);
-                
-                System.out.println("dodge pressed");
+            	ChitSelectionView chitView = new ChitSelectionView(combatHandler.getCurrentAttacker(), ChitType.MOVE_CHIT);
+            	setDefenseData(Defences.DODGE);
             }
         });
         duckButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	ChitSelectionView chitView = new ChitSelectionView(ourParent ,combatHandler.getCurrentAttacker(), ChitType.MOVE_CHIT);
-            	combatHandler.setCurrentDefence(Defences.DUCK);
-                println("Setting Current Defence To " + Defences.DUCK);
-                nextButton.setEnabled(true);
-            	System.out.println("duck pressed");
+            	ChitSelectionView chitView = new ChitSelectionView(combatHandler.getCurrentAttacker(), ChitType.MOVE_CHIT);
+            	setDefenseData(Defences.DUCK);
             }
         });
         chargeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-            	ChitSelectionView chitView = new ChitSelectionView(ourParent, combatHandler.getCurrentAttacker(), ChitType.MOVE_CHIT);
-            	combatHandler.setCurrentDefence(Defences.CHARGE);
-                println("Setting Current Defence To " + Defences.CHARGE);
-                nextButton.setEnabled(true);
-            	System.out.println("charge pressed");
+            	ChitSelectionView chitView = new ChitSelectionView(combatHandler.getCurrentAttacker(), ChitType.MOVE_CHIT);
+            	setDefenseData(Defences.CHARGE);
             }
         });
         runButton.addActionListener(new ActionListener() {
@@ -214,6 +196,28 @@ public class CombatView extends CombatViewBase implements WindowListener {
 				startCombat();
 			}
 		});
+	}
+	
+	// Sets The Fight Data When Called
+	private void setFightData(Attacks attackType) {
+		combatHandler.setCurrentAttack(attackType);
+        enableDefenses();
+        println("Setting Current Attack To " + attackType);
+        
+        if (combatHandler.getCurrentAttacker().getCurrentFightChit() != null)
+        	println("Setting Fight Chit To: " + combatHandler.getCurrentAttacker().getCurrentFightChit());
+	}
+	
+	// Set The Defense Data When Called
+	private void setDefenseData (Defences defenseType) {
+		combatHandler.setCurrentDefence(defenseType);
+        enableDefenses();
+        nextButton.setEnabled(true);
+        
+        // Display The Data To The Player
+        println("Setting Current Defence To " + defenseType);
+        if (combatHandler.getCurrentAttacker().getCurrentMovementChit() != null)
+        	println("Setting Move Chit To: " + combatHandler.getCurrentAttacker().getCurrentMovementChit());
 	}
 
 	// Start The Combat

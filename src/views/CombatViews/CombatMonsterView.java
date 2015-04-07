@@ -13,11 +13,13 @@ import controller.CombatPvMHandler;
 import models.characterModels.PlayerBase;
 import models.characterModels.playerEnums.Attacks;
 import models.characterModels.playerEnums.Defences;
+import models.chitModels.ChitType;
 import models.chitModels.WeaponChit;
 import models.otherEntities.CombatDataContainer;
 import models.otherEntities.monsterModels.MonsterBase;
 import views.FrameBase;
 import views.MainViews.GameView;
+import views.PopupViews.ChitSelectionView;
 
 public class CombatMonsterView extends CombatViewBlockingBase {
 
@@ -84,48 +86,39 @@ public class CombatMonsterView extends CombatViewBlockingBase {
 	private void setupListeners() {
 		thrustButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				enableDefenses();
-				player.getCombatData().setAttack(Attacks.THRUST);
-				println("Setting Current Attack To " + Attacks.THRUST);
+            	ChitSelectionView chitView = new ChitSelectionView(player, ChitType.FIGHT_CHIT);
+            	setFightData(Attacks.THRUST);
 			}
 		});
 		swingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				player.getCombatData().setAttack(Attacks.SWING);
-				enableDefenses();
-				println("Setting Current Attack To " + Attacks.SWING);
+	        	ChitSelectionView chitView = new ChitSelectionView(player, ChitType.FIGHT_CHIT);
+            	setFightData(Attacks.SWING);
 			}
 		});
 		smashButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				player.getCombatData().setAttack(Attacks.SMASH);
-				enableDefenses();
-				println("Setting Current Attack To " + Attacks.SMASH);
+	        	ChitSelectionView chitView = new ChitSelectionView(player, ChitType.FIGHT_CHIT);
+            	setFightData(Attacks.SMASH);
 			}
 		});
 		dodgeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				player.getCombatData().setDefense(Defences.DODGE);
-
-				// Display Things For Displaying
-				println("Setting Current Defence To " + Defences.DODGE);
-
-				System.out.println("dodge pressed");
+            	ChitSelectionView chitView = new ChitSelectionView(player, ChitType.MOVE_CHIT);
+            	setDefenseData(Defences.DODGE);
 			}
 		});
 		duckButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				player.getCombatData().setDefense(Defences.DUCK);
-				println("Setting Current Defence To " + Defences.DUCK);
-				System.out.println("duck pressed");
+	          	ChitSelectionView chitView = new ChitSelectionView(player, ChitType.MOVE_CHIT);
+            	setDefenseData(Defences.DUCK);
 			}
 		});
 		
 		chargeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				player.getCombatData().setDefense(Defences.CHARGE);
-				println("Setting Current Defence To " + Defences.CHARGE);
-				System.out.println("charge pressed");
+	          	ChitSelectionView chitView = new ChitSelectionView(player, ChitType.MOVE_CHIT);
+            	setDefenseData(Defences.CHARGE);
 			}
 		});
 		
@@ -176,6 +169,12 @@ public class CombatMonsterView extends CombatViewBlockingBase {
 			public void actionPerformed(ActionEvent arg0) {
 				println("Begin Combat Button Has Been Pressed");
 				combatHandler.executeAttacks();
+				
+				// Combat Has Finished, So We Can Now Rest All Of The Buttons
+                dodgeButton.setEnabled(false);
+                duckButton.setEnabled(false);
+                chargeButton.setEnabled(false);
+                beginCombatButton.setEnabled(false);
 			}
 		});
 		
@@ -216,6 +215,28 @@ public class CombatMonsterView extends CombatViewBlockingBase {
 		});
 	}
 	
+	// Sets The Fight Data When Called
+	private void setFightData(Attacks attackType) {
+		player.getCombatData().setAttack(attackType);
+        enableDefenses();
+        println("Setting Current Attack To " + attackType);
+        
+        if (player.getCurrentFightChit() != null)
+        	println("Setting Fight Chit To: " + player.getCurrentFightChit());
+	}
+	
+	// Set The Defense Data When Called
+	private void setDefenseData (Defences defenseType) {
+		player.getCombatData().setDefense(defenseType);
+        enableDefenses();
+        beginCombatButton.setEnabled(true);
+        
+        // Display The Data To The Player
+        println("Setting Current Defence To " + defenseType);
+        if (player.getCurrentMovementChit() != null)
+        	println("Setting Move Chit To: " + player.getCurrentMovementChit());
+	}
+
 	@Override
 	// Add The Components In
 	protected void addAllComponents () {
