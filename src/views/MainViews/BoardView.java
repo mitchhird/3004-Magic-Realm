@@ -57,7 +57,7 @@ public class BoardView extends JPanel {
 	private Ghost aGhost;
 	private Giant aGiant;
 	private FlyingDragon aDragon;
-
+	private FlyingDragon anotherDragon;
 
 	//!!VIEWS!!
 	private GameView parent;
@@ -219,7 +219,7 @@ public class BoardView extends JPanel {
 	public void placeItemsOnBoard(){
 		try {
 			if(GameUtils.getCheatMode()){
-				PlacementView thePlacer = new PlacementView(new String[]{"Inn", "Chapel", "House", "Guard House", "Flutter2", "Lost City", "Lost Castle"}, clearings, this);
+				PlacementView thePlacer = new PlacementView(new String[]{"Inn", "Chapel", "House", "Guard House", "Lost City", "Lost Castle"}, clearings, this);
 				thePlacer.setVisible(true);
 			}else{
 				// Create Each Of The Dwellings
@@ -275,18 +275,28 @@ public class BoardView extends JPanel {
 		aGiant.setHomeClearing(dwoods5);
 		theMonsters.add(aGiant);
 		
-		cliff.addSoundChit(ChitFactory.flutter2);
-		cliff6.setSoundChit(ChitFactory.flutter2);
-		aDragon = new FlyingDragon(cliff6.getClearingName());
-		cliff6.addToMonsterList(aDragon);
-
-		cliff6.addEntityToClearing(aDragon);
-		aDragon.setCurrentClearing(cliff6);
-		aDragon.setHomeClearing(cliff6);
-		theMonsters.add(aDragon);
-		
 		caves4.setSiteChit(ChitFactory.LostCity);
 		ruins6.setSiteChit(ChitFactory.LostCastle);
+		
+		caves.addSoundChit(ChitFactory.flutter2);
+		caves6.setSoundChit(ChitFactory.flutter2);
+		aDragon = new FlyingDragon(caves6.getClearingName());
+		caves6.addToMonsterList(aDragon);
+
+		caves6.addEntityToClearing(aDragon);
+		aDragon.setCurrentClearing(caves6);
+		aDragon.setHomeClearing(caves6);
+		theMonsters.add(aDragon);		
+		
+		ruins.addSoundChit(ChitFactory.flutter2);
+		ruins5.setSoundChit(ChitFactory.flutter2);
+		anotherDragon = new FlyingDragon(ruins5.getClearingName());
+		ruins5.addToMonsterList(anotherDragon);
+
+		ruins5.addEntityToClearing(anotherDragon);
+		anotherDragon.setCurrentClearing(ruins5);
+		anotherDragon.setHomeClearing(ruins5);
+		theMonsters.add(anotherDragon);
 	}
 	
 	public void setCheatLocations() {
@@ -315,17 +325,7 @@ public class BoardView extends JPanel {
 		guardHouse = new Dwelling("Guardhouse", "/dwellings_c/guard.gif", currentClearing);
 		guardHouse.getClearingThisOn().addImageToList(guardHouse.getImageRepresentation());
 		theDwellings.add(guardHouse);
-		
-		currentClearing = cheatClearings.get(4);
-		currentClearing.setSoundChit(ChitFactory.flutter2);
-		currentClearing.getTileThisOn().addSoundChit(ChitFactory.flutter2);
-		
-		aDragon = new FlyingDragon(currentClearing.getClearingName());
-		currentClearing.addToMonsterList(aDragon);
-		aDragon.setCurrentClearing(currentClearing);
-		aDragon.setHomeClearing(currentClearing);
-		theMonsters.add(aDragon);
-		
+
 		cheatTiles.get(0).setWarningChit(ChitFactory.bonesV);
 
 		currentClearing = cheatTiles.get(0).getHighestClearing();
@@ -344,11 +344,31 @@ public class BoardView extends JPanel {
 		aGiant.setHomeClearing(currentClearing);
 		theMonsters.add(aGiant);
 		
-		currentClearing = cheatClearings.get(5);
+		currentClearing = cheatClearings.get(4);
 		currentClearing.setSiteChit(ChitFactory.LostCity);
 		
-		currentClearing = cheatClearings.get(6);
+		currentClearing = cheatClearings.get(5);
 		currentClearing.setSiteChit(ChitFactory.LostCastle);
+		
+		currentClearing = cheatClearings.get(4).getTileThisOn().getHighestClearing();
+		currentClearing.setSoundChit(ChitFactory.flutter2);
+		currentClearing.getTileThisOn().addSoundChit(ChitFactory.flutter2);
+		
+		aDragon = new FlyingDragon(currentClearing.getClearingName());
+		currentClearing.addToMonsterList(aDragon);
+		aDragon.setCurrentClearing(currentClearing);
+		aDragon.setHomeClearing(currentClearing);
+		theMonsters.add(aDragon);
+		
+		currentClearing = cheatClearings.get(5).getTileThisOn().getHighestClearing();
+		currentClearing.setSoundChit(ChitFactory.flutter2);
+		currentClearing.getTileThisOn().addSoundChit(ChitFactory.flutter2);
+		
+		anotherDragon = new FlyingDragon(currentClearing.getClearingName());
+		currentClearing.addToMonsterList(anotherDragon);
+		anotherDragon.setCurrentClearing(currentClearing);
+		anotherDragon.setHomeClearing(currentClearing);
+		theMonsters.add(anotherDragon);
 	}
 	
 	//Initialization method, sets up the board
