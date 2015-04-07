@@ -20,6 +20,7 @@ import models.otherEntities.Denizen;
 import models.otherEntities.EntityBase;
 import models.otherEntities.SpecificTreasure;
 import models.otherEntities.TreasureModel;
+import models.otherEntities.TreasurePile;
 import utils.GameUtils;
 import utils.Pair;
 
@@ -94,6 +95,8 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 	protected transient ArrayList<Denizen> hired;	
 	protected transient ArrayList<ActionChit> active;
 	protected transient ArrayList<ActionChit> usedThisRound;
+	protected transient ArrayList<SpecificTreasure> specificTreasures;
+	protected transient ArrayList<TreasureModel> generalTreasures;
 	
 	// Chits For Combat
 	protected transient ActionChit currentMovementChit;
@@ -174,10 +177,12 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 		playerIP = "localhost";
 		
 		// Setup the lists
-		active = new ArrayList<ActionChit>();
 		turnLog = new ArrayList<>();
+		active = new ArrayList<ActionChit>();
 		accquiredTreasures = new ArrayList<>();
 		usedThisRound = new ArrayList<ActionChit>();
+		generalTreasures = new ArrayList<TreasureModel>();
+		specificTreasures = new ArrayList<SpecificTreasure>();
 		
 		playerPriority = currentPlayerPriority++;
 	}
@@ -279,6 +284,7 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 		currentFame += t.getFameAmount();
 		currentNotoriety += t.getNotorietyAmount();
 	}
+
 	
 	public ArrayList<TreasureModel> searchCurrentClearing () {
 		logAction("S-" + currentClearing.getClearingName());
@@ -297,6 +303,8 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 		currentFame = 0;
 		currentNotoriety = 0;
 		currentGold = 10;
+		currentClearing.addTreasurePile(new TreasurePile(this));
+		accquiredTreasures.clear();
 		forceMove(homeClearing);
 	}
 
@@ -768,4 +776,14 @@ public class PlayerBase extends EntityBase implements Serializable, Comparable<P
 		returnVal += (currentFightChit != null) ? currentFightChit.getStars() : 0;
 		return returnVal;
 	}
+
+	public ArrayList<TreasureModel> getAccquiredTreasures() {
+		return accquiredTreasures;
+	}
+
+	public void setAccquiredTreasures(ArrayList<TreasureModel> accquiredTreasures) {
+		this.accquiredTreasures = accquiredTreasures;
+	}
+	
+	
 }
