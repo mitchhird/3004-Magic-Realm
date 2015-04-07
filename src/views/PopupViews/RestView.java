@@ -245,7 +245,7 @@ public class RestView extends JDialog {
 						return;
 					}
 					iList.get(selected).restChit();
-					initAmount -= Math.max(1, wList.get(selected).getStars());
+					initAmount -= Math.max(1, iList.get(selected).getStars());
 					initAmount = Math.max(0, initAmount);
 					update();
 				}
@@ -301,6 +301,14 @@ public class RestView extends JDialog {
 				iList.get(selected).woundChit();
 				initAmount++;
 				update();
+			}
+		});
+    	
+    	confirmButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
 			}
 		});
     }
