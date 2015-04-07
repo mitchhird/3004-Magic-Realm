@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 import models.characterModels.playerEnums.CharacterClass;
 import views.MainViews.GameView;
@@ -146,6 +147,8 @@ public class VPSelecterView extends JDialog {
 	    	points.add(Integer.parseInt((String) jComboBox4.getSelectedItem()));
     		parent.addPlayer(name,theClass,points);
 	    	dispose();
+    	} else {
+    		JOptionPane.showMessageDialog(jComboBox1, "Victory Points Don't Total 5, Please Select A Combination That Equals 5");
     	}
 	}                                      
 
