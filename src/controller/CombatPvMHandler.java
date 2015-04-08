@@ -38,7 +38,8 @@ public class CombatPvMHandler extends CombatHandler {
 	public void executeAttacks () {
 		parent.println("");
 		parent.println("Beginning Combat:");
-
+		boolean woundChits = false;
+		
 		// Randomize All Our Monsters Locations
 		for (MonsterBase m: monsters) {
 			m.setCombatDirection(getRandomAttack());
@@ -80,9 +81,23 @@ public class CombatPvMHandler extends CombatHandler {
 					// Display Into the Screen
 					parent.println("   --- Hit " + attacker.getName() + "'s " + armorHit.getArmourType());
 					parent.println("   --- Armour Status: " + armorHit.getArmorStatus());
+					woundChits = true;
 				}			
 			} else {
 				parent.println("   --- Monster Missed You");
+			}
+		}
+		
+		// If We Need To Wound Our Chits, The Do So
+		if (woundChits) {
+			if (attacker.getCurrentMovementChit() != null) {
+				attacker.getCurrentMovementChit().woundChit();
+				parent.println("   --- Chit Wounded: " + attacker.getCurrentMovementChit().getChitStatus());
+			}
+			
+			if (attacker.getCurrentFightChit() != null) {
+				attacker.getCurrentFightChit().woundChit();
+				parent.println("   --- Chit Wounded: " + attacker.getCurrentFightChit().getChitStatus());
 			}
 		}
 		

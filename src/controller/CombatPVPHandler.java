@@ -137,6 +137,12 @@ public class CombatPVPHandler {
 						attacker.getCurrentMovementChit().woundChit();
 						parentView.println("   --- Chit Wounded: " + attacker.getCurrentMovementChit().getChitStatus());
 					}
+					
+					if (attacker.getCurrentFightChit() != null) {
+						attacker.getCurrentFightChit().woundChit();
+						parentView.println("   --- Chit Wounded: " + attacker.getCurrentFightChit().getChitStatus());
+					}
+					
 				}
 			} else {
 				parentView.println("   --- " + attacker.getName() + " Missed");

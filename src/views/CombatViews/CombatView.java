@@ -267,14 +267,17 @@ public class CombatView extends CombatViewBase implements WindowListener {
     }
     
     // Sets up the window listener
+    @Override
     public void windowClosed(WindowEvent e) {
         System.out.println("WindowListener method called: windowClosed.");
+        ourParent.sendMessage(MessageType.END_COMBAT);
         ourParent.setCurrentCombatWindow(null);
     }
     
 	@Override
 	public void windowClosing(WindowEvent arg0) {
 		System.out.println("WindowListener method called: windowClosing.");
+		ourParent.sendMessage(MessageType.END_COMBAT);
 		ourParent.setCurrentCombatWindow(null);
 	}
 	

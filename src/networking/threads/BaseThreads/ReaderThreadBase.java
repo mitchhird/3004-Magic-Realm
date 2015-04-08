@@ -2,15 +2,13 @@ package networking.threads.BaseThreads;
 
 import java.util.ArrayList;
 
-import sun.security.krb5.internal.crypto.CksumType;
-import views.MainViews.GameView;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+
 import models.BoardModels.Clearing;
 import models.BoardModels.Dwelling;
 import models.characterModels.PlayerBase;
-import models.characterModels.playerEnums.Attacks;
-import models.characterModels.playerEnums.Defences;
 import models.otherEntities.CombatDataContainer;
-import models.otherEntities.SpecificTreasure;
 import models.otherEntities.TreasureModel;
 import models.otherEntities.monsterModels.MonsterBase;
 import networking.sendables.MessageType;
@@ -19,6 +17,7 @@ import networking.sendables.SyncDataObject;
 import networking.sendables.TreasureUpdateModel;
 import networking.sendables.UpdateDataObject;
 import networking.threads.ProcessingThreads.ServerReadThread;
+import views.MainViews.GameView;
 
 /**
  * Base Thread For Reading In Data From The Network. Any Changes Here Can Be Used Both On The Server End,
@@ -108,6 +107,11 @@ public class ReaderThreadBase extends Thread {
 		} else if (incoming == MessageType.START_COMBAT) {
 			if (mainGame.getCurrentCombatWindow() != null) {
 				mainGame.getCurrentCombatWindow().startCombat();
+			}
+		} else if (incoming == MessageType.END_COMBAT) {
+			if (mainGame.getCurrentCombatWindow() != null) {
+				JOptionPane.showMessageDialog(new JTextArea(), "Player Has Fled, Combat Will End");
+				mainGame.getCurrentCombatWindow().dispose();
 			}
 		}
 	}

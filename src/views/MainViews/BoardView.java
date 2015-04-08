@@ -295,8 +295,6 @@ public class BoardView extends JPanel {
 		ruins5.addToMonsterList(anotherDragon);
 
 		ruins5.addEntityToClearing(anotherDragon);
-		anotherDragon.setCurrentClearing(ruins5);
-		anotherDragon.setHomeClearing(ruins5);
 		theMonsters.add(anotherDragon);
 	}
 	

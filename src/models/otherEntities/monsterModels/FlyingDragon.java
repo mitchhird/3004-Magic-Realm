@@ -19,6 +19,6 @@ public class FlyingDragon extends MonsterBase {
 		FlyingDragon returnVal = new FlyingDragon(this.clearningThisOn);
 		returnVal.monsterType = this.monsterType;
 		returnVal.monsterImage = this.monsterImage;
-		return null;
+		return returnVal;
 	}
 }

@@ -281,6 +281,13 @@ public class Clearing implements Serializable {
 			for (Pair<Clearing, ArrayList<PlayerBase>> pair: hiddenClearings) {
 				// TODO: Fix bug where hidden paths aren't 2 way
 				pair.getSecond().add(p);
+				
+				// Link This Clearing To The Path As Well
+				for (Pair<Clearing, ArrayList<PlayerBase>> c: pair.getFirst().hiddenClearings) {
+					if (c.getFirst().equals(this)) {
+						c.getSecond().add(p);
+					}
+				}
 			}
 			
 			if (hiddenClearings.size() != 0)
@@ -414,6 +421,10 @@ public class Clearing implements Serializable {
 	public void updateConnectedTiles () {
 		for (Clearing c: connectedClearings) {
 			c.updateImage();
+		}
+		
+		for (Pair<Clearing, ArrayList<PlayerBase>> c: hiddenClearings) {
+			c.getFirst().updateImage();
 		}
 	}
 	
