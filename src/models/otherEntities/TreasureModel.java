@@ -31,8 +31,8 @@ public class TreasureModel implements Serializable {
 		int startRange = (greatTreasure) ? 3 : 0;
 		int endRange = (greatTreasure) ? goldAmounts.length - 1: 2;
 		
-		fameAmount = GameUtils.createRandomInt(1, 20);
-		notorietyAmount = GameUtils.createRandomInt(-5, 30);
+		fameAmount = GameUtils.createRandomIntNoCheat(1, 20);
+		notorietyAmount = GameUtils.createRandomIntNoCheat(-5, 30);
 		treasureGoldValue = goldAmounts[GameUtils.createRandomInt(startRange, endRange)];
 	}
 	
