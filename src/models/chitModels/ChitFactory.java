@@ -137,8 +137,8 @@ public class ChitFactory {
 	*/
 	
 	// Warning
-	public static WarningChit bonesV = new WarningChit(0, "BonesV", "/chits/bonesV.jpg");
-	public static WarningChit bonesW = new WarningChit(0, "BonesW", "/chits/bonesW.jpg");
+	public static WarningChit bonesV = new WarningChit(0, "BonesV", "/chits/bonesv.jpg");
+	public static WarningChit bonesW = new WarningChit(0, "BonesW", "/chits/bonesw.jpg");
 
 	/*
 	public static WarningChit bonesC = new WarningChit(0, "BonesC");

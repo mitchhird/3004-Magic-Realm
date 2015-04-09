@@ -8,7 +8,7 @@
                 <attribute name="Main-Class" value="app.AppMagicRealm"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
-            <fileset dir="C:/Users/Mitchell/git/Temp/bin"/>
+            <fileset dir="${user.dir}/bin"/>
         </jar>
     </target>
 </project>
