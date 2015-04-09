@@ -59,6 +59,7 @@ public class BoardView extends JPanel {
 	private Giant aGiant;
 	private FlyingDragon aDragon;
 	private FlyingDragon anotherDragon;
+	private FlyingDragon aSecondDragon;
 
 	//!!VIEWS!!
 	private GameView parent;
@@ -293,6 +294,11 @@ public class BoardView extends JPanel {
 		ruins5.setSoundChit(ChitFactory.flutter2);
 		anotherDragon = new FlyingDragon(ruins5.getClearingName());
 		ruins5.addToMonsterList(anotherDragon);
+		
+		aSecondDragon = new FlyingDragon(ruins5.getClearingName());
+		ruins5.addToMonsterList(aSecondDragon);
+		aSecondDragon.setHomeClearing(ruins5);
+		theMonsters.add(aSecondDragon);
 
 		ruins5.addEntityToClearing(anotherDragon);
 		theMonsters.add(anotherDragon);
@@ -368,6 +374,12 @@ public class BoardView extends JPanel {
 		anotherDragon.setCurrentClearing(currentClearing);
 		anotherDragon.setHomeClearing(currentClearing);
 		theMonsters.add(anotherDragon);
+		
+		aSecondDragon = new FlyingDragon(currentClearing.getClearingName());
+		currentClearing.addToMonsterList(aSecondDragon);
+		aSecondDragon.setCurrentClearing(currentClearing);
+		aSecondDragon.setHomeClearing(currentClearing);
+		theMonsters.add(aSecondDragon);
 	}
 	
 	//Initialization method, sets up the board

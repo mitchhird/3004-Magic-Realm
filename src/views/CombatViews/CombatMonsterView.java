@@ -43,6 +43,9 @@ public class CombatMonsterView extends CombatViewBlockingBase {
 	// Parent Window That Spawned This
 	private GameView parent;
 	
+	private boolean movementPicked;
+	private boolean attackMonsterPicked;
+	
 	// Combat Monster View Constructor
 	public CombatMonsterView (GameView parent, PlayerBase p, ArrayList<MonsterBase> monsters) {
     	super(parent, "Monster Combat", true);
@@ -51,6 +54,9 @@ public class CombatMonsterView extends CombatViewBlockingBase {
 		this.player = p;
     	this.parent = parent;
     	this.monseters = monsters;
+    	
+    	movementPicked = false;
+    	attackMonsterPicked = false;
     	
     	// Initialize The Player With A Dummy Combat Container
     	combatHandler = new CombatPvMHandler(this, p, monsters);
@@ -106,12 +112,16 @@ public class CombatMonsterView extends CombatViewBlockingBase {
 			public void actionPerformed(ActionEvent arg0) {
             	ChitSelectionView chitView = new ChitSelectionView(player, ChitType.MOVE_CHIT);
             	setDefenseData(Defences.DODGE);
+            	movementPicked = true;
+            	update();
 			}
 		});
 		duckButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 	          	ChitSelectionView chitView = new ChitSelectionView(player, ChitType.MOVE_CHIT);
             	setDefenseData(Defences.DUCK);
+            	movementPicked = true;
+            	update();
 			}
 		});
 		
@@ -119,6 +129,8 @@ public class CombatMonsterView extends CombatViewBlockingBase {
 			public void actionPerformed(ActionEvent arg0) {
 	          	ChitSelectionView chitView = new ChitSelectionView(player, ChitType.MOVE_CHIT);
             	setDefenseData(Defences.CHARGE);
+            	movementPicked = true;
+            	update();
 			}
 		});
 		
@@ -160,7 +172,6 @@ public class CombatMonsterView extends CombatViewBlockingBase {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Alert weapon pressed");
 				player.getWeapon().setAlerted(true);
-				update();
 			}
 		});
 
@@ -174,7 +185,10 @@ public class CombatMonsterView extends CombatViewBlockingBase {
                 dodgeButton.setEnabled(false);
                 duckButton.setEnabled(false);
                 chargeButton.setEnabled(false);
-                beginCombatButton.setEnabled(false);
+                
+                movementPicked = false;
+                attackMonsterPicked = false;
+                update();
 			}
 		});
 		
@@ -229,7 +243,6 @@ public class CombatMonsterView extends CombatViewBlockingBase {
 	private void setDefenseData (Defences defenseType) {
 		player.getCombatData().setDefense(defenseType);
         enableDefenses();
-        beginCombatButton.setEnabled(true);
         
         // Display The Data To The Player
         println("Setting Current Defence To " + defenseType);
@@ -282,8 +295,7 @@ public class CombatMonsterView extends CombatViewBlockingBase {
        swingShield.setEnabled(player.getShield() != null);
        thrustShield.setEnabled(player.getShield() != null);
        
-       // If We Are Full On Combat Then, Enable The Button
-       beginCombatButton.setEnabled(false);
+       beginCombatButton.setEnabled(movementPicked && attackMonsterPicked); 
 	}
 	
 	/************************************** Delegation So the Handler Can Write Message **************************/

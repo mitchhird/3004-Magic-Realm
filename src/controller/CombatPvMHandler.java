@@ -110,7 +110,7 @@ public class CombatPvMHandler extends CombatHandler {
 	private void executePlayerAttackMonster() {
 		// Player Attack Monster 
 		if (playerHitsOpponent(attacker.getCombatData().getAttack(), monsters.get(attackingMonsterAt).getDefenseDirection())) {
-			parent.println ("   --- " + attacker.getName() + " Hit Monster");
+			parent.println ("   --- " + attacker.getName() + " Has Killed  Monster");
 			
 			// Monster Is Hit, Kill And Remove From List, Closing If We Are Done
 			MonsterBase killedMonster = monsters.remove(attackingMonsterAt);
